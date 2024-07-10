@@ -4,11 +4,11 @@
             <h5 class="card-title mb-0"><i class="fa fa-clock"></i> Seus ultimos imóveis
                 cadastrados</h5>
         </div>
+        {{console.log(this.allImoveis)}}
         <div class="card-body py-3">
             <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
                 aria-describedby="passwordHelpBlock" v-model="searchImovel" />
             <div class="mt-5" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
-
                 <a class="row" style="text-decoration: none;">
                     <div class="col-3">
                         <img class="thumbImovel" :src="`https://zonu.com.br/api${item.fotos[0].foto}`" alt="">
@@ -324,7 +324,7 @@
                                                         <div class="col-md-2" v-for="dado in item.proximidades">
                                                             <h6>
                                                                 <span><i class="fa fa-check"></i><small>
-                                                                        {{ dado.detalhesProximidade.nome_proximidade
+                                                                        {{ dado.detalhesProximidade !== null ? dado.detalhesProximidade.nome_proximidade : ""
                                                                         }}</small> </span>
                                                             </h6>
                                                         </div>
@@ -2201,7 +2201,7 @@
                                                                 v-model="mapaCondo" name="mapaCondo" id="mapaCondo2"
                                                                 autocomplete="off" />
                                                             <label class="btn btn-outline-danger" for="mapaCondo2"
-                                                                :class="{ active: mapaCondo === 'Não' }">Não</label>
+                                                                :class="{ active: mapaCondo === 'Não'}">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2210,7 +2210,7 @@
 
                                                 <div class="col-12" style="position: relative;" v-if="mostrarMapa">
 
-                                                    <div id="map" ref="mapElements"
+                                                    <div id="map" ref="mapElement"
                                                         style="height: 350px; width:100%; border: 0; position: sticky; bottom: 0;">
                                                     </div>
 
@@ -2268,6 +2268,7 @@
                                         aria-labelledby="proximidades-tab" tabindex="0">
 
                                         <div>
+                                            
 
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -2280,7 +2281,7 @@
                                                             :id="'flexCheck' + proximidade.id_proximidade" />
                                                         <label v-if="!mostrarSkeleton" class="form-check-label"
                                                             :for="'flexCheck' + proximidade.id_proximidade">
-                                                            {{ proximidade.detalhesProximidade.nome_proximidade }}
+                                                            {{ proximidade.detalhesProximidade ? proximidade.detalhesProximidade.nome_proximidade : "" }}
 
                                                         </label>
                                                         <a style="margin-left: 2%;" href="#"
@@ -2607,6 +2608,7 @@ import { jwtDecode } from "jwt-decode";
 import L from 'leaflet';
 import _ from 'lodash';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios'
 
 
 export default {
@@ -2632,8 +2634,32 @@ export default {
             modalInstance: null,
             images: [],
             imageSrc: null,
+            
+            mostrarMapa: false,
+            buscarCEP: '',
+            logradouro: '',
+            cidade: '',
+            estado: '',
+            bairro: '',
 
+            latitude: '-8.13057',
+            longitude: '39.6945',
+            map: null,
+            marker: null,
+            mapaCondo: "Não",
 
+            areaTotal: '',
+            areaConstruida: '',
+            areaPrivativa: '',
+            precoImovel: '',
+            precoCondominio: '',
+            precoIptu: '',
+            taxasTotal: '',
+            buscarCEP: '',
+            selectPais: '',
+            selectEstado: '',
+            selectCidade: '',
+            selectBairro: '',
 
         }
     },
@@ -2651,7 +2677,63 @@ export default {
         this.fetchAllImoveis();
 
     },
+
+    watch: {
+        mapaCondo(newValue) {
+        // console.log(newValue)
+        if (newValue == "Sim") {
+            this.mostrarMapa = true;
+            this.$nextTick(() => {
+            if (this.map) {
+                this.initMap();
+                this.updateMap();
+            } else {
+                this.initMap();
+            }
+            });
+        } else {
+            this.mostrarMapa = false;
+        }
+        },
+
+        buscarCEP(newVal, oldVal) {
+            if (newVal.length === 9 && newVal !== oldVal) {
+                this.debouncedCheckCEP();
+            }
+        },
+    },
+
+    created() {
+        this.debouncedCheckCEP = _.debounce(this.consultarCEPLoc, 100);
+    },
+
     methods: {
+        initMap() {
+            this.map = L.map('map').setView([this.latitude, this.longitude], 15);
+
+            // Adiciona os tiles do OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(this.map);
+
+            this.addMarker();
+        },
+        updateMap() {
+            this.map.setView([this.latitude, this.longitude], 15);
+            this.addMarker();
+        },
+        addMarker() {
+            const lat = this.latitude;
+            const lng = this.longitude;
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                L.marker([lat, lng]).addTo(this.map)
+                .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+            } else {
+                console.error('Coordenadas inválidas');
+            }
+        },
 
         mostrarTeste(event) {
             event.preventDefault(); 
@@ -2790,9 +2872,10 @@ export default {
 
         openModal(id_imovel) {
             // console.log(this.myImoveis)
-            this.originalImovelIndex = this.myImoveis.findIndex(imovel => imovel.id_imovel === id_imovel);
+            // this.originalImovelIndex = this.myImoveis.findIndex(imovel => imovel.id_imovel === id_imovel);
+            this.originalImovelIndex = this.allImoveis.findIndex(imovel => imovel.id_imovel === id_imovel);
             if (this.originalImovelIndex !== -1) {
-                this.currentImovel = JSON.parse(JSON.stringify(this.myImoveis[this.originalImovelIndex]));
+                this.currentImovel = JSON.parse(JSON.stringify(this.allImoveis[this.originalImovelIndex]));
                 this.$nextTick(() => {
                     const modalElement = document.getElementById(`modalEditImovel${this.currentImovel.id_imovel}`);
                     this.modalInstance = new bootstrap.Modal(modalElement);
@@ -2833,6 +2916,69 @@ export default {
             this.areaTotal = ""
             this.areaConstruida = ""
             this.areaPrivativa = ""
+        },
+        async consultarCEPLoc() {
+            if (this.buscarCEP.length === 9) {
+                const cep = this.buscarCEP.replace(/\D/g, '');
+
+                try {
+                const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+                    console.log("res do cep: ", res)
+                // Correção nas propriedades de acordo com a resposta da API
+                let rua = res.data.logradouro;
+                let bairro = res.data.bairro;
+                let cidade = res.data.localidade;
+                let estado = res.data.uf;
+
+                this.selectPais = "Brasil"
+                this.selectEstado = estado
+                this.selectCidade = cidade
+                this.selectBairro = bairro
+                this.logradouro = rua
+
+                // await this.buscarCoordenadas(cep, cidade, estado);
+                await this.buscarCoordenadasLoc(cep, rua);
+
+                } catch (error) {
+                console.error("Erro ao consultar CEP: ", error);
+                }
+            }
+        },
+        async buscarCoordenadasLoc(cep, rua) {
+            // trocar pela apiKey do cliente
+            // chave do cliente AIzaSyCYyp1vWvpT3mhnwDQMQhLSiV3EecrP5wY 1
+            // chave do cliente AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE certa
+
+            const apiKey = 'AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE';
+
+            try {
+                const res = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: `${cep}, ${rua}`,
+                    key: apiKey
+                }
+                });
+
+                console.log(res.data, "coodernadas")
+
+                if (res.data && res.data.results && res.data.results.length > 0) {
+                const location = res.data.results[0].geometry.location;
+                const latitude = location.lat;
+                const longitude = location.lng;
+
+                this.latitude = latitude;
+                this.longitude = longitude;
+
+                // console.log("Latitude e Longitude encontradas:", latitude, longitude);
+                return { latitude, longitude };
+                } else {
+                console.error("Coordenadas não encontradas para o CEP informado.");
+                return null;
+                }
+            } catch (error) {
+                console.error("Erro ao buscar coordenadas:", error);
+                return null;
+            }
         },
         handledComentario(id) {
             let id_imovel = id;

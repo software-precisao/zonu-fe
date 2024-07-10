@@ -333,7 +333,7 @@ export default {
 
     async buscarCoordenadasLoc(cep, rua) {
       // trocar pela apiKey do cliente
-      const apiKey = 'AIzaSyAASYgAApUrIKnyEc9ykVzP7-s_-g2ldRU';
+      const apiKey = 'AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE';
 
       try {
         const res = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -402,6 +402,7 @@ export default {
 
           axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${cep}+Brazil&key=${apiKey}`)
             .then(response => {
+
               const data = response.data;
               if (data && data.results && data.results.length > 0) {
                 const location = data.results[0].geometry;
@@ -451,7 +452,7 @@ export default {
     },
     async buscarCoordenadas(cep, rua) {
       // trocar pela apiKey do cliente
-      const apiKey = 'AIzaSyAASYgAApUrIKnyEc9ykVzP7-s_-g2ldRU';
+      const apiKey = 'AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE';
 
       try {
         const res = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {

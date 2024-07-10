@@ -4846,7 +4846,7 @@ export default {
           this.logradouro = rua
 
           // await this.buscarCoordenadas(cep, cidade, estado);
-          await this.buscarCoordenadas(cep, rua, estado, cidade);
+          await this.buscarCoordenadas(cep, rua);
 
         } catch (error) {
           console.error("Erro ao consultar CEP: ", error);
@@ -4856,7 +4856,7 @@ export default {
 
     async buscarCoordenadas(cep, rua) {
       // trocar pela apiKey do cliente
-      const apiKey = 'AIzaSyAASYgAApUrIKnyEc9ykVzP7-s_-g2ldRU';
+      const apiKey = 'AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE';
 
       try {
         const res = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {

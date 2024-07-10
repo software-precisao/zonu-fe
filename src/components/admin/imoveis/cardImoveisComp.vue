@@ -7,7 +7,8 @@
         <div class="card-body py-3">
             <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
                 aria-describedby="passwordHelpBlock" v-model="searchImovel" />
-            <div class="mt-3" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
+                <div class="mt-3" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
+                    {{console.log(item)}}
 
                 <a class="row" style="text-decoration: none;">
                     <div class="col-3">
@@ -299,7 +300,7 @@
                                                         <div class="col-md-2" v-for="dado in item.proximidades">
                                                             <h6>
                                                                 <span><i class="fa fa-check"></i><small>
-                                                                        {{ dado.detalhesProximidade.nome_proximidade
+                                                                        {{ dado.detalhesProximidade !== null ? dado.detalhesProximidade.nome_proximidade : ""
                                                                         }}</small> </span>
                                                             </h6>
                                                         </div>
