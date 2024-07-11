@@ -197,6 +197,23 @@ export default {
     }
   },
 
+  listNivel: async () => {
+    try {
+      const response = await http.get("/nivel/", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   listusuarios: async () => {
     try {
       const response = await http.get("/usuarios/", {
@@ -386,19 +403,50 @@ export default {
     }
   },
 
-  cadastrosample: async (nome, sobrenome, email, senha, selectNivel) => {
+
+  cadastroAdmin: async (nome, sobrenome, email, senha) => {
     try {
       const response = await http.post(
-        "/usuarios/cadastro-simples",
+        "/usuarios/cadastro-administrador",
         {
           nome: nome,
           sobrenome: sobrenome,
           email: email,
           senha: senha,
           avatar: "",
-          nivel: selectNivel,
+          id_plano: 1
+
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  cadastroEquipe: async (nome, sobrenome, email, senha, selectNivel) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-equipe",
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+          avatar: "",
           status: 1,
-          id_plano: 1,
+          nivel: selectNivel,
+          id_plano: 1
+
         },
         {
           headers: {
