@@ -4,7 +4,7 @@
         <div class="main">
             <NavBar />
             <main class="content">
-                <div class="container-fluid p-0">
+                < <div class="container-fluid p-0">
 
                     <h1 class="h3 mb-3"><strong>Cadastro de usuários |</strong> Zonu</h1>
                     <div class="row">
@@ -14,7 +14,7 @@
                                     <h5 class="card-title mb-0"><i class="fa fa-user"></i> Crie um novo usuário </h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="container">
+                                    <div class="container-fluid">
                                         <div class="row">
 
                                             <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
@@ -37,8 +37,8 @@
                                                     <li class="nav-item" role="presentation">
                                                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                                             data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                                            aria-controls="profile-tab-pane"
-                                                            aria-selected="false" hidden>Cliente Zonu</button>
+                                                            aria-controls="profile-tab-pane" aria-selected="false"
+                                                            >Cliente Zonu</button>
                                                     </li>
 
                                                 </ul>
@@ -128,8 +128,9 @@
                                                                     class="form-control mt-2" id="nome"
                                                                     placeholder="Digite seu nome">
                                                                     <option disabled selected>Escolha</option>
-                                                                    <option value="1">Administrador</option>
-                                                                    <option value="4" disabled>Suporte</option>
+                                                                    <option v-for="item in niveis"
+                                                                        :value="item.id_nivel">{{ item.label }}</option>
+
                                                                 </select>
                                                             </div>
 
@@ -346,7 +347,7 @@
                                     <div v-if="msgSuccessDelete" class="alert alert-success mt-3" role="alert">
                                         <i class="fa fa-check"></i> Usuário Excluído com sucesso!
                                     </div>
-                                    <div class="container">
+                                    <div class="container-fluid">
                                         <div class="row">
 
                                             <table class="table">
@@ -363,8 +364,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="item in clientesOnCurrentPage">
-                                                        <th scope="row"></th>
+                                                    <tr v-for="item in clientesOnCurrentPage" :key="item.id_user">
+                                                        <th scope="row">
+                                                            <div class="col-3">
+                                                                <div class="avatar-null rounded me-1" alt="Avatar"
+                                                                    style="width: 50px; height: 50px;"> {{ item.iniciais
+                                                                    }}</div>
+                                                            </div>
+                                                        </th>
                                                         <td>{{ item.nome }} {{ item.sobrenome }}</td>
                                                         <td>{{ item.email }}</td>
                                                         <td v-if="item.perfil == null">N/A</td>
@@ -372,9 +379,8 @@
                                                         <td v-if="item.id_nivel == 1"><span
                                                                 class="badge text-bg-dark">Administrador</span></td>
                                                         <td v-if="item.id_nivel == 2"><span
-                                                                class="badge text-bg-warning">Cliente</span></td>
-                                                        <td v-if="item.id_nivel == 3"><span
-                                                                class="badge text-bg-success">Suporte</span></td>
+                                                                class="badge text-bg-warning">Suporte</span></td>
+
                                                         <td v-if="item.id_status == 1"><span
                                                                 class="badge text-bg-success">Ativo</span></td>
                                                         <td v-if="item.id_status == 2"><span
@@ -382,7 +388,13 @@
                                                         <td v-if="item.perfil == null">Team Zonu</td>
                                                         <td v-if="item.perfil !== null">{{ item.perfil.razao_social }}
                                                         </td>
-                                                        <td><button v-if="item.id_status == 2"
+                                                        <td>
+                                                           <button @click="handleDeleteUser(item.id_user)"
+                                                                type="button" class="btn btn-warning"
+                                                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; margin-right: 6px;">
+                                                                <i class="fa fa-edit"></i>
+                                                            </button>
+                                                            <button v-if="item.id_status == 2"
                                                                 @click="handleEditStatusAtivate(item.id_user)"
                                                                 type="button" class="btn btn-success"
                                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; margin-right: 6px !important;">
@@ -424,13 +436,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
-
-            <Footer />
-
-
         </div>
+        </main>
+
+        <Footer />
+
+
+    </div>
     </div>
 </template>
 <script>
@@ -450,6 +462,8 @@ export default {
             tabCliente: false,
             tabZonu: false,
             selectTab: false,
+
+            niveis: [],
 
             msgErrorCnpj: false,
             msgSuccessCnpj: false,
@@ -561,6 +575,7 @@ export default {
         this.selectTab = true;
 
         this.fetchUsuarios();
+        this.fetchNivel();
 
     },
 
@@ -642,7 +657,6 @@ export default {
 
             }
         },
-
         validarSenha() {
             const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
             this.senhaValida = regex.test(this.senha);
@@ -650,7 +664,6 @@ export default {
         toggleMostrarSenha() {
             this.mostrarSenha = !this.mostrarSenha;
         },
-
         async consultarCEP() {
             if (this.buscarCEP.length === 9) {
                 const cep = this.buscarCEP.replace(/\D/g, '');
@@ -678,7 +691,6 @@ export default {
                 }
             }
         },
-
         handleSalvarUserZonu() {
 
             this.textoBotao = "Salvando...";
@@ -692,29 +704,45 @@ export default {
 
             if (nome !== '' && sobrenome !== '' && email !== '' && senha !== '' && selectNivel) {
 
-                api.cadastrosample(nome, sobrenome, email, senha, selectNivel).then(res => {
+                if (selectNivel === 1) {
+                    api.cadastroAdmin(nome, sobrenome, email, senha).then(res => {
 
-                    if (res.status == 202) {
-                        this.nome = '';
-                        this.sobrenome = '';
-                        this.email = '';
-                        this.senha = '';
-                        this.confirmSenha = '';
-                        this.selectNivel = '';
-                        this.msgSuccess = true;
-                        this.textoBotao = "Criar novo usuário";
-                        this.autenticando = false;
+                        if (res.status == 202) {
+                            this.nome = '';
+                            this.sobrenome = '';
+                            this.email = '';
+                            this.senha = '';
+                            this.confimSenha = '';
+                            this.selectNivel = '';
+                            this.msgSuccess = true;
+                            this.textoBotao = "Criar novo usuário";
+                            this.autenticando = false;
 
-                        this.fetchUsuarios();
+                            this.fetchUsuarios();
+                        }
 
-                    }
+                    })
+                }
 
-                    setTimeout(() => {
-                        this.msgSuccess = false;
+                if (selectNivel === 2) {
+                    api.cadastroEquipe(nome, sobrenome, email, senha, selectNivel).then(res => {
 
-                    }, 3000);
+                        if (res.status == 202) {
+                            this.nome = '';
+                            this.sobrenome = '';
+                            this.email = '';
+                            this.senha = '';
+                            this.confimSenha = '';
+                            this.selectNivel = '';
+                            this.msgSuccess = true;
+                            this.textoBotao = "Criar novo usuário";
+                            this.autenticando = false;
 
-                })
+                            this.fetchUsuarios();
+                        }
+
+                    })
+                }
 
             } else {
                 this.msgErrorNull = true;
@@ -784,15 +812,33 @@ export default {
 
         },
         fetchUsuarios() {
+
             api.listusuarios().then(res => {
                 let usuarios = res.data.response;
-                // Filtrar os usuários com id_nivel igual a 1
-                let usuariosFiltrados = usuarios.filter((user, index, self) =>
-                    user.id_nivel === 1 &&
-                    index === self.findIndex((u) => u.id_user === user.id_user)
+
+                // Filtrar usuários com id_nivel 1, 2 ou 4
+                let filteredUsuariosTime = usuarios.filter(usuario =>
+                    usuario.id_nivel === 1 || usuario.id_nivel === 2 || usuario.id_nivel === 4
                 );
-                // Atribuir os usuários filtrados ao estado listUsers
-                this.listUsers = usuariosFiltrados;
+
+                // Remover duplicatas (caso necessário)
+                let uniqueUsuarios = [];
+                let ids = new Set();
+                filteredUsuariosTime.forEach(usuario => {
+                    if (!ids.has(usuario.id_user)) {
+                        ids.add(usuario.id_user);
+                        uniqueUsuarios.push(usuario);
+                    }
+                });
+
+                // Adicionar iniciais a cada usuário
+                uniqueUsuarios = uniqueUsuarios.map(usuario => {
+                    usuario.iniciais = usuario.nome.charAt(0) + usuario.sobrenome.charAt(0);
+                    return usuario;
+                });
+
+                this.listUsers = uniqueUsuarios;
+
             });
         },
         handleEditStatusBlock(id) {
@@ -831,7 +877,6 @@ export default {
             })
 
         },
-
         handleDeleteUser(id) {
             let id_user = id;
 
@@ -849,7 +894,6 @@ export default {
             })
 
         },
-
         previousPageCliente() {
             if (this.currentPageCliente > 1) {
                 this.currentPageCliente -= 1
@@ -860,11 +904,21 @@ export default {
                 this.currentPageCliente += 1
             }
         },
-
         validarSenha() {
             const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
             this.senhaValida = regex.test(this.senha);
         },
+        fetchNivel() {
+
+            api.listNivel().then(res => {
+                let niveis = res.data.response
+
+                let niveisFiltrados = niveis.filter(nivel => nivel.id_nivel === 1 || nivel.id_nivel === 2);
+                this.niveis = niveisFiltrados;
+
+
+            }).then()
+        }
     }
 }
 </script>
