@@ -216,6 +216,10 @@ export default {
       mapImoveis: null,
       markerIMoveis: null,
       mostrarResumo: false,
+      markes: [],
+      map: null,
+      latitude: '-15.7934',
+      longitude: '-47.8823',
     }
   },
   components: {
@@ -277,28 +281,62 @@ export default {
 
   methods: {
     initMap() {
-      this.map = L.map("map").setView([this.latitude, this.longitude], 15);
+      // this.map = L.map("map").setView([this.latitude, this.longitude], 15);
 
       // Adiciona os tiles do OpenStreetMap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(this.map);
+      this.map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: this.latitude, lng: this.longitude },
+          zoom: 10
+        });
+      // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      //   maxZoom: 19,
+      //   attribution: '© OpenStreetMap contributors'
+      // }).addTo(this.map);
 
       this.addMarker();
     },
 
     updateMap() {
-      this.map.setView([this.latitude, this.longitude], 15);
+      // this.map.setView([this.latitude, this.longitude], 15);
+      this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+      this.map.setZoom(4);
       this.addMarker();
     },
     addMarker() {
+      // const lat = this.latitude;
+      // const lng = this.longitude;
+
+      // if (!isNaN(lat) && !isNaN(lng)) {
+      //   L.marker([lat, lng]).addTo(this.map)
+      //     .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+      // } else {
+      //   console.error('Coordenadas inválidas');
+      // }
       const lat = this.latitude;
       const lng = this.longitude;
 
       if (!isNaN(lat) && !isNaN(lng)) {
-        L.marker([lat, lng]).addTo(this.map)
-          .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+        const customIcon = {
+          url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+          scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+        };
+
+        const marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: this.map,
+          icon: customIcon
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+          content: `Latitude: ${lat}, Longitude: ${lng}`
+        });
+
+        marker.addListener('click', () => {
+          infowindow.open(this.map, marker);
+        });
+
+        this.markes.push(marker); // Armazena o marker no array
       } else {
         console.error('Coordenadas inválidas');
       }
@@ -380,14 +418,20 @@ export default {
         let latitude
         let longitude
 
-        this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(this.mapImoveis);
+        this.map = new google.maps.Map(this.$refs.mapElement, {
+          center: { lat: this.latitude, lng: this.longitude },
+          zoom: 10
+        });
+
+        // this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //   maxZoom: 19,
+        //   attribution: '© OpenStreetMap contributors'
+        // }).addTo(this.mapImoveis);
 
         res.data.map(async (imovel) => {
-          await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.rua).then((res) => {
+          // console.log(imovel.localizacao.rua)
+          await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.logradouro).then((res) => {
             if (res) {
               this.updateMap()
             }
@@ -411,8 +455,10 @@ export default {
                 longitude = location.lng;
 
 
-                L.marker([latitude, longitude]).addTo(map)
-                  .bindPopup(`Latitude: ${location.lat} Longitude: ${location.lng}`).openPopup();
+                // L.marker([latitude, longitude]).addTo(this.map)
+                //   .bindPopup(`Latitude: ${location.lat} Longitude: ${location.lng}`).openPopup();
+
+      
 
               }
             })
@@ -467,8 +513,8 @@ export default {
           const latitude = location.lat;
           const longitude = location.lng;
 
-          this.latitudeImoveis = latitude;
-          this.longitudeImoveis = longitude;
+          this.latitude = latitude;
+          this.longitude = longitude;
 
           // console.log("Latitude e Longitude encontradas:", latitude, longitude);
           return { latitude, longitude };
@@ -481,17 +527,73 @@ export default {
         return null;
       }
     },
+    updateMap() {
+      this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+      this.map.setZoom(4);
+      this.addMarker();
+    },
+    addMarker() {
+      const lat = this.latitude;
+      const lng = this.longitude;
+      // console.log(this.latitudeImoveis)
+      if (!isNaN(lat) && !isNaN(lng)) {
+        const customIcon = {
+          url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+          scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+        };
+
+        const marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: this.map,
+          icon: customIcon
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+          content: `Latitude: ${lat}, Longitude: ${lng}`
+        });
+
+        marker.addListener('click', () => {
+          infowindow.open(this.map, marker);
+        });
+
+        this.markes.push(marker); // Armazena o marker no array
+      } else {
+        console.error('Coordenadas inválidas');
+      }
+    },
+
     updateMapImoveis() {
-      this.mapImoveis.setView([this.latitudeImoveis, this.longitudeImoveis], 4);
+      this.mapImoveis.setCenter({ lat: this.latitudeImoveis, lng: this.longitudeImoveis });
+      this.mapImoveis.setZoom(4);
       this.addMarkerImoveis();
     },
     addMarkerImoveis() {
       const lat = this.latitudeImoveis;
       const lng = this.longitudeImoveis;
-
+      console.log(this.latitudeImoveis)
       if (!isNaN(lat) && !isNaN(lng)) {
-        L.marker([lat, lng]).addTo(this.mapImoveis)
-        // .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+        const customIcon = {
+          url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+          scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+        };
+
+        const marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: this.mapImoveis,
+          icon: customIcon
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+          content: `Latitude: ${lat}, Longitude: ${lng}`
+        });
+
+        marker.addListener('click', () => {
+          infowindow.open(this.mapImoveis, marker);
+        });
+
+        this.markes.push(marker); // Armazena o marker no array
       } else {
         console.error('Coordenadas inválidas');
       }

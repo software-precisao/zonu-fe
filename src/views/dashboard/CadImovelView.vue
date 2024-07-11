@@ -1704,17 +1704,17 @@
                                 </div>
 
                                 <div class="col-4">
-                                  <div class="mb-3">
+                                  <!-- <div class="mb-3">
                                     <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                                     <div v-if="mostrarSkeleton" class="skeleton-input"></div>
                                     <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                                       Ativar StreetView?
-                                    </label>
+                                    </label> -->
 
                                     <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                      <input type="radio" class="btn-check" name="mapaStreetV" id="mapaStreetV1"
+                                    <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> -->
+                                      <!-- <input type="radio" class="btn-check" name="mapaStreetV" id="mapaStreetV1"
                                         autocomplete="off" value="Sim" v-model="mapaStreetV" />
                                       <label class="btn btn-outline-success" for="mapaStreetV1">Sim</label>
 
@@ -1722,7 +1722,7 @@
                                         name="mapaStreetV" id="mapaStreetV2" autocomplete="off" />
                                       <label class="btn btn-outline-danger" for="mapaStreetV2">Não</label>
                                     </div>
-                                  </div>
+                                  </div>-->
                                 </div>
 
                                 <div class="col-12" v-if="mostrarStreetV">
@@ -4504,10 +4504,11 @@ export default {
       msgSucesso: false,
       msgError: false,
 
-      latitude: '-8.13057',
-      longitude: '39.6945',
+      latitude: -15.7942,
+      longitude: -47.8822,
       map: null,
       marker: null,
+      markes: [],
 
       id_progress: '',
       nome: '',
@@ -4703,13 +4704,18 @@ export default {
 
   methods: {
     initMap() {
-      this.map = L.map(this.$refs.mapElement).setView([this.latitude, this.longitude], 15);
+      // this.map = L.map(this.$refs.mapElement).setView([this.latitude, this.longitude], 15);
 
       // Adiciona os tiles do OpenStreetMap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(this.map);
+      // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      //   maxZoom: 19,
+      //   attribution: '© OpenStreetMap contributors'
+      // }).addTo(this.map);
+
+      this.map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: this.latitude, lng: this.longitude },
+          zoom: 19
+      });
 
       this.addMarker();
     },
@@ -4887,19 +4893,49 @@ export default {
     },
 
     updateMap() {
-      this.map.setView([this.latitude, this.longitude], 15);
+      // this.map.setView([this.latitude, this.longitude], 15);
+      this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+      this.map.setZoom(15);
       this.addMarker();
     },
     addMarker() {
-      const lat = this.latitude;
-      const lng = this.longitude;
+      // const lat = this.latitude;
+      // const lng = this.longitude;
 
-      if (!isNaN(lat) && !isNaN(lng)) {
-        L.marker([lat, lng]).addTo(this.map)
-          .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
-      } else {
-        console.error('Coordenadas inválidas');
-      }
+      // if (!isNaN(lat) && !isNaN(lng)) {
+      //   L.marker([lat, lng]).addTo(this.map)
+      //     .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+      // } else {
+      //   console.error('Coordenadas inválidas');
+      // }
+      const lat = this.latitude;
+            const lng = this.longitude;
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const customIcon = {
+                url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+                scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+                anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+                };
+
+                const markers = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: this.map,
+                icon: customIcon
+                });
+
+                const infowindow = new google.maps.InfoWindow({
+                content: `Latitude: ${lat}, Longitude: ${lng}`
+                });
+
+                markers.addListener('click', () => {
+                infowindow.open(this.map, markers);
+                });
+
+                this.markes.push(markers); // Armazena o marker no array
+            } else {
+                console.error('Coordenadas inválidas');
+            }
     },
 
     handleprop() {

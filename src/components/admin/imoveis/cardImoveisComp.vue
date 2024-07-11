@@ -31,10 +31,10 @@
                                 {{ item.localizacao.logradouro }}, {{ item.localizacao.numero }} | {{
                                     item.localizacao.bairro }}, {{ item.localizacao.cidade }}</small></h5>
                         <h5 class="text-dark"><small><i class="fa fa-calendar "></i>
-                                Atualizado: {{ formatarData(item.updatedAt) }}</small> <i v-for="star in estrelas"
+                                Atualizado: {{ formatarData(item.updatedAt) }}</small> <i v-for="star in getEstrelas(item.id_imovel)"
                                 :key="star" class="text-warning fa fa-star"></i> <span class="text-success"
                                 style="float: inline-end; font-weight: 900;">
-                                {{ qualidade }}</span></h5>
+                                {{ getQualidade(item.id_imovel) }}</span></h5>
                     </div>
                 </a>
                 <hr class="mt-3">
@@ -252,7 +252,7 @@
                                                         <div class="col-md-2" v-for="dado in item.caracteristicas">
                                                             <h6>
                                                                 <span><i class="fa fa-check"></i> <small>{{
-                                                                    dado.detalhesCaracteristica.nome_caracteristica
+                                                                    dado.detalhesCaracteristica === null ? "" : dado.detalhesCaracteristica.nome_caracteristica
                                                                         }}</small></span>
                                                             </h6>
                                                         </div>
@@ -519,7 +519,11 @@ export default {
             porcentagemQualidade: 0,
             iniciais: '',
             nome: '',
-            sobrenome: ''
+            sobrenome: '',
+            qualidadeProgress: '',
+
+            qualidade: {},
+            estrelaImovel: {},
 
         }
     },
@@ -544,20 +548,20 @@ export default {
                 
 
 
-                this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(this.mapImoveis);
+                // this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
+                // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //     maxZoom: 19,
+                //     attribution: '© OpenStreetMap contributors'
+                // }).addTo(this.mapImoveis);
 
-                res.data.map(async (imovel) => {
-                    await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.rua).then((res) => {
-                        if (res) {
-                            this.updateMap()
-                        }
-                    })
+                // res.data.map(async (imovel) => {
+                //     await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.rua).then((res) => {
+                //         if (res) {
+                //             this.updateMap()
+                //         }
+                //     })
 
-                })
+                // })
 
                 this.avaliarQualidadeCadastro(this.allImoveis);
 
@@ -619,7 +623,9 @@ export default {
 
                 imovel.pontuacaoQualidade = `${pontuacao}/10`;
                 imovel.porcentagemQualidade = porcentagem;
-                this.qualidade = imovel.pontuacaoQualidade;
+                console.log(imovel.id_imovel,imovel.pontuacaoQualidade )
+                this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
+                this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade
 
 
                 if (porcentagem == 100) {
@@ -648,6 +654,13 @@ export default {
             });
 
             return imoveis;
+        },
+        getQualidade(id) {
+            console.log("qualidades: ",this.qualidade[id], id)
+            return this.qualidade[id] ? this.qualidade[id] : '';
+        },
+        getEstrelas(id) {
+            return this.qualidade[id] ? this.qualidade[id] : 0;
         },
     },
 

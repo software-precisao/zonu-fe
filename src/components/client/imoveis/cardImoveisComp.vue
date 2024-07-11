@@ -32,10 +32,10 @@
                                 @click="openModal(item.id_imovel)" style="float: inline-end;" class="text-warning"><i
                                     class="fa fa-edit"></i></a></h5>
                         <h5 class="text-dark"><small><i class="fa fa-calendar "></i>
-                                Atualizado: {{ formatarData(item.updatedAt) }}</small> <i v-for="star in estrelas"
+                                Atualizado: {{ formatarData(item.updatedAt) }}</small> <i v-for="star in getEstrelas(item.id_imovel)"
                                 :key="star" class="text-warning fa fa-star"></i> <span class="text-success"
                                 style="float: inline-end; font-weight: 900;">
-                                {{ qualidade }}</span></h5>
+                                {{ getQualidade(item.id_imovel) }}</span></h5>
                     </div>
                 </a>
 
@@ -275,8 +275,9 @@
                                                     <div class="row mt-3">
                                                         <div class="col-md-2" v-for="dado in item.caracteristicas">
                                                             <h6>
+                                                                {{console.log(item)}}
                                                                 <span><i class="fa fa-check"></i> <small>{{
-                                                                    dado.detalhesCaracteristica.nome_caracteristica
+                                                                    dado.detalhesCaracteristica == null ? "" : dado.detalhesCaracteristica.nome_caracteristica 
                                                                         }}</small></span>
                                                             </h6>
                                                         </div>
@@ -1741,7 +1742,7 @@
                                                             :id="'flexCheck' + caracteristica.id_caracteristica" />
                                                         <label v-if="!mostrarSkeleton" class="form-check-label"
                                                             :for="'flexCheck' + caracteristica.id_caracteristica">
-                                                            {{ caracteristica.detalhesCaracteristica.nome_caracteristica
+                                                            {{ caracteristica.detalhesCaracteristica == null ? "" : caracteristica.detalhesCaracteristica.nome_caracteristica 
                                                             }}
                                                         </label>
 
@@ -2624,6 +2625,8 @@ export default {
             msgQualidade: '',
             estrelas: 0,
             porcentagemQualidade: 0,
+            qualidade: {},
+            estrelaImovel: {},
             iniciais: '',
             nome: '',
             sobrenome: '',
@@ -2634,6 +2637,7 @@ export default {
             modalInstance: null,
             images: [],
             imageSrc: null,
+            qualidadeProgress: '',
             
             mostrarMapa: false,
             buscarCEP: '',
@@ -2646,6 +2650,7 @@ export default {
             longitude: '39.6945',
             map: null,
             marker: null,
+            markes: [],
             mapaCondo: "Não",
 
             areaTotal: '',
@@ -2709,27 +2714,61 @@ export default {
 
     methods: {
         initMap() {
-            this.map = L.map('map').setView([this.latitude, this.longitude], 15);
+            // this.map = L.map('map').setView([this.latitude, this.longitude], 15);
 
             // Adiciona os tiles do OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(this.map);
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //     maxZoom: 19,
+            //     attribution: '© OpenStreetMap contributors'
+            // }).addTo(this.map);
+            this.map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: this.latitude, lng: this.longitude },
+                zoom: 19
+            });
 
             this.addMarker();
         },
         updateMap() {
-            this.map.setView([this.latitude, this.longitude], 15);
+            // this.map.setView([this.latitude, this.longitude], 15);
+            this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+            this.map.setZoom(15);
             this.addMarker();
         },
         addMarker() {
+            // const lat = this.latitude;
+            // const lng = this.longitude;
+
+            // if (!isNaN(lat) && !isNaN(lng)) {
+            //     L.marker([lat, lng]).addTo(this.map)
+            //     .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+            // } else {
+            //     console.error('Coordenadas inválidas');
+            // }
             const lat = this.latitude;
             const lng = this.longitude;
 
             if (!isNaN(lat) && !isNaN(lng)) {
-                L.marker([lat, lng]).addTo(this.map)
-                .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
+                const customIcon = {
+                url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+                scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+                anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+                };
+
+                const markers = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: this.map,
+                icon: customIcon
+                });
+
+                const infowindow = new google.maps.InfoWindow({
+                content: `Latitude: ${lat}, Longitude: ${lng}`
+                });
+
+                markers.addListener('click', () => {
+                infowindow.open(this.map, markers);
+                });
+
+                this.markes.push(markers); // Armazena o marker no array
             } else {
                 console.error('Coordenadas inválidas');
             }
@@ -2760,25 +2799,26 @@ export default {
 
         fetchAllImoveis() {
             let id_user = this.id_user;
+            // console.log("teste")
 
             api.listmyImoveis(id_user).then(res => {
                 this.allImoveis = res.data;
 
-                this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(this.mapImoveis);
+                // this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
+                // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //     maxZoom: 19,
+                //     attribution: '© OpenStreetMap contributors'
+                // }).addTo(this.mapImoveis);
 
-                res.data.map(async (imovel) => {
-                    await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.rua).then((res) => {
-                        if (res) {
-                            this.updateMap()
-                        }
-                    })
+                // console.log('aqui 1')
+                // res.data.map(async (imovel) => {
+                //     await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.logradouro).then((res) => {
+                //         if (res) {
+                //             this.updateMap()
+                //         }
+                //     })
 
-                })
-
+                // })
                 this.avaliarQualidadeCadastro(this.allImoveis);
 
 
@@ -2814,6 +2854,7 @@ export default {
         },
 
         avaliarQualidadeCadastro(imoveis) {
+            // console.log('aqui')
             imoveis.forEach(imovel => {
                 let totalCampos = 0;
                 let camposNulos = 0;
@@ -2839,7 +2880,10 @@ export default {
 
                 imovel.pontuacaoQualidade = `${pontuacao}/10`;
                 imovel.porcentagemQualidade = porcentagem;
-                this.qualidade = imovel.pontuacaoQualidade;
+                console.log('qualidade: ', imovel.pontuacaoQualidade)
+                // this.qualidade = imovel.pontuacaoQualidade;
+                this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
+                this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade
 
 
                 if (porcentagem == 100) {
@@ -2863,11 +2907,21 @@ export default {
                 }
 
                 this.qualidadeProgress = porcentagem;
-
+                // this.qualidade[imovel.id_imovel] = {
+                //     pontuacaoQualidade: `${pontuacao}/10`,
+                //     estrelas: estrelas,
+                // };
 
             });
 
             return imoveis;
+        },
+        getQualidade(id) {
+            console.log("qualidades: ",this.qualidade)
+            return this.qualidade[id] ? this.qualidade[id] : '';
+        },
+        getEstrelas(id) {
+            return this.qualidade[id] ? this.qualidade[id] : 0;
         },
 
         openModal(id_imovel) {

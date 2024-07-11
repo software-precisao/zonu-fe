@@ -583,13 +583,13 @@ export default {
   deletecaracteristica: async (id_caracteristica) => {
     try {
       const response = await http.delete(
-        `/caracteristica/${id_caracteristica}`,
+        `/caracteristica/delete/${id_caracteristica}`,
         {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
           },
         }
       );
@@ -731,7 +731,7 @@ export default {
             "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
           },
         }
       );
@@ -751,7 +751,7 @@ export default {
             "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
           },
         }
       );
@@ -771,7 +771,7 @@ export default {
             "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
           },
         }
       );
