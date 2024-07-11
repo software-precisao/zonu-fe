@@ -67,10 +67,10 @@
                               >
                             </td>
                             <td v-if="item.id_nivel == 2">
-                              <span class="badge text-bg-warning">Cliente</span>
+                              <span class="badge text-bg-warning">Suporte</span>
                             </td>
                             <td v-if="item.id_nivel == 3">
-                              <span class="badge text-bg-success">Suporte</span>
+                              <span class="badge text-bg-success">Construtora</span>
                             </td>
                             <td v-if="item.id_status == 1">
                               <span class="badge text-bg-success">Ativo</span>

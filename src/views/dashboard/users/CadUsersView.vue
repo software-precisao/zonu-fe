@@ -612,9 +612,7 @@
                               {{ item.perfil.razao_social }}
                             </td>
                             <td>
-                              {{ 
-                                console.log(item)
-                                }}
+                              {{ console.log(item) }}
                               <button
                                 @click="handleEditModal(item.id_user)"
                                 type="button"
@@ -629,7 +627,6 @@
                                 <i class="fa fa-edit"></i>
                               </button>
                               <button
-
                                 v-if="item.id_status == 2"
                                 @click="handleEditStatusAtivate(item.id_user)"
                                 type="button"
@@ -1075,14 +1072,14 @@ export default {
       }
     },
     handleEditModal(user) {
-            this.selectedUser = user;
-            this.nome = user.nome;
-            this.email = user.email;
-            this.telefone = user.perfil.telefone;
-            this.razao_social = user.perfil.razao_social;
-            // Abrir o modal usando jQuery ou Bootstrap
-            $('#modalEdit' + user.id_user).modal('show');
-        },
+      this.selectedUser = user;
+      this.nome = user.nome;
+      this.email = user.email;
+      this.telefone = user.perfil.telefone;
+      this.razao_social = user.perfil.razao_social;
+      // Abrir o modal usando jQuery ou Bootstrap
+      $("#modalEdit" + user.id_user).modal("show");
+    },
     fetchUsuarios() {
       api.listusuarios().then((res) => {
         let usuarios = res.data.response;

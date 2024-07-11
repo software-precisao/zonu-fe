@@ -68,7 +68,7 @@
               <a href="#" style="text-decoration: none; color: #000"
                 ><strong
                   ><span v-if="item.id_nivel === 4" class="badge text-bg-info"
-                    >Desenvolvedor</span
+                    >Corretor</span
                   ></strong
                 ></a
               >
