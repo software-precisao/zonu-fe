@@ -492,7 +492,7 @@ export default {
         // Filtrar os usuários com id_nivel igual a 1
         let usuariosFiltrados = usuarios.filter(
           (user, index, self) =>
-            user.id_nivel === 2 &&
+            user.id_nivel === 3 &&
             index === self.findIndex((u) => u.id_user === user.id_user)
         );
         // Atribuir os usuários filtrados ao estado listUsers
