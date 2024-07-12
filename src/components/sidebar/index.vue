@@ -316,7 +316,7 @@ export default {
         let clientes = res.data.response;
         // Filtrar os usuários com id_nivel igual a 1
         let clientesFiltrados = clientes.filter(
-          (cliente) => cliente.id_nivel === 2
+          (cliente) => cliente.id_nivel === 3
         );
         // Atribuir os usuários filtrados ao estado listUsers
         this.totalClientes = clientesFiltrados.length;
