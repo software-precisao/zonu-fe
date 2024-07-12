@@ -464,10 +464,7 @@ export default {
 
       api.listmyImoveis(id_user).then((res) => {
         this.myImoveis = res.data;
-
-        let latitude;
-        let longitude;
-
+        
         let latitude
         let longitude
 
