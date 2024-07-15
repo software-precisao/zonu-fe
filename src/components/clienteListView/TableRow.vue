@@ -67,14 +67,17 @@
 
 <script>
 import EditModal from './EditModal.vue';
+import api from '@/../service/api';
 
 export default {
     props: {
         item: Object,
     },
+
     components: {
         EditModal,
     },
+
     methods: {
         openEditModal(item) {
             const modalId = `modalEdit${item.id_user}`;
@@ -85,47 +88,29 @@ export default {
             }
         },
 
-        handleEditUsuario() {
-            const updatedUser = {
-                id_user: this.selectedUser.id_user,
-                nome: this.nome,
-                sobrenome: this.sobrenome,
-                email: this.email,
-                razao_social: this.razao_social,
-                cnpj: this.cnpj,
-                telefone: this.telefone,
-                cep: this.cep,
-                endereco: this.endereco,
-                numero: this.numero,
-                complemento: this.complemento,
-                cidade: this.cidade,
-                estado: this.estado,
-                bairro: this.bairro,
-            };
-
+        handleEditUsuario(updatedUser) {
+            // Atualiza o usuário usando a API
             api.editUser(updatedUser).then((res) => {
                 if (res.status == 201) {
-                    this.fetchUsuarios();
+                    this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
-
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);
                 }
-
-                $("#modalEdit" + this.selectedUser.id_user).modal("hide");
+                const modalId = `modalEdit${updatedUser.id_user}`;
+                $(`#${modalId}`).modal("hide");
             });
         },
 
-        handleEditUsuario(id) {
+        handleEditStatusAtivate(id) {
             let id_user = id;
             let status = 1;
 
             api.editStatusUser(id_user, status).then((res) => {
                 if (res.status == 201) {
-                    this.fetcUsuarios();
+                    this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
-
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);
@@ -139,25 +124,8 @@ export default {
 
             api.editStatusUser(id_user, status).then((res) => {
                 if (res.status == 201) {
-                    this.fetcUsuarios();
+                    this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
-
-                    setTimeout(() => {
-                        this.msgSuccess = '';
-                    }, 3000);
-                }
-            });
-        },
-
-        handleEditStatusAtivate(id) {
-            let id_user = id;
-            let status = 1;
-
-            api.editStatusUser(id_user, status).then((res) => {
-                if (res.status == 201) {
-                    this.fetcUsuarios();
-                    this.msgSuccess = 'Status atualizado com sucesso!';
-
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);
@@ -170,9 +138,8 @@ export default {
 
             api.deleteUser(id_user).then((res) => {
                 if (res.status == 202) {
-                    this.fetcUsuarios();
+                    this.$emit('updateUsers');
                     this.msgSuccess = 'Usuário Excluído com sucesso!';
-
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);
