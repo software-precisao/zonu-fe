@@ -1,8 +1,252 @@
+
+<script>
+import SideBar from "../../../components/sidebar/index.vue";
+import NavBar from "../../../components/navbar/index.vue";
+import Footer from "../../../components/footer/index.vue";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import _ from "lodash";
+import $ from "jquery";
+
+import api from "../../../../service/api/index.js";
+
+export default {
+  name: "ClientesView",
+  data() {
+    return {
+      tabCliente: false,
+      tabZonu: false,
+      selectTab: false,
+
+      selectedUser: null,
+      cnpj: "",
+      razao_social: "",
+      nome: "",
+      sobrenome: "",
+      iniciais: "",
+      email: "",
+      senha: "",
+      confirmSenha: "",
+      telefone: "",
+      cep: "",
+      endereco: "",
+      selectNivel: "",
+      msgSuccess: false,
+      msgErrorNull: false,
+
+      textoBotao: "Criar novo usuário",
+      autenticando: false,
+
+      listUsers: [],
+
+      msgSuccessEdit: false,
+      msgSuccessDelete: false,
+
+      currentPageCliente: 1,
+      perPageCliente: 5,
+      searchCliente: "",
+    };
+  },
+  components: {
+    SideBar,
+    NavBar,
+    Footer,
+  },
+  mounted() {
+    let token = localStorage.getItem("token");
+    this.token = token;
+    let decode = jwtDecode(token);
+
+    this.tabZonu = true;
+    this.selectTab = true;
+
+    this.fetcUsuarios();
+  },
+
+  methods: {
+    handledSelect() {
+      let escolha = this.selectTab;
+
+      if (escolha == true) {
+        this.tabZonu = true;
+        this.tabCliente = false;
+      } else {
+        this.tabCliente = true;
+        this.tabZonu = false;
+      }
+    },
+    fetcUsuarios() {
+      api.listusuarios().then((res) => {
+        let usuarios = res.data.response;
+        // Filtrar os usuários com id_nivel igual a 1
+        let usuariosFiltrados = usuarios.filter(
+          (user, index, self) =>
+            user.id_nivel === 3 &&
+            index === self.findIndex((u) => u.id_user === user.id_user)
+        );
+        // Atribuir os usuários filtrados ao estado listUsers
+        this.listUsers = usuariosFiltrados;
+        // Atualizar o total de usuários filtrados
+        this.totalUsers = usuariosFiltrados.length;
+      });
+    },
+    openEditModal(user) {
+      this.selectedUser = user;
+      this.nome = user.nome;
+      this.sobrenome = user.sobrenome;
+      this.email = user.email;
+      this.razao_social = user.perfil.razao_social;
+      this.cnpj = user.perfil.cnpj;
+      this.telefone = user.perfil.telefone;
+      this.cep = user.perfil.cep;
+      this.endereco = user.perfil.endereco;
+      this.numero = user.perfil.numero;
+      this.complemento = user.perfil.complemento;
+      this.cidade = user.perfil.cidade;
+      this.estado = user.perfil.estado;
+      this.bairro = user.perfil.bairro;
+      // Abrir o modal usando jQuery ou Bootstrap
+      $("#modalEdit" + user.id_user).modal("show");
+    },
+    handleEditUsuario() {
+      const updatedUser = {
+        id_user: this.selectedUser.id_user,
+        nome: this.nome,
+        sobrenome: this.sobrenome,
+        email: this.email,
+        razao_social: this.razao_social,
+        cnpj: this.cnpj,
+        telefone: this.telefone,
+        cep: this.cep,
+        endereco: this.endereco,
+        numero: this.numero,
+        complemento: this.complemento,
+        cidade: this.cidade,
+        estado: this.estado,
+        bairro: this.bairro,
+      };
+
+      api.editUser(updatedUser).then((res) => {
+        if (res.status == 201) {
+          this.fetchUsuarios();
+          this.msgSuccessEdit = true;
+
+          setTimeout(() => {
+            this.msgSuccessEdit = false;
+          }, 3000);
+        }
+
+        $("#modalEdit" + this.selectedUser.id_user).modal("hide");
+      });
+    },
+
+    handleEditUsuario(id) {
+      let id_user = id;
+      let status = 1;
+
+      api.editStatusUser(id_user, status).then((res) => {
+        if (res.status == 201) {
+          this.fetcUsuarios();
+          this.msgSuccessEdit = true;
+
+          setTimeout(() => {
+            this.msgSuccessEdit = false;
+          }, 3000);
+        }
+      });
+    },
+
+    handleEditStatusBlock(id) {
+      let id_user = id;
+      let status = 2;
+
+      api.editStatusUser(id_user, status).then((res) => {
+        if (res.status == 201) {
+          this.fetcUsuarios();
+          this.msgSuccessEdit = true;
+
+          setTimeout(() => {
+            this.msgSuccessEdit = false;
+          }, 3000);
+        }
+      });
+    },
+
+    handleEditStatusAtivate(id) {
+      let id_user = id;
+      let status = 1;
+
+      api.editStatusUser(id_user, status).then((res) => {
+        if (res.status == 201) {
+          this.fetcUsuarios();
+          this.msgSuccessEdit = true;
+
+          setTimeout(() => {
+            this.msgSuccessEdit = false;
+          }, 3000);
+        }
+      });
+    },
+
+    handleDeleteUser(id) {
+      let id_user = id;
+
+      api.deleteUser(id_user).then((res) => {
+        if (res.status == 202) {
+          this.fetcUsuarios();
+          this.msgSuccessDelete = true;
+
+          setTimeout(() => {
+            this.msgSuccessDelete = false;
+          }, 3000);
+        }
+      });
+    },
+
+    previousPageCliente() {
+      if (this.currentPageCliente > 1) {
+        this.currentPageCliente -= 1;
+      }
+    },
+    nextPageCliente() {
+      if (this.currentPageCliente < this.totalPagesClientes) {
+        this.currentPageCliente += 1;
+      }
+    },
+  },
+  computed: {
+    clientesOnCurrentPage() {
+      const startIndex = (this.currentPageCliente - 1) * this.perPageCliente;
+      const endIndex = startIndex + this.perPageCliente;
+      return this.listUsers
+        .filter((usuario) => {
+          return usuario.nome
+            .toLowerCase()
+            .includes(this.searchCliente.toLowerCase());
+        })
+        .slice(startIndex, endIndex);
+    },
+    totalPagesClientes() {
+      return Math.ceil(
+        this.listUsers.filter((usuario) => {
+          this.currentPageCliente = 1;
+          return usuario.nome
+            .toLowerCase()
+            .includes(this.searchCliente.toLowerCase());
+        }).length / this.perPageCliente
+      );
+    },
+  },
+};
+</script>
+
+
 <template>
   <div class="wrapper">
     <SideBar />
     <div class="main">
       <NavBar />
+
       <main class="content">
         <div class="container-fluid p-0">
           <h1 class="h3 mb-3"><strong>Lista de clientes |</strong> Zonu</h1>
@@ -411,242 +655,3 @@
     </div>
   </div>
 </template>
-<script>
-import SideBar from "../../../components/sidebar/index.vue";
-import NavBar from "../../../components/navbar/index.vue";
-import Footer from "../../../components/footer/index.vue";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import _ from "lodash";
-import $ from "jquery";
-
-import api from "../../../../service/api/index.js";
-export default {
-  name: "ClientesView",
-  data() {
-    return {
-      tabCliente: false,
-      tabZonu: false,
-      selectTab: false,
-
-      selectedUser: null,
-      cnpj: "",
-      razao_social: "",
-      nome: "",
-      sobrenome: "",
-      iniciais: "",
-      email: "",
-      senha: "",
-      confirmSenha: "",
-      telefone: "",
-      cep: "",
-      endereco: "",
-      selectNivel: "",
-      msgSuccess: false,
-      msgErrorNull: false,
-
-      textoBotao: "Criar novo usuário",
-      autenticando: false,
-
-      listUsers: [],
-
-      msgSuccessEdit: false,
-      msgSuccessDelete: false,
-
-      currentPageCliente: 1,
-      perPageCliente: 5,
-      searchCliente: "",
-    };
-  },
-  components: {
-    SideBar,
-    NavBar,
-    Footer,
-  },
-  mounted() {
-    let token = localStorage.getItem("token");
-    this.token = token;
-    let decode = jwtDecode(token);
-
-    this.tabZonu = true;
-    this.selectTab = true;
-
-    this.fetcUsuarios();
-  },
-
-  methods: {
-    handledSelect() {
-      let escolha = this.selectTab;
-
-      if (escolha == true) {
-        this.tabZonu = true;
-        this.tabCliente = false;
-      } else {
-        this.tabCliente = true;
-        this.tabZonu = false;
-      }
-    },
-    fetcUsuarios() {
-      api.listusuarios().then((res) => {
-        let usuarios = res.data.response;
-        // Filtrar os usuários com id_nivel igual a 1
-        let usuariosFiltrados = usuarios.filter(
-          (user, index, self) =>
-            user.id_nivel === 3 &&
-            index === self.findIndex((u) => u.id_user === user.id_user)
-        );
-        // Atribuir os usuários filtrados ao estado listUsers
-        this.listUsers = usuariosFiltrados;
-        // Atualizar o total de usuários filtrados
-        this.totalUsers = usuariosFiltrados.length;
-      });
-    },
-    openEditModal(user) {
-      this.selectedUser = user;
-      this.nome = user.nome;
-      this.sobrenome = user.sobrenome;
-      this.email = user.email;
-      this.razao_social = user.perfil.razao_social;
-      this.cnpj = user.perfil.cnpj;
-      this.telefone = user.perfil.telefone;
-      this.cep = user.perfil.cep;
-      this.endereco = user.perfil.endereco;
-      this.numero = user.perfil.numero;
-      this.complemento = user.perfil.complemento;
-      this.cidade = user.perfil.cidade;
-      this.estado = user.perfil.estado;
-      this.bairro = user.perfil.bairro;
-      // Abrir o modal usando jQuery ou Bootstrap
-      $("#modalEdit" + user.id_user).modal("show");
-    },
-    handleEditUsuario() {
-      const updatedUser = {
-        id_user: this.selectedUser.id_user,
-        nome: this.nome,
-        sobrenome: this.sobrenome,
-        email: this.email,
-        razao_social: this.razao_social,
-        cnpj: this.cnpj,
-        telefone: this.telefone,
-        cep: this.cep,
-        endereco: this.endereco,
-        numero: this.numero,
-        complemento: this.complemento,
-        cidade: this.cidade,
-        estado: this.estado,
-        bairro: this.bairro,
-      };
-
-      api.editUser(updatedUser).then((res) => {
-        if (res.status == 201) {
-          this.fetchUsuarios();
-          this.msgSuccessEdit = true;
-
-          setTimeout(() => {
-            this.msgSuccessEdit = false;
-          }, 3000);
-        }
-
-        $("#modalEdit" + this.selectedUser.id_user).modal("hide");
-      });
-    },
-
-    handleEditUsuario(id) {
-      let id_user = id;
-      let status = 1;
-
-      api.editStatusUser(id_user, status).then((res) => {
-        if (res.status == 201) {
-          this.fetcUsuarios();
-          this.msgSuccessEdit = true;
-
-          setTimeout(() => {
-            this.msgSuccessEdit = false;
-          }, 3000);
-        }
-      });
-    },
-
-    handleEditStatusBlock(id) {
-      let id_user = id;
-      let status = 2;
-
-      api.editStatusUser(id_user, status).then((res) => {
-        if (res.status == 201) {
-          this.fetcUsuarios();
-          this.msgSuccessEdit = true;
-
-          setTimeout(() => {
-            this.msgSuccessEdit = false;
-          }, 3000);
-        }
-      });
-    },
-
-    handleEditStatusAtivate(id) {
-      let id_user = id;
-      let status = 1;
-
-      api.editStatusUser(id_user, status).then((res) => {
-        if (res.status == 201) {
-          this.fetcUsuarios();
-          this.msgSuccessEdit = true;
-
-          setTimeout(() => {
-            this.msgSuccessEdit = false;
-          }, 3000);
-        }
-      });
-    },
-
-    handleDeleteUser(id) {
-      let id_user = id;
-
-      api.deleteUser(id_user).then((res) => {
-        if (res.status == 202) {
-          this.fetcUsuarios();
-          this.msgSuccessDelete = true;
-
-          setTimeout(() => {
-            this.msgSuccessDelete = false;
-          }, 3000);
-        }
-      });
-    },
-
-    previousPageCliente() {
-      if (this.currentPageCliente > 1) {
-        this.currentPageCliente -= 1;
-      }
-    },
-    nextPageCliente() {
-      if (this.currentPageCliente < this.totalPagesClientes) {
-        this.currentPageCliente += 1;
-      }
-    },
-  },
-  computed: {
-    clientesOnCurrentPage() {
-      const startIndex = (this.currentPageCliente - 1) * this.perPageCliente;
-      const endIndex = startIndex + this.perPageCliente;
-      return this.listUsers
-        .filter((usuario) => {
-          return usuario.nome
-            .toLowerCase()
-            .includes(this.searchCliente.toLowerCase());
-        })
-        .slice(startIndex, endIndex);
-    },
-    totalPagesClientes() {
-      return Math.ceil(
-        this.listUsers.filter((usuario) => {
-          this.currentPageCliente = 1;
-          return usuario.nome
-            .toLowerCase()
-            .includes(this.searchCliente.toLowerCase());
-        }).length / this.perPageCliente
-      );
-    },
-  },
-};
-</script>
