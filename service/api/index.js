@@ -1112,4 +1112,21 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  deletecondominio: async (id_condominio) => {
+    try {
+      const response = await http.delete(`/condominio/${id_condominio}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };

@@ -18,6 +18,9 @@
         <td v-if="item.id_status == 1">
             <span class="badge text-bg-success">Ativo</span>
         </td>
+        <td v-if="item.id_status == 2">
+            <span class="badge text-bg-danger">Inativo</span>
+        </td>
 
         <td v-if="item.perfil == null">Team Zonu</td>
         <td v-if="item.perfil !== null">{{ item.perfil.razao_social }}</td>
@@ -94,8 +97,11 @@ export default {
                 if (res.status == 201) {
                     this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
+                    
                     setTimeout(() => {
                         this.msgSuccess = '';
+
+                        window.location.reload();
                     }, 3000);
                 }
                 const modalId = `modalEdit${updatedUser.id_user}`;
@@ -111,6 +117,7 @@ export default {
                 if (res.status == 201) {
                     this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
+                    window.location.reload();
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);
@@ -126,6 +133,7 @@ export default {
                 if (res.status == 201) {
                     this.$emit('updateUsers');
                     this.msgSuccess = 'Status atualizado com sucesso!';
+                    window.location.reload();
                     setTimeout(() => {
                         this.msgSuccess = '';
                     }, 3000);

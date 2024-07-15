@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <h1 class="mt-1 mb-3">00</h1>
+        <h1 class="mt-1 mb-3">0{{ totalCondominio }}</h1>
         <div class="mb-0">
           <span class="text-danger">
             <i class="mdi mdi-arrow-bottom-right"></i> 0
@@ -134,6 +134,7 @@ export default {
     this.fetchAllImoveis();
     this.fetchAllusuarios();
     this.fetchAllTikets();
+    this.fetchAllCondominios();
   },
   methods: {
     fetchAllConstrutoras() {
@@ -204,8 +205,12 @@ export default {
     fetchAllCondominios() {
       let id_user = this.id_user;
       api.listcondominio(id_user).then((res) => {
-        let condominios = res.data;
+        let condominios = res.data.response;
         this.totalCondominio = condominios.length;
+
+        
+
+        console.log('Aqui estão os meus condominios ====> ', condominios);
       });
     },
   },

@@ -330,36 +330,22 @@ export default {
 
   methods: {
     initMap() {
-      // this.map = L.map("map").setView([this.latitude, this.longitude], 15);
-
-      // Adiciona os tiles do OpenStreetMap
       this.map = new google.maps.Map(document.getElementById('map'), {
           center: { lat: this.latitude, lng: this.longitude },
           zoom: 10
         });
-      // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      //   maxZoom: 19,
-      //   attribution: '© OpenStreetMap contributors'
-      // }).addTo(this.map);
 
       this.addMarker();
     },
 
     updateMap() {
-      // this.map.setView([this.latitude, this.longitude], 15);
+      
       this.map.setCenter({ lat: this.latitude, lng: this.longitude });
       this.map.setZoom(4);
       this.addMarker();
     },
     addMarker() {
-      // const lat = this.latitude;
-      // const lng = this.longitude;
-
-      // if (!isNaN(lat) && !isNaN(lng)) {
-      //   L.marker([lat, lng]).addTo(this.map)
-      //     .bindPopup(`Latitude: ${lat}, Longitude: ${lng}`).openPopup();
-      // } else {
-      //   console.error('Coordenadas inválidas');
+     
       // }
       const lat = this.latitude;
       const lng = this.longitude;
@@ -367,7 +353,7 @@ export default {
       if (!isNaN(lat) && !isNaN(lng)) {
         const customIcon = {
           url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
-          scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+          scaledSize: new google.maps.Size(30, 38), // Ajuste o tamanho do ícone conforme necessário
           anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
         };
 
@@ -432,7 +418,6 @@ export default {
           }
         );
 
-        console.log(res.data);
 
         if (res.data && res.data.results && res.data.results.length > 0) {
           const location = res.data.results[0].geometry.location;
