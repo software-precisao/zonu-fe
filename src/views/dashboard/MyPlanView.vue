@@ -53,8 +53,9 @@
                         <div class="block-heading">
                           <h2>Our Pricing</h2>
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                            quam urna, dignissim nec auctor in, mattis vitae leo.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Nunc quam urna, dignissim nec auctor in,
+                            mattis vitae leo.
                           </p>
                         </div>
                         <div class="row justify-content-md-center">
@@ -64,7 +65,8 @@
                                 <h3>BASIC</h3>
                               </div>
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit.
                               </p>
                               <div class="features">
                                 <h4>
@@ -98,7 +100,8 @@
                                 <h3>PRO</h3>
                               </div>
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit.
                               </p>
                               <div class="features">
                                 <h4>
@@ -117,7 +120,10 @@
                               <div class="price">
                                 <h4>$50</h4>
                               </div>
-                              <button class="btn btn-block btn-primary" type="submit">
+                              <button
+                                class="btn btn-block btn-primary"
+                                type="submit"
+                              >
                                 BUY NOW
                               </button>
                             </div>
@@ -128,7 +134,8 @@
                                 <h3>PREMIUM</h3>
                               </div>
                               <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit.
                               </p>
                               <div class="features">
                                 <h4>

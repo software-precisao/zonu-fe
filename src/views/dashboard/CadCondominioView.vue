@@ -21,8 +21,8 @@
                           </h1>
                           <p>
                             Ao cadastrar um imóvel, será possível selecionar um
-                            condomínio/empreendimento para reaproveitamento de dados e
-                            fotos
+                            condomínio/empreendimento para reaproveitamento de
+                            dados e fotos
                           </p>
                         </div>
 
@@ -30,20 +30,42 @@
                           <div class="row mt-4">
                             <div class="col-12">
                               <div class="mb-3">
-                                <div v-if="mostrarSkeleton" class="skeleton-label"></div>
-                                <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                                <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
+                                <div
+                                  v-if="mostrarSkeleton"
+                                  class="skeleton-label"
+                                ></div>
+                                <div
+                                  v-if="mostrarSkeleton"
+                                  class="skeleton-input"
+                                ></div>
+                                <label
+                                  v-if="!mostrarSkeleton"
+                                  for="exampleInputEmail1"
+                                  class="form-label"
+                                >
                                   Nome do condomínio/empreendimento
                                 </label>
-                                <input type="text" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="condNome" placeholder="Digite..." />
+                                <input
+                                  type="text"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="condNome"
+                                  placeholder="Digite..."
+                                />
                               </div>
                             </div>
 
                             <div class="col-md-12">
-                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button v-if="!mostrarSkeleton" class="btn btn-success" @click="handleSalvar()"
-                                  type="button">
+                              <div
+                                class="d-grid gap-2 d-md-flex justify-content-md-end"
+                              >
+                                <button
+                                  v-if="!mostrarSkeleton"
+                                  class="btn btn-success"
+                                  @click="handleSalvar()"
+                                  type="button"
+                                >
                                   Salvar
                                 </button>
                               </div>
@@ -66,8 +88,11 @@
                         <div class="col mt-0">
                           <h1 class="title-login mt-2">Lista de Condomínios</h1>
                         </div>
-                        <div v-if="msgSuccessDelete" class="alert alert-success alert-dismissible fade show"
-                          role="alert">
+                        <div
+                          v-if="msgSuccessDelete"
+                          class="alert alert-success alert-dismissible fade show"
+                          role="alert"
+                        >
                           <strong><i class="fa fa-check"></i> Sucesso!</strong>
                           Condomínio excluído com sucesso.
                         </div>
@@ -75,8 +100,13 @@
                           <div class="row mt-4">
                             <div class="col-12">
                               <div class="mb-3">
-                                <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
-                                  aria-describedby="passwordHelpBlock" v-model="searchCondominio" />
+                                <input
+                                  type="text"
+                                  placeholder="Pesquise aqui"
+                                  class="form-control mb-3"
+                                  aria-describedby="passwordHelpBlock"
+                                  v-model="searchCondominio"
+                                />
                                 <table class="table">
                                   <div class="container"></div>
                                   <thead>
@@ -89,26 +119,43 @@
                                     <tr v-for="item in CondominioOnCurrentPage">
                                       <td>{{ item.nome_condominio }}</td>
                                       <td>
-                                        <button @click="handleDelete(item.id_condominio)" type="button"
-                                          class="btn btn-danger" style="
+                                        <button
+                                          @click="
+                                            handleDelete(item.id_condominio)
+                                          "
+                                          type="button"
+                                          class="btn btn-danger"
+                                          style="
                                             --bs-btn-padding-y: 0.25rem;
                                             --bs-btn-padding-x: 0.5rem;
                                             --bs-btn-font-size: 0.75rem;
-                                          ">
+                                          "
+                                        >
                                           <i class="fa fa-trash"></i>
                                         </button>
                                       </td>
                                     </tr>
                                   </tbody>
                                 </table>
-                                <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
-                                  <button class="btn btn-dark btn-sm" @click="previousPageCondominio()"
-                                    :disabled="currentPageCondominio <= 1">
+                                <div
+                                  class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end"
+                                >
+                                  <button
+                                    class="btn btn-dark btn-sm"
+                                    @click="previousPageCondominio()"
+                                    :disabled="currentPageCondominio <= 1"
+                                  >
                                     Anterior
                                   </button>
-                                  <button class="btn btn-dark btn-sm" style="margin-right: 3% !important"
-                                    @click="nextPageCondominio()" :disabled="currentPageCondominio >= totalPagesCondominio
-                                      ">
+                                  <button
+                                    class="btn btn-dark btn-sm"
+                                    style="margin-right: 3% !important"
+                                    @click="nextPageCondominio()"
+                                    :disabled="
+                                      currentPageCondominio >=
+                                      totalPagesCondominio
+                                    "
+                                  >
                                     Proximo
                                   </button>
                                 </div>
@@ -136,7 +183,6 @@ import Footer from "../../components/footer/index.vue";
 import api from "../../../service/api/index.js";
 import { jwtDecode } from "jwt-decode";
 
-
 export default {
   name: "CadCondominioView",
   components: {
@@ -151,14 +197,13 @@ export default {
       msgSuccess: false,
       listsCondominios: [],
       token: localStorage.getItem("token"),
-      id_user: '',
+      id_user: "",
       msgSuccessDelete: false,
 
       currentPageCondominio: 1,
       perPageCondominio: 5,
       searchCondominio: "",
-      id_progress: ''
-
+      id_progress: "",
     };
   },
 
@@ -172,36 +217,28 @@ export default {
     setTimeout(() => {
       this.mostrarSkeleton = false;
     }, 2000);
-
-   
-
   },
 
   methods: {
-
-
-
     handleSalvar() {
       let nome_condominio = this.condNome;
       let id_user = this.id_user;
 
       api.novoCondominio(nome_condominio, id_user).then((res) => {
-
         if (res.status == 201) {
           this.msgSuccess = true;
           this.condNome = "";
           this.fetchList();
 
-          let id_progressao = this.id_progress
+          let id_progressao = this.id_progress;
 
-          api.editProgressCodominio(id_progressao).then((res) => {})
+          api.editProgressCodominio(id_progressao).then((res) => {});
 
           setTimeout(() => {
             this.msgSuccess = false;
           }, 3000);
         }
       });
-
     },
 
     previousPageCondominio() {
@@ -216,7 +253,6 @@ export default {
       }
     },
 
-
     handleDelete(id) {
       let id_condominio = id;
 
@@ -230,46 +266,41 @@ export default {
           }, 3000);
         }
       });
-
     },
 
     fetchList() {
       let id_user = this.id_user;
 
       api.listcondominio(id_user).then((res) => {
-        this.listsCondominios = res.data.response
-
-      })
-
-    }
-
-
+        this.listsCondominios = res.data.response;
+      });
+    },
   },
 
   computed: {
-
     CondominioOnCurrentPage() {
-      const startIndex = (this.currentPageCondominio - 1) * this.perPageCondominio
-      const endIndex = startIndex + this.perPageCondominio
+      const startIndex =
+        (this.currentPageCondominio - 1) * this.perPageCondominio;
+      const endIndex = startIndex + this.perPageCondominio;
       return this.listsCondominios
         .filter((item) => {
           return item.nome_condominio
             .toLowerCase()
-            .includes(this.searchCondominio.toLowerCase())
+            .includes(this.searchCondominio.toLowerCase());
         })
-        .slice(startIndex, endIndex)
+        .slice(startIndex, endIndex);
     },
 
     totalPagesCondominio() {
       return Math.ceil(
         this.listsCondominios.filter((item) => {
-          this.currentPageCondominio = 1
+          this.currentPageCondominio = 1;
           return item.nome_condominio
             .toLowerCase()
-            .includes(this.searchCondominio.toLowerCase())
-        }).length / this.perPageCondominio,
-      )
+            .includes(this.searchCondominio.toLowerCase());
+        }).length / this.perPageCondominio
+      );
     },
-  }
+  },
 };
 </script>
