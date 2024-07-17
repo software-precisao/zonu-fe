@@ -275,7 +275,7 @@
                                                   <div class="row mt-3">
                                                       <div class="col-md-2" v-for="dado in item.caracteristicas">
                                                           <h6>
-                                                              {{console.log(item)}}
+                                                             
                                                               <span><i class="fa fa-check"></i> <small>{{
                                                                   dado.detalhesCaracteristica == null ? "" : dado.detalhesCaracteristica.nome_caracteristica 
                                                                       }}</small></span>
@@ -310,7 +310,7 @@
                                                           </div>
                                                       </div>
                                                       <div class="col-md-3" style="margin-top: -10px;">
-                                                          <img :src="item.qrcode[0].qrcode" width="50" alt="">
+                                                          <img :src="item.qrcode.qrcode" width="50" alt="">
                                                       </div>
                                                   </div>
 

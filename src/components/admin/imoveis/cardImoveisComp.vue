@@ -9,8 +9,7 @@
             <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
                 aria-describedby="passwordHelpBlock" v-model="searchImovel" />
             <div class="mt-3" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
-                {{ console.log(item) }}
-
+            
                 <a class="row" style="text-decoration: none">
                     <div class="col-3">
                         <img class="thumbImovel" :src="`https://zonu.com.br/api${item.fotos[0].foto}`" alt="" />
@@ -328,7 +327,7 @@
                                 "></div>
                                                         </div>
                                                         <div class="col-md-3" style="margin-top: -10px">
-                                                            <img :src="item.qrcode[0].qrcode" width="50" alt="" />
+                                                            <img :src="item.qrcode.qrcode" width="50" alt="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -587,6 +586,7 @@ export default {
             iniciais: "",
             nome: "",
             sobrenome: "",
+            qrcode: "",
         };
     },
     mounted() {
@@ -606,6 +606,9 @@ export default {
         fetchAllImoveis() {
             api.listallImoveis().then((res) => {
                 this.allImoveis = res.data;
+
+                console.log('Lista de imóveis:', this.allImoveis);
+                console.log('só os qrcode ====>', res.data[0].qrcode[0].qrcode);
 
                 this.mapImoveis = L.map(this.$refs.mapElement).setView(
                     [this.latitudeImoveis, this.longitudeImoveis],
