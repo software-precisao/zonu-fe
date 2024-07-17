@@ -209,8 +209,6 @@ export default {
         this.totalCondominio = condominios.length;
 
         
-
-        console.log('Aqui estão os meus condominios ====> ', condominios);
       });
     },
   },

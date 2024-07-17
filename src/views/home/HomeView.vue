@@ -37,7 +37,7 @@
         <div class="container position-relative">
             <div class="row align-items-center py-8">
                 <div class="col-md-5 col-lg-6 order-md-1 text-center text-md-end"><img
-                        src="../../../../../../assets/img/illustrations/plataform.png" width="750" alt="" /></div>
+                        src="../../../assets/img/illustrations/plataform.png" width="750" alt="" /></div>
                 <div class="col-md-7 col-lg-6 text-center text-md-start"><span
                         class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3">#SejaZonu<img
                             class="img-fluid float-start me-3" src="../../../assets/img/illustrations/arrow-right.png"

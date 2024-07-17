@@ -2749,7 +2749,7 @@ export default {
 
           if (!isNaN(lat) && !isNaN(lng)) {
               const customIcon = {
-              url: '../../../assets/images/icons/IconLocation.png', // Caminho para o ícone personalizado
+              url: 'https://zonu.com.br/emailmkt/IconLocationMaps.png', // Caminho para o ícone personalizado
               scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
               anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
               };
