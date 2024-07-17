@@ -164,7 +164,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr v-for="item in clientesOnCurrentPage" :key="item.id_user">
+                                    <!-- <tr v-for="item in clientesOnCurrentPage" :key="item.id_user">
                                       <th scope="row">
                                         <div class="col-3">
                                           <div class="avatar-null rounded me-1" alt="Avatar"
@@ -235,7 +235,9 @@
                                           <i class="fa fa-trash"></i>
                                         </button>
                                       </td>
-                                    </tr>
+                                    </tr> -->
+                                    <TableRowList v-for="item in clientesOnCurrentPage" :key="item.id_user" :item="item" />
+
                                   </tbody>
                                 </table>
 
@@ -405,6 +407,10 @@ import Footer from "../../../components/footer/index.vue";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import _ from "lodash";
+import TableRow from "@/components/clienteListView/TableRow.vue";
+import TableRowList from "@/components/usersListView/TableRowList.vue";
+
+
 
 import api from "../../../../service/api/index.js";
 export default {
@@ -468,6 +474,7 @@ export default {
     SideBar,
     NavBar,
     Footer,
+    TableRowList
   },
   watch: {
     cnpj(newVal) {
@@ -772,7 +779,8 @@ export default {
       this.email = user.email;
       this.telefone = user.perfil.telefone;
       this.razao_social = user.perfil.razao_social;
-      // Abrir o modal usando jQuery ou Bootstrap
+      //Abrir o modal usando jQuery ou Bootstrap
+      
       $("#modalEdit" + user.id_user).modal("show");
     },
     fetchUsuarios() {
