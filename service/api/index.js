@@ -25,6 +25,8 @@ export default {
     }
   },
 
+
+
   varificaEmail: async (email) => {
     try {
       const response = await http.post(
@@ -970,6 +972,29 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+
+  editarImovel: async (id, formData) => {
+    try {
+      const response = await http.patch(
+        `/imovel/editar/${id}`, formData,
+
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
 
   progress: async (id_user) => {
     try {
