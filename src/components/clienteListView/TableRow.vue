@@ -92,6 +92,7 @@ export default {
         },
 
         handleEditUsuario(updatedUser) {
+            console.log(updatedUser)
             // Atualiza o usuário usando a API
             api.editUser(updatedUser).then((res) => {
                 if (res.status == 201) {

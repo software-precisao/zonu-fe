@@ -25,8 +25,6 @@ export default {
     }
   },
 
-
-
   varificaEmail: async (email) => {
     try {
       const response = await http.post(
@@ -337,7 +335,7 @@ export default {
     }
   },
 
-  editUser: async (
+  editUser: async ({
     id_user,
     nome,
     sobrenome,
@@ -351,11 +349,15 @@ export default {
     complemento,
     cidade,
     estado,
-    bairro
-  ) => {
+    bairro,
+  }) => {
+    console.log({
+      id_user,
+    });
+
     try {
-      const response = await http.patch(
-        "/usuarios/editar",
+      const response = await http.put(
+        `/usuarios/editar-cliente/${id_user}`,
         {
           id_user: id_user,
           nome: nome,
@@ -405,7 +407,6 @@ export default {
     }
   },
 
-
   cadastroAdmin: async (nome, sobrenome, email, senha) => {
     try {
       const response = await http.post(
@@ -416,8 +417,7 @@ export default {
           email: email,
           senha: senha,
           avatar: "",
-          id_plano: 1
-
+          id_plano: 1,
         },
         {
           headers: {
@@ -447,8 +447,7 @@ export default {
           avatar: "",
           status: 1,
           nivel: selectNivel,
-          id_plano: 1
-
+          id_plano: 1,
         },
         {
           headers: {
@@ -973,11 +972,11 @@ export default {
     }
   },
 
-
   editarImovel: async (id, formData) => {
     try {
       const response = await http.patch(
-        `/imovel/editar/${id}`, formData,
+        `/imovel/editar/${id}`,
+        formData,
 
         {
           headers: {
@@ -994,7 +993,6 @@ export default {
       return error.response || error.message || error;
     }
   },
-
 
   progress: async (id_user) => {
     try {
