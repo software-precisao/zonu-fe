@@ -70,7 +70,8 @@
 
 <script>
 import EditModal from './EditClientModal.vue';
-import api from '@/../service/api';
+import api from '@/../service/api/usuarios/index';
+
 
 export default {
     props: {

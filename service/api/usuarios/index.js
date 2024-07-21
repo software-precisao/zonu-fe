@@ -83,7 +83,7 @@ export default {
     }
   },
 
-  editUser: async (
+  editUser: async ({
     id_user,
     nome,
     sobrenome,
@@ -98,10 +98,10 @@ export default {
     cidade,
     estado,
     bairro
-  ) => {
+  }) => {
     try {
-      const response = await http.patch(
-        "/usuarios/editar",
+      const response = await http.put(
+        `/usuarios/editar-simples/${id_user}`,
         {
           id_user: id_user,
           nome: nome,
