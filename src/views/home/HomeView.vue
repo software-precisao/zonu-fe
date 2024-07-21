@@ -197,7 +197,8 @@
                         src="../../../assets/img/illustrations/call-to-action.png" width="550" alt="" /></div>
                 <div class="col-md-6 text-center text-md-start offset-md-1">
                     <h6 class="fw-bold fs-4 display-3 lh-sm">Designed &amp; built by<br />the latest code
-                        <br />integration</h6>
+                        <br />integration
+                    </h6>
                     <p class="my-4 pe-xl-5"> The rise of mobile devices transforms the way we consume information
                         entirely and
                         the world's most elevant channels such as Facebook.</p><a
@@ -382,7 +383,8 @@
                     <div class="d-flex justify-content-center">
                         <label class="form-check-label me-2" for="customSwitch1">Mensal</label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" id="customSwitch1" type="checkbox" checked="checked" />
+                            <input class="form-check-input" id="customSwitch1" type="checkbox" v-model="isAnnual"
+                                @change="togglePlan" />
                             <label class="form-check-label align-top" for="customSwitch1">Anual</label>
                         </div>
                     </div>
@@ -391,10 +393,11 @@
                     <div class="card shadow-lg mb-4 border-0">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
-                                <h1 class="fw-bold">R$ 0,00</h1><span class="d-flex align-items-center">/mês</span>
+                                <h1 class="fw-bold">{{ formatCurrency(zonuConstrutoraPrice) }}</h1><span
+                                    class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">Zonu Construtora</h5><span
-                                class="text-700 text-center d-block">Ideal para sua contrutora</span>
+                            <h5 class="fw-bold text-center">Zonu Construtora</h5>
+                            <span class="text-700 text-center d-block">Ideal para sua construtora</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
@@ -402,8 +405,9 @@
                                     gestão de imóveis</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Relatório</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Gestão de m2</li>
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte </li>
-                            </ul><a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Cadastre-se agora</a>
+                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte</li>
+                            </ul>
+                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Cadastre-se agora</a>
                         </div>
                     </div>
                 </div>
@@ -411,14 +415,15 @@
                     <div class="card shadow-lg mb-4">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
-                                <h1 class="fw-bold">R$99</h1><span class="d-flex align-items-center">/mês</span>
+                                <h1 class="fw-bold">{{ formatCurrency(zonuImobiliariaPrice) }}</h1><span
+                                    class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">Zonu Imobiliária</h5><span
-                                class="text-700 text-center d-block">Ideal para TODAS as imobiliárias</span>
+                            <h5 class="fw-bold text-center">Zonu Imobiliária</h5>
+                            <span class="text-700 text-center d-block">Ideal para TODAS as imobiliárias</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary"> <i class="fa fa-check"></i> Darg &amp; Drop
+                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Drag &amp; Drop
                                     Builder</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> 1,000's of
                                     Templates</li>
@@ -427,8 +432,9 @@
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> eCommerce Store
                                 </li>
                             </ul>
-                            <div class="d-flex flex-column"> <a class="btn btn-lg btn-primary rounded-pill mb-3"
-                                    href="#">Assine agora</a><a href="#" class="text-center">Ou teste por 7 dias</a>
+                            <div class="d-flex flex-column">
+                                <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Assine agora</a>
+                                <a href="#" class="text-center">Ou teste por 7 dias</a>
                             </div>
                         </div>
                     </div>
@@ -437,14 +443,15 @@
                     <div class="card shadow-lg mb-4 border-0">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
-                                <h1 class="fw-bold">R$ 0,00</h1><span class="d-flex align-items-center">/mês</span>
+                                <h1 class="fw-bold">{{ formatCurrency(zonuCorretorPrice) }}</h1><span
+                                    class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">Zonu Corretor</h5><span
-                                class="text-700 text-center d-block">A melhor escolha para corretores</span>
+                            <h5 class="fw-bold text-center">Zonu Corretor</h5>
+                            <span class="text-700 text-center d-block">A melhor escolha para corretores</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary"> <i class="fa fa-check"></i> Darg &amp; Drop
+                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Drag &amp; Drop
                                     Builder</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> 1,000's of
                                     Templates</li>
@@ -453,8 +460,9 @@
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> eCommerce Store
                                 </li>
                             </ul>
-                            <div class="d-flex flex-column"> <a class="btn btn-lg btn-primary rounded-pill mb-3"
-                                    href="#">Assine agora</a><a href="#" class="text-center">Ou teste por 7 dias</a>
+                            <div class="d-flex flex-column">
+                                <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Assine agora</a>
+                                <a href="#" class="text-center">Ou teste por 7 dias</a>
                             </div>
                         </div>
                     </div>
@@ -867,9 +875,51 @@
     </section>
 </template>
 <script>
+
 export default {
-    name: 'HomeView'
-}
+    name: 'HomeView',
+  data() {
+    return {
+      isAnnual: false, // Indica se a assinatura é anual
+      zonuConstrutoraPrice: 80,
+      zonuImobiliariaPrice: 99,
+      zonuCorretorPrice: 70,
+      annualDiscount: 0.20, // setando que o plano anual terá 20% de desconto
+      planPeriod: "/mês", // Período atual (mensal ou anual)
+    };
+  },
+  methods: {
+    togglePlan() {
+      this.planPeriod = this.isAnnual ? "/ano" : "/mês";
+      this.updatePrices();
+    },
+    updatePrices() {
+      const monthlyPrices = {
+        zonuConstrutora: 80, // Preço mensal
+        zonuImobiliaria: 99, // Preço mensal
+        zonuCorretor: 70, // Preço mensal
+      };
+
+      if (this.isAnnual) {
+        this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora * 12 * (1 - this.annualDiscount);
+        this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria * 12 * (1 - this.annualDiscount);
+        this.zonuCorretorPrice = monthlyPrices.zonuCorretor * 12 * (1 - this.annualDiscount);
+      } else {
+        this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora;
+        this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria;
+        this.zonuCorretorPrice = monthlyPrices.zonuCorretor;
+      }
+    },
+    formatCurrency(value) {
+      return `R$ ${value.toFixed(2).replace('.', ',')}`;
+    },
+  },
+  mounted() {
+    this.updatePrices(); // Inicializa os preços ao montar o componente
+  },
+};
+
+
 </script>
 <style scoped>
 @import '../../../assets/css/theme.css';
