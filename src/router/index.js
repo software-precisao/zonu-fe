@@ -40,29 +40,11 @@ const routes = [
     path: "/cadastro",
     name: "cadastro",
     component: CadastroView,
-    beforeEnter: (to, from, next) => {
-      const hash = generateMD5();
-      next(`/cadastro/${hash}`);
-    }
-  },
-  {
-    path: "/cadastro/:hash",
-    name: "CadastoClientWithHash",
-    component: CadastroView
   },
   {
     path: "/recovery",
     name: "recovery",
     component: RecoveryView,
-    beforeEnter: (to, from, next) => {
-      const hash = generateMD5();
-      next(`/recovery/${hash}`);
-    }
-  },
-  {
-    path: "/recovery/:hash",
-    name: "RecoveryWithHash",
-    component: RecoveryView
   },
   {
     path: "/dashboard",
