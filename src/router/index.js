@@ -7,6 +7,8 @@ import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
 import TokenView from "../views/dashboard/token/cadTokenView.vue";
 import MainView from "../views/dashboard/MainView.vue";
 import MainViewAdmin from "../views/dashboard/MainViewAdmin.vue";
+import ImobiliariaView from "../views/imobiliaria/imobiView.vue";
+import FiltroImovelView from "../views/imobiliaria/pesquisaFiltroView.vue";
 import CadImovelView from "../views/dashboard/CadImovelView.vue";
 import CadCondominioView from "../views/dashboard/CadCondominioView.vue";
 import MyPlanView from "../views/dashboard/MyPlanView.vue";
@@ -76,6 +78,35 @@ const routes = [
     path: "/token/:hash",
     name: "TokenWithHash",
     component: TokenView
+  },
+
+  {
+    path: "/sua-imobiliaria-virtual",
+    name: "sua-imobiliaria-virtual",
+    component: ImobiliariaView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/sua-imobiliaria-virtual/${hash}`);
+    }
+  },
+  {
+    path: "/sua-imobiliaria-virtual/:hash",
+    name: "ImobiliariaWithHash",
+    component: ImobiliariaView
+  },
+  {
+    path: "/filtro-imovel",
+    name: "filtro-imovel",
+    component: FiltroImovelView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/filtro-imovel/${hash}`);
+    }
+  },
+  {
+    path: "/filtro-imovel/:hash",
+    name: "filtroWithHash",
+    component: FiltroImovelView
   },
   {
     path: "/dashboard-admin",
