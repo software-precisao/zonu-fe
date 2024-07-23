@@ -1307,39 +1307,26 @@
 
                         <div>
                           <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-check" v-for="caracteristica in minhasCaracteristicas"
-                                :key="caracteristica.id_caracteristica">
-                                <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaImovel[
-                                  caracteristica.id_caracteristica
-                                  ]
-                                  " type="checkbox" :id="'flexCheck' +
-                                    caracteristica.id_caracteristica
-                                    " />
-                                <label v-if="!mostrarSkeleton" class="form-check-label" :for="'flexCheck' +
-                                  caracteristica.id_caracteristica
-                                  ">
+                            <div class="col-md-4" v-for="caracteristica in minhasCaracteristicas" :key="caracteristica.id_caracteristica">
+                              <div class="form-check d-flex align-items-center" style="margin-bottom: 10px;">
+                                <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaImovel[caracteristica.id_caracteristica]" type="checkbox" :id="'flexCheck' + caracteristica.id_caracteristica" style="margin-right: 10px;" />
+                                <label v-if="!mostrarSkeleton" class="form-check-label" :for="'flexCheck' + caracteristica.id_caracteristica" style="flex-grow: 1; margin-right: 10px;">
                                   {{ caracteristica.nome_caracteristica }}
                                 </label>
-
-                                <a style="margin-left: 2%" href="#" @click="
-                                  handleDeleteCaracacteristicas(
-                                    caracteristica.id_caracteristica
-                                  )
-                                  "><small><i class="text-danger fa fa-trash"></i></small></a>
+                                <a href="#" @click="handleDeleteCaracacteristicas(caracteristica.id_caracteristica)">
+                                  <small><i class="text-danger fa fa-trash"></i></small>
+                                </a>
                               </div>
                             </div>
 
-                            <div class="col-md-6">
-                              <div class="form-check" v-for="item in listcaracteristicas" :key="item.id_caracteristica">
-                                <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaAllImovel[
-                                  item.id_caracteristica
-                                  ]
-                                  " type="checkbox" :id="'flexCheck' + item.id_caracteristica" />
-                                <label v-if="!mostrarSkeleton" class="form-check-label"
-                                  :for="'flexCheck' + item.id_caracteristica">
-                                  {{ item.nome_caracteristica }}
-                                </label>
+                            <div class="row">
+                              <div class="col-md-4" v-for="item in listcaracteristicas" :key="item.id_caracteristica">
+                                <div class="form-check">
+                                  <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaAllImovel[item.id_caracteristica]" type="checkbox" :id="'flexCheck' + item.id_caracteristica" />
+                                  <label v-if="!mostrarSkeleton" class="form-check-label" :for="'flexCheck' + item.id_caracteristica">
+                                    {{ item.nome_caracteristica }}
+                                  </label>
+                                </div>
                               </div>
                             </div>
                           </div>
