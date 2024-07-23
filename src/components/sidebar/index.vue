@@ -108,6 +108,13 @@
           </a>
         </li>
 
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/token">
+            <i class="align-middle" data-feather="key"></i>
+            <span class="align-middle">Token ASAAS </span>
+          </a>
+        </li>
+
         <li class="sidebar-header">Visão cliente</li>
 
         <li class="sidebar-item">

@@ -4,6 +4,7 @@ import LoginView from "../views/auth/LoginView.vue";
 import CadastroView from "../views/auth/CadastroView.vue";
 import RecoveryView from "../views/auth/RecoveryView.vue";
 import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
+import TokenView from "../views/dashboard/token/cadTokenView.vue";
 import MainView from "../views/dashboard/MainView.vue";
 import MainViewAdmin from "../views/dashboard/MainViewAdmin.vue";
 import CadImovelView from "../views/dashboard/CadImovelView.vue";
@@ -60,6 +61,21 @@ const routes = [
     path: "/dashboard/:hash",
     name: "DashboardWithHash",
     component: MainView
+  },
+
+  {
+    path: "/token",
+    name: "token",
+    component: TokenView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/token/${hash}`);
+    }
+  },
+  {
+    path: "/token/:hash",
+    name: "TokenWithHash",
+    component: TokenView
   },
   {
     path: "/dashboard-admin",
