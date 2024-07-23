@@ -42,6 +42,15 @@
             </span>
           </a>
         </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/novo-plano">
+            <i class="align-middle" data-feather="dollar-sign"></i>
+            <span class="align-middle"
+              >Planos
+            </span>
+          </a>
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/clientes">
             <i class="align-middle" data-feather="user-check"></i>

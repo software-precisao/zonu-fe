@@ -4,7 +4,7 @@
     <div class="main">
       <NavBar />
       <main class="content">
-        < <div class="container-fluid p-0">
+        <div class="container-fluid p-0">
           <h1 class="h3 mb-3"><strong>Cadastro de usuários |</strong> Zonu</h1>
           <div class="row">
             <div class="col-md-12 col-xl-12">

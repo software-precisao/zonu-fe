@@ -3,6 +3,7 @@ import HomeView from "../views/home/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import CadastroView from "../views/auth/CadastroView.vue";
 import RecoveryView from "../views/auth/RecoveryView.vue";
+import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
 import MainView from "../views/dashboard/MainView.vue";
 import MainViewAdmin from "../views/dashboard/MainViewAdmin.vue";
 import CadImovelView from "../views/dashboard/CadImovelView.vue";
@@ -73,6 +74,20 @@ const routes = [
     path: "/dashboard-admin/:hash",
     name: "DashboardAdminWithHash",
     component: MainViewAdmin
+  },
+  {
+    path: "/novo-plano",
+    name: "novo-plano",
+    component: PlanoView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/novo-plano/${hash}`);
+    }
+  },
+  {
+    path: "/novo-plano/:hash",
+    name: "PlanoWithHash",
+    component: PlanoView
   },
   {
     path: "/novo-imovel",
