@@ -57,7 +57,7 @@
 
     <div class="orange-range">
       <h2 class="text-title-h2-contact text-center text-light">
-        <strong>EMPREENDIMENTO EM CONSTRUÇÃO</strong>
+        <strong>EMPREENDIMENTO {{ imovel.publicacao.tarja_imovel_site_publi }}</strong>
       </h2>
     </div>
 
@@ -75,7 +75,7 @@
 
     <div class="green-range">
       <h2 class="text-title-h2-contact text-center text-light">
-        <strong>VENDA</strong>
+        <strong>{{ imovel.preco.tipo_negocio }}</strong>
       </h2>
     </div>
 
@@ -84,14 +84,9 @@
       <div class="container">
         <div class="row">
           <div class="col-12 mt-5">
-            <h1 class="text-title text-center"><strong>title</strong></h1>
+            <h1 class="text-title text-center"><strong>{{imovel.descricao.titulo}}</strong></h1>
             <p class="text-title-subtitle text-center mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-              eos qui ratione voluptatem sequi nesciunt. Neque
+              {{ imovel.descricao.apresentacao }}
             </p>
           </div>
         </div>
@@ -100,73 +95,12 @@
           <div class="col-12">
             <div id="iddoelemento" class="gallery">
               <img
-                src="../../../../assets/images/apartamentos/01.jpg"
-                alt="Foto 1"
+                v-for="foto in imovel.fotos"
+                :src="`https://zonu.com.br/api${foto.foto}`"
+                :alt="`Foto${foto.id_imagem}`"
                 class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/01.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/02.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/02.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/03.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/03.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/04.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/04.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/05.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/05.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/05.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/05.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/03.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/03.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/04.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/04.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/02.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/02.jpg"
-              />
-
-              <img
-                src="../../../../assets/images/apartamentos/01.jpg"
-                alt="Foto 1"
-                class="thumbnail"
-                data-img="../../../../assets/images/apartamentos/01.jpg"
+                :key="foto.id_imagem"
+                :data-img="`https://zonu.com.br/api${foto.foto}`"
               />
             </div>
           </div>
@@ -192,91 +126,91 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Condomínio</strong></h4>
-                <h2 class=""><strong>Condomínio</strong></h2>
+                <h2 class=""><strong>{{ condominio }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Tipo do Imóvel</strong></h4>
-                <h2 class=""><strong>Tipo do Imóvel</strong></h2>
+                <h2 class=""><strong>{{imovel.info.tipo}}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Perfil do Imóvel</strong></h4>
-                <h2 class=""><strong>Perfil do Imóvel</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.perfil_imovel }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Situação do Imóvel</strong></h4>
-                <h2 class=""><strong>Situação do Imóvel</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.situacao_imovel }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Ano da construção</strong></h4>
-                <h2 class=""><strong>2001</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.ano_construcao }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Incorporação</strong></h4>
-                <h2 class=""><strong>00/00/0000</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.incorporacao }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Posição Solar</strong></h4>
-                <h2 class=""><strong>Frente</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.posicao_solar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Terreno</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.terreno }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Próximo do mar?</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.proximo_mar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Está Averbado?</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.averbado }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Escriturado</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.escriturado }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>De esquina?</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.esquina }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Possue Mobília?</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.info.mobilia }}</strong></h2>
               </div>
             </div>
           </div>
@@ -294,112 +228,112 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Dormitórios</strong></h4>
-                <h2 class=""><strong>5</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.dormitorio }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Suites</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.suite }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Banheiro</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.banheiro }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Garagem</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.garagem }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Possue Garem coberta?</strong></h4>
-                <h2 class=""><strong>Sim</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.garagem_coberta }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Tem box na garagem</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.garagem_box }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Sala de TV</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.sala_tv }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Sala de Jantar</strong></h4>
-                <h2 class=""><strong>não</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.sala_jantar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Sala de estar</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.sala_estar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Lavabo</strong></h4>
-                <h2 class=""><strong>Sim</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.lavabo }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área de serviço</strong></h4>
-                <h2 class=""><strong>Sim</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.area_servico }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Cozinha</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.cozinha }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Closet</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.closet }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Escritório</strong></h4>
-                <h2 class=""><strong>2</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.escritorio }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Cômodos p/ empregados</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.casa_empregada }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Copa</strong></h4>
-                <h2 class=""><strong>1</strong></h2>
+                <h2 class=""><strong>{{ imovel.comodos.copa }}</strong></h2>
               </div>
             </div>
           </div>
@@ -421,21 +355,21 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área construida</strong></h4>
-                <h2 class=""><strong>55m2</strong></h2>
+                <h2 class=""><strong>{{ imovel.medidas.area_contruida }}m2</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área Privativa</strong></h4>
-                <h2 class=""><strong>250m2</strong></h2>
+                <h2 class=""><strong>{{ imovel.medidas.area_privativa}}m2</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área Total</strong></h4>
-                <h2 class=""><strong>500m2</strong></h2>
+                <h2 class=""><strong>{{ imovel.medidas.area_total }}m2</strong></h2>
               </div>
             </div>
           </div>
@@ -792,6 +726,8 @@
 import Sidebar from "../../../components/sidebar/index.vue";
 import Navbar from "../../../components/navbar/index.vue";
 import Footer from "../../../components/footer/index.vue";
+import api from '../../../../service/api/imoveis/index'
+import apiRaiz from '../../../../service/api/index'
 
 export default {
   name: "ImovelView",
@@ -800,6 +736,15 @@ export default {
     Navbar,
     Footer,
   },
+  data() {
+    return {
+      imovelId: null,
+      imovel: {},
+
+      condominio: "Condomínio",
+    }
+  },
+
   mounted() {
     //Cola as funçoes aqui
     function myFunction() {}
@@ -858,6 +803,37 @@ export default {
       t--;
       return (-c / 2) * (t * (t - 2) - 1) + b;
     }
+
+    this.fetchCondominio()
+  },
+  
+  created() {
+    console.log(sessionStorage.getItem('imovelId'))
+    this.imovelId = sessionStorage.getItem('imovelId');
+    this.fetchImovel()
+  },
+
+  methods: {
+    fetchImovel() {
+      api.obterImovel(this.imovelId).then((res) => {
+        console.log(res.data)
+        this.imovel = res.data
+      })
+    },
+
+    fetchCondominio() {
+      apiRaiz.listAllcondominio().then((res) => {
+        res.data.response.map((cond) => {
+          if(cond.id_condominio !== 1) {
+            if(cond.id_condominio === this.imovel.id_condominio) {
+              this.condominio = cond.nome_condominio
+            } else {
+              return
+            }
+          }
+        })
+      })
+    },
   },
 };
 </script>
