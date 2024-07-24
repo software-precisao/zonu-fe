@@ -1,7 +1,6 @@
 import { http } from "../../config";
 
 export default {
-    
   novoImovel: async (formData) => {
     try {
       const response = await http.post("/imovel/cadastrar", formData, {
@@ -84,6 +83,23 @@ export default {
           Accept: "application/json",
           "Access-Control-Allow-Headers": "*",
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  obterImovel: async (id_imovel) => {
+    try {
+      const response = await http.get(`/imovel/buscar/${id_imovel}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
       });
 

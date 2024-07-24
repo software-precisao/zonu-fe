@@ -81,16 +81,48 @@
                 </div>
 
                 <div class="container-fluid mt-3">
-                    <div class="row">
-                        <div class="col-2 m-3">
+                    <div class="row" >
+                        <div class="col-2 m-3" v-for="imovel in imoveis">
+                            {{ console.log(imovel) }}
+                            <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
                             <div class="card" style="width: 15rem;">
-                                <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
+                                <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..." style="width: 240px; height: 180px;">
                                 <div class="card-body">
-                                    <p class="card-text">Imóveis para alugar</p>
+                                    <h5>
+                                        <i class="fa fa-building"></i>
+                                        <a href="#" style="text-decoration: none; color: #000;"
+                                        >
+                                            <strong>{{ " " }} {{ imovel.descricao.titulo }} </strong>
+                                        </a>
+                                        <span class="badge text-bg-success">{{ imovel.preco.tipo_negocio }}</span>
+                                    </h5>
+                                    <h5 class="text-info">
+                                        <strong>{{ formatCurrency(imovel.preco.preco_imovel) }}</strong><a style="float: inline-end"
+                                            class="text-info"></a>
+                                    </h5>
+                                    <h5 class="text-dark">
+                                        <i class="fa fa-user"></i>
+                                        <small>
+                                            {{ " " }} {{ imovel.usuario.nome }} {{ imovel.usuario.sobrenome }}</small>
+                                    </h5>
+                                    <h5 class="text-dark">
+                                        <small><i class="fa fa-map-marker"></i>
+                                            {{ imovel.localizacao.logradouro }},
+                                            {{ imovel.localizacao.numero }} | {{ imovel.localizacao.bairro }},
+                                            {{ imovel.localizacao.cidade }}</small>
+                                    </h5>
+                                    <h5 class="text-dark">
+                                        <small><i class="fa fa-calendar"></i> Atualizado:
+                                            {{ formatarData(imovel.updatedAt) }}</small>
+                                        </h5>
+                                        <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
+                                        <span class="text-success" style="float: inline-end; font-weight: 900">
+                                            {{ getQualidade(imovel.id_imovel) }}</span>
                                 </div>
                             </div>
+                        </a>
                         </div>
-                        <div class="col-2 m-3">
+                        <!-- <div class="col-2 m-3">
                             <div class="card" style="width: 15rem;">
                                 <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -123,7 +155,7 @@
                                     <p class="card-text">Vista para o mar</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 
@@ -199,6 +231,12 @@ export default {
             map: null,
             latitude: '-15.7934',
             longitude: '-47.8823',
+
+            imoveis: [],
+
+            qualidadeProgress: '',
+            qualidade: {},
+            estrelaImovel: {},
         }
     },
 
@@ -219,6 +257,9 @@ export default {
         this.ferchProgress();
         this.fetchMyImoveis();
         this.fetchMyCondominios();
+
+        this.fetchImoveis();
+        // console.log("Aqui estão os imóveis => ", this.imoveis)
     },
 
     watch: {
@@ -246,6 +287,101 @@ export default {
     },
 
     methods: {
+        async fetchImoveis() {
+            try {
+                api.listallImoveis().then((res) => {
+                    this.imoveis = res.data;
+
+                    this.imoveis = this.ultimosImoveis(res.data);
+
+                    this.avaliarQualidadeCadastro(this.imoveis)
+                })
+            } catch (error) {
+                console.error('Erro ao buscar imóveis:', error);
+            }
+        },
+
+        ultimosImoveis(imoveis) {
+            return imoveis
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 5);
+        },
+
+        storeImovelId(id) {
+            sessionStorage.setItem('imovelId', id);
+            this.$router.push({ name: 'imovel' });
+        },
+
+        avaliarQualidadeCadastro(imoveis) {
+            imoveis.forEach(imovel => {
+                let totalCampos = 0;
+                let camposNulos = 0;
+
+                const analisarObjeto = (obj) => {
+                    Object.values(obj).forEach(val => {
+                        if (val && typeof val === 'object' && !Array.isArray(val)) {
+                            analisarObjeto(val);
+                        } else {
+                            totalCampos++;
+                            if (val === null || val === '') {
+                                camposNulos++;
+                            }
+                        }
+                    });
+                };
+
+                analisarObjeto(imovel);
+
+                const pontuacaoMaxima = 10;
+                const pontuacao = Math.round((totalCampos - camposNulos) / totalCampos * pontuacaoMaxima);
+                const porcentagem = Math.round((totalCampos - camposNulos) / totalCampos * 100); // Calcula a porcentagem
+
+                imovel.pontuacaoQualidade = `${pontuacao}/10`;
+                imovel.porcentagemQualidade = porcentagem;
+                console.log('qualidade: ', imovel.pontuacaoQualidade)
+                // this.qualidade = imovel.pontuacaoQualidade;
+                this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
+                this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade
+
+
+                if (porcentagem == 100) {
+                    this.estrelas = 5;
+                    this.msgQualidade = 'Excelente';
+                } else if (porcentagem >= 80) {
+                    this.estrelas = 4;
+                    this.msgQualidade = 'Muito Bom';
+                } else if (porcentagem >= 60) {
+                    this.estrelas = 3;
+                    this.msgQualidade = 'Bom';
+                } else if (porcentagem >= 40) {
+                    this.estrelas = 2;
+                    this.msgQualidade = 'Regular';
+                } else if (porcentagem >= 20) {
+                    this.estrelas = 1;
+                    this.msgQualidade = 'Ruim';
+                } else {
+                    this.estrelas = 0;
+                    this.msgQualidade = 'Péssimo';
+                }
+
+                this.qualidadeProgress = porcentagem;
+                // this.qualidade[imovel.id_imovel] = {
+                //     pontuacaoQualidade: `${pontuacao}/10`,
+                //     estrelas: estrelas,
+                // };
+
+            });
+
+            return imoveis;
+        },
+        getQualidade(id) {
+            // console.log("qualidades: ", this.qualidade)
+            return this.qualidade[id] ? this.qualidade[id] : '';
+        },
+        getEstrelas(id) {
+            return this.qualidade[id] ? this.qualidade[id] : 0;
+        },
+
         initMap() {
             this.map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: this.latitude, lng: this.longitude },
@@ -578,6 +714,25 @@ export default {
             let id_user = this.id_user;
             api.listcondominio(id_user).then((res) => {
                 this.totalCondominios = res.data.response.length;
+            });
+        },
+
+        formatCurrency(value) {
+            if (typeof value !== "number") {
+                value = parseFloat(value);
+            }
+            return value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            });
+        },
+        formatarData(dataString) {
+            if (!dataString) return "";
+            const data = new Date(dataString);
+            return data.toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
             });
         },
     },
