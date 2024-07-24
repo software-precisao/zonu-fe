@@ -326,11 +326,11 @@
 
 
           </div>
-    </div>
-    </main>
+        </div>
+      </main>
 
-    <Footer />
-  </div>
+      <Footer />
+    </div>
   </div>
 </template>
 <script>
@@ -487,15 +487,47 @@ export default {
         this.currentPageCliente++;
       }
     },
-    registerUser(newUser) {
-      if (this.listUsers.length >= 4) {
-        this.msgMaxUsers = 'Não é possível cadastrar mais de 4 usuários.';
-      } else {
-        // lógica para cadastrar o usuário
-        this.listUsers.push(newUser);
-        this.msgMaxUsers = ''; // limpa a mensagem de erro
+    registerUser(newUser, listUsers) {
+      const currentUserCount = listUsers.length;
+      const permissionCheck = canRegisterUser(newUser, currentUserCount);
+
+      if (!permissionCheck.allowed) {
+        console.log(permissionCheck.message);
+        return;
+      }
+
+      listUsers.push(newUser);
+      console.log('Usuário cadastrado com sucesso!');
+    },
+    canRegisterUser(user, currentUserCount) {
+      switch (user.id_nivel) {
+        case 1:
+          // Administrador pode cadastrar quantos quiser
+          return { allowed: true };
+
+        case 3:
+          // Construtora não pode cadastrar ninguém
+          return { allowed: false, message: 'Construtoras não podem cadastrar novos usuários.' };
+
+        case 4:
+          // Corretor tem acesso único e não pode cadastrar ninguém
+          return { allowed: false, message: 'Corretores não podem cadastrar novos usuários.' };
+
+        case 2:
+          // Imobiliaria pode cadastrar de acordo com o plano
+          if (user.id_plano === 1 && currentUserCount >= 5) {
+            return { allowed: false, message: 'Plano imobiliária 1 permite cadastrar até 5 usuários.' }; //plano 1 da imobiliaria que permite cadastrar apenas 5 usuarios 
+          } else if (user.id_plano === 2 && currentUserCount >= 10) {
+            return { allowed: false, message: 'Plano imobiliária 2 permite cadastrar até 10 usuários.' }; //plano 2 da imobiliaria que permite cadastrar apenas 5 usuarios 
+          }
+          return { allowed: true };
+
+        default:
+          // Caso padrão para outros tipos de usuário
+          return { allowed: false, message: 'Permissão desconhecida. Não é possível cadastrar novos usuários.' };
       }
     },
+
     handledSelect() {
       let escolha = this.selectTab;
 
