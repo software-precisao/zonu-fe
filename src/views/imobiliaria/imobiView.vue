@@ -83,7 +83,7 @@
                 <div class="container-fluid mt-3">
                     <div class="row" >
                         <div class="col-2 m-3" v-for="imovel in imoveis">
-                            {{ console.log(imovel) }}
+                            <!-- {{ console.log(imovel) }} -->
                             <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
                             <div class="card" style="width: 15rem;">
                                 <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..." style="width: 240px; height: 180px;">
@@ -338,7 +338,7 @@ export default {
 
                 imovel.pontuacaoQualidade = `${pontuacao}/10`;
                 imovel.porcentagemQualidade = porcentagem;
-                console.log('qualidade: ', imovel.pontuacaoQualidade)
+                // console.log('qualidade: ', imovel.pontuacaoQualidade)
                 // this.qualidade = imovel.pontuacaoQualidade;
                 this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
                 this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade

@@ -119,8 +119,8 @@
               <strong>INFORMAÇÕES DO IMÓVEL</strong>
             </h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              Abaixo, você encontrará uma visão geral detalhada deste imóvel. Essas informações são projetadas para fornecer uma compreensão 
+              completa das características e especificações do imóvel, ajudando você a avaliar se ele atende às suas necessidades e expectativas
             </p>
 
             <div class="box">
@@ -221,8 +221,8 @@
           <div class="col container-box">
             <h2 class="text-title-h2 mt-5"><strong>Cômodos</strong></h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              A seguir, apresentamos a quantidade de cômodos disponíveis neste imóvel. Esta informação proporciona uma visão geral da 
+              disposição e da funcionalidade dos espaços, ajudando você a ter uma ideia clara do layout do imóvel
             </p>
 
             <div class="box">
@@ -346,8 +346,7 @@
               <div class="col-12">
                 <h2 class="text-title-h2 mt-5"><strong>Medidas</strong></h2>
                 <p class="text-title-subtitle mt-2">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
+                  Aqui estão as principais medidas deste imóvel, fornecendo uma visão clara das dimensões e da distribuição dos espaços
                 </p>
               </div>
             </div>
@@ -355,21 +354,21 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área construida</strong></h4>
-                <h2 class=""><strong>{{ imovel.medidas.area_contruida }}m2</strong></h2>
+                <h2 class=""><strong>{{ formatarDecimal(imovel.medidas.area_contruida) }} m2</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área Privativa</strong></h4>
-                <h2 class=""><strong>{{ imovel.medidas.area_privativa}}m2</strong></h2>
+                <h2 class=""><strong>{{ formatarDecimal(imovel.medidas.area_privativa)}} m2</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Área Total</strong></h4>
-                <h2 class=""><strong>{{ imovel.medidas.area_total }}m2</strong></h2>
+                <h2 class=""><strong>{{ formatarDecimal(imovel.medidas.area_total) }} m2</strong></h2>
               </div>
             </div>
           </div>
@@ -382,8 +381,8 @@
               <div class="col-12">
                 <h2 class="text-title-h2 mt-5"><strong>Preço</strong></h2>
                 <p class="text-title-subtitle mt-2">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
+                  Nesta seção, apresentamos os preços relacionados a este imóvel. As informações a seguir fornecem uma visão 
+                  geral dos valores envolvidos, ajudando você a avaliar o custo e a tomar decisões informadas
                 </p>
               </div>
             </div>
@@ -391,56 +390,56 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Valor do Imóvel</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>R$ {{ formatarDecimal(imovel.preco.preco_imovel) }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Valor IPTU</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.preco_iptu }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Período</strong></h4>
-                <h2 class=""><strong>Anual</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.periodo }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Valor do condomínio</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.preco_condominio }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Está financiado?</strong></h4>
-                <h2 class=""><strong>Sim</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.financiado }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Aceita financiamento?</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.aceita_financiamento }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Minha casa Minha vida</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.minhacasa_minhavida }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Valor total de taxas</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.total_mensal_taxas }}</strong></h2>
               </div>
             </div>
 
@@ -448,7 +447,7 @@
               <div class="box-item">
                 <h4 class=""><strong>Descrição das taxas</strong></h4>
                 <h2 class="text-title-subtitle">
-                  <strong>Descrição das taxas</strong>
+                  <strong>{{ imovel.preco.descricao_taxas }}</strong>
                 </h2>
               </div>
             </div>
@@ -456,7 +455,7 @@
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Aceita Permuta?</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.preco.aceita_permuta }}</strong></h2>
               </div>
             </div>
 
@@ -464,7 +463,7 @@
               <div class="box-item">
                 <h4 class=""><strong>Descrição das permutas</strong></h4>
                 <h2 class="text-title-subtitle">
-                  <strong>Descrição das permutas</strong>
+                  <strong>{{ imovel.preco.descricao_permuta }}</strong>
                 </h2>
               </div>
             </div>
@@ -478,16 +477,16 @@
               <strong>CARACTERÍSTICAS DO IMÓVEL</strong>
             </h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              A seguir, você encontrará as características adicionais deste imóvel. Essas informações destacam aspectos 
+              importantes e diferenciais que podem agregar valor e conforto ao seu dia a dia
             </p>
 
-            <div class="box">
+            <div class="box" v-for="caracteristica in imovel.caracteristicas" :key="caracteristica.id_caracteristica">
               <div class="box-item">
-                <div class="box-check">
+                <div class="box-check ">
                   <i class="fas fa-check"></i>
                   <h4 class="ms-2 text-title-check">
-                    <strong> Característica aqui </strong>
+                    <strong> {{caracteristica.detalhesCaracteristica ? caracteristica.detalhesCaracteristica.nome_caracteristica : null}} </strong>
                   </h4>
                 </div>
               </div>
@@ -500,115 +499,116 @@
           <div class="col container-box">
             <h2 class="text-title-h2 mt-5"><strong>LOCALIZAÇÃO</strong></h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              Conheça a localização deste imóvel e descubra as vantagens de viver em uma área estratégica e conveniente. 
+              A seção a seguir fornece uma visão geral da localização do imóvel
             </p>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>CEP</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.cep }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>País</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.pais }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Estado</strong></h4>
-                <h2 class=""><strong>Anual</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.estado }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Cidade</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.cidade }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Bairro</strong></h4>
-                <h2 class=""><strong>Sim</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.bairro }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Logradouro</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.logradouro }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Número</strong></h4>
-                <h2 class=""><strong>Não</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.numero }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Complemento</strong></h4>
-                <h2 class=""><strong>R$ 0,00</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.complemento }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>ID da Unidade</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.numero_unidade }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Andar</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.andar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Unidades por andar</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.unidade_por_andar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Total de andares</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.total_andar }}</strong></h2>
               </div>
             </div>
 
             <div class="box">
               <div class="box-item">
                 <h4 class=""><strong>Total de torres</strong></h4>
-                <h2 class=""><strong>Plano</strong></h2>
+                <h2 class=""><strong>{{ imovel.localizacao.total_torres }}</strong></h2>
               </div>
             </div>
 
-            <div class="col-12">
-              <iframe
+            <div class="col-12 relative">
+              <!-- <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29392.21038117975!2d-43.17517506523439!3d-22.94925859999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9980409039f845%3A0x8075d7bcdfbcb48c!2zUMOjbyBkZSBBw6fDumNhcg!5e0!3m2!1spt-BR!2sbr!4v1712992417057!5m2!1spt-BR!2sbr"
                 class="map"
                 style="border: 0; padding: 0"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              ></iframe> -->
+              <div id="map" ref="mapElement" style="width: 100%; height: 330px; position: sticky;"></div>
             </div>
 
             <div class="col-12">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!4v1712993564505!6m8!1m7!1s31EpFRlE9UYp-yoxEBPrxg!2m2!1d-22.94616376878959!2d-43.16246809441068!3f52.714792538966265!4f-8.270957620796835!5f0.7820865974627469"
+                 :src="streetViewUrl"
                 class="map"
                 style="border: 0; padding: 0"
                 allowfullscreen=""
@@ -624,16 +624,16 @@
           <div class="col container-box">
             <h2 class="text-title-h2 mt-5"><strong>PROXIMIDADES</strong></h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              Descubra as vantagens de viver próximo a uma variedade de serviços e amenidades. A seção a seguir destaca as 
+              principais atrações e facilidades nas proximidades deste imóvel
             </p>
 
-            <div class="box">
+            <div class="box" v-for="proximidade in imovel.proximidades" :key="proximidade.id_proximidade">
               <div class="box-item">
                 <div class="box-check">
                   <i class="fas fa-check"></i>
                   <h4 class="ms-2 text-title-check">
-                    <strong> Proximidades aqui </strong>
+                    <strong> {{proximidade.detalhesProximidade ? proximidade.detalhesProximidade.nome_proximidade : null}} </strong>
                   </h4>
                 </div>
               </div>
@@ -646,29 +646,14 @@
           <div class="col container-box">
             <h2 class="text-title-h2 mt-5"><strong>COMPLEMENTOS</strong></h2>
             <p class="text-title-subtitle mt-2">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque
+              Para uma visão mais detalhada e completa deste imóvel, assista ao vídeo de apresentação abaixo. Este vídeo oferece um tour virtual, 
+              destacando os principais aspectos e características do imóvel, e ajudando você a visualizar melhor o espaço
             </p>
-
-            <div class="box-video">
+            <div class="box-video mx-auto" style="max-width: 100%;">
               <iframe
                 width="100%"
                 height="300"
-                src="https://www.youtube.com/embed/cxxDWxtZP84"
-                title="APARTAMENTO LUXUOSO COM 163 m2 COM VISTA DEFINITIVA PRÓXIMO AO CENTRO ADMINISTRATIVO DE GOIÂNIA"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </div>
-
-            <div class="box-video">
-              <iframe
-                width="100%"
-                height="300"
-                src="https://www.youtube.com/embed/xYgiyGoPeag"
-                title="Apartamento à venda | 3 Quartos | Ipanema | Rio de Janeiro/RJ | Meu Metro Quadrado Imóveis"
+                :src="imovel.complemento.link_youtube.replace('watch?v=', 'embed/')"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -728,6 +713,7 @@ import Navbar from "../../../components/navbar/index.vue";
 import Footer from "../../../components/footer/index.vue";
 import api from '../../../../service/api/imoveis/index'
 import apiRaiz from '../../../../service/api/index'
+import axios from "axios";
 
 export default {
   name: "ImovelView",
@@ -741,7 +727,13 @@ export default {
       imovelId: null,
       imovel: {},
 
-      condominio: "Condomínio",
+      condominio: "Sem condomínio",
+
+      latitude: -15.7942,
+      longitude: -47.8822,
+      map: null,
+      marker: null,
+      
     }
   },
 
@@ -805,18 +797,24 @@ export default {
     }
 
     this.fetchCondominio()
+    this.initMap()
   },
   
   created() {
-    console.log(sessionStorage.getItem('imovelId'))
     this.imovelId = sessionStorage.getItem('imovelId');
     this.fetchImovel()
+  },
+
+  computed: {
+    streetViewUrl() {
+      const apiKey = "AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE";
+      return `https://www.google.com/maps/embed/v1/streetview?key=${apiKey}&location=${this.latitude},${this.longitude}&heading=210&pitch=10&fov=100`;
+    },
   },
 
   methods: {
     fetchImovel() {
       api.obterImovel(this.imovelId).then((res) => {
-        console.log(res.data)
         this.imovel = res.data
       })
     },
@@ -833,6 +831,89 @@ export default {
           }
         })
       })
+    },
+
+    initMap() {
+      this.buscarCoordenadas(this.imovel.localizacao.cep, this.imovel.localizacao.logradouro, this.imovel.localizacao.cidade, this.imovel.localizacao.estado, this.imovel.localizacao.bairro, this.imovel.localizacao.numero).then(() => {
+
+        this.map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: this.latitude, lng: this.longitude },
+            zoom: 19
+        });
+  
+        this.addMarker();
+      })
+    },
+
+    addMarker() {
+      const lat = this.latitude;
+      const lng = this.longitude;
+
+      if (!isNaN(lat) && !isNaN(lng)) {
+          const customIcon = {
+              url: 'https://zonu.com.br/emailmkt/IconLocationMaps.png', // Caminho para o ícone personalizado
+              scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
+              anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+          };
+
+          const markers = new google.maps.Marker({
+              position: { lat: lat, lng: lng },
+              map: this.map,
+              icon: customIcon
+          });
+
+          const infowindow = new google.maps.InfoWindow({
+              content: `Latitude: ${lat}, Longitude: ${lng}`
+          });
+
+          markers.addListener('click', () => {
+              infowindow.open(this.map, markers);
+          });
+
+          this.marker = markers;
+      } else {
+          console.error('Coordenadas inválidas');
+      }
+    },
+
+    async buscarCoordenadas(cep, rua, cidade, estado, bairro, numero) {
+      const apiKey = "AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE";
+      // console.log(cep, rua, cidade, estado, bairro, numero)
+
+      try {
+        const res = await axios.get(
+          "https://maps.googleapis.com/maps/api/geocode/json",
+          {
+            params: {
+              address: `${rua}, ${numero}, ${cidade}, ${estado}, ${cep}`,
+              key: apiKey,
+            },
+          }
+        );
+
+
+        if (res.data && res.data.results && res.data.results.length > 0) {
+          const location = res.data.results[0].geometry.location;
+          const latitude = location.lat;
+          const longitude = location.lng;
+
+          this.latitude = latitude;
+          this.longitude = longitude;
+
+          return { latitude, longitude };
+        } else {
+          console.error("Coordenadas não encontradas para o CEP informado.");
+          return null;
+        }
+      } catch (error) {
+        console.error("Erro ao buscar coordenadas:", error);
+        return null;
+      }
+    },
+    formatarDecimal(valor) {
+        let valorNumerico = valor.replace(/\D/g, '');
+        valorNumerico = (valorNumerico / 100).toFixed(2).replace('.', ',');
+        return valorNumerico.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     },
   },
 };
