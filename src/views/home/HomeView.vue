@@ -389,29 +389,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" v-for="item in allPlanos">
+                    <!-- {{console.log('item =>', item)}} -->
                     <div class="card shadow-lg mb-4 border-0">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
-                                <h1 class="fw-bold">{{ formatCurrency(zonuConstrutoraPrice) }}</h1><span
+                                <h1 class="fw-bold">{{ formatCurrency(item.valor_plano) }}</h1><span
                                     class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">Zonu Construtora</h5>
-                            <span class="text-700 text-center d-block">Ideal para sua construtora</span>
+                            <h5 class="fw-bold text-center">{{ item.nome_plano }}</h5>
+                            <span class="text-700 text-center d-block">{{item.descricao}}</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Cadastro &amp;
-                                    gestão de imóveis</li>
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Relatório</li>
+                                <li class="text-700 py-2 text-secondary" v-for="(itens, index) in item.itens_do_plano[0]"><i class="fa fa-check"></i> &nbsp;  {{ itens }}</li>
+                                <!-- <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Relatório</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Gestão de m2</li>
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte</li>
+                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte</li> -->
                             </ul>
-                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Cadastre-se agora</a>
+                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#" >Cadastre-se agora</a>
+                            <!-- <div class="d-flex flex-column">
+                                <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Assine agora</a>
+                                <a href="#" class="text-center">Ou teste por 7 dias</a>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <!-- <div class="col-lg-4">
                     <div class="card shadow-lg mb-4">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
@@ -446,13 +450,12 @@
                                 <h1 class="fw-bold">{{ formatCurrency(zonuCorretorPrice) }}</h1><span
                                     class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">Zonu Corretor</h5>
-                            <span class="text-700 text-center d-block">A melhor escolha para corretores</span>
+                            <h5 class="fw-bold text-center">{{nomeCorretora}}</h5>
+                            <span class="text-700 text-center d-block">{{ descricaoCorretora }}</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Drag &amp; Drop
-                                    Builder</li>
+                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Drag</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> 1,000's of
                                     Templates</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Blog Support Tools
@@ -466,7 +469,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- end of .container-->
@@ -876,6 +879,8 @@
 </template>
 <script>
 
+import api from '../../../service/api/planos/index'
+
 export default {
     name: 'HomeView',
   data() {
@@ -886,37 +891,71 @@ export default {
       zonuCorretorPrice: 70,
       annualDiscount: 0.20, // setando que o plano anual terá 20% de desconto
       planPeriod: "/mês", // Período atual (mensal ou anual)
+      allPlanos: [],
     };
   },
   methods: {
     togglePlan() {
       this.planPeriod = this.isAnnual ? "/ano" : "/mês";
-      this.updatePrices();
+    //   this.updatePrices();
     },
-    updatePrices() {
-      const monthlyPrices = {
-        zonuConstrutora: 80, // Preço mensal
-        zonuImobiliaria: 99, // Preço mensal
-        zonuCorretor: 70, // Preço mensal
-      };
+    // updatePrices() {
+    //   const monthlyPrices = {
+    //     zonuConstrutora: this.zonuConstrutoraPrice, // Preço mensal
+    //     zonuImobiliaria: this.zonuImobiliariaPrice, // Preço mensal
+    //     zonuCorretor: this.zonuConstrutoraPrice, // Preço mensal
+    //   };
 
-      if (this.isAnnual) {
-        this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora * 12 * (1 - this.annualDiscount);
-        this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria * 12 * (1 - this.annualDiscount);
-        this.zonuCorretorPrice = monthlyPrices.zonuCorretor * 12 * (1 - this.annualDiscount);
-      } else {
-        this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora;
-        this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria;
-        this.zonuCorretorPrice = monthlyPrices.zonuCorretor;
-      }
-    },
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2).replace('.', ',')}`;
+
+    //   if (this.isAnnual) {
+    //     console.log(
+    //         monthlyPrices
+    //     )
+    //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora * 12 * (1 - this.annualDiscount);
+    //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria * 12 * (1 - this.annualDiscount);
+    //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor * 12 * (1 - this.annualDiscount);
+    //   } else {
+    //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora;
+    //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria;
+    //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor;
+    //   }
+    // },
+    parseCurrency(value) {
+    if (typeof value === 'string' && value) {
+      let valor = value.replace(/\./g, '').replace(',', '.');
+      return parseFloat(valor);
+    } else {
+      console.error('Invalid value provided:', value);
+      return 0; // valor padrão
+    }
+  },
+  formatCurrency(value) {
+    let valor = this.parseCurrency(value);
+    if (this.isAnnual) {
+      valor *= 12;
+    }
+    return `R$ ${valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+  },
+    cadastrarSe() {
+        console.log(this.allPlanos)
     },
   },
   mounted() {
-    this.updatePrices(); // Inicializa os preços ao montar o componente
+    // this.updatePrices(); // Inicializa os preços ao montar o componente
+    api.getPlanos().then((res) => {
+        this.allPlanos = res.data
+        console.log(res.data)
+    })
   },
+//   computed: {
+//     itensCorretora() {
+//         return this.allPlanos[0].itens_do_plano.filter((item) => {
+//             console.log(item)
+//             return item.nome_item
+//         })
+//         // return [1, 2]
+//     }
+//   }
 };
 
 
