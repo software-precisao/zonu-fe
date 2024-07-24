@@ -432,7 +432,7 @@ export default {
 
                 imovel.pontuacaoQualidade = `${pontuacao}/10`;
                 imovel.porcentagemQualidade = porcentagem;
-                console.log('qualidade: ', imovel.pontuacaoQualidade)
+                // console.log('qualidade: ', imovel.pontuacaoQualidade)
                 // this.qualidade = imovel.pontuacaoQualidade;
                 this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
                 this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade
