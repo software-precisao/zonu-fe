@@ -23,14 +23,13 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <select style="height: 55px;" id="disabledSelect" class="form-select">
-                                    <option>Preço</option>
-                                    <option value="Venda">500R$ - 1.000R$</option>
-                                    <option value="Aluguel">1.000R$ - 2.000R$</option>
-                                    <option value="Aluguel">2.000R$ - 3.000R$</option>
-                                    <option value="Aluguel">3.000R$ - 4.000R$</option>
-                                    <option value="Aluguel">4.000R$ - .000R$</option>
-
+                                <select v-model="faixaPreco" style="height: 55px;" class="form-select">
+                                    <option value="">Preço</option>
+                                    <option value="500-1000">500R$ - 1.000R$</option>
+                                    <option value="1000-2000">1.000R$ - 2.000R$</option>
+                                    <option value="2000-3000">2.000R$ - 3.000R$</option>
+                                    <option value="3000-4000">3.000R$ - 4.000R$</option>
+                                    <option value="4000-20000">4.000R$ - 20.000R$</option>
                                 </select>
                             </div>
                             <div class="col-1">
@@ -250,6 +249,7 @@ export default {
             tipoNegocio: '',
             cidades: [],
             cidadeSelecionada: '',
+            faixaPreco: '',
 
             qualidadeProgress: '',
             qualidade: {},
@@ -302,6 +302,15 @@ export default {
                 this.mostrarMapa = false;
             }
         },
+        faixaPreco(newVal) {
+            this.fetchImoveisFiltrados();
+        },
+        cidadeSelecionada(newVal) {
+            this.fetchImoveisFiltrados();
+        },
+        tipoNegocio(newVal) {
+            this.fetchImoveisFiltrados();
+        },
     },
 
     methods: {
@@ -319,7 +328,7 @@ export default {
 
         async fetchImoveisFiltrados() {
             try {
-                const response = await api.listallImoveis(); // Ou a URL/endpoint específico para busca filtrada
+                const response = await api.listallImoveis(); 
                 let imoveis = response.data;
 
                 if (this.tipoNegocio) {
@@ -328,6 +337,14 @@ export default {
 
                 if (this.cidadeSelecionada) {
                     imoveis = imoveis.filter(imovel => imovel.localizacao.cidade === this.cidadeSelecionada);
+                }
+
+                if (this.faixaPreco) {
+                    const [minPreco, maxPreco] = this.faixaPreco.split('-').map(Number);
+                    imoveis = imoveis.filter(imovel => {
+                        const preco = parseFloat(imovel.preco.preco_imovel);
+                        return preco >= minPreco && preco <= maxPreco;
+                    });
                 }
 
                 this.imoveis = this.ultimosImoveis(imoveis);
@@ -351,8 +368,9 @@ export default {
         onCidadeChange() {
             this.fetchImoveisFiltrados();
         },
+
         onTipoNegocioChange() {
-            this.fetchImoveisFiltrados();
+            this.fetchImoveisPorTipo(this.tipoNegocio);
         },
 
         async fetchImoveisPorTipo(tipo) {
@@ -373,9 +391,7 @@ export default {
             }
         },
 
-        onTipoNegocioChange() {
-            this.fetchImoveisPorTipo(this.tipoNegocio);
-        },
+
 
 
 
