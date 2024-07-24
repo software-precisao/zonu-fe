@@ -7,6 +7,7 @@ import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
 import TokenView from "../views/dashboard/token/cadTokenView.vue";
 import MainView from "../views/dashboard/MainView.vue";
 import MainViewAdmin from "../views/dashboard/MainViewAdmin.vue";
+import PaymentView from "../views/payment/paymentView.vue";
 import ImobiliariaView from "../views/imobiliaria/imobiView.vue";
 import FiltroImovelView from "../views/imobiliaria/pesquisaFiltroView.vue";
 import CadImovelView from "../views/dashboard/CadImovelView.vue";
@@ -23,7 +24,7 @@ import ListTicketView from "../views/dashboard/ticket/ResivTicketView.vue";
 import TermosView from "../views/dashboard/termos/CondicoesView.vue";
 import PrivacidadeView from "../views/dashboard/termos/PrivacidadeView.vue";
 
-import md5 from 'crypto-js/md5';
+import md5 from "crypto-js/md5";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -57,12 +58,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/dashboard/${hash}`);
-    }
+    },
   },
   {
     path: "/dashboard/:hash",
     name: "DashboardWithHash",
-    component: MainView
+    component: MainView,
   },
 
   {
@@ -72,12 +73,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/token/${hash}`);
-    }
+    },
   },
   {
     path: "/token/:hash",
     name: "TokenWithHash",
-    component: TokenView
+    component: TokenView,
   },
 
   {
@@ -87,12 +88,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/sua-imobiliaria-virtual/${hash}`);
-    }
+    },
   },
   {
     path: "/sua-imobiliaria-virtual/:hash",
     name: "ImobiliariaWithHash",
-    component: ImobiliariaView
+    component: ImobiliariaView,
   },
   {
     path: "/filtro-imovel",
@@ -101,12 +102,26 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/filtro-imovel/${hash}`);
-    }
+    },
   },
   {
     path: "/filtro-imovel/:hash",
     name: "filtroWithHash",
-    component: FiltroImovelView
+    component: FiltroImovelView,
+  },
+  {
+    path: "/pagamento-zonu",
+    name: "pagamento-zonu",
+    component: PaymentView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/pagamento-zonu/${hash}`);
+    },
+  },
+  {
+    path: "/pagamento-zonu/:hash",
+    name: "pagamentoWithHash",
+    component: PaymentView,
   },
   {
     path: "/dashboard-admin",
@@ -115,12 +130,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/dashboard-admin/${hash}`);
-    }
+    },
   },
   {
     path: "/dashboard-admin/:hash",
     name: "DashboardAdminWithHash",
-    component: MainViewAdmin
+    component: MainViewAdmin,
   },
   {
     path: "/novo-plano",
@@ -129,12 +144,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/novo-plano/${hash}`);
-    }
+    },
   },
   {
     path: "/novo-plano/:hash",
     name: "PlanoWithHash",
-    component: PlanoView
+    component: PlanoView,
   },
   {
     path: "/novo-imovel",
@@ -143,12 +158,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/novo-imovel/${hash}`);
-    }
+    },
   },
   {
     path: "/novo-imovel/:hash",
     name: "NovoImovelWithHash",
-    component: CadImovelView
+    component: CadImovelView,
   },
   {
     path: "/caracteristica",
@@ -157,12 +172,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/caracteristica/${hash}`);
-    }
+    },
   },
   {
     path: "/caracteristica/:hash",
     name: "CaracteristicaWithHash",
-    component: CaracteristicaView
+    component: CaracteristicaView,
   },
   {
     path: "/novo-condominio",
@@ -171,12 +186,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/novo-condominio/${hash}`);
-    }
+    },
   },
   {
     path: "/novo-condominio/:hash",
     name: "NovoCondominioWithHash",
-    component: CadCondominioView
+    component: CadCondominioView,
   },
   {
     path: "/proximidades",
@@ -185,12 +200,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/proximidades/${hash}`);
-    }
+    },
   },
   {
     path: "/proximidades/:hash",
     name: "ProximidadesWithHash",
-    component: ProximidadesView
+    component: ProximidadesView,
   },
   {
     path: "/meu-plano",
@@ -199,12 +214,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/meu-plano/${hash}`);
-    }
+    },
   },
   {
     path: "/meu-plano/:hash",
     name: "MeuPlanoWithHash",
-    component: MyPlanView
+    component: MyPlanView,
   },
   {
     path: "/imovel",
@@ -213,12 +228,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/imovel/${hash}`);
-    }
+    },
   },
   {
     path: "/imovel/:hash",
     name: "ImovelWithHash",
-    component: ImovelView
+    component: ImovelView,
   },
   {
     path: "/seu-perfil",
@@ -227,12 +242,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/seu-perfil/${hash}`);
-    }
+    },
   },
   {
     path: "/seu-perfil/:hash",
     name: "PerfilWithHash",
-    component: PerfilView
+    component: PerfilView,
   },
   {
     path: "/usuarios",
@@ -241,12 +256,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/usuarios/${hash}`);
-    }
+    },
   },
   {
     path: "/usuarios/:hash",
     name: "UsuariosWithHash",
-    component: UserView
+    component: UserView,
   },
   {
     path: "/clientes",
@@ -255,12 +270,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/clientes/${hash}`);
-    }
+    },
   },
   {
     path: "/clientes/:hash",
     name: "ClientesWithHash",
-    component: ClienteView
+    component: ClienteView,
   },
   {
     path: "/novo-ticket",
@@ -269,12 +284,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/novo-ticket/${hash}`);
-    }
+    },
   },
   {
     path: "/novo-ticket/:hash",
     name: "NovoTicketWithHash",
-    component: NovoTicketView
+    component: NovoTicketView,
   },
   {
     path: "/list-ticket",
@@ -283,12 +298,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/list-ticket/${hash}`);
-    }
+    },
   },
   {
     path: "/list-ticket/:hash",
     name: "ListTicketWithHash",
-    component: ListTicketView
+    component: ListTicketView,
   },
   {
     path: "/termos",
@@ -297,12 +312,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/termos/${hash}`);
-    }
+    },
   },
   {
     path: "/termos/:hash",
     name: "TermosWithHash",
-    component: TermosView
+    component: TermosView,
   },
   {
     path: "/privacidade",
@@ -311,17 +326,17 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
       next(`/privacidade/${hash}`);
-    }
+    },
   },
   {
     path: "/privacidade/:hash",
     name: "PrivacidadeWithHash",
-    component: PrivacidadeView
+    component: PrivacidadeView,
   },
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
