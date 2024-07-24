@@ -7,18 +7,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
-                                <select style="height: 55px;" id="disabledSelect" class="form-select">
-                                    <option>Disabled select</option>
+                                <select v-model="tipoNegocio" @change="onTipoNegocioChange" style="height: 55px;"
+                                    class="form-select">
+                                    <option value="">Venda ou Aluguel</option>
+                                    <option value="Venda">Venda</option>
+                                    <option value="Aluguel">Aluguel</option>
                                 </select>
                             </div>
                             <div class="col-5">
                                 <select style="height: 55px;" id="disabledSelect" class="form-select">
-                                    <option>Disabled select</option>
+                                    <option>Bairro</option>
                                 </select>
                             </div>
                             <div class="col-3">
                                 <select style="height: 55px;" id="disabledSelect" class="form-select">
-                                    <option>Disabled select</option>
+                                    <option>Preço</option>
                                 </select>
                             </div>
                             <div class="col-1">
@@ -81,46 +84,48 @@
                 </div>
 
                 <div class="container-fluid mt-3">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-2 m-3" v-for="imovel in imoveis">
                             {{ console.log(imovel) }}
-                            <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
-                            <div class="card" style="width: 15rem;">
-                                <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..." style="width: 240px; height: 180px;">
-                                <div class="card-body">
-                                    <h5>
-                                        <i class="fa fa-building"></i>
-                                        <a href="#" style="text-decoration: none; color: #000;"
-                                        >
-                                            <strong>{{ " " }} {{ imovel.descricao.titulo }} </strong>
-                                        </a>
-                                        <span class="badge text-bg-success">{{ imovel.preco.tipo_negocio }}</span>
-                                    </h5>
-                                    <h5 class="text-info">
-                                        <strong>{{ formatCurrency(imovel.preco.preco_imovel) }}</strong><a style="float: inline-end"
-                                            class="text-info"></a>
-                                    </h5>
-                                    <h5 class="text-dark">
-                                        <i class="fa fa-user"></i>
-                                        <small>
-                                            {{ " " }} {{ imovel.usuario.nome }} {{ imovel.usuario.sobrenome }}</small>
-                                    </h5>
-                                    <h5 class="text-dark">
-                                        <small><i class="fa fa-map-marker"></i>
-                                            {{ imovel.localizacao.logradouro }},
-                                            {{ imovel.localizacao.numero }} | {{ imovel.localizacao.bairro }},
-                                            {{ imovel.localizacao.cidade }}</small>
-                                    </h5>
-                                    <h5 class="text-dark">
-                                        <small><i class="fa fa-calendar"></i> Atualizado:
-                                            {{ formatarData(imovel.updatedAt) }}</small>
+                            <a href="#" @click="storeImovelId(imovel.id_imovel)"
+                                style="color: inherit; text-decoration: none;">
+                                <div class="card" style="width: 15rem;">
+                                    <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top"
+                                        alt="..." style="width: 240px; height: 180px;">
+                                    <div class="card-body">
+                                        <h5>
+                                            <i class="fa fa-building"></i>
+                                            <a href="#" style="text-decoration: none; color: #000;">
+                                                <strong>{{ " " }} {{ imovel.descricao.titulo }} </strong>
+                                            </a>
+                                            <span class="badge text-bg-success">{{ imovel.preco.tipo_negocio }}</span>
+                                        </h5>
+                                        <h5 class="text-info">
+                                            <strong>{{ formatCurrency(imovel.preco.preco_imovel) }}</strong><a
+                                                style="float: inline-end" class="text-info"></a>
+                                        </h5>
+                                        <h5 class="text-dark">
+                                            <i class="fa fa-user"></i>
+                                            <small>
+                                                {{ " " }} {{ imovel.usuario.nome }} {{ imovel.usuario.sobrenome
+                                                }}</small>
+                                        </h5>
+                                        <h5 class="text-dark">
+                                            <small><i class="fa fa-map-marker"></i>
+                                                {{ imovel.localizacao.logradouro }},
+                                                {{ imovel.localizacao.numero }} | {{ imovel.localizacao.bairro }},
+                                                {{ imovel.localizacao.cidade }}</small>
+                                        </h5>
+                                        <h5 class="text-dark">
+                                            <small><i class="fa fa-calendar"></i> Atualizado:
+                                                {{ formatarData(imovel.updatedAt) }}</small>
                                         </h5>
                                         <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
                                         <span class="text-success" style="float: inline-end; font-weight: 900">
                                             {{ getQualidade(imovel.id_imovel) }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
                         </div>
                         <!-- <div class="col-2 m-3">
                             <div class="card" style="width: 15rem;">
@@ -233,6 +238,8 @@ export default {
             longitude: '-47.8823',
 
             imoveis: [],
+            tipoNegocio: '',
+            bairros: [],
 
             qualidadeProgress: '',
             qualidade: {},
@@ -299,6 +306,28 @@ export default {
             } catch (error) {
                 console.error('Erro ao buscar imóveis:', error);
             }
+        },
+
+        async fetchImoveisPorTipo(tipo) {
+            try {
+                let response = await api.listallImoveis();
+                let imoveis = response.data;
+
+
+                if (tipo) {
+                    imoveis = imoveis.filter(imovel => imovel.preco.tipo_negocio === tipo);
+                }
+
+                this.imoveis = imoveis;
+                this.imoveis = this.ultimosImoveis(imoveis);
+                this.avaliarQualidadeCadastro(this.imoveis);
+            } catch (error) {
+                console.error('Erro ao buscar imóveis por tipo:', error);
+            }
+        },
+
+        onTipoNegocioChange() {
+            this.fetchImoveisPorTipo(this.tipoNegocio);
         },
 
         ultimosImoveis(imoveis) {
