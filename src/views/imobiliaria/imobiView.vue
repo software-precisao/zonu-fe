@@ -15,13 +15,22 @@
                                 </select>
                             </div>
                             <div class="col-5">
-                                <select style="height: 55px;" id="disabledSelect" class="form-select">
-                                    <option>Bairro</option>
+                                <select v-model="cidadeSelecionada" @change="onCidadeChange" style="height: 55px;"
+                                    class="form-select">
+                                    <option value="">Cidade</option>
+                                    <option v-for="cidade in cidades" :key="cidade" :value="cidade">{{ cidade }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-3">
                                 <select style="height: 55px;" id="disabledSelect" class="form-select">
                                     <option>Preço</option>
+                                    <option value="Venda">500R$ - 1.000R$</option>
+                                    <option value="Aluguel">1.000R$ - 2.000R$</option>
+                                    <option value="Aluguel">2.000R$ - 3.000R$</option>
+                                    <option value="Aluguel">3.000R$ - 4.000R$</option>
+                                    <option value="Aluguel">4.000R$ - .000R$</option>
+
                                 </select>
                             </div>
                             <div class="col-1">
@@ -239,7 +248,8 @@ export default {
 
             imoveis: [],
             tipoNegocio: '',
-            bairros: [],
+            cidades: [],
+            cidadeSelecionada: '',
 
             qualidadeProgress: '',
             qualidade: {},
@@ -266,6 +276,7 @@ export default {
         this.fetchMyCondominios();
 
         this.fetchImoveis();
+        this.fetchCidades();
         // console.log("Aqui estão os imóveis => ", this.imoveis)
     },
 
@@ -296,16 +307,52 @@ export default {
     methods: {
         async fetchImoveis() {
             try {
-                api.listallImoveis().then((res) => {
-                    this.imoveis = res.data;
-
-                    this.imoveis = this.ultimosImoveis(res.data);
-
-                    this.avaliarQualidadeCadastro(this.imoveis)
-                })
+                const response = await api.listallImoveis();
+                this.imoveis = response.data;
+                this.imoveis = this.ultimosImoveis(response.data);
+                this.avaliarQualidadeCadastro(this.imoveis);
             } catch (error) {
                 console.error('Erro ao buscar imóveis:', error);
             }
+        },
+
+
+        async fetchImoveisFiltrados() {
+            try {
+                const response = await api.listallImoveis(); // Ou a URL/endpoint específico para busca filtrada
+                let imoveis = response.data;
+
+                if (this.tipoNegocio) {
+                    imoveis = imoveis.filter(imovel => imovel.tipo_negocio === this.tipoNegocio);
+                }
+
+                if (this.cidadeSelecionada) {
+                    imoveis = imoveis.filter(imovel => imovel.localizacao.cidade === this.cidadeSelecionada);
+                }
+
+                this.imoveis = this.ultimosImoveis(imoveis);
+                this.avaliarQualidadeCadastro(this.imoveis);
+            } catch (error) {
+                console.error('Erro ao buscar imóveis filtrados:', error);
+            }
+        },
+
+        async fetchCidades() {
+            try {
+                const response = await api.listallImoveis(); // Ou o endpoint que retorna todas as cidades
+                const imoveis = response.data;
+                const cidades = [...new Set(imoveis.map(imovel => imovel.localizacao.cidade))];
+                this.cidades = cidades;
+            } catch (error) {
+                console.error('Erro ao buscar cidades:', error);
+            }
+        },
+
+        onCidadeChange() {
+            this.fetchImoveisFiltrados();
+        },
+        onTipoNegocioChange() {
+            this.fetchImoveisFiltrados();
         },
 
         async fetchImoveisPorTipo(tipo) {
@@ -329,6 +376,8 @@ export default {
         onTipoNegocioChange() {
             this.fetchImoveisPorTipo(this.tipoNegocio);
         },
+
+
 
         ultimosImoveis(imoveis) {
             return imoveis
