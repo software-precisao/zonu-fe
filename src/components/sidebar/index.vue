@@ -60,6 +60,15 @@
             </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/clientes">
+            <i class="align-middle" data-feather="user-plus"></i>
+            <span class="align-middle"
+              >Leads Site
+              <span class="badge text-bg-primary">{{ totalClientes }}</span>
+            </span>
+          </a>
+        </li>
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">

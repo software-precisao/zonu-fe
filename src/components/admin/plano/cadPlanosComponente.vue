@@ -97,7 +97,7 @@
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
                                 <h1 class="fw-bold">{{ formatCurrency(item.valor_plano) }}</h1><span
-                                    class="d-flex align-items-center">/{{ planPeriod }}</span>
+                                    class="d-flex align-items-center">{{ planPeriod }}</span>
                             </div>
                             <h5 class="fw-bold text-center">{{ item.nome_plano }}</h5>
                             <span class="text-700 text-center d-block">{{item.descricao}}</span>

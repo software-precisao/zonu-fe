@@ -1,6 +1,7 @@
 <template>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="data-navbar-on-scroll">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" style="background-color: #FFF !important;"
+        data-navbar-on-scroll="data-navbar-on-scroll">
         <div class="container"><a class="navbar-brand d-flex align-items-center fw-bold fs-2" href="index.html">
                 <img src="../../../assets/images/logo.svg" class="img-fluid" width="100" alt="">
             </a>
@@ -37,7 +38,7 @@
         <div class="container position-relative">
             <div class="row align-items-center py-8">
                 <div class="col-md-5 col-lg-6 order-md-1 text-center text-md-end"><img
-                        src="../../../assets/img/illustrations/plataform.png" width="750" alt="" /></div>
+                        src="../../../assets/img/illustrations/plataform.png" width="550" alt="" /></div>
                 <div class="col-md-7 col-lg-6 text-center text-md-start"><span
                         class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3">#SejaZonu<img
                             class="img-fluid float-start me-3" src="../../../assets/img/illustrations/arrow-right.png"
@@ -68,18 +69,22 @@
 
             <div class="row align-items-center justify-content-center justify-content-lg-around mt-4">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 px-md-0 mb-5 mb-lg-0 text-center">
-                    <form class="row">
+                    <div class="row">
 
                         <div class="col-9" style="margin-left: 10%;">
                             <label for="inputPassword2" class="visually-hidden">Seu email</label>
-                            <input style="border-top-left-radius: 30px; border-bottom-left-radius: 30px;" type="text"
-                                class="form-control" id="inputPassword2" placeholder="Deixe seu email aqui">
+                            <input required style="border-top-left-radius: 30px; border-bottom-left-radius: 30px;"
+                                type="email" class="form-control" v-model="inscrever" id="inputPassword2"
+                                placeholder="Deixe seu email aqui">
                         </div>
                         <div class="col-1">
-                            <button type="submit" class="btn btn-primary mb-3"
+                            <button @click="handleInscrever()" class="btn btn-primary mb-3"
                                 style="margin-left: -30px; height: 50px; width: 150px;">Inscrever-se</button>
                         </div>
-                    </form>
+
+                        <p v-if="msgSuccess" class="text-success"><i class="fa fa-check"></i> E-mail cadastrado com
+                            sucesso</p>
+                    </div>
 
                 </div>
 
@@ -100,34 +105,34 @@
                         src="../../../assets/img/illustrations/location.png" width="550" alt="" /></div>
                 <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
                     <h6 class="fw-bold fs-4 display-3 lh-sm">Vantagens de ser <br />Zonu</h6>
-                    <p class="my-4">Increase productivity with a simple to-do app. app for <br
-                            class="d-none d-xl-block" />managing your personal budgets.</p>
+                    <p class="my-4">Transforme suas oportunidades imobiliárias em sucesso com tecnologia  <br
+                            class="d-none d-xl-block" />avançada e insights precisos.</p>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/img/illustrations/fast-performance.png"
+                        <div><img class="img-fluid" src="../../../assets/images/iconHome.png"
                                 width="90" alt="" /></div>
                         <div class="px-4">
-                            <h5 class="fw-bold text-danger">Fast performance</h5>
-                            <p>Get your blood tests delivered at <br class="d-none d-xl-block"> home collect a sample
-                                from the <br class="d-none d-xl-block"> news your blood tests</p>
+                            <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
+                            <p>Aumente a visibilidade dos seus imóveis com cadastros  <br class="d-none d-xl-block"> detalhados e atraentes, otimizados para chamar
+                                a atenção  <br class="d-none d-xl-block">  dos compradores</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/img/illustrations/prototype.png" width="90"
+                        <div><img class="img-fluid" src="../../../assets/images/iconPesquisa.png" width="90"
                                 alt="" />
                         </div>
                         <div class="px-4">
-                            <h5 class="fw-bold text-primary">Prototyping</h5>
-                            <p>Get your blood tests delivered at <br class="d-none d-xl-block"> home collect a sample
-                                from the <br class="d-none d-xl-block"> news your blood tests</p>
+                            <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
+                            <p>Conte com análises detalhadas e precisas do mercado, garantindo que  <br class="d-none d-xl-block"> suas decisões sejam sempre baseadas 
+                                nas melhores <br class="d-none d-xl-block"> informações disponíveis</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/img/illustrations/vector.png" width="90"
+                        <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90"
                                 alt="" /></div>
                         <div class="px-4">
-                            <h5 class="fw-bold text-success">Vector Editing</h5>
-                            <p>Get your blood tests delivered at <br class="d-none d-xl-block"> home collect a sample
-                                from the <br class="d-none d-xl-block"> news your blood tests</p>
+                            <h5 class="fw-bold text-success">Relarórios</h5>
+                            <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma amostra
+                                das <br class="d-none d-xl-block"> novidades do seu mercado imobiliário</p>
                         </div>
                     </div>
                 </div>
@@ -143,7 +148,7 @@
         <div class="container">
             <div class="row align-items-center mb-6">
                 <div class="col-md-5 col-lg-4 offset-lg-1">
-                    <h1 class="fw-bold lh-base">Smart jackpots that you may love this anytime &amp; anywhere</h1>
+                    <h1 class="fw-bold lh-base">Soluções inteligentes para o mercado imobiliário</h1>
                 </div>
                 <div class="col-md-6 col-lg-5 offset-lg-1 border-start py-5 ps-5">
                     <p class="mb-0">The rise of mobile devices transforms the way we consume information entirely and
@@ -194,7 +199,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-5 order-md-0 text-center text-md-start"><img class="img-fluid mb-4"
-                        src="../../../assets/img/illustrations/call-to-action.png" width="550" alt="" /></div>
+                        src="../../../assets/images/grafico.png" width="550" alt="" /></div>
                 <div class="col-md-6 text-center text-md-start offset-md-1">
                     <h6 class="fw-bold fs-4 display-3 lh-sm">Designed &amp; built by<br />the latest code
                         <br />integration
@@ -296,13 +301,13 @@
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section class="py-6">
+    <section class="py-4">
 
         <div class="container">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-5 order-md-1 text-center text-md-start"><img class="img-fluid mb-4"
-                            src="../../../assets/img/illustrations/ultimate-feature.png" alt="" /></div>
+                    <div class="col-md-5 order-md-1 text-center text-md-start"><img class="mb-4"
+                            src="../../../assets/images/graficoAi.png" alt="" /></div>
                     <div class="col-md-6 text-center text-md-start">
                         <h6 class="fw-bold fs-4 display-3 lh-sm">Ultimate features<br />that we built</h6>
                         <p class="my-4 pe-xl-5"> The rise of mobile devices transforms the way we consume information
@@ -398,16 +403,18 @@
                                     class="d-flex align-items-center">/{{ planPeriod }}</span>
                             </div>
                             <h5 class="fw-bold text-center">{{ item.nome_plano }}</h5>
-                            <span class="text-700 text-center d-block">{{item.descricao}}</span>
+                            <span class="text-700 text-center d-block">{{ item.descricao }}</span>
                         </div>
                         <div class="card-body mx-auto">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary" v-for="(itens, index) in item.itens_do_plano[0]"><i class="fa fa-check"></i> &nbsp;  {{ itens }}</li>
+                                <li class="text-700 py-2 text-secondary"
+                                    v-for="(itens, index) in item.itens_do_plano[0]"><i class="fa fa-check"></i> &nbsp;
+                                    {{ itens }}</li>
                                 <!-- <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Relatório</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Gestão de m2</li>
                                 <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte</li> -->
                             </ul>
-                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#" >Cadastre-se agora</a>
+                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Cadastre-se agora</a>
                             <!-- <div class="d-flex flex-column">
                                 <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Assine agora</a>
                                 <a href="#" class="text-center">Ou teste por 7 dias</a>
@@ -791,9 +798,7 @@
                         the
                         world's most elevant channels such as Facebook.</p>
                     <div class="d-flex justify-content-center d-md-inline-block"><a class="pe-2 pe-sm-3 pe-md-4"
-                            href="!#"><img src="../../../assets/img/illustrations/google-play.png" width="160"
-                                alt="" /></a><a href="!#"><img src="../../../assets/img/illustrations/app-store.png"
-                                width="160" alt="" /></a></div>
+                            href="!#"></a><a href="!#"></a></div>
                 </div>
             </div>
         </div>
@@ -880,82 +885,106 @@
 <script>
 
 import api from '../../../service/api/planos/index'
+import lead from '../../../service/api/lead/index'
 
 export default {
     name: 'HomeView',
-  data() {
-    return {
-      isAnnual: false, // Indica se a assinatura é anual
-      zonuConstrutoraPrice: 80,
-      zonuImobiliariaPrice: 99,
-      zonuCorretorPrice: 70,
-      annualDiscount: 0.20, // setando que o plano anual terá 20% de desconto
-      planPeriod: "/mês", // Período atual (mensal ou anual)
-      allPlanos: [],
-    };
-  },
-  methods: {
-    togglePlan() {
-      this.planPeriod = this.isAnnual ? "/ano" : "/mês";
-    //   this.updatePrices();
+    data() {
+        return {
+            isAnnual: false, // Indica se a assinatura é anual
+            zonuConstrutoraPrice: 80,
+            zonuImobiliariaPrice: 99,
+            zonuCorretorPrice: 70,
+            annualDiscount: 0.20, // setando que o plano anual terá 20% de desconto
+            planPeriod: "/mês", // Período atual (mensal ou anual)
+            allPlanos: [],
+            inscrever: '',
+            msgSuccess: false,
+        };
     },
-    // updatePrices() {
-    //   const monthlyPrices = {
-    //     zonuConstrutora: this.zonuConstrutoraPrice, // Preço mensal
-    //     zonuImobiliaria: this.zonuImobiliariaPrice, // Preço mensal
-    //     zonuCorretor: this.zonuConstrutoraPrice, // Preço mensal
-    //   };
+    methods: {
+
+        handleInscrever() {
+            let email = this.inscrever;
+
+            lead.novoLead(email).then(res => {
+
+                if (res.status === 201) {
+                    this.msgSuccess = true;
+                    this.inscrever = '';
+
+                    setTimeout(() => {
+                        this.msgSuccess = false;
+                    }, 5000);
+                }
+            })
 
 
-    //   if (this.isAnnual) {
-    //     console.log(
-    //         monthlyPrices
-    //     )
-    //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora * 12 * (1 - this.annualDiscount);
-    //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria * 12 * (1 - this.annualDiscount);
-    //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor * 12 * (1 - this.annualDiscount);
-    //   } else {
-    //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora;
-    //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria;
-    //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor;
+
+        },
+
+
+        togglePlan() {
+            this.planPeriod = this.isAnnual ? "/ano" : "/mês";
+            //   this.updatePrices();
+        },
+        // updatePrices() {
+        //   const monthlyPrices = {
+        //     zonuConstrutora: this.zonuConstrutoraPrice, // Preço mensal
+        //     zonuImobiliaria: this.zonuImobiliariaPrice, // Preço mensal
+        //     zonuCorretor: this.zonuConstrutoraPrice, // Preço mensal
+        //   };
+
+
+        //   if (this.isAnnual) {
+        //     console.log(
+        //         monthlyPrices
+        //     )
+        //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora * 12 * (1 - this.annualDiscount);
+        //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria * 12 * (1 - this.annualDiscount);
+        //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor * 12 * (1 - this.annualDiscount);
+        //   } else {
+        //     this.zonuConstrutoraPrice = monthlyPrices.zonuConstrutora;
+        //     this.zonuImobiliariaPrice = monthlyPrices.zonuImobiliaria;
+        //     this.zonuCorretorPrice = monthlyPrices.zonuCorretor;
+        //   }
+        // },
+        parseCurrency(value) {
+            if (typeof value === 'string' && value) {
+                let valor = value.replace(/\./g, '').replace(',', '.');
+                return parseFloat(valor);
+            } else {
+                console.error('Invalid value provided:', value);
+                return 0; // valor padrão
+            }
+        },
+        formatCurrency(value) {
+            let valor = this.parseCurrency(value);
+            if (this.isAnnual) {
+                valor *= 12;
+            }
+            return `R$ ${valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+        },
+        cadastrarSe() {
+            console.log(this.allPlanos)
+        },
+    },
+    mounted() {
+        // this.updatePrices(); // Inicializa os preços ao montar o componente
+        api.getPlanos().then((res) => {
+            this.allPlanos = res.data
+
+        })
+    },
+    //   computed: {
+    //     itensCorretora() {
+    //         return this.allPlanos[0].itens_do_plano.filter((item) => {
+    //             console.log(item)
+    //             return item.nome_item
+    //         })
+    //         // return [1, 2]
+    //     }
     //   }
-    // },
-    parseCurrency(value) {
-    if (typeof value === 'string' && value) {
-      let valor = value.replace(/\./g, '').replace(',', '.');
-      return parseFloat(valor);
-    } else {
-      console.error('Invalid value provided:', value);
-      return 0; // valor padrão
-    }
-  },
-  formatCurrency(value) {
-    let valor = this.parseCurrency(value);
-    if (this.isAnnual) {
-      valor *= 12;
-    }
-    return `R$ ${valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
-  },
-    cadastrarSe() {
-        console.log(this.allPlanos)
-    },
-  },
-  mounted() {
-    // this.updatePrices(); // Inicializa os preços ao montar o componente
-    api.getPlanos().then((res) => {
-        this.allPlanos = res.data
-        console.log(res.data)
-    })
-  },
-//   computed: {
-//     itensCorretora() {
-//         return this.allPlanos[0].itens_do_plano.filter((item) => {
-//             console.log(item)
-//             return item.nome_item
-//         })
-//         // return [1, 2]
-//     }
-//   }
 };
 
 
