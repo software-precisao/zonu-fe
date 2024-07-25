@@ -30,11 +30,14 @@
                                     <option value="2000-3000">2.000R$ - 3.000R$</option>
                                     <option value="3000-4000">3.000R$ - 4.000R$</option>
                                     <option value="4000-20000">4.000R$ - 20.000R$</option>
+                                    <option value="20000-50000">20.000R$ - 50.000R$</option>
+                                    <option value="50000-100000">50.000R$ - 100.000R$</option>
+                                    <option value="100000-1000000">100.000R$ - 1.000.000R$</option>
                                 </select>
                             </div>
                             <div class="col-1">
                                 <button style="height: 55px;" type="button"
-                                    class="btn btn-primary btn-lg">Buscar</button>
+                                    class="btn btn-primary btn-lg" @click="redirectFiltro">Buscar</button>
                             </div>
                         </div>
                     </div>
@@ -47,41 +50,51 @@
                 </div>
 
                 <div class="container-fluid mt-5">
-                    <div class="row">
-                        <div class="col-3">
+                    <!-- <div class="row">
+                        <div class="col-3"> -->
+                    <div class="d-flex flex-wrap justify-content-flex-start">
+                        <div class="mx-3">
+                            <a href="#" @click="storeFiltro('Aluguel')" style="color: inherit; text-decoration: none;">
                             <div class="card" style="width: 18rem;">
                                 <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <p class="card-text">Imóveis para alugar</p>
                                 </div>
                             </div>
+                            </a>
                         </div>
 
-                        <div class="col-3">
+                        <div class="mx-3">
+                            <a href="#" @click="storeFiltro('Venda')" style="color: inherit; text-decoration: none;">
                             <div class="card" style="width: 18rem;">
                                 <img src="../../../assets/images/apartamento.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <p class="card-text">Imóveis a venda</p>
                                 </div>
                             </div>
+                            </a> 
                         </div>
 
-                        <div class="col-3">
+                        <div class="mx-3">
+                            <a href="#" @click="storeFiltroVistaMar('Vista para o mar')" style="color: inherit; text-decoration: none;">
                             <div class="card" style="width: 18rem;">
                                 <img src="../../../assets/images/casaPraia.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <p class="card-text">Vista para o mar</p>
                                 </div>
                             </div>
+                            </a>
                         </div>
 
-                        <div class="col-3">
-                            <div class="card" style="width: 18rem;">
-                                <img src="../../../assets/images/garagem.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Com garagem</p>
+                        <div class="mx-3">
+                            <a href="#" @click="storeFiltroGaragem('Sim')" style="color: inherit; text-decoration: none;">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="../../../assets/images/garagem.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <p class="card-text">Com garagem</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,8 +105,10 @@
                 </div>
 
                 <div class="container-fluid mt-3">
-                    <div class="row">
-                        <div class="col-2 m-3" v-for="imovel in imoveis">
+                    <!-- <div class="row">
+                        <div class="col-2 m-3" v-for="imovel in imoveis"> -->
+                    <div class="d-flex flex-wrap justify-content-flex-start">
+                        <div class=" mx-2" v-for="imovel in imoveis">
                             {{ console.log(imovel) }}
                             <a href="#" @click="storeImovelId(imovel.id_imovel)"
                                 style="color: inherit; text-decoration: none;">
@@ -135,45 +150,6 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- <div class="col-2 m-3">
-                            <div class="card" style="width: 15rem;">
-                                <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Imóveis para alugar</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2 m-3">
-                            <div class="card" style="width: 15rem;">
-                                <img src="../../../assets/images/apartamento.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Imóveis a venda</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2 m-3">
-                            <div class="card" style="width: 15rem;">
-                                <img src="../../../assets/images/casaPraia.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Vista para o mar</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 m-3">
-                            <div class="card" style="width: 15rem;">
-                                <img src="../../../assets/images/casaPraia.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Vista para o mar</p>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-
-
-
                     </div>
                 </div>
 
@@ -328,11 +304,12 @@ export default {
 
         async fetchImoveisFiltrados() {
             try {
-                const response = await api.listallImoveis(); 
+                const response = await api.listallImoveis();
                 let imoveis = response.data;
 
+                // Aplica todos os filtros de forma encadeada
                 if (this.tipoNegocio) {
-                    imoveis = imoveis.filter(imovel => imovel.tipo_negocio === this.tipoNegocio);
+                    imoveis = imoveis.filter(imovel => imovel.preco.tipo_negocio === this.tipoNegocio);
                 }
 
                 if (this.cidadeSelecionada) {
@@ -370,8 +347,13 @@ export default {
         },
 
         onTipoNegocioChange() {
-            this.fetchImoveisPorTipo(this.tipoNegocio);
+            this.fetchImoveisFiltrados();
         },
+
+        onFaixaPrecoChange() {
+            this.fetchImoveisFiltrados();
+        },
+        
 
         async fetchImoveisPorTipo(tipo) {
             try {
@@ -391,10 +373,6 @@ export default {
             }
         },
 
-
-
-
-
         ultimosImoveis(imoveis) {
             return imoveis
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -404,6 +382,25 @@ export default {
         storeImovelId(id) {
             sessionStorage.setItem('imovelId', id);
             this.$router.push({ name: 'imovel' });
+        },
+
+        storeFiltro(filtro) {
+            sessionStorage.setItem('TipoNegocio', filtro);
+            this.$router.push({ name: 'filtro-imovel' });
+        },
+
+        storeFiltroVistaMar(filtro) {
+            sessionStorage.setItem('VistaProMar', filtro);
+            this.$router.push({ name: 'filtro-imovel' });
+        },
+
+        storeFiltroGaragem(filtro) {
+            sessionStorage.setItem('Garagem', filtro);
+            this.$router.push({ name: 'filtro-imovel' });
+        },
+
+        redirectFiltro() {
+            this.$router.push({ name: 'filtro-imovel' });
         },
 
         avaliarQualidadeCadastro(imoveis) {
@@ -530,7 +527,7 @@ export default {
                 try {
                     const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
 
-                    // Correção nas propriedades de acordo com a resposta da API
+                    // Correção nas propriedades de acordo com a resposta da AP
                     let rua = res.data.logradouro;
                     let bairro = res.data.bairro;
                     let cidade = res.data.localidade;
@@ -559,7 +556,7 @@ export default {
                     "https://maps.googleapis.com/maps/api/geocode/json",
                     {
                         params: {
-                            address: `${cep}, ${rua}`,
+                            address: `${rua}, ${cep}`,
                             key: apiKey,
                         },
                     }
@@ -612,8 +609,8 @@ export default {
                 // }).addTo(this.mapImoveis);
 
                 res.data.map(async (imovel) => {
-                    // console.log(imovel.localizacao.rua)
-                    await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.logradouro).then((res) => {
+                    // console.log("imovel aqui ====>", imovel)
+                    await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.logradouro, imovel.localizacao.cidade, imovel.localizacao.estado, imovel.localizacao.bairro, imovel.localizacao.numero).then((res) => {
                         if (res) {
                             this.updateMap();
                         }
@@ -677,7 +674,7 @@ export default {
                 }
             }
         },
-        async buscarCoordenadas(cep, rua) {
+        async buscarCoordenadas(cep, rua, cidade, estado, bairro, numero) {
             // trocar pela apiKey do cliente
             const apiKey = "AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE";
 
@@ -686,7 +683,7 @@ export default {
                     "https://maps.googleapis.com/maps/api/geocode/json",
                     {
                         params: {
-                            address: `${cep}, ${rua}`,
+                            address: `${rua}, ${numero}, ${cidade}, ${estado}, ${cep}`,
                             key: apiKey,
                         },
                     }
