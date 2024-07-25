@@ -267,7 +267,7 @@ export default {
   mounted() {
     let decode = jwtDecode(this.token);
 
-    this.image = decode.avatar;
+    this.image = null;
     this.nome = decode.nome;
     this.sobrenome = decode.sobrenome;
     this.email = decode.email;
