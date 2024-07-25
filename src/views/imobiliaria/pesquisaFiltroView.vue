@@ -3,7 +3,7 @@
         <div class="main">
             <Navbar />
             <main class="content">
-                <div class="card" style="margin-top: -80px;">
+                <!-- <div class="card" style="margin-top: -80px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="container-fluid">
                     <div class="row">
@@ -43,9 +43,13 @@
                                         </h6>
 
                                         <div class="form-group col-md-12 mt-5">
-                                        <label for="nome"><small><strong>Tipo de imóvel</strong></small></label>
-                                        <input type="text" class="form-control mt-2" id="nome"
-                                            placeholder="Digite o nome" />
+                                        <label  for="tipoNegocio"><small><strong>Tipo de negócio</strong></small></label>
+                                        <!-- continuar a fazer os filtros se inspirando na olx -->
+                                        <select class="form-select" v-model="tipoNegocio" @change="atualizarNegocio" style="height: 55px;">
+                                            <option value="all">Todos os tipos</option>
+                                            <option value="Aluguel">Aluguel</option>
+                                            <option value="Venda">Venda</option>                                         
+                                        </select>
                                     </div>
                                     </div>
 
@@ -55,58 +59,71 @@
                         </div>
 
                         <div class="card col-8 m-2" style="width: 72.5%;">
+    <div class="card-body">
+        <div class="row">
+            <div class="container-fluid p-0 mt-3 mb-3">
+                <h1 class="h3 text-dark">
+                    <strong>Seu resultado da pesquisa é...</strong>
+                </h1>
+                <h6 class="h3 text-dark" style="font-size: 13px; font-weight: 100;">
+                    <span>1 - 12 de {{ quantidadeImoveis }} resultados</span>
+                    
+                </h6>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3" v-for="imovel in imoveisOnCurrentPage">
+                    <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
+                        <div class="card shadow-lg" style="width: 15rem">
+                            <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..." style="width: 240px; height: 180px;">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="container-fluid p-0 mt-3 mb-3">
-                                        <h1 class="h3 text-dark">
-                                            <strong>Seu resultado da pesquisa é...</strong>
-                                        </h1>
-                                        <h6 class="h3 text-dark" style="font-size: 13px; font-weight: 100;">
-                                            <span>1 - 50 de 355.630 resultados</span>
-                                        </h6>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="card" style="width: 15rem;">
-                                            <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <p class="card-text">Imóveis para alugar</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="card" style="width: 15rem;">
-                                            <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <p class="card-text">Imóveis para alugar</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="card" style="width: 15rem;">
-                                            <img src="../../../assets/images/apartamento.jpg" class="card-img-top"
-                                                alt="...">
-                                            <div class="card-body">
-                                                <p class="card-text">Imóveis a venda</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
-                                        <button class="btn btn-dark btn-sm" @click="previousPageCliente()"
-                                            :disabled="currentPageCliente <= 1">
-                                            Anterior
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" style="margin-right: 3% !important"
-                                            @click="nextPageCliente()"
-                                            :disabled="currentPageCliente >= totalPagesClientes">
-                                            Proximo
-                                        </button>
-                                    </div>
-                                </div>
+                                <h5>
+                                    <i class="fa fa-building"></i>
+                                    <a href="#" style="text-decoration: none; color: #000;">
+                                        <strong>{{ " " }} {{ imovel.descricao.titulo }} </strong>
+                                    </a>
+                                    <span class="badge text-bg-success">{{ imovel.preco.tipo_negocio }}</span>
+                                </h5>
+                                <h5 class="text-info">
+                                    <strong>{{ formatCurrency(imovel.preco.preco_imovel) }}</strong>
+                                </h5>
+                                <h5 class="text-dark">
+                                    <i class="fa fa-user"></i>
+                                    <small>{{ " " }} {{ imovel.usuario.nome }} {{ imovel.usuario.sobrenome }}</small>
+                                </h5>
+                                <h5 class="text-dark">
+                                    <small><i class="fa fa-map-marker"></i>
+                                        {{ imovel.localizacao.logradouro }},
+                                        {{ imovel.localizacao.numero }} | {{ imovel.localizacao.bairro }},
+                                        {{ imovel.localizacao.cidade }}</small>
+                                </h5>
+                                <h5 class="text-dark">
+                                    <small><i class="fa fa-calendar"></i> Atualizado:
+                                        {{ formatarData(imovel.updatedAt) }}</small>
+                                </h5>
+                                <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
+                                <span class="text-success" style="float: inline-end; font-weight: 900">
+                                    {{ getQualidade(imovel.id_imovel) }}</span>
                             </div>
                         </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-dark btn-sm" @click="previousPageImovel()"
+                :disabled="currentPageImovel <= 1">
+                    Anterior
+                </button>
+                <button class="btn btn-dark btn-sm" style="margin-right: 3% !important"
+                    @click="nextPageImovel()"
+                    :disabled="currentPageImovel >= totalPagesImoveis">
+                    Proximo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     </div>
                 </div>
 
@@ -154,6 +171,20 @@ export default {
             map: null,
             latitude: '-15.7934',
             longitude: '-47.8823',
+
+            imoveis: [],
+            todosImoveis: [],
+            quantidadeImoveis: 0,
+
+            qualidadeProgress: '',
+            qualidade: {},
+            estrelaImovel: {},
+
+            currentPageImovel: 1,
+            perPageImovel: 12,
+            searchImovel: '',
+
+            tipoNegocio: 'all',
         }
     },
 
@@ -174,6 +205,8 @@ export default {
         this.ferchProgress();
         this.fetchMyImoveis();
         this.fetchMyCondominios();
+
+        this.fetchImoveis()
     },
 
     watch: {
@@ -198,9 +231,179 @@ export default {
                 this.mostrarMapa = false;
             }
         },
+        // searchImovel(val) {
+        //     if (!val) {
+        //         this.fetchImoveis();
+        //     }
+        // },
+    },
+
+    computed: {
+        // imoveisFiltrados() {
+        //     return this.imoveis.filter(imovel => {
+        //         const matchTipo = this.filtros.tipoImovel ? imovel.descricao.tipo_imovel === this.filtros.tipoImovel : true;
+        //         const matchPrecoMinimo = this.filtros.precoMinimo ? imovel.preco.preco_imovel >= this.filtros.precoMinimo : true;
+        //         const matchPrecoMaximo = this.filtros.precoMaximo ? imovel.preco.preco_imovel <= this.filtros.precoMaximo : true;
+        //         const matchQuartos = this.filtros.quartos ? imovel.detalhes.quartos === this.filtros.quartos : true;
+        //         return matchTipo && matchPrecoMinimo && matchPrecoMaximo && matchQuartos;
+        //     });
+        // },
+        imoveisOnCurrentPage() {
+            const startIndex = (this.currentPageImovel - 1) * this.perPageImovel
+            const endIndex = startIndex + this.perPageImovel
+            return this.imoveis
+                .filter((imovel) => {
+                    return imovel.descricao.titulo
+                        .toLowerCase()
+                        .includes(this.searchImovel.toLowerCase())
+                })
+                .slice(startIndex, endIndex)
+        },
+        totalPagesImoveis() {
+            return Math.ceil(
+                this.imoveis.filter((imovel) => {
+                    this.currentPageConcept = 1
+                    return imovel.descricao.titulo
+                        .toLowerCase()
+                        .includes(this.searchImovel.toLowerCase())
+                }).length / this.perPageImovel,
+            )
+        },
     },
 
     methods: {
+        atualizarNegocio() {
+            console.log('Tipo de negócio selecionado:', this.tipoNegocio);
+            this.fetchImoveis();
+        },
+        async fetchImoveis() {
+            try {
+                api.listallImoveis().then((res) => {
+                    this.todosImoveis = res.data
+
+                    if (this.tipoNegocio === 'all') {
+                        this.imoveis = this.todosImoveis;
+                    } else {
+                        console.log(this.todosImoveis)
+                        this.imoveis = this.todosImoveis.filter(imovel => imovel.preco.tipo_negocio === this.tipoNegocio);
+                    }
+                    this.quantidadeImoveis = res.data.length
+
+                    // this.imoveis = this.ultimosImoveis(res.data);
+
+                    this.avaliarQualidadeCadastro(this.imoveis)
+                })
+            } catch (error) {
+                console.error('Erro ao buscar imóveis:', error);
+            }
+        },
+
+        // ultimosImoveis(imoveis) {
+        //     return imoveis
+        //         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        //         .slice(0, 5);
+        // },
+
+        avaliarQualidadeCadastro(imoveis) {
+            imoveis.forEach(imovel => {
+                let totalCampos = 0;
+                let camposNulos = 0;
+
+                const analisarObjeto = (obj) => {
+                    Object.values(obj).forEach(val => {
+                        if (val && typeof val === 'object' && !Array.isArray(val)) {
+                            analisarObjeto(val);
+                        } else {
+                            totalCampos++;
+                            if (val === null || val === '') {
+                                camposNulos++;
+                            }
+                        }
+                    });
+                };
+
+                analisarObjeto(imovel);
+
+                const pontuacaoMaxima = 10;
+                const pontuacao = Math.round((totalCampos - camposNulos) / totalCampos * pontuacaoMaxima);
+                const porcentagem = Math.round((totalCampos - camposNulos) / totalCampos * 100); // Calcula a porcentagem
+
+                imovel.pontuacaoQualidade = `${pontuacao}/10`;
+                imovel.porcentagemQualidade = porcentagem;
+                // console.log('qualidade: ', imovel.pontuacaoQualidade)
+                // this.qualidade = imovel.pontuacaoQualidade;
+                this.qualidade[imovel.id_imovel] = imovel.pontuacaoQualidade
+                this.estrelaImovel[imovel.id_imovel] = imovel.pontuacaoQualidade
+
+
+                if (porcentagem == 100) {
+                    this.estrelas = 5;
+                    this.msgQualidade = 'Excelente';
+                } else if (porcentagem >= 80) {
+                    this.estrelas = 4;
+                    this.msgQualidade = 'Muito Bom';
+                } else if (porcentagem >= 60) {
+                    this.estrelas = 3;
+                    this.msgQualidade = 'Bom';
+                } else if (porcentagem >= 40) {
+                    this.estrelas = 2;
+                    this.msgQualidade = 'Regular';
+                } else if (porcentagem >= 20) {
+                    this.estrelas = 1;
+                    this.msgQualidade = 'Ruim';
+                } else {
+                    this.estrelas = 0;
+                    this.msgQualidade = 'Péssimo';
+                }
+
+                this.qualidadeProgress = porcentagem;
+                // this.qualidade[imovel.id_imovel] = {
+                //     pontuacaoQualidade: `${pontuacao}/10`,
+                //     estrelas: estrelas,
+                // };
+
+            });
+
+            return imoveis;
+        },
+        getQualidade(id) {
+            // console.log("qualidades: ", this.qualidade)
+            return this.qualidade[id] ? this.qualidade[id] : '';
+        },
+        getEstrelas(id) {
+            return this.qualidade[id] ? this.qualidade[id] : 0;
+        },
+
+        formatCurrency(value) {
+            if (typeof value !== "number") {
+                value = parseFloat(value);
+            }
+            return value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            });
+        },
+        formatarData(dataString) {
+            if (!dataString) return "";
+            const data = new Date(dataString);
+            return data.toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+            });
+        },
+
+        previousPageImovel() {
+            if (this.currentPageImovel > 1) {
+                this.currentPageImovel -= 1
+            }
+        },
+        nextPageImovel() {
+            if (this.currentPageImovel < this.totalPagesImoveis) {
+                this.currentPageImovel += 1
+            }
+        },
+
         initMap() {
             this.map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: this.latitude, lng: this.longitude },
@@ -314,6 +517,11 @@ export default {
         mostrarTeste(event) {
             event.preventDefault(); // Previne o comportamento padrão do link
             this.mostrarResumo = true;
+        },
+
+        storeImovelId(id) {
+            sessionStorage.setItem('imovelId', id);
+            this.$router.push({ name: 'imovel' });
         },
 
         fetchMyImoveis() {
