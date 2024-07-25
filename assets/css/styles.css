@@ -20,18 +20,19 @@ body {
   width: 100%;
 }
 
-.number-code-input{
-
+.number-code-input {
   width: 45px;
   height: 40px;
   text-align: center;
   font-weight: 700;
+}
 
+.card-select:hover {
+  border: 3px solid #666da3;
+}
 
-
-
-
-
+.card-select {
+border-radius: 10px;
 }
 
 .logomin {

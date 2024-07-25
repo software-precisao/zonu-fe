@@ -38,6 +38,12 @@ overflow-y: scroll;
 
 }
 
+.area-dados-corretor{
+  max-height: 280px;
+overflow-y: scroll;
+
+}
+
 .title-login{
   font-size: 20px;
   font-weight: 600;

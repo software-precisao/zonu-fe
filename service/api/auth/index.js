@@ -118,7 +118,7 @@ export default {
     }
   },
 
-  cadastro: async (
+  cadastroConstrutora: async (
     nome,
     sobrenome,
     email,
@@ -136,7 +136,7 @@ export default {
   ) => {
     try {
       const response = await http.post(
-        "/usuarios/cadastro",
+        "/usuarios/cadastro-construtora",
         {
           nome: nome,
           sobrenome: sobrenome,
@@ -148,6 +148,56 @@ export default {
           id_plano: 1,
           razao_social: razao_social,
           cnpj: cnpj,
+          telefone: telefone,
+          cep: cep,
+          endereco: endereco,
+          complemento: complemento,
+          numero: numero,
+          cidade: cidade,
+          estado: estado,
+          bairro: bairro,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  cadastroCorretor: async (
+    nome,
+    sobrenome,
+    email,
+    senha,
+    cpf,
+    telefone,
+    cep,
+    endereco,
+    complemento,
+    numero,
+    cidade,
+    estado,
+    bairro
+  ) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-corretor",
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+          avatar: "",
+          cpf: cpf,
           telefone: telefone,
           cep: cep,
           endereco: endereco,
