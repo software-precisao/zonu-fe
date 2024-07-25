@@ -43,14 +43,149 @@
                                         </h6>
 
                                         <div class="form-group col-md-12 mt-5">
-                                        <label  for="tipoNegocio"><small><strong>Tipo de negócio</strong></small></label>
-                                        <!-- continuar a fazer os filtros se inspirando na olx -->
-                                        <select class="form-select" v-model="tipoNegocio" @change="atualizarNegocio" style="height: 55px;">
-                                            <option value="all">Todos os tipos</option>
-                                            <option value="Aluguel">Aluguel</option>
-                                            <option value="Venda">Venda</option>                                         
-                                        </select>
-                                    </div>
+                                            <label  for="tipoNegocio"><small><strong>Tipo de negócio</strong></small></label>
+                                            <!-- continuar a fazer os filtros se inspirando na olx -->
+                                            <select class="form-select" v-model="tipoNegocio" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos os tipos</option>
+                                                <option value="Aluguel">Aluguel</option>
+                                                <option value="Venda">Venda</option>                                         
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="condominio"><small><strong>Condomínio</strong></small></label>
+                                            <select class="form-select" v-model="condominio" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Sim">Sim</option>
+                                                <option value="Não">Não</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="valor"><small><strong>Intervalo de Valor (R$)</strong></small></label>
+                                            <div>
+                                                <div class="d-flex justify-content-evenly mt-2">
+                                                <span>R$ {{ valorMin.toLocaleString() }}</span>
+                                                <span>Até</span>
+                                                <span>R$ {{ valorMax.toLocaleString() }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-around mt-2">
+                                                <input 
+                                                    type="number" 
+                                                    v-model.number="valorMin" 
+                                                    @input="atualizarFiltros" 
+                                                    class="form-control" 
+                                                    placeholder="Valor Mínimo"
+                                                    min="0"
+                                                />
+                                                <input 
+                                                    type="number" 
+                                                    v-model.number="valorMax" 
+                                                    @input="atualizarFiltros" 
+                                                    class="form-control" 
+                                                    placeholder="Valor Máximo"
+                                                    min="0"
+                                                />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="proximoMar"><small><strong>Proximidade ao Mar</strong></small></label>
+                                            <select class="form-select" v-model="proximoMar" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Vista para o mar">Vista para o mar</option>
+                                                <option value="Frente para o mar">Frente para o mar</option>
+                                                <option value="Quadra do mar">Quadra do mar</option>
+                                                <option value="Proximo ao mar">Próximo ao mar</option>
+                                                <option value="all">Não</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="tipoImovel"><small><strong>Tipo de Imóvel</strong></small></label>
+                                            <select class="form-select" v-model="tipoImovel" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Casa">Casa</option>
+                                                <option value="Apartamento">Apartamento</option>
+                                                <option value="Flat">Flat</option>
+                                                <option value="Terreno">Terreno</option>
+                                                <option value="Sítio">Sítio</option>
+                                                <option value="Haras">Haras</option>
+                                                <option value="Kitnet">Kitnet</option>
+                                                <option value="Fazenda">Fazenda</option>
+                                                <option value="Galpão">Galpão</option>
+                                                <option value="Sala Comercial">Sala Comercial</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="perfilImovel"><small><strong>Perfil de Imóvel</strong></small></label>
+                                            <select class="form-select" v-model="perfilImovel" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Residêncial">Residêncial</option>
+                                                <option value="Comercial">Comercial</option>
+                                                <option value="Industrial">Industrial</option>
+                                                <option value="Rural">Rural</option>
+                                                <option value="Temporada">Temporada</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="posicaoSolar"><small><strong>Posição Solar</strong></small></label>
+                                            <select class="form-select" v-model="posicaoSolar" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Norte">Norte</option>
+                                                <option value="Sul">Sul</option>
+                                                <option value="Leste">Leste</option>
+                                                <option value="Oeste">Oeste</option>
+                                                <option value="Nordeste">Nordeste</option>
+                                                <option value="Noroeste">Noroeste</option>
+                                                <option value="Sudeste">Sudeste</option>
+                                                <option value="Sudoeste">Sudoeste</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="situacaoImovel"><small><strong>Situação do Imóvel</strong></small></label>
+                                            <select class="form-select" v-model="situacaoImovel" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Pronto pra morar">Pronto pra morar</option>
+                                                <option value="Em construção">Em construção</option>
+                                                <option value="Lançamento">Lançamento</option>
+                                                <option value="Novo">Novo</option>
+                                                <option value="Usado">Usado</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="temGaragem"><small><strong>Tem Garagem</strong></small></label>
+                                            <select class="form-select" v-model="temGaragem" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos</option>
+                                                <option value="Sim">Sim</option>
+                                                <option value="Não">Não</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="estado"><small><strong>Estado</strong></small></label>
+                                            <select class="form-select" v-model="estadoSelecionado" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todos os estados</option>
+                                                <option v-for="estado in estados" :key="estado.sigla" :value="estado.sigla">
+                                                    {{ estado.nome }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="cidade"><small><strong>Cidade</strong></small></label>
+                                            <select class="form-select" v-model="cidadeSelecionada" @change="atualizarFiltros" style="height: 55px;">
+                                                <option value="all">Todas as cidades</option>
+                                                <option v-for="cidade in cidadesFiltradas" :key="cidade" :value="cidade">
+                                                    {{ cidade }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     
@@ -73,6 +208,7 @@
             <div class="row">
                 <div class="col-md-4 mb-3" v-for="imovel in imoveisOnCurrentPage">
                     <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
+                        {{console.log(imovel)}}
                         <div class="card shadow-lg" style="width: 15rem">
                             <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..." style="width: 240px; height: 180px;">
                             <div class="card-body">
@@ -184,7 +320,53 @@ export default {
             perPageImovel: 12,
             searchImovel: '',
 
+            // filtros
             tipoNegocio: 'all',
+            condominio: 'all',
+            valorMin: 0,
+            valorMax: 0,
+            proximoMar: 'all',  
+            tipoImovel: 'all',
+            perfilImovel: 'all',
+            posicaoSolar: 'all',
+            situacaoImovel: 'all',
+            temGaragem: 'all',
+            estadoSelecionado: "all",
+            cidadeSelecionada: "all",
+            estadoAnterior: "all",
+
+            cidades: [],
+            estados: [],
+
+            estadosMap: [
+                { sigla: "AC", nome: "Acre" },
+                { sigla: "AL", nome: "Alagoas" },
+                { sigla: "AP", nome: "Amapá" },
+                { sigla: "AM", nome: "Amazonas" },
+                { sigla: "BA", nome: "Bahia" },
+                { sigla: "CE", nome: "Ceará" },
+                { sigla: "DF", nome: "Distrito Federal" },
+                { sigla: "ES", nome: "Espírito Santo" },
+                { sigla: "GO", nome: "Goiás" },
+                { sigla: "MA", nome: "Maranhão" },
+                { sigla: "MT", nome: "Mato Grosso" },
+                { sigla: "MS", nome: "Mato Grosso do Sul" },
+                { sigla: "MG", nome: "Minas Gerais" },
+                { sigla: "PA", nome: "Pará" },
+                { sigla: "PB", nome: "Paraíba" },
+                { sigla: "PR", nome: "Paraná" },
+                { sigla: "PE", nome: "Pernambuco" },
+                { sigla: "PI", nome: "Piauí" },
+                { sigla: "RJ", nome: "Rio de Janeiro" },
+                { sigla: "RN", nome: "Rio Grande do Norte" },
+                { sigla: "RS", nome: "Rio Grande do Sul" },
+                { sigla: "RO", nome: "Rondônia" },
+                { sigla: "RR", nome: "Roraima" },
+                { sigla: "SC", nome: "Santa Catarina" },
+                { sigla: "SP", nome: "São Paulo" },
+                { sigla: "SE", nome: "Sergipe" },
+                { sigla: "TO", nome: "Tocantins" }
+            ],
         }
     },
 
@@ -206,7 +388,24 @@ export default {
         this.fetchMyImoveis();
         this.fetchMyCondominios();
 
+        const storedTipoNegocio = sessionStorage.getItem('TipoNegocio');
+        if (storedTipoNegocio) {
+            this.tipoNegocio = storedTipoNegocio;
+            sessionStorage.removeItem('TipoNegocio');
+        }
+        const storedVistaMar = sessionStorage.getItem('VistaProMar');
+        if (storedVistaMar) {
+            this.proximoMar = storedVistaMar;
+            sessionStorage.removeItem('VistaProMar');
+        }
+        const storedGaragem = sessionStorage.getItem('Garagem');
+        if (storedGaragem) {
+            this.temGaragem = storedGaragem;
+            sessionStorage.removeItem('Garagem');
+        }
+
         this.fetchImoveis()
+        this.fetchCidades()
     },
 
     watch: {
@@ -269,33 +468,99 @@ export default {
                 }).length / this.perPageImovel,
             )
         },
+        cidadesFiltradas() {
+            if (this.estadoSelecionado === 'all') {
+                return this.cidades;
+            }
+            return this.cidades.filter(cidade => {
+                const imovel = this.todosImoveis.find(imovel => imovel.localizacao.cidade === cidade);
+                return imovel && imovel.localizacao.estado === this.estadoSelecionado;
+            });
+        },
     },
 
     methods: {
-        atualizarNegocio() {
-            console.log('Tipo de negócio selecionado:', this.tipoNegocio);
-            this.fetchImoveis();
+        async fetchCidades() {
+            try {
+                const response = await api.listallImoveis();
+                const imoveis = response.data;
+                const cidades = [...new Set(imoveis.map(imovel => imovel.localizacao.cidade))];
+                const estadosSiglas = [...new Set(imoveis.map(imovel => imovel.localizacao.estado))];
+                
+                // Mapear as siglas para os nomes completos dos estados
+                const estados = estadosSiglas.map(sigla => {
+                    const estado = this.estadosMap.find(e => e.sigla === sigla);
+                    return estado ? estado : { sigla: sigla, nome: sigla };
+                });
+
+                this.cidades = cidades;
+                this.estados = estados;
+            } catch (error) {
+                console.error('Erro ao buscar cidades:', error);
+            }
+        },
+
+        atualizarFiltros() {
+            if (this.estadoSelecionado !== this.estadoAnterior) {
+                this.cidadeSelecionada = 'all';
+                this.estadoAnterior = this.estadoSelecionado;
+            }
+
+            console.log('Filtros atualizados:', {
+                tipoNegocio: this.tipoNegocio,
+                condominio: this.condominio,
+                valorMin: this.valorMin,
+                valorMax: this.valorMax,
+                proximoMar: this.proximoMar,
+                tipoImovel: this.tipoImovel,
+                perfilImovel: this.perfilImovel,
+                posicaoSolar: this.posicaoSolar,
+                situacaoImovel: this.situacaoImovel,
+                temGaragem: this.temGaragem,
+                estado: this.estadoSelecionado,
+                cidade: this.cidadeSelecionada,
+                estadoAnterior: this.estadoAnterior
+            });
+
+            this.filtrarImoveis();
         },
         async fetchImoveis() {
             try {
-                api.listallImoveis().then((res) => {
-                    this.todosImoveis = res.data
-
-                    if (this.tipoNegocio === 'all') {
-                        this.imoveis = this.todosImoveis;
-                    } else {
-                        console.log(this.todosImoveis)
-                        this.imoveis = this.todosImoveis.filter(imovel => imovel.preco.tipo_negocio === this.tipoNegocio);
-                    }
-                    this.quantidadeImoveis = res.data.length
-
-                    // this.imoveis = this.ultimosImoveis(res.data);
-
-                    this.avaliarQualidadeCadastro(this.imoveis)
-                })
+                const res = await api.listallImoveis();
+                this.todosImoveis = res.data;
+                this.filtrarImoveis();
+                this.quantidadeImoveis = res.data.length;
+                // this.imoveis = this.ultimosImoveis(res.data);
+                this.avaliarQualidadeCadastro(this.imoveis);
             } catch (error) {
                 console.error('Erro ao buscar imóveis:', error);
             }
+        },
+        filtrarImoveis() {
+            this.imoveis = this.todosImoveis.filter(imovel => {
+                const filtroTipoNegocio = this.tipoNegocio === 'all' || imovel.preco.tipo_negocio === this.tipoNegocio;
+                const filtroCondominio = this.condominio === 'all' || (this.condominio === 'Sim' && imovel.tem_condominio === "Sim") || (this.condominio === 'Não' && imovel.tem_condominio === "Não");
+                
+                // Verifica se os valores são 0 e, se sim, não aplica filtro de valor
+                const valorImovel = imovel.preco.preco_imovel;
+                const filtroValor = (this.valorMin === 0 && this.valorMax === 0) ||
+                        (this.valorMin === 0 && valorImovel <= this.valorMax) ||
+                        (this.valorMax === 0 && valorImovel >= this.valorMin) ||
+                        (valorImovel >= this.valorMin && valorImovel <= this.valorMax);
+
+                const filtroProximoMar = this.proximoMar === 'all' || imovel.info.proximo_mar === this.proximoMar;
+                const filtroTipoImovel = this.tipoImovel === 'all' || imovel.info.tipo === this.tipoImovel;
+                const filtroPerfilImovel = this.perfilImovel === 'all' || imovel.info.perfil_imovel === this.perfilImovel;
+                const filtroPosicaoSolar = this.posicaoSolar === 'all' || imovel.info.posicao_solar === this.posicaoSolar;
+                const filtroSituacaoImovel = this.situacaoImovel === 'all' || imovel.info.situacao_imovel === this.situacaoImovel;
+                const filtroGaragem = this.temGaragem === 'all' ||
+                              (this.temGaragem === 'Sim' && imovel.comodos.garagem > 0) ||
+                              (this.temGaragem === 'Não' && (imovel.comodos.garagem === null || imovel.comodos.garagem === '0'));
+                const filtroEstado = this.estadoSelecionado === 'all' || imovel.localizacao.estado === this.estadoSelecionado;
+                const filtroCidade = this.cidadeSelecionada === 'all' || imovel.localizacao.cidade === this.cidadeSelecionada;
+
+                return filtroTipoNegocio && filtroCondominio && filtroValor && filtroProximoMar && filtroTipoImovel && filtroPerfilImovel && filtroPosicaoSolar && filtroSituacaoImovel && filtroGaragem && filtroEstado && filtroCidade;
+            });
         },
 
         // ultimosImoveis(imoveis) {
