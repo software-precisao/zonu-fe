@@ -245,6 +245,7 @@
 import { jwtDecode } from "jwt-decode";
 import api from "../../../service/api/index";
 import { format, parseISO } from "date-fns";
+import _ from "lodash";
 
 export default {
   name: "NavBar",
@@ -267,7 +268,7 @@ export default {
   mounted() {
     let decode = jwtDecode(this.token);
 
-    this.image = decode.avatar;
+    this.image = null;
     this.nome = decode.nome;
     this.sobrenome = decode.sobrenome;
     this.email = decode.email;
@@ -282,6 +283,7 @@ export default {
 
     const iniciais = this.nome.charAt(0) + this.sobrenome.charAt(0);
     this.iniciais = iniciais;
+
 
     if (this.nivel == 1) {
       api
@@ -390,7 +392,7 @@ export default {
     handleLogout() {
       localStorage.clear();
 
-      window.location.href = "/";
+      window.location.href = "/login";
       return false;
     },
   },

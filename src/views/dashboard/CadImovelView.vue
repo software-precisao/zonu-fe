@@ -283,8 +283,8 @@
                                 <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
                                   v-model="perfilImovel">
                                   <option selected disabled>Selecione</option>
-                                  <option value="Residêncial">
-                                    Residêncial
+                                  <option value="Residencial">
+                                    Residencial
                                   </option>
                                   <option value="Comercial">Comercial</option>
                                   <option value="Industrial">Industrial</option>
@@ -2535,8 +2535,8 @@
                                                       <option selected disabled>
                                                         Selecione
                                                       </option>
-                                                      <option value="Residêncial">
-                                                        Residêncial
+                                                      <option value="Residencial">
+                                                        Residencial
                                                       </option>
                                                       <option value="Comercial">
                                                         Comercial

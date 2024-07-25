@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/home/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
-import CadastroView from "../views/auth/CadastroView.vue";
+import SelectView from "../views/auth/SelectView.vue";
+import CadastroConstrutoraView from "../views/auth/CadastroConstrutoraView.vue";
+import CadastroCorretorView from "../views/auth/CadastroCorretorView.vue";
+import CadastroImobiliariaView from "../views/auth/CadastroImobiliariaView.vue";
 import RecoveryView from "../views/auth/RecoveryView.vue";
+import EnviarDocView from "../views/doc/SendDocView.vue";
 import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
 import TokenView from "../views/dashboard/token/cadTokenView.vue";
 import MainView from "../views/dashboard/MainView.vue";
@@ -42,9 +46,29 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/cadastro",
-    name: "cadastro",
-    component: CadastroView,
+    path: "/cadastro-construtora",
+    name: "cadastro-construtora",
+    component: CadastroConstrutoraView,
+  },
+  {
+    path: "/cadastro-corretor",
+    name: "cadastro-corretor",
+    component: CadastroCorretorView,
+  },
+  {
+    path: "/cadastro-imobiliaria",
+    name: "cadastro-imobiliaria",
+    component: CadastroImobiliariaView,
+  },
+  {
+    path: "/enviar-documentos",
+    name: "enviar-documentos",
+    component: EnviarDocView,
+  },
+  {
+    path: "/select",
+    name: "select",
+    component: SelectView,
   },
   {
     path: "/recovery",
@@ -340,7 +364,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/", "/login", "/cadastro", "/recovery"];
+  const publicPages = ["/", "/login", "/imovel", "/enviar-documentos", "/cadastro", "/recovery", "/select", "/cadastro-corretor", "/cadastro-imobiliaria", "/cadastro-construtora", ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("token");
 

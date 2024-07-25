@@ -8,8 +8,8 @@
       <ul class="navbar-nav navbar-align">
 
         <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -40%;" class="nav-icon dropdown-toggle" href="/sua-imobiliaria-virtual"
-    >
+          <a style="text-decoration: none !important; margin-left: -40%;" class="nav-icon dropdown-toggle"
+            href="/sua-imobiliaria-virtual">
             <div class="position-relative">
               <i class="align-middle" data-feather="layers"></i>
               <span style="font-size: 15px;"> Imobiliária Vitual</span>
@@ -99,7 +99,7 @@
                       {{ formatDate(item.data_pergunta) }}
                       <span class="badge text-bg-warning">{{
                         item.assunto
-                      }}</span>
+                        }}</span>
                     </div>
                   </div>
                 </div>
@@ -187,7 +187,10 @@
       </ul>
     </div>
   </nav>
-
+  <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0"
+    aria-valuemax="100">
+    <div class="progress-bar overflow-visible text-dark bg-warning" style="width: 10%">Seu período de teste</div>
+  </div>
   <img src="../../../assets/images/banner.png" style="position: relative;" alt="">
   <div class="container-fluid p-0">
     <h1 class="h3 text-light" style="position: absolute; margin-top: -10%; margin-left: 2%; font-size: 40px;">
@@ -247,8 +250,9 @@ import { jwtDecode } from "jwt-decode";
 import api from "../../../service/api/index";
 import { format, parseISO } from "date-fns";
 
+
 export default {
-  name: "NavBar",
+  name: "NavBarImob",
   data() {
     return {
       image: null,
@@ -268,19 +272,16 @@ export default {
   mounted() {
     let decode = jwtDecode(this.token);
 
-    this.image = decode.avatar;
+    this.image = null;
     this.nome = decode.nome;
     this.sobrenome = decode.sobrenome;
     this.email = decode.email;
     this.nivel = decode.id_nivel;
     this.idUser = decode.id_user;
 
-    if (decode.id_nivel == 1) {
-      this.bannerProfile = false;
-    } else {
-      this.bannerProfile = true;
-    }
+    console.log(this.image)
 
+   
     const iniciais = this.nome.charAt(0) + this.sobrenome.charAt(0);
     this.iniciais = iniciais;
 
@@ -343,26 +344,11 @@ export default {
         });
     }
 
-    this.fetchProgress();
     this.fetchTermos();
     this.fetchPrivacidade();
   },
   methods: {
-    fetchProgress() {
-      let id_user = this.idUser;
-      api.progress(id_user).then((res) => {
-        let perfil = res.data.perfil;
-        let capa = res.data.logo_capa;
-        let imovel = res.data.imovel;
-        let publicacao = res.data.publicacao;
-
-        if (perfil == 1 && capa == 1 && imovel == 1 && publicacao == 1) {
-          this.bannerProfile = false;
-        } else {
-          this.bannerProfile = true;
-        }
-      });
-    },
+   
 
     fetchTermos() {
       api.termos().then((res) => {
@@ -391,7 +377,7 @@ export default {
     handleLogout() {
       localStorage.clear();
 
-      window.location.href = "/";
+      window.location.href = "/login";
       return false;
     },
   },
