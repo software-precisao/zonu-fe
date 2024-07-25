@@ -207,6 +207,11 @@
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3" v-for="imovel in imoveisOnCurrentPage">
+                    <div class="mb-2" style="width: 80%; display: flex ;justify-content: flex-end;">
+                        <button class="btn btn-light rounded-circle icon-button" @click="handleCompartilhar(imovel.id_imovel)">
+                            <i class="fas fa-home"></i>
+                        </button>
+                    </div>
                     <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none;">
                         {{console.log(imovel)}}
                         <div class="card shadow-lg" style="width: 15rem">
@@ -480,6 +485,27 @@ export default {
     },
 
     methods: {
+        async handleCompartilhar(idImovel) {
+            const userId = 123; // Substitua pelo ID do usuário real
+            const currentDate = new Date().toISOString().split('T')[0]; // Obtém a data no formato YYYY-MM-DD
+            const routeName = `http://localhost:5173/seu-imovel/?id=${idImovel}`; // Nome da rota onde o ID do usuário será usado
+
+            // Gerar a URL com base no ID do usuário e na data atual
+            const route = { name: routeName, params: { id: userId, date: currentDate } };
+            const url = new URL(this.$router.resolve(route).href, window.location.origin);
+
+            try {
+        // Copiar o link para a área de transferência
+                await navigator.clipboard.writeText(url.toString());
+                sessionStorage.setItem('url', url.toString());
+                sessionStorage.setItem('id', userId);
+                sessionStorage.setItem('data', currentDate);
+                this.copyStatus = 'Link copiado para a área de transferência!';
+            } catch (err) {
+                console.error('Falha ao copiar o link: ', err);
+                this.copyStatus = 'Falha ao copiar o link.';
+            }
+        },
         async fetchCidades() {
             try {
                 const response = await api.listallImoveis();

@@ -27,6 +27,7 @@ import NovoTicketView from "../views/dashboard/ticket/SendTicketView.vue";
 import ListTicketView from "../views/dashboard/ticket/ResivTicketView.vue";
 import TermosView from "../views/dashboard/termos/CondicoesView.vue";
 import PrivacidadeView from "../views/dashboard/termos/PrivacidadeView.vue";
+import SeuImovelView from "../views/dashboard/temp/ImovelView.vue";
 
 import md5 from "crypto-js/md5";
 
@@ -39,6 +40,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+  },
+  {
+    path: "/seu-imovel",
+    name: "seu-imovel",
+    component: SeuImovelView,
   },
   {
     path: "/",
@@ -364,7 +370,19 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/", "/login", "/imovel", "/enviar-documentos", "/cadastro", "/recovery", "/select", "/cadastro-corretor", "/cadastro-imobiliaria", "/cadastro-construtora", ];
+  const publicPages = [
+    "/",
+    "/login",
+    "/imovel",
+    "/enviar-documentos",
+    "/cadastro",
+    "/recovery",
+    "/select",
+    "/cadastro-corretor",
+    "/cadastro-imobiliaria",
+    "/cadastro-construtora",
+    "/seu-imovel",
+  ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("token");
 

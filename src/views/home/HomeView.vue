@@ -130,7 +130,7 @@
                         <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90"
                                 alt="" /></div>
                         <div class="px-4">
-                            <h5 class="fw-bold text-success">Relarórios</h5>
+                            <h5 class="fw-bold text-success">Relatórios</h5>
                             <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma amostra
                                 das <br class="d-none d-xl-block"> novidades do seu mercado imobiliário</p>
                         </div>
@@ -151,9 +151,10 @@
                     <h1 class="fw-bold lh-base">Soluções inteligentes para o mercado imobiliário</h1>
                 </div>
                 <div class="col-md-6 col-lg-5 offset-lg-1 border-start py-5 ps-5">
-                    <p class="mb-0">The rise of mobile devices transforms the way we consume information entirely and
-                        the
-                        world's most elevant channels such as Facebook.</p>
+                    <p class="mb-0">O mercado imobiliário está em constante evolução, impulsionado pela inovação tecnológica e a 
+                        crescente demanda por processos mais eficientes e transparentes. Neste cenário, as soluções inteligentes se 
+                        destacam como ferramentas essenciais para transformar a forma como imóveis são gerenciados, comercializados e 
+                        adquiridos.</p>
                 </div>
             </div>
             <div class="row">
@@ -161,24 +162,24 @@
                     <div class="py-4"><img class="img-fluid" src="../../../assets/img/illustrations/automatic.png"
                             width="90" alt="" /></div>
                     <h5 class="fw-bold text-danger">Organize</h5>
-                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from the news your
-                        blood tests.
+                    <p class="mt-2 mb-0">A organização é crucial para o sucesso. Ela melhora a eficiência, reduz erros e ajuda a 
+                        concentrar no que realmente importa.
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 offset-lg-1 mb-4">
                     <div class="py-4"><img class="img-fluid" src="../../../assets/img/illustrations/network.png"
                             width="90" alt="" /></div>
                     <h5 class="fw-bold text-primary">Publique</h5>
-                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from the news your
-                        blood tests.
+                    <p class="mt-2 mb-0">Publicar é compartilhar seu trabalho com o mundo. É a oportunidade de mostrar suas ideias, conquistar 
+                        audiência e gerar impacto.
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 offset-lg-1 mb-4">
                     <div class="py-4"><img class="img-fluid" src="../../../assets/img/illustrations/rewards.png"
                             width="90" alt="" /></div>
                     <h5 class="fw-bold text-success">Acompanhe</h5>
-                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from the news your
-                        blood tests.
+                    <p class="mt-2 mb-0">Acompanhar é essencial para o progresso. Monitorar o desenvolvimento e os resultados garante que você 
+                        esteja no caminho certo e poder fazer ajustes quando necessário. 
                     </p>
                 </div>
             </div>
@@ -306,8 +307,8 @@
         <div class="container">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-5 order-md-1 text-center text-md-start"><img class="mb-4"
-                            src="../../../assets/images/graficoAi.png" alt="" /></div>
+                    <div class="col-md-6 order-md-1 text-center text-md-start"><img class="mb-4 img-fluid"
+                        style="max-width: 130%;"   src="../../../assets/images/graficoAi.png" alt="" /></div>
                     <div class="col-md-6 text-center text-md-start">
                         <h6 class="fw-bold fs-4 display-3 lh-sm">Ultimate features<br />that we built</h6>
                         <p class="my-4 pe-xl-5"> The rise of mobile devices transforms the way we consume information
@@ -355,8 +356,9 @@
                                         blood tests.</p>
                                 </div>
                             </div>
-                        </div><a class="btn btn-lg btn-primary rounded-pill hover-top" href="#" role="button">See
-                            all</a>
+                        </div>
+                        <!-- <a class="btn btn-lg btn-primary rounded-pill hover-top" href="#" role="button">See
+                            all</a> -->
                     </div>
                 </div>
             </div>
@@ -394,33 +396,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" v-for="item in allPlanos">
-                    <!-- {{console.log('item =>', item)}} -->
-                    <div class="card shadow-lg mb-4 border-0">
+                <div class="col-lg-3 " v-for="item in allPlanos">
+                    {{console.log('item =>', item)}}
+                    <div class="card shadow-lg mb-4 border-0 d-flex flex-column" style="height: 500px;">
                         <div class="card-header border-bottom-0 pt-7 pb-5">
                             <div class="d-flex justify-content-center">
-                                <h1 class="fw-bold">{{ formatCurrency(item.valor_plano) }}</h1><span
-                                    class="d-flex align-items-center">/{{ planPeriod }}</span>
+                            <h1 class="fw-bold fs-2">{{ formatCurrency(item.valor_plano) }}</h1><span
+                                class="d-flex align-items-center ">/{{ planPeriod }}</span>
                             </div>
-                            <h5 class="fw-bold text-center">{{ item.nome_plano }}</h5>
+                            <h5 class="fw-bold text-center fs-1">{{ item.nome_plano }}</h5>
                             <span class="text-700 text-center d-block">{{ item.descricao }}</span>
                         </div>
-                        <div class="card-body mx-auto">
+                        <div class="card-body mx-auto flex-grow-1">
                             <ul class="list-unstyled mb-4">
-                                <li class="text-700 py-2 text-secondary"
-                                    v-for="(itens, index) in item.itens_do_plano[0]"><i class="fa fa-check"></i> &nbsp;
-                                    {{ itens }}</li>
-                                <!-- <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Relatório</li>
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Gestão de m2</li>
-                                <li class="text-700 py-2 text-secondary"><i class="fa fa-check"></i> Suporte</li> -->
+                            <li class="text-700 py-2 text-secondary" v-for="(itens, index) in item.itens_do_plano[0]">
+                                <i class="fa fa-check"></i> &nbsp; {{ itens }}
+                            </li>
                             </ul>
-                            <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Cadastre-se agora</a>
-                            <!-- <div class="d-flex flex-column">
-                                <a class="btn btn-lg btn-primary rounded-pill mb-3" href="#">Assine agora</a>
-                                <a href="#" class="text-center">Ou teste por 7 dias</a>
-                            </div> -->
+                        </div>
+                        <div class=" mt-auto text-center">
+                            <a class="btn btn-lg btn-primary rounded-pill mb-3" @click="handleCadastrar(item.id_plano)">
+                            Cadastre-se agora
+                            </a>
                         </div>
                     </div>
+
                 </div>
                 <!-- <div class="col-lg-4">
                     <div class="card shadow-lg mb-4">
@@ -903,6 +903,20 @@ export default {
         };
     },
     methods: {
+
+        handleCadastrar(id) {
+            // console.log("id do plano ====> ", id)
+            sessionStorage.setItem("plano", id)
+            if(id === 1) {
+                this.$router.push({ name: 'cadastro-construtora' });
+            } else if (id === 2) {
+                this.$router.push({ name: 'cadastro-imobiliaria' });
+            } else if (id === 3) {
+                this.$router.push({ name: 'cadastro-imobiliaria' });
+            } else if (id === 4) {
+                this.$router.push({ name: 'cadastro-corretor' });
+            }
+        },
 
         handleInscrever() {
             let email = this.inscrever;

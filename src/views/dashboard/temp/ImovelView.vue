@@ -660,21 +660,6 @@
                 allowfullscreen
               ></iframe>
             </div>
-            <!-- <div class="box-video mx-auto" style="max-width: 100%;">
-              <iframe
-                width="100%"
-                height="300"
-                :src="imovel.complemento.link_youtube.replace('watch?v=', 'embed/')"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </div> -->
-            <span>
-              <i class="fa fa-link"></i><a href="www.google.com">google.com</a>
-            </span>
-            <!-- <p>Link do video</p> -->
           </div>
         </div>
       </div>
@@ -748,7 +733,6 @@ export default {
       longitude: -47.8822,
       map: null,
       marker: null,
-      
     }
   },
 
@@ -816,7 +800,7 @@ export default {
   },
   
   created() {
-    this.imovelId = sessionStorage.getItem('imovelId');
+    this.imovelId = this.propertyId = this.$route.query.id
     this.fetchImovel()
   },
 
