@@ -29,6 +29,8 @@ import TermosView from "../views/dashboard/termos/CondicoesView.vue";
 import PrivacidadeView from "../views/dashboard/termos/PrivacidadeView.vue";
 
 import md5 from "crypto-js/md5";
+import LeadsView from "@/components/leads/LeadsView.vue";
+
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -356,6 +358,11 @@ const routes = [
     path: "/privacidade/:hash",
     name: "PrivacidadeWithHash",
     component: PrivacidadeView,
+  },
+  {
+    path: "/leads",
+    name: "Leads",
+    component: LeadsView,
   },
 ];
 const router = createRouter({
