@@ -105,33 +105,34 @@
                         src="../../../assets/img/illustrations/location.png" width="550" alt="" /></div>
                 <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
                     <h6 class="fw-bold fs-4 display-3 lh-sm">Vantagens de ser <br />Zonu</h6>
-                    <p class="my-4">Transforme suas oportunidades imobiliárias em sucesso com tecnologia  <br
+                    <p class="my-4">Transforme suas oportunidades imobiliárias em sucesso com tecnologia <br
                             class="d-none d-xl-block" />avançada e insights precisos.</p>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconHome.png"
-                                width="90" alt="" /></div>
+                        <div><img class="img-fluid" src="../../../assets/images/iconHome.png" width="90" alt="" /></div>
                         <div class="px-4">
                             <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
-                            <p>Aumente a visibilidade dos seus imóveis com cadastros  <br class="d-none d-xl-block"> detalhados e atraentes, otimizados para chamar
-                                a atenção  <br class="d-none d-xl-block">  dos compradores</p>
+                            <p>Aumente a visibilidade dos seus imóveis com cadastros <br class="d-none d-xl-block">
+                                detalhados e atraentes, otimizados para chamar
+                                a atenção <br class="d-none d-xl-block"> dos compradores</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconPesquisa.png" width="90"
-                                alt="" />
+                        <div><img class="img-fluid" src="../../../assets/images/iconPesquisa.png" width="90" alt="" />
                         </div>
                         <div class="px-4">
                             <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
-                            <p>Conte com análises detalhadas e precisas do mercado, garantindo que  <br class="d-none d-xl-block"> suas decisões sejam sempre baseadas 
+                            <p>Conte com análises detalhadas e precisas do mercado, garantindo que <br
+                                    class="d-none d-xl-block"> suas decisões sejam sempre baseadas
                                 nas melhores <br class="d-none d-xl-block"> informações disponíveis</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90"
-                                alt="" /></div>
+                        <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90" alt="" />
+                        </div>
                         <div class="px-4">
                             <h5 class="fw-bold text-success">Relatórios</h5>
-                            <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma amostra
+                            <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma
+                                amostra
                                 das <br class="d-none d-xl-block"> novidades do seu mercado imobiliário</p>
                         </div>
                     </div>
@@ -151,10 +152,9 @@
                     <h1 class="fw-bold lh-base">Soluções inteligentes para o mercado imobiliário</h1>
                 </div>
                 <div class="col-md-6 col-lg-5 offset-lg-1 border-start py-5 ps-5">
-                    <p class="mb-0">O mercado imobiliário está em constante evolução, impulsionado pela inovação tecnológica e a 
-                        crescente demanda por processos mais eficientes e transparentes. Neste cenário, as soluções inteligentes se 
-                        destacam como ferramentas essenciais para transformar a forma como imóveis são gerenciados, comercializados e 
-                        adquiridos.</p>
+                    <p class="mb-0">The rise of mobile devices transforms the way we consume information entirely and
+                        the
+                        world's most elevant channels such as Facebook.</p>
                 </div>
             </div>
             <div class="row">
@@ -170,16 +170,16 @@
                     <div class="py-4"><img class="img-fluid" src="../../../assets/img/illustrations/network.png"
                             width="90" alt="" /></div>
                     <h5 class="fw-bold text-primary">Publique</h5>
-                    <p class="mt-2 mb-0">Publicar é compartilhar seu trabalho com o mundo. É a oportunidade de mostrar suas ideias, conquistar 
-                        audiência e gerar impacto.
+                    <p class="mt-2 mb-0">Publique e promova seus anúncios de imóveis com facilidade para atrair mais
+                        potenciais compradores e locatários.
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 offset-lg-1 mb-4">
                     <div class="py-4"><img class="img-fluid" src="../../../assets/img/illustrations/rewards.png"
                             width="90" alt="" /></div>
                     <h5 class="fw-bold text-success">Acompanhe</h5>
-                    <p class="mt-2 mb-0">Acompanhar é essencial para o progresso. Monitorar o desenvolvimento e os resultados garante que você 
-                        esteja no caminho certo e poder fazer ajustes quando necessário. 
+                    <p class="mt-2 mb-0">Acompanhe o desempenho dos seus anúncios e fique atualizado com as últimas
+                        tendências do mercado.
                     </p>
                 </div>
             </div>
@@ -202,13 +202,14 @@
                 <div class="col-md-5 order-md-0 text-center text-md-start"><img class="img-fluid mb-4"
                         src="../../../assets/images/grafico.png" width="550" alt="" /></div>
                 <div class="col-md-6 text-center text-md-start offset-md-1">
-                    <h6 class="fw-bold fs-4 display-3 lh-sm">Designed &amp; built by<br />the latest code
-                        <br />integration
+                    <h6 class="fw-bold fs-4 display-3 lh-sm">Análise detalhada dos <br> dados imobiliários
                     </h6>
-                    <p class="my-4 pe-xl-5"> The rise of mobile devices transforms the way we consume information
-                        entirely and
-                        the world's most elevant channels such as Facebook.</p><a
-                        class="btn btn-lg btn-primary rounded-pill hover-top" href="#" role="button">Learn more</a>
+                    <p class="my-4 pe-xl-5" style="font-size: 1.1em"> A nossa plataforma utiliza tecnologia avançada
+                        para oferecer uma visão
+                        abrangente do mercado imobiliário. Com gráficos interativos e dados precisos, você pode
+                        monitorar a distribuição de imóveis por tipo, a relação entre aluguéis e vendas, e a localização
+                        dos imóveis em diversas cidades. Essas ferramentas visuais são essenciais para tomar decisões
+                        informadas e estratégicas, aproveitando ao máximo as oportunidades do mercado.</p>
                 </div>
             </div>
         </div>
@@ -228,64 +229,64 @@
         <div class="container">
             <div class="row justify-content-center mb-6">
                 <div class="col-lg-6 text-center mx-auto mb-3 mb-md-5 mt-4">
-                    <h6 class="fw-bold fs-4 display-3 lh-sm">Why you should choose <br />our app </h6>
-                    <p class="mb-0">The rise of mobile devices transforms the way we consume information entirely and
+                    <h6 class="fw-bold fs-4 display-3 lh-sm">Por que você deve escolher <br />nossa plataforma </h6>
+                    <!-- <p class="mb-0">The rise of mobile devices transforms the way we consume information entirely and
                         the
-                        world's most elevant channels such as Facebook.</p>
+                        world's most elevant channels such as Facebook.</p> -->
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/app.png" width="90" alt="" />
-                        <h5 class="fw-bold">App Development</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Desenvolvimento da Plataforma</h5>
+                        <p class="mb-md-0">Receba suas análises de mercado diretamente <br>em sua casa, coletando dados
+                            valiosos sobre as <br> tendências imobiliárias.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/time-award.png" width="90" alt="" />
-                        <h5 class="fw-bold">10 Times Award</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Excelência Reconhecida</h5>
+                        <p class="mb-md-0">A maior plataforma imobiliária do Brasil, destacando-se por sua excelência e
+                            inovação no setor imobiliário.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/cloud.png" width="90" alt="" />
-                        <h5 class="fw-bold">Cloud Storage</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Armazenamento em Nuvem</h5>
+                        <p class="mb-md-0">Mantenha todos os seus dados imobiliários seguros e acessíveis com nosso
+                            armazenamento em nuvem de alta qualidade.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/customization.png" width="90" alt="" />
-                        <h5 class="fw-bold">Customization</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Personalização</h5>
+                        <p class="mb-md-0">Personalize sua experiência na plataforma para atender melhor às suas
+                            necessidades específicas de mercado.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/ux.png" width="90" alt="" />
-                        <h5 class="fw-bold">UX Planning</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Planejamento de UX</h5>
+                        <p class="mb-md-0">Oferecemos uma experiência de usuário otimizada, garantindo que todas as
+                            funcionalidades sejam intuitivas e fáceis de usar.
                         </p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-6">
                     <div class="text-center px-lg-3"><img class="img-fluid mb-3"
                             src="../../../assets/img/illustrations/support.png" width="90" alt="" />
-                        <h5 class="fw-bold">Customer Support</h5>
-                        <p class="mb-md-0">Get your blood tests delivered at home collect a sample from the news your
-                            blood tests.
+                        <h5 class="fw-bold">Suporte ao Cliente</h5>
+                        <p class="mb-md-0">Receba suporte ao cliente dedicado para garantir que todas as suas dúvidas e
+                            necessidades sejam atendidas rapidamente.
                         </p>
                     </div>
                 </div>
