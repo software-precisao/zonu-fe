@@ -81,7 +81,7 @@
                     <div class="form-group col-md-12 mt-3">
                       <label for="valor"
                         ><small
-                          ><strong>Preço do imóvel (R$)</strong></small
+                          ><strong>Preço do ímovel (R$)</strong></small
                         ></label
                       >
                       <div>
