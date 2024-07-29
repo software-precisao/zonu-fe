@@ -28,10 +28,11 @@ import ListTicketView from "../views/dashboard/ticket/ResivTicketView.vue";
 import TermosView from "../views/dashboard/termos/CondicoesView.vue";
 import PrivacidadeView from "../views/dashboard/termos/PrivacidadeView.vue";
 import SeuImovelView from "../views/dashboard/temp/ImovelView.vue";
+import LinkView from "../views/dashboard/profile/myLinksView.vue";
+import MeuPlanoView from "../views/dashboard/plano/myPlanoView.vue";
 
 import md5 from "crypto-js/md5";
-import LeadsView from "@/components/leads/LeadsView.vue";
-
+import MyUsersView from "@/views/dashboard/users/myUsersView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -280,6 +281,21 @@ const routes = [
     path: "/seu-perfil/:hash",
     name: "PerfilWithHash",
     component: PerfilView,
+  },
+  {
+    path: "/seus-links",
+    name: "links",
+    component: LinkView,
+  },
+  {
+    path: "/meus-plano",
+    name: "meuPlano",
+    component: MeuPlanoView,
+  },
+  {
+    path: "/meus-usuarios",
+    name: "meusUsuarios",
+    component: MyUsersView,
   },
   {
     path: "/usuarios",

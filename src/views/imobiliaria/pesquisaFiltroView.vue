@@ -84,34 +84,113 @@
                           ><strong>Preço do ímovel (R$)</strong></small
                         ></label
                       >
-                      <div>
-                        <div class="d-flex justify-content-evenly mt-2">
+                      <!-- <div> -->
+                      <!-- <div class="d-flex justify-content-evenly mt-2">
                           <span>R$ {{ valorMin.toLocaleString() }}</span>
                           <span>Até</span>
                           <span>R$ {{ valorMax.toLocaleString() }}</span>
-                        </div>
-                        <div class="d-flex justify-content-around mt-2">
-                          <input
-                            type="number"
-                            v-model.number="valorMin"
-                            @input="atualizarFiltros"
-                            class="form-control"
-                            placeholder="Valor Mínimo"
-                            min="0"
-                          />
-                          <input
-                            type="number"
-                            v-model.number="valorMax"
-                            @input="atualizarFiltros"
-                            class="form-control"
-                            placeholder="Valor Máximo"
-                            min="0"
-                          />
-                        </div>
+                        </div> -->
+                      <div class="d-flex justify-content-around mt-2">
+                        <input
+                          type="number"
+                          v-model.number="valorMin"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Mínimo"
+                          min="0"
+                        />
+                        <input
+                          type="number"
+                          v-model.number="valorMax"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Máximo"
+                          min="0"
+                        />
+                      </div>
+                      <!-- </div> -->
+                    </div>
+
+                    <div class="form-group col-md-12 mt-3">
+                      <label for="valor"
+                        ><small
+                          ><strong>Preço do condomínio (R$)</strong></small
+                        ></label
+                      >
+                      <div class="d-flex justify-content-around mt-2">
+                        <input
+                          type="number"
+                          v-model.number="condMin"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Mínimo"
+                          min="0"
+                        />
+                        <input
+                          type="number"
+                          v-model.number="condMax"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Máximo"
+                          min="0"
+                        />
                       </div>
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
+                      <label for="valor"
+                        ><small
+                          ><strong>Preço do IPTU (R$)</strong></small
+                        ></label
+                      >
+                      <div class="d-flex justify-content-around mt-2">
+                        <input
+                          type="number"
+                          v-model.number="iptuMin"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Mínimo"
+                          min="0"
+                        />
+                        <input
+                          type="number"
+                          v-model.number="iptuMax"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Valor Máximo"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-12 mt-3">
+                      <label for="area"
+                        ><small
+                          ><strong>Intervalo de Área (m²)</strong></small
+                        ></label
+                      >
+                      <div class="d-flex justify-content-around mt-2">
+                        <input
+                          type="number"
+                          v-model.number="areaMin"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Área Mínima"
+                          min="0"
+                        />
+                        <input
+                          type="number"
+                          v-model.number="areaMax"
+                          @input="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Área Máxima"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <!--  filtro de proximo ao mar -->
+                    <!-- <div class="form-group col-md-12 mt-3">
                       <label for="proximoMar"
                         ><small
                           ><strong>Proximidade ao Mar</strong></small
@@ -134,7 +213,7 @@
                         <option value="Proximo ao mar">Próximo ao mar</option>
                         <option value="all">Não</option>
                       </select>
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-md-12 mt-3">
                       <label for="tipoImovel"
@@ -315,6 +394,72 @@
                         min="0"
                       />
                     </div>
+
+                    <div class="form-group col-md-11 mt-3">
+                      <label
+                        ><small><strong>Características</strong></small></label
+                      >
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="d-flex flex-column">
+                            <div
+                              v-for="(caracteristica, index) in primeiraColuna"
+                              :key="caracteristica"
+                              class="form-check"
+                            >
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                :value="caracteristica"
+                                v-model="caracteristicasSelecionadas"
+                                @change="atualizarFiltros"
+                              />
+                              <label class="form-check-label">{{
+                                caracteristica
+                              }}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex flex-column">
+                            <div
+                              v-for="(caracteristica, index) in segundaColuna"
+                              :key="caracteristica"
+                              class="form-check"
+                            >
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                :value="caracteristica"
+                                v-model="caracteristicasSelecionadas"
+                                @change="atualizarFiltros"
+                              />
+                              <label class="form-check-label">{{
+                                caracteristica
+                              }}</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12 mt-3">
+                        <label for="ordenarPor"
+                          ><small><strong>Ordenar por</strong></small></label
+                        >
+                        <select
+                          v-model="ordenarPor"
+                          @change="atualizarFiltros"
+                          class="form-control"
+                          placeholder="Ordenar por"
+                        >
+                          <option value="">Ordenar por</option>
+                          <option value="relevantes">Mais Relevantes</option>
+                          <option value="recentes">Mais Recentes</option>
+                          <option value="maiorPreco">Maior Preço</option>
+                          <option value="menorPreco">Menor Preço</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -465,6 +610,7 @@ import axios from "axios";
 import L from "leaflet";
 import _ from "lodash";
 import "leaflet/dist/leaflet.css";
+import apiUser from "../../../service/api/usuarios/index";
 
 export default {
   name: "ImobilView",
@@ -510,6 +656,10 @@ export default {
       condominio: "all",
       valorMin: 0,
       valorMax: 0,
+      condMin: 0,
+      condMax: 0,
+      iptuMin: 0,
+      iptuMax: 0,
       proximoMar: "all",
       tipoImovel: "all",
       perfilImovel: "all",
@@ -522,6 +672,12 @@ export default {
       dormitorios: 0,
       banheiro: 0,
       cozinha: 0,
+      areaMin: 0,
+      areaMax: 0,
+      ordenarPor: "",
+
+      caracteristicasSelecionadas: [], // Armazenar características selecionadas
+      todasCaracteristicas: [], // Armazenar todas as características disponíveis
 
       cidades: [],
       estados: [],
@@ -581,10 +737,10 @@ export default {
       this.tipoNegocio = storedTipoNegocio;
       sessionStorage.removeItem("TipoNegocio");
     }
-    const storedVistaMar = sessionStorage.getItem("VistaProMar");
+    const storedVistaMar = sessionStorage.getItem("Casa");
     if (storedVistaMar) {
-      this.proximoMar = storedVistaMar;
-      sessionStorage.removeItem("VistaProMar");
+      this.tipoImovel = storedVistaMar;
+      sessionStorage.removeItem("Casa");
     }
     const storedGaragem = sessionStorage.getItem("Garagem");
     if (storedGaragem) {
@@ -626,15 +782,18 @@ export default {
   },
 
   computed: {
-    // imoveisFiltrados() {
-    //     return this.imoveis.filter(imovel => {
-    //         const matchTipo = this.filtros.tipoImovel ? imovel.descricao.tipo_imovel === this.filtros.tipoImovel : true;
-    //         const matchPrecoMinimo = this.filtros.precoMinimo ? imovel.preco.preco_imovel >= this.filtros.precoMinimo : true;
-    //         const matchPrecoMaximo = this.filtros.precoMaximo ? imovel.preco.preco_imovel <= this.filtros.precoMaximo : true;
-    //         const matchQuartos = this.filtros.quartos ? imovel.detalhes.quartos === this.filtros.quartos : true;
-    //         return matchTipo && matchPrecoMinimo && matchPrecoMaximo && matchQuartos;
-    //     });
-    // },
+    primeiraColuna() {
+      return this.todasCaracteristicas.slice(
+        0,
+        Math.ceil(this.todasCaracteristicas.length / 2)
+      );
+    },
+    segundaColuna() {
+      return this.todasCaracteristicas.slice(
+        Math.ceil(this.todasCaracteristicas.length / 2)
+      );
+    },
+
     imoveisOnCurrentPage() {
       const startIndex = (this.currentPageImovel - 1) * this.perPageImovel;
       const endIndex = startIndex + this.perPageImovel;
@@ -671,27 +830,33 @@ export default {
 
   methods: {
     async handleCompartilhar(idImovel) {
-      const userId = 123; // Substitua pelo ID do usuário real
-      const currentDate = new Date().toISOString().split("T")[0]; // Obtém a data no formato YYYY-MM-DD
-      const routeName = `http://localhost:5173/seu-imovel/?id=${idImovel}`; // Nome da rota onde o ID do usuário será usado
+      // const userId = 123; // Substitua pelo ID do usuário real
+      // const currentDate = new Date().toISOString().split("T")[0]; // Obtém a data no formato YYYY-MM-DD
+      // const routeName = `http://localhost:5173/seu-imovel/?id=${idImovel}`; // Nome da rota onde o ID do usuário será usado
+      // console.log(this.token);
+      const decoded = jwtDecode(this.token);
 
+      // Exibir o resultado
+      // console.log(decoded.id_user);
       // Gerar a URL com base no ID do usuário e na data atual
-      const route = {
-        name: routeName,
-        params: { id: userId, date: currentDate },
-      };
-      const url = new URL(
-        this.$router.resolve(route).href,
-        window.location.origin
-      );
+      const routeName = `http://localhost:5173/seu-imovel/?id=${idImovel}`;
+      const url = new URL(routeName, window.location.origin);
 
       try {
-        // Copiar o link para a área de transferência
-        await navigator.clipboard.writeText(url.toString());
-        sessionStorage.setItem("url", url.toString());
-        sessionStorage.setItem("id", userId);
-        sessionStorage.setItem("data", currentDate);
-        this.copyStatus = "Link copiado para a área de transferência!";
+        apiUser.salvarLink(decoded.id_user, url).then(async (res) => {
+          if (res.status === 201) {
+            // Copiar o link para a área de transferência
+            await navigator.clipboard.writeText(url.toString());
+            sessionStorage.setItem("url", url.toString());
+            sessionStorage.setItem("id", decoded.id_user);
+            // sessionStorage.setItem("data", currentDate);
+            this.copyStatus = "Link copiado para a área de transferência!";
+          }
+        });
+
+        // apiUser.meusLinks(decoded.id_user).then((res) => {
+        //   console.log(res)
+        // })
       } catch (err) {
         console.error("Falha ao copiar o link: ", err);
         this.copyStatus = "Falha ao copiar o link.";
@@ -732,6 +897,10 @@ export default {
         condominio: this.condominio,
         valorMin: this.valorMin,
         valorMax: this.valorMax,
+        condMin: this.condMin,
+        condMax: this.condMax,
+        iptuMin: this.iptuMin,
+        iptuMax: this.iptuMax,
         proximoMar: this.proximoMar,
         tipoImovel: this.tipoImovel,
         perfilImovel: this.perfilImovel,
@@ -744,6 +913,7 @@ export default {
         dormitorios: this.dormitorios,
         banheiro: this.banheiro,
         cozinha: this.cozinha,
+        ordenarPor: this.ordenarPor,
       });
 
       this.filtrarImoveis();
@@ -752,8 +922,19 @@ export default {
       try {
         const res = await api.listallImoveis();
         this.todosImoveis = res.data;
+
+        const caracteristicasSet = new Set();
+        this.todosImoveis.forEach((imovel) => {
+          imovel.caracteristicas.forEach((caracteristica) => {
+            caracteristicasSet.add(
+              caracteristica.detalhesCaracteristica.nome_caracteristica
+            );
+          });
+        });
+        this.todasCaracteristicas = Array.from(caracteristicasSet);
+
         this.filtrarImoveis();
-        this.quantidadeImoveis = res.data.length;
+        this.quantidadeImoveis = this.imoveis.length;
         // this.imoveis = this.ultimosImoveis(res.data);
         this.avaliarQualidadeCadastro(this.imoveis);
       } catch (error) {
@@ -774,9 +955,45 @@ export default {
         const valorImovel = imovel.preco.preco_imovel;
         const filtroValor =
           (this.valorMin === 0 && this.valorMax === 0) ||
-          (this.valorMin === 0 && valorImovel <= this.valorMax) ||
-          (this.valorMax === 0 && valorImovel >= this.valorMin) ||
+          (this.valorMin === 0 &&
+            valorImovel <= this.valorMax &&
+            valorImovel >= this.valorMin) ||
+          (this.valorMax === 0 &&
+            valorImovel >= this.valorMin &&
+            valorImovel <= this.valorMax) ||
           (valorImovel >= this.valorMin && valorImovel <= this.valorMax);
+
+        const precoCondominio = imovel.preco.preco_condominio
+          .replace("R$", "")
+          .replace(".", "")
+          .replace(",", ".")
+          .trim();
+        const filtroValorCondominio =
+          (this.condMin === 0 && this.condMax === 0) ||
+          (this.condMin === 0 &&
+            parseFloat(precoCondominio) <= this.condMax &&
+            parseFloat(precoCondominio) >= this.condMin) ||
+          (this.condMax === 0 &&
+            parseFloat(precoCondominio) >= this.condMin &&
+            parseFloat(precoCondominio) <= this.condMax) ||
+          (parseFloat(precoCondominio) >= this.condMin &&
+            parseFloat(precoCondominio) <= this.condMax);
+
+        const precoIPTU = imovel.preco.preco_iptu
+          .replace("R$", "")
+          .replace(".", "")
+          .replace(",", ".")
+          .trim();
+        const filtroValorIPTU =
+          (this.iptuMin === 0 && this.iptuMax === 0) ||
+          (this.iptuMin === 0 &&
+            parseFloat(precoIPTU) <= this.iptuMax &&
+            parseFloat(precoIPTU) >= this.iptuMin) ||
+          (this.iptuMax === 0 &&
+            parseFloat(precoIPTU) >= this.iptuMin &&
+            parseFloat(precoIPTU) <= this.iptuMax) ||
+          (parseFloat(precoIPTU) >= this.iptuMin &&
+            parseFloat(precoIPTU) <= this.iptuMax);
 
         const filtroProximoMar =
           this.proximoMar === "all" ||
@@ -813,10 +1030,32 @@ export default {
           this.cozinha === "" ||
           imovel.comodos.cozinha == this.cozinha;
 
+        const areaImovel = parseFloat(imovel.medidas.area_total);
+        const filtroArea =
+          (this.areaMin === 0 && this.areaMax === 0) ||
+          (this.areaMin === 0 &&
+            areaImovel <= this.areaMax &&
+            areaImovel >= this.areaMin) ||
+          (this.areaMax === 0 &&
+            areaImovel >= this.areaMin &&
+            areaImovel <= this.areaMax) ||
+          (areaImovel >= this.areaMin && areaImovel <= this.areaMax);
+
+        const filtroCaracteristicas =
+          this.caracteristicasSelecionadas.length === 0 ||
+          this.caracteristicasSelecionadas.every((caracteristica) =>
+            imovel.caracteristicas.some(
+              (c) =>
+                c.detalhesCaracteristica.nome_caracteristica === caracteristica
+            )
+          );
+
         return (
           filtroTipoNegocio &&
           filtroCondominio &&
           filtroValor &&
+          filtroValorCondominio &&
+          filtroValorIPTU &&
           filtroProximoMar &&
           filtroTipoImovel &&
           filtroPerfilImovel &&
@@ -827,9 +1066,39 @@ export default {
           filtroCidade &&
           filtroDormitorios &&
           filtroBanheiros &&
-          filtroCozinhas
+          filtroCozinhas &&
+          filtroArea &&
+          filtroCaracteristicas
         );
       });
+
+      // Ordenar os imóveis com base na seleção do usuário
+      switch (this.ordenarPor) {
+        case "relevantes":
+          this.imoveis.sort(
+            (a, b) => b.porcentagemQualidade - a.porcentagemQualidade
+          );
+          break;
+        case "recentes":
+          this.imoveis.sort(
+            (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+          );
+          break;
+        case "maiorPreco":
+          this.imoveis.sort(
+            (a, b) => b.preco.preco_imovel - a.preco.preco_imovel
+          );
+          break;
+        case "menorPreco":
+          this.imoveis.sort(
+            (a, b) => a.preco.preco_imovel - b.preco.preco_imovel
+          );
+          break;
+        default:
+          // Não fazer nada, manter a ordem padrão
+          break;
+      }
+
       this.quantidadeImoveis = this.imoveis.length;
     },
 

@@ -97,7 +97,7 @@ export default {
     complemento,
     cidade,
     estado,
-    bairro
+    bairro,
   }) => {
     try {
       const response = await http.put(
@@ -185,6 +185,47 @@ export default {
           },
         }
       );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  salvarLink: async (id, rota) => {
+    try {
+      const response = await http.post(
+        `/linktemporario/cadastrar-link`,
+        {
+          userId: id,
+          url: rota,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  meusLinks: async (id) => {
+    try {
+      const response = await http.get(`/linktemporario/links/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
 
       return response;
     } catch (error) {
