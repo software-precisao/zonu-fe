@@ -383,6 +383,7 @@ export default {
       estado: "",
       bairro: "",
       selectNivel: "",
+      selectPlano: "",
       msgSuccess: false,
       msgErrorNull: false,
 
@@ -527,6 +528,82 @@ export default {
           return { allowed: false, message: 'Permissão desconhecida. Não é possível cadastrar novos usuários.' };
       }
     },
+    handleSalvarUserZonu() {
+      this.textoBotao = "Salvando...";
+      this.autenticando = true;
+
+      let nome = this.nome;
+      let sobrenome = this.sobrenome;
+      let email = this.email;
+      let senha = this.senha;
+      let selectNivel = this.selectNivel;
+      // let selectPlano = this.selectPlano;
+
+        // Verificar a quantidade máxima de usuários permitidos
+      const currentUserCount = this.listUsers.length;
+      const permissionCheck = this.canRegisterUser({ id_nivel: selectNivel }, currentUserCount);
+
+          if (!permissionCheck.allowed) {
+          this.msgMaxUsers = permissionCheck.message;
+          this.textoBotao = "Criar novo usuário";
+          this.autenticando = false;
+          return;
+      }
+
+      if (
+        nome !== "" &&
+        sobrenome !== "" &&
+        email !== "" &&
+        senha !== "" &&
+        selectNivel
+      ) {
+        if (selectNivel === 1) {
+          api.cadastroAdmin(nome, sobrenome, email, senha, selectNivel).then((res) => {
+            if (res.status == 202) {
+              this.nome = "";
+              this.sobrenome = "";
+              this.email = "";
+              this.senha = "";
+              this.confimSenha = "";
+              this.selectNivel = "";
+              this.msgSuccess = true;
+              this.textoBotao = "Criar novo usuário";
+              this.autenticando = false;
+
+              this.fetchUsuarios();
+            }
+          });
+        }
+
+        if (selectNivel === 2) {
+          api
+            .cadastroEquipe(nome, sobrenome, email, senha, selectNivel)
+            .then((res) => {
+              if (res.status == 202) {
+                this.nome = "";
+                this.sobrenome = "";
+                this.email = "";
+                this.senha = "";
+                this.confimSenha = "";
+                this.selectNivel = "";
+                this.msgSuccess = true;
+                this.textoBotao = "Criar novo usuário";
+                this.autenticando = false;
+
+                this.fetchUsuarios();
+              }
+            });
+        }
+      } else {
+        this.msgErrorNull = true;
+        this.textoBotao = "Criar novo usuário";
+        this.autenticando = false;
+
+        setTimeout(() => {
+          this.msgErrorNull = false;
+        }, 3000);
+      }
+    },
 
     handledSelect() {
       let escolha = this.selectTab;
@@ -631,77 +708,7 @@ export default {
         }
       }
     },
-    handleSalvarUserZonu() {
-      this.textoBotao = "Salvando...";
-      this.autenticando = true;
 
-      let nome = this.nome;
-      let sobrenome = this.sobrenome;
-      let email = this.email;
-      let senha = this.senha;
-      let selectNivel = this.selectNivel;
-
-      if (this.listUsers.length >= 4) {
-        this.msgMaxUsers = 'Não é possível cadastrar mais de 4 usuários.';
-        this.textoBotao = "Criar novo usuário";
-        this.autenticando = false;
-        return;
-      }
-
-      if (
-        nome !== "" &&
-        sobrenome !== "" &&
-        email !== "" &&
-        senha !== "" &&
-        selectNivel
-      ) {
-        if (selectNivel === 1) {
-          api.cadastroAdmin(nome, sobrenome, email, senha).then((res) => {
-            if (res.status == 202) {
-              this.nome = "";
-              this.sobrenome = "";
-              this.email = "";
-              this.senha = "";
-              this.confimSenha = "";
-              this.selectNivel = "";
-              this.msgSuccess = true;
-              this.textoBotao = "Criar novo usuário";
-              this.autenticando = false;
-
-              this.fetchUsuarios();
-            }
-          });
-        }
-
-        if (selectNivel === 2) {
-          api
-            .cadastroEquipe(nome, sobrenome, email, senha, selectNivel)
-            .then((res) => {
-              if (res.status == 202) {
-                this.nome = "";
-                this.sobrenome = "";
-                this.email = "";
-                this.senha = "";
-                this.confimSenha = "";
-                this.selectNivel = "";
-                this.msgSuccess = true;
-                this.textoBotao = "Criar novo usuário";
-                this.autenticando = false;
-
-                this.fetchUsuarios();
-              }
-            });
-        }
-      } else {
-        this.msgErrorNull = true;
-        this.textoBotao = "Criar novo usuário";
-        this.autenticando = false;
-
-        setTimeout(() => {
-          this.msgErrorNull = false;
-        }, 3000);
-      }
-    },
     handleSalvarUserConstrutora() {
       this.textoBotao = "Salvando...";
       this.autenticando = true;
