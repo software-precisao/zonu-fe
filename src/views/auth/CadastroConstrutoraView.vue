@@ -241,6 +241,10 @@
                   <input disabled type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="cidade"
                     placeholder="Aguarde..." />
                 </div>
+
+                <p v-if="msgEstado" class="text-warning mt-2">
+                        <i class="fa fa-circle-exclamation"></i> Desculpe, ainda não estamos no seu estado, preencha com outro CEPx.
+                </p>
               </div>
               <div class="col-6">
                 <div class="mb-3">
@@ -347,9 +351,9 @@ export default {
       estado: "",
       bairro: "",
       id_user: "",
-      campoNullError: false,
       textoBotao: "Salvar",
       autenticando: false,
+      msgEstado: false,
 
       validationTab: false,
       erro: false,
@@ -466,6 +470,16 @@ export default {
           let bairro = res.data.bairro;
           let cidade = res.data.localidade;
           let estado = res.data.uf;
+
+          if (estado !== "PB") {
+            this.autenticando = true;
+            this.textoBotao = "Ainda não chegamos no seu estado 😔";
+            this.msgEstado = true;
+          } else {
+              this.autenticando = false;
+              this.msgEstado = false;
+              this.textoBotao = "Salvar";
+          }
 
           this.logradouro = rua;
           this.bairro = bairro;

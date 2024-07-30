@@ -66,7 +66,7 @@
           </p>
 
           <p v-if="campoNullError" class="text-warning mt-2">
-            <i class="fa fa-circle-exclamation"></i> Não deixe campor vazios.
+            <i class="fa fa-circle-exclamation"></i> Não deixe campos vazios.
           </p>
 
           <p v-if="msgEstado" class="text-warning mt-2">
