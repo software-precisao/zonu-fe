@@ -259,7 +259,7 @@
   >
     <div
       class="progress-bar overflow-visible text-dark bg-warning"
-      style="width: 10%"
+      :style="{ width: barprogress }"
     >
       Seu período de teste
     </div>
@@ -382,6 +382,8 @@ export default {
       bannerProfile: false,
       nivel: "",
       termos: [],
+
+      barprogress: "10%",
     };
   },
   mounted() {

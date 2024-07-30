@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="body" v-if="link">
     <nav
       class="navbar navbar-expand-lg bg-body-tertiary py-2"
       data-bs-theme="light"
@@ -127,7 +127,6 @@
                       class="img-fluid thumbnail"
                     />
                     <!-- Sobreposição na Quinta Imagem -->
-                    {{ console.log(index) }}
                     <div
                       v-if="index === 3"
                       class="overlay"
@@ -950,6 +949,18 @@
       </div>
     </div>
   </div>
+  <div class="body" style="height: 100vh" v-if="link == false">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div
+        class="col-12 col-md-6 col-lg-4 card shadow-md p-4 text-center rounded"
+      >
+        <h2 class="text-title-h2 mb-4">
+          <strong>Esse link já expirou</strong>
+        </h2>
+        <a href="/login" class="btn btn-primary">Voltar para o login</a>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import Sidebar from "../../../components/sidebar/index.vue";
@@ -957,6 +968,7 @@ import Navbar from "../../../components/navbar/index.vue";
 import Footer from "../../../components/footer/index.vue";
 import api from "../../../../service/api/imoveis/index";
 import apiRaiz from "../../../../service/api/index";
+import apiUser from "../../../../service/api/usuarios/index";
 import axios from "axios";
 
 export default {
@@ -969,6 +981,7 @@ export default {
   data() {
     return {
       imovelId: null,
+      donoId: null,
       imovel: {},
 
       condominio: "Sem condomínio",
@@ -981,6 +994,8 @@ export default {
       showModal: false,
       currentImageIndex: 0,
       currentImage: "",
+
+      link: true,
     };
   },
 
@@ -1050,6 +1065,24 @@ export default {
   created() {
     // this.imovelId = sessionStorage.getItem("imovelId");
     this.imovelId = this.propertyId = this.$route.query.id;
+    this.donoId = this.propertyId = this.$route.query.idUser;
+    // console.log(this.imovelId, this.donoId);
+    const url = window.location.href;
+    apiUser.meusLinks(this.donoId).then((res) => {
+      // console.log(res);
+      res.data.response.map((link) => {
+        if (link.url == url) {
+          console.log(link.url == url, link.url, url);
+          if (link.ativo == true) {
+            console.log("link ativo");
+            this.link = true;
+          } else {
+            console.log("link inativo");
+            this.link = false;
+          }
+        }
+      });
+    });
     this.fetchImovel();
   },
 

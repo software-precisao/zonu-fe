@@ -178,6 +178,7 @@
 <script>
 import Navbar from "../../../components/navbar/navbar-imobiliaria.vue";
 import Footer from "../../../components/footer/index.vue";
+import api from "../../../../service/api/planos/index";
 
 export default {
   name: "meuPlano",
@@ -195,8 +196,16 @@ export default {
     setTimeout(() => {
       this.mostrarSkeleton = false;
     }, 2000);
+
+    this.fetchPlano();
   },
 
-  methods: {},
+  methods: {
+    fetchPlano() {
+      api.getPlanos().then((res) => {
+        console.log(res);
+      });
+    },
+  },
 };
 </script>
