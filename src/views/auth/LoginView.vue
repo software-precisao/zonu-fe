@@ -142,7 +142,7 @@ export default {
     if (this.token !== null) {
       let decode = jwtDecode(this.token);
   
-
+      console.log(decode.id_nivel)
       if (decode.id_nivel == 1) {
         this.textoBotao = "Sucesso, redirecionando...";
         window.location.href = "/dashboard-admin";
@@ -157,11 +157,6 @@ export default {
         this.textoBotao = "Sucesso, redirecionando...";
       }
     }
-
-
-
-
-
 
   },
   methods: {
@@ -192,14 +187,14 @@ export default {
             if (response.status == 200) {
               const token = response.data.token;
               const decode = jwtDecode(token);
-              let statusAccess = decode.id_status;
+              let statusAccess = decode.id_nivel;
 
               this.textoBotao = "Sucesso, redirecionando...";
-
+              console.log(statusAccess)
               if (statusAccess == 1) {
                 localStorage.setItem("token", token);
                 this.autenticando = false;
-                window.location.href = "/dashboard";
+                window.location.href = "/dashboard-admin";
               } else if (statusAccess == 2) {
                 (this.email = ""),
                   (this.senha = ""),
@@ -210,6 +205,21 @@ export default {
                   this.autenticando = false;
                   this.textoBotao = "Acessar sua conta";
                 }, 5000);
+              }
+              else if (statusAccess == 3) {
+                localStorage.setItem("token", token);
+                this.autenticando = false;
+                window.location.href = "/dashboard";
+              }
+              else if (statusAccess == 4) {
+                localStorage.setItem("token", token);
+                this.autenticando = false;
+                window.location.href = "/sua-imobiliaria-virtual";
+              }
+              else if (statusAccess == 5) {
+                localStorage.setItem("token", token);
+                this.autenticando = false;
+                window.location.href = "/sua-imobiliaria-virtual";
               }
             } else if (response.status == 401) {
               this.msgEmailErro = true;
