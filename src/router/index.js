@@ -30,8 +30,8 @@ import PrivacidadeView from "../views/dashboard/termos/PrivacidadeView.vue";
 import SeuImovelView from "../views/dashboard/temp/ImovelView.vue";
 
 import md5 from "crypto-js/md5";
+import MyUsersView from "@/views/dashboard/users/myUsersView.vue";
 import LeadsView from "@/components/leads/LeadsView.vue";
-
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
