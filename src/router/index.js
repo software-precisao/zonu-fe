@@ -407,7 +407,8 @@ router.beforeEach((to, from, next) => {
     "/cadastro-construtora",
     "/seu-imovel",
   ];
-  const authRequired = !publicPages.includes(to.path);
+  const isPublicPage = publicPages.some(page => to.path.startsWith(page));
+  const authRequired = !isPublicPage;
   const loggedIn = localStorage.getItem("token");
 
   if (authRequired && !loggedIn) {

@@ -223,6 +223,61 @@ export default {
     }
   },
 
+  cadastroImobiliaria: async (
+    nome,
+    sobrenome,
+    email,
+    senha,
+    razao_social,
+    cnpj,
+    id_plano,
+    telefone,
+    cep,
+    endereco,
+    complemento,
+    numero,
+    cidade,
+    estado,
+    bairro
+  ) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-imobiliaria",
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+          avatar: "",
+          status: 2,
+          id_plano: id_plano,
+          razao_social: razao_social,
+          cnpj: cnpj,
+          telefone: telefone,
+          cep: cep,
+          endereco: endereco,
+          complemento: complemento,
+          numero: numero,
+          cidade: cidade,
+          estado: estado,
+          bairro: bairro,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   sendNewAccountAdmin: async (nome, email) => {
     try {
       const response = await http.post(

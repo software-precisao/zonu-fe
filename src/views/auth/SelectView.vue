@@ -12,8 +12,9 @@
                     </p>
 
                     <div class="row">
-                        <div class="col-4">
-                            <a class="card card-select" href="/cadastro-construtora" style="height: 150px; text-decoration: none !important;">
+                        <div class="col-3">
+                            <a class="card card-select" href="/cadastro-construtora"
+                                style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
                                     <img src="../../../assets/images/iconConstrutora.svg"
                                         style="margin-left: auto; margin-right: auto; display: block;" alt="">
@@ -21,8 +22,9 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-4">
-                            <a class="card card-select" href="/cadastro-corretor" style="height: 150px; text-decoration: none !important;">
+                        <div class="col-3">
+                            <a class="card card-select" href="/cadastro-corretor"
+                                style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
                                     <img src="../../../assets/images/iconCorretor.svg"
                                         style="margin-left: auto; margin-right: auto; display: block;" alt="">
@@ -30,12 +32,23 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-4">
-                            <a class="card card-select" href="/cadastro-imobiliaria" style="height: 150px; text-decoration: none !important;">
+                        <div class="col-3">
+                            <a class="card card-select" href="/cadastro-imobiliaria"
+                                style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
                                     <img src="../../../assets/images/iconImobiliaria.svg" class="mt-2"
                                         style="margin-left: auto; margin-right: auto; display: block;" alt="">
                                     <p class="text-center mt-3">Imobiliária</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a class="card card-select" href="/cadastro-imobiliaria"
+                                style="height: 150px; text-decoration: none !important;">
+                                <div class="card-body">
+                                    <img src="../../../assets/images/iconPessoa.svg"  class="mt-2"
+                                        style="margin-left: auto; margin-right: auto; display: block;" alt="">
+                                    <p class="text-center mt-3">Pessoa Física</p>
                                 </div>
                             </a>
                         </div>

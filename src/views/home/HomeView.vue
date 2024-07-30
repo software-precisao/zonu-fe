@@ -54,50 +54,6 @@
         </div>
     </section>
 
-
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="py-7">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12 mx-auto align-items-center text-center">
-                    <h6 class="fw-bold fs-4 display-3 lh-sm">Quer receber novidades Zonu?</h6>
-                </div>
-            </div>
-
-
-            <div class="row align-items-center justify-content-center justify-content-lg-around mt-4">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 px-md-0 mb-5 mb-lg-0 text-center">
-                    <div class="row">
-
-                        <div class="col-9" style="margin-left: 10%;">
-                            <label for="inputPassword2" class="visually-hidden">Seu email</label>
-                            <input required style="border-top-left-radius: 30px; border-bottom-left-radius: 30px;"
-                                type="email" class="form-control" v-model="inscrever" id="inputPassword2"
-                                placeholder="Deixe seu email aqui">
-                        </div>
-                        <div class="col-1">
-                            <button @click="handleInscrever()" class="btn btn-primary mb-3"
-                                style="margin-left: -30px; height: 50px; width: 150px;">Inscrever-se</button>
-                        </div>
-
-                        <p v-if="msgSuccess" class="text-success"><i class="fa fa-check"></i> E-mail cadastrado com
-                            sucesso</p>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-        <!-- end of .container-->
-
-    </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
-
-
     <section class="py-5" id="features">
         <div class="container-lg">
             <div class="row align-items-center">
@@ -906,17 +862,15 @@ export default {
     methods: {
 
         handleCadastrar(id) {
-            // console.log("id do plano ====> ", id)
-            sessionStorage.setItem("plano", id)
+          
+            localStorage.setItem("plano", id)
             if(id === 1) {
-                this.$router.push({ name: 'cadastro-construtora' });
+                this.$router.push({ name: 'cadastro-imobiliaria' });
             } else if (id === 2) {
                 this.$router.push({ name: 'cadastro-imobiliaria' });
             } else if (id === 3) {
-                this.$router.push({ name: 'cadastro-imobiliaria' });
-            } else if (id === 4) {
                 this.$router.push({ name: 'cadastro-corretor' });
-            }
+            } 
         },
 
         handleInscrever() {
