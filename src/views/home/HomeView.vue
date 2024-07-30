@@ -356,7 +356,7 @@
                 <div class="col-lg-3 " v-for="item in allPlanos">
                     {{console.log('item =>', item)}}
                     <div class="card shadow-lg mb-4 border-0 d-flex flex-column" style="height: 500px;">
-                        <div class="card-header border-bottom-0 pt-7 pb-5">
+                        <div class="card-header border-bottom-0 pt-5 pb-4">
                             <div class="d-flex justify-content-center">
                             <h1 class="fw-bold fs-2">{{ formatCurrency(item.valor_plano) }}</h1><span
                                 class="d-flex align-items-center ">/{{ planPeriod }}</span>
@@ -365,14 +365,14 @@
                             <span class="text-700 text-center d-block">{{ item.descricao }}</span>
                         </div>
                         <div class="card-body mx-auto flex-grow-1">
-                            <ul class="list-unstyled mb-4">
-                            <li class="text-700 py-2 text-secondary" v-for="(itens, index) in item.itens_do_plano[0]">
+                            <ul class="list-unstyled mb-2">
+                            <li class="text-700 py-2 text-secondary" v-for="(itens, index) in item.itens_do_plano">
                                 <i class="fa fa-check"></i> &nbsp; {{ itens }}
                             </li>
                             </ul>
                         </div>
                         <div class=" mt-auto text-center">
-                            <a class="btn btn-lg btn-primary rounded-pill mb-3" @click="handleCadastrar(item.id_plano)">
+                            <a class="btn btn-lg btn-primary rounded-pill mb-5" @click="handleCadastrar(item.id_plano)">
                             Cadastre-se agora
                             </a>
                         </div>
