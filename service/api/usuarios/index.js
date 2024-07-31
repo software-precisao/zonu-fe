@@ -83,6 +83,42 @@ export default {
     }
   },
 
+  sendFileCreci: async (id_user, formData) => {
+    try {
+      const response = await http.put(`/usuarios/enviodoc-creci/${id_user}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  sendFileCnpj: async (id_user, formData) => {
+    try {
+      const response = await http.put(`/usuarios/enviodoc-cnpj/${id_user}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   editUser: async ({
     id_user,
     nome,

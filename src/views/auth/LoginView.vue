@@ -188,9 +188,11 @@ export default {
               const token = response.data.token;
               const decode = jwtDecode(token);
               let statusAccess = decode.id_nivel;
+              let status = decode.id_status;
+              let config = decode.initial;
 
               this.textoBotao = "Sucesso, redirecionando...";
-              console.log(statusAccess)
+             
               if (statusAccess == 1) {
                 localStorage.setItem("token", token);
                 this.autenticando = false;
@@ -206,7 +208,7 @@ export default {
                   this.textoBotao = "Acessar sua conta";
                 }, 5000);
               }
-              else if (statusAccess == 3) {
+              else if (statusAccess == 3 && status == 1 ) {
                 localStorage.setItem("token", token);
                 this.autenticando = false;
                 window.location.href = "/dashboard";
@@ -217,6 +219,11 @@ export default {
                 window.location.href = "/sua-imobiliaria-virtual";
               }
               else if (statusAccess == 5) {
+                localStorage.setItem("token", token);
+                this.autenticando = false;
+                window.location.href = "/sua-imobiliaria-virtual";
+              }
+              else if (statusAccess == 6) {
                 localStorage.setItem("token", token);
                 this.autenticando = false;
                 window.location.href = "/sua-imobiliaria-virtual";

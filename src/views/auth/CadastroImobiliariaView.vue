@@ -70,7 +70,7 @@
           </p>
 
           <p v-if="msgEstado" class="text-warning mt-2">
-            <i class="fa fa-circle-exclamation"></i> Desculpe, ainda não estamos no seu estado, preencha com outro CEPx.
+            <i class="fa fa-circle-exclamation"></i> Desculpe, ainda não estamos no seu estado, preencha com outro CEP.
           </p>
 
           <p v-if="msgCnpjActive" class="text-danger mt-2">

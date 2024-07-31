@@ -4865,7 +4865,6 @@ export default {
 
     let id_user = this.id_user;
 
-    console.log("este é meu usuário ===> ", id_user);
 
     this.nome = nome;
     this.email = email;

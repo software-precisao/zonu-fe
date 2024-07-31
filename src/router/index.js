@@ -6,6 +6,7 @@ import CadastroConstrutoraView from "../views/auth/CadastroConstrutoraView.vue";
 import CadastroCorretorView from "../views/auth/CadastroCorretorView.vue";
 import CadastroImobiliariaView from "../views/auth/CadastroImobiliariaView.vue";
 import RecoveryView from "../views/auth/RecoveryView.vue";
+import InitView from "../views/dashboard/init/CadFirstImovelView.vue";
 import EnviarDocView from "../views/doc/SendDocView.vue";
 import PlanoView from "../views/dashboard/plano/cadPlanoView.vue";
 import TokenView from "../views/dashboard/token/cadTokenView.vue";
@@ -99,6 +100,21 @@ const routes = [
     path: "/dashboard/:hash",
     name: "DashboardWithHash",
     component: MainView,
+  },
+
+  {
+    path: "/primeiro-acesso",
+    name: "primeiro-acesso",
+    component: InitView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/primeiro-acesso/${hash}`);
+    },
+  },
+  {
+    path: "/primeiro-acesso/:hash",
+    name: "PrimeiroWithHash",
+    component: InitView,
   },
 
   {
@@ -428,7 +444,7 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !loggedIn) {
     return next("/login");
-  }
+  } 
 
   next();
 });
