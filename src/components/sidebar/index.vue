@@ -58,6 +58,14 @@
             </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/sua-imobiliaria-virtual">
+            <i class="align-middle" data-feather="grid"></i>
+            <span class="align-middle"
+              >Imobiliária Virtual
+            </span>
+          </a>
+        </li>
         <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
