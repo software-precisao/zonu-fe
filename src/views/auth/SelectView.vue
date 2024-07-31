@@ -46,7 +46,7 @@
                             <a class="card card-select" href="/cadastro-imobiliaria"
                                 style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
-                                    <img src="../../../assets/images/iconPessoa.svg"  class="mt-2"
+                                    <img src="../../../assets/images/iconPessoa.svg" class="mt-2"
                                         style="margin-left: auto; margin-right: auto; display: block;" alt="">
                                     <p class="text-center mt-3">Pessoa Física</p>
                                 </div>
@@ -74,6 +74,5 @@
 
 export default {
     name: "SelectView",
-
 };
 </script>
