@@ -43,7 +43,7 @@
                             </a>
                         </div>
                         <div class="col-3">
-                            <a class="card card-select" href="/cadastro-imobiliaria"
+                            <a class="card card-select" href="#"
                                 style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
                                     <img src="../../../assets/images/iconPessoa.svg" class="mt-2"
