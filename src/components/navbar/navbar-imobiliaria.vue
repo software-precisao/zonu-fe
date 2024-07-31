@@ -65,9 +65,8 @@
           <a
             style="text-decoration: none !important; margin-left: -60%"
             class="nav-icon dropdown-toggle"
-            href="#"
+            href="/seu-ticket"
             id="alertsDropdown"
-            data-bs-toggle="dropdown"
           >
             <div class="position-relative">
               <i class="align-middle" data-feather="tag"></i>

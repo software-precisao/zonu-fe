@@ -46,9 +46,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/novo-plano">
             <i class="align-middle" data-feather="dollar-sign"></i>
-            <span class="align-middle"
-              >Planos
-            </span>
+            <span class="align-middle">Planos </span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -60,14 +58,14 @@
             </span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
             <span class="align-middle"
               >Leads Site
             </span>
           </a>
-        </li>
+        </li> -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">

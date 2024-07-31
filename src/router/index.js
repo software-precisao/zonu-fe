@@ -34,6 +34,7 @@ import MeuPlanoView from "../views/dashboard/plano/myPlanoView.vue";
 import md5 from "crypto-js/md5";
 import MyUsersView from "@/views/dashboard/users/myUsersView.vue";
 import LeadsView from "@/components/leads/LeadsView.vue";
+import ImobiTicketView from "@/views/dashboard/ticket/imobiTicketView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -142,6 +143,20 @@ const routes = [
     path: "/filtro-imovel/:hash",
     name: "filtroWithHash",
     component: FiltroImovelView,
+  },
+  {
+    path: "/seu-ticket",
+    name: "seu-ticket",
+    component: ImobiTicketView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-ticket/${hash}`);
+    },
+  },
+  {
+    path: "/seu-ticket/:hash",
+    name: "SeuTicketWithHash",
+    component: ImobiTicketView,
   },
   {
     path: "/pagamento-zonu",
