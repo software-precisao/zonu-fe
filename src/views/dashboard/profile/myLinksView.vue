@@ -55,6 +55,18 @@ export default {
       return `${dia}/${mes}/${ano}`;
     },
 
+    formatarHora(horaISO) {
+      const date = new Date(horaISO);
+
+      // Extrair a hora, minutos e segundos
+      const hours = date.getUTCHours().toString().padStart(2, "0");
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+      const seconds = date.getUTCSeconds().toString().padStart(2, "0");
+
+      // Formatar como "HH:mm:ss"
+      return `${hours}:${minutes}:${seconds}`;
+    },
+
     fetchLinks() {
       const decoded = jwtDecode(this.token);
 
@@ -168,6 +180,7 @@ export default {
                             <th scope="col">Nome</th>
                             <th scope="col">Link</th>
                             <th scope="col">Data</th>
+                            <th scope="col">Hora da criação</th>
                             <th scope="col">Status</th>
                           </tr>
                         </thead>
@@ -181,6 +194,10 @@ export default {
                               <a :href="link.url">{{ link.url }}</a>
                             </th>
                             <th>{{ formatarData(link.dataCriacao) }}</th>
+                            <th>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              {{ formatarHora(link.dataExpiracao) }}
+                            </th>
                             <th>
                               <span
                                 v-if="link.ativo"
