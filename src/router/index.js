@@ -36,6 +36,7 @@ import md5 from "crypto-js/md5";
 import MyUsersView from "@/views/dashboard/users/myUsersView.vue";
 import LeadsView from "@/components/leads/LeadsView.vue";
 import ImobiTicketView from "@/views/dashboard/ticket/imobiTicketView.vue";
+import MessagesView from "@/views/dashboard/messages/messagesView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -418,6 +419,11 @@ const routes = [
     name: "Leads",
     component: LeadsView,
   },
+  {
+    path: "/messages",
+    name: "messages",
+    component: MessagesView,
+  },
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -438,13 +444,13 @@ router.beforeEach((to, from, next) => {
     "/cadastro-construtora",
     "/seu-imovel",
   ];
-  const isPublicPage = publicPages.some(page => to.path.startsWith(page));
+  const isPublicPage = publicPages.some((page) => to.path.startsWith(page));
   const authRequired = !isPublicPage;
   const loggedIn = localStorage.getItem("token");
 
   if (authRequired && !loggedIn) {
     return next("/login");
-  } 
+  }
 
   next();
 });

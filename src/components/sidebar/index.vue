@@ -58,6 +58,12 @@
             </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/messages">
+            <i class="align-middle" data-feather="message-circle"></i>
+            <span class="align-middle">Mensagens </span>
+          </a>
+        </li>
         <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>

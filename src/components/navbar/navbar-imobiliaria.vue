@@ -47,7 +47,7 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-if="nivel != 6 || nivel != 4">
           <a
             style="text-decoration: none !important; margin-left: -40%"
             class="nav-icon dropdown-toggle"
@@ -394,8 +394,6 @@ export default {
     this.email = decode.email;
     this.nivel = decode.id_nivel;
     this.idUser = decode.id_user;
-
-    console.log(this.image);
 
     const iniciais = this.nome.charAt(0) + this.sobrenome.charAt(0);
     this.iniciais = iniciais;

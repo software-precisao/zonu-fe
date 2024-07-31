@@ -160,6 +160,25 @@
               </div>
             </div>
           </div>
+          <div
+            class="alert alert-primary d-flex align-items-center"
+            role="alert"
+            v-if="mensagemAtivo"
+          >
+            <i class="fa fa-exclamation-circle" style="margin-right: 10px"></i>
+            <div>
+              {{ mensagem }}
+            </div>
+          </div>
+          <!-- <div
+            v-if="mensagemAtivo"
+            class="card w-100 mt-3"
+            style="display: flex; padding: 0 20px"
+          >
+            <p class="card-title" style="margin-top: 10px">
+              {{ mensagem }}
+            </p>
+          </div> -->
           <div class="row"></div>
           <div class="col-xl-12 mt-5">
             <div class="w-100">
@@ -238,6 +257,7 @@ import GraphPublicados from "../../components/client/graph/graphPubliComp.vue";
 import GraphTipo from "../../components/client/graph/graphTipoComp.vue";
 import GraphMercado from "../../components/client/graph/graphMercadpComp.vue";
 import ListImoveis from "../../components/client/imoveis/cardImoveisComp.vue";
+import apiMessage from "../../../service/api/message/index";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -268,9 +288,12 @@ export default {
       mostrarResumo: false,
       markes: [],
       map: null,
-      latitude: '-15.7934',
-      longitude: '-47.8823',
-    }
+      latitude: "-15.7934",
+      longitude: "-47.8823",
+
+      mensagem: "",
+      mensagemAtivo: false,
+    };
   },
   components: {
     Sidebar,
@@ -302,6 +325,8 @@ export default {
     this.ferchProgress();
     this.fetchMyImoveis();
     this.fetchMyCondominios();
+
+    this.getMessage();
   },
 
   watch: {
@@ -329,45 +354,71 @@ export default {
   },
 
   methods: {
+    getMessage() {
+      apiMessage.getMensagem().then((res) => {
+        if (res.data.length > 0) {
+          const latestMessage = res.data[res.data.length - 1];
+          const createdAt = new Date(latestMessage.createdAt);
+          const tempo = latestMessage.tempo; // Tempo em minutos
+          const now = new Date();
+
+          // Calcula a diferença em minutos
+          const diffInMinutes = (now - createdAt) / (1000 * 60);
+
+          console.log("Diferença em minutos:", diffInMinutes);
+
+          if (diffInMinutes <= tempo) {
+            // Mensagem ainda está ativa
+            console.log("Aqui está a mensagem ====>", latestMessage.mensagem);
+            this.mensagemAtivo = true;
+            this.mensagem = latestMessage.mensagem;
+          } else {
+            // Mensagem não está mais ativa
+            console.log("A mensagem não está mais ativa");
+            this.mensagemAtivo = false;
+            this.mensagem = "";
+          }
+        }
+      });
+    },
+
     initMap() {
-      this.map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: this.latitude, lng: this.longitude },
-          zoom: 10
-        });
+      this.map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: this.latitude, lng: this.longitude },
+        zoom: 10,
+      });
 
       this.addMarker();
     },
 
     updateMap() {
-      
       this.map.setCenter({ lat: this.latitude, lng: this.longitude });
       this.map.setZoom(4);
       this.addMarker();
     },
     addMarker() {
-     
       // }
       const lat = this.latitude;
       const lng = this.longitude;
 
       if (!isNaN(lat) && !isNaN(lng)) {
         const customIcon = {
-          url: 'https://zonu.com.br/emailmkt/IconLocationMaps.png', // Caminho para o ícone personalizado
+          url: "https://zonu.com.br/emailmkt/IconLocationMaps.png", // Caminho para o ícone personalizado
           scaledSize: new google.maps.Size(30, 38), // Ajuste o tamanho do ícone conforme necessário
-          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38), // Ajuste a âncora do ícone conforme necessário
         };
 
         const marker = new google.maps.Marker({
           position: { lat: lat, lng: lng },
           map: this.map,
-          icon: customIcon
+          icon: customIcon,
         });
 
         const infowindow = new google.maps.InfoWindow({
-          content: `Latitude: ${lat}, Longitude: ${lng}`
+          content: `Latitude: ${lat}, Longitude: ${lng}`,
         });
 
-        marker.addListener('click', () => {
+        marker.addListener("click", () => {
           infowindow.open(this.map, marker);
         });
 
@@ -418,7 +469,6 @@ export default {
           }
         );
 
-
         if (res.data && res.data.results && res.data.results.length > 0) {
           const location = res.data.results[0].geometry.location;
           const latitude = location.lat;
@@ -449,13 +499,13 @@ export default {
 
       api.listmyImoveis(id_user).then((res) => {
         this.myImoveis = res.data;
-        
-        let latitude
-        let longitude
+
+        let latitude;
+        let longitude;
 
         this.map = new google.maps.Map(this.$refs.mapElement, {
           center: { lat: this.latitude, lng: this.longitude },
-          zoom: 10
+          zoom: 10,
         });
 
         // this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
@@ -466,7 +516,10 @@ export default {
 
         res.data.map(async (imovel) => {
           // console.log(imovel.localizacao.rua)
-          await this.buscarCoordenadas(imovel.localizacao.cep, imovel.localizacao.logradouro).then((res) => {
+          await this.buscarCoordenadas(
+            imovel.localizacao.cep,
+            imovel.localizacao.logradouro
+          ).then((res) => {
             if (res) {
               this.updateMap();
             }
@@ -489,12 +542,8 @@ export default {
                 latitude = location.lat;
                 longitude = location.lng;
 
-
                 // L.marker([latitude, longitude]).addTo(this.map)
                 //   .bindPopup(`Latitude: ${location.lat} Longitude: ${location.lng}`).openPopup();
-
-      
-
               }
             })
             .catch((error) =>
@@ -575,58 +624,61 @@ export default {
       // console.log(this.latitudeImoveis)
       if (!isNaN(lat) && !isNaN(lng)) {
         const customIcon = {
-          url: 'https://zonu.com.br/emailmkt/IconLocationMaps.png', // Caminho para o ícone personalizado
+          url: "https://zonu.com.br/emailmkt/IconLocationMaps.png", // Caminho para o ícone personalizado
           scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
-          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38), // Ajuste a âncora do ícone conforme necessário
         };
 
         const marker = new google.maps.Marker({
           position: { lat: lat, lng: lng },
           map: this.map,
-          icon: customIcon
+          icon: customIcon,
         });
 
         const infowindow = new google.maps.InfoWindow({
-          content: `Latitude: ${lat}, Longitude: ${lng}`
+          content: `Latitude: ${lat}, Longitude: ${lng}`,
         });
 
-        marker.addListener('click', () => {
+        marker.addListener("click", () => {
           infowindow.open(this.map, marker);
         });
 
         this.markes.push(marker); // Armazena o marker no array
       } else {
-        console.error('Coordenadas inválidas');
+        console.error("Coordenadas inválidas");
       }
     },
 
     updateMapImoveis() {
-      this.mapImoveis.setCenter({ lat: this.latitudeImoveis, lng: this.longitudeImoveis });
+      this.mapImoveis.setCenter({
+        lat: this.latitudeImoveis,
+        lng: this.longitudeImoveis,
+      });
       this.mapImoveis.setZoom(4);
       this.addMarkerImoveis();
     },
     addMarkerImoveis() {
       const lat = this.latitudeImoveis;
       const lng = this.longitudeImoveis;
-      console.log(this.latitudeImoveis)
+      console.log(this.latitudeImoveis);
       if (!isNaN(lat) && !isNaN(lng)) {
         const customIcon = {
-          url: 'https://zonu.com.br/emailmkt/IconLocationMaps.png', // Caminho para o ícone personalizado
+          url: "https://zonu.com.br/emailmkt/IconLocationMaps.png", // Caminho para o ícone personalizado
           scaledSize: new google.maps.Size(38, 38), // Ajuste o tamanho do ícone conforme necessário
-          anchor: new google.maps.Point(19, 38) // Ajuste a âncora do ícone conforme necessário
+          anchor: new google.maps.Point(19, 38), // Ajuste a âncora do ícone conforme necessário
         };
 
         const marker = new google.maps.Marker({
           position: { lat: lat, lng: lng },
           map: this.mapImoveis,
-          icon: customIcon
+          icon: customIcon,
         });
 
         const infowindow = new google.maps.InfoWindow({
-          content: `Latitude: ${lat}, Longitude: ${lng}`
+          content: `Latitude: ${lat}, Longitude: ${lng}`,
         });
 
-        marker.addListener('click', () => {
+        marker.addListener("click", () => {
           infowindow.open(this.mapImoveis, marker);
         });
 

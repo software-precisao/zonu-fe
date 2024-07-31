@@ -68,6 +68,17 @@
           </div>
         </div>
 
+        <div
+          class="alert alert-primary d-flex align-items-center"
+          role="alert"
+          v-if="mensagemAtivo"
+        >
+          <i class="fa fa-exclamation-circle" style="margin-right: 10px"></i>
+          <div>
+            {{ mensagem }}
+          </div>
+        </div>
+
         <div class="container-fluid p-0 mt-5">
           <h1 class="h3 text-dark">
             <strong>Encontre o melhor imóvel</strong>
@@ -275,6 +286,7 @@ import axios from "axios";
 import L from "leaflet";
 import _ from "lodash";
 import "leaflet/dist/leaflet.css";
+import apiMessage from "../../../service/api/message/index";
 
 export default {
   name: "ImobilView",
@@ -314,6 +326,9 @@ export default {
       estrelaImovel: {},
 
       nomeImovel: "",
+
+      mensagem: "",
+      mensagemAtivo: false,
     };
   },
 
@@ -338,6 +353,8 @@ export default {
     this.fetchImoveis();
     this.fetchCidades();
     // console.log("Aqui estão os imóveis => ", this.imoveis)
+
+    this.getMessage();
   },
 
   watch: {
@@ -374,6 +391,33 @@ export default {
   },
 
   methods: {
+    getMessage() {
+      apiMessage.getMensagem().then((res) => {
+        if (res.data.length > 0) {
+          const latestMessage = res.data[res.data.length - 1];
+          const createdAt = new Date(latestMessage.createdAt);
+          const tempo = latestMessage.tempo; // Tempo em minutos
+          const now = new Date();
+
+          // Calcula a diferença em minutos
+          const diffInMinutes = (now - createdAt) / (1000 * 60);
+
+          console.log("Diferença em minutos:", diffInMinutes);
+
+          if (diffInMinutes <= tempo) {
+            // Mensagem ainda está ativa
+            console.log("Aqui está a mensagem ====>", latestMessage.mensagem);
+            this.mensagemAtivo = true;
+            this.mensagem = latestMessage.mensagem;
+          } else {
+            // Mensagem não está mais ativa
+            console.log("A mensagem não está mais ativa");
+            this.mensagemAtivo = false;
+            this.mensagem = "";
+          }
+        }
+      });
+    },
     async fetchImoveis() {
       try {
         const response = await api.listallImoveis();
