@@ -201,11 +201,11 @@
                     </div>
 
                     <p v-if="msgEstado" class="text-warning mt-2">
-                        <i class="fa fa-circle-exclamation"></i> Desculpe, ainda não estamos no seu estado, preencha com outro CEPx.
+                        <i class="fa fa-circle-exclamation"></i> Desculpe, ainda não estamos no seu estado, preencha com outro CEP.
                     </p>
 
                     <div v-if="mostrarSkeleton" class="skeleton-button mt-5"></div>
-                    <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit" :disabled="!msgSuccessCnpj"
+                    <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit" 
                         class="btn btn-dark bot mt-4">
                         Avançar
                     </button>
@@ -407,6 +407,11 @@ export default {
             let cidade = this.cidade;
             let estado = this.estado;
             let bairro = this.bairro;
+            let id_plano = localStorage.getItem("plano");
+
+            if (id_plano === null) {
+                id_plano = 4;
+            }
 
             if (
                 nome !== "" &&
@@ -424,6 +429,7 @@ export default {
                         email,
                         senha,
                         cpf,
+                        id_plano,
                         telefone,
                         cep,
                         endereco,

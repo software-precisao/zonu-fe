@@ -84,45 +84,48 @@
             alt=""
           />
         </div>
-        <div class="col-md-7 col-lg-6 text-center text-md-start">
-          <span
-            class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3"
-            >#SejaZonu<img
-              class="img-fluid float-start me-3"
-              src="../../../assets/img/illustrations/arrow-right.png"
-              alt=""
-          /></span>
-          <h1 class="mb-4 display-3 fw-bold lh-sm">
-            A maior plataforma imobiliária
-            <br class="d-block d-lg-none d-xl-block" />do Brasil
-          </h1>
-          <p class="mt-3 mb-4 fs-1">
-            A plataforma definitiva para construtores, corretores e
-            imobiliárias. <br class="d-none d-lg-block" />Tudo em um único
-            lugar.
-          </p>
-          <a
-            class="btn btn-lg btn-primary rounded-pill hover-top"
-            href="#"
-            role="button"
-            >Teste grátis</a
-          ><a class="btn btn-link ps-md-4" href="#" role="button">
-            Conheça nossa plataforma</a
-          >
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================================-->
-  <!-- <section> begin ============================-->
-  <section class="py-7">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 mx-auto align-items-center text-center">
-          <h6 class="fw-bold fs-4 display-3 lh-sm">
-            Quer receber novidades Zonu?
-          </h6>
+    <section class="py-5" id="features">
+        <div class="container-lg">
+            <div class="row align-items-center">
+                <div class="col-md-5 col-lg-6 order-md-0 text-center text-md-start"><img class="img-fluid"
+                        src="../../../assets/img/illustrations/location.png" width="550" alt="" /></div>
+                <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
+                    <h6 class="fw-bold fs-4 display-3 lh-sm">Vantagens de ser <br />Zonu</h6>
+                    <p class="my-4">Transforme suas oportunidades imobiliárias em sucesso com tecnologia <br
+                            class="d-none d-xl-block" />avançada e insights precisos.</p>
+                    <div class="d-flex align-items-center mb-5">
+                        <div><img class="img-fluid" src="../../../assets/images/iconHome.png" width="90" alt="" /></div>
+                        <div class="px-4">
+                            <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
+                            <p>Aumente a visibilidade dos seus imóveis com cadastros <br class="d-none d-xl-block">
+                                detalhados e atraentes, otimizados para chamar
+                                a atenção <br class="d-none d-xl-block"> dos compradores</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-5">
+                        <div><img class="img-fluid" src="../../../assets/images/iconPesquisa.png" width="90" alt="" />
+                        </div>
+                        <div class="px-4">
+                            <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
+                            <p>Conte com análises detalhadas e precisas do mercado, garantindo que <br
+                                    class="d-none d-xl-block"> suas decisões sejam sempre baseadas
+                                nas melhores <br class="d-none d-xl-block"> informações disponíveis</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-5">
+                        <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90" alt="" />
+                        </div>
+                        <div class="px-4">
+                            <h5 class="fw-bold text-success">Relatórios</h5>
+                            <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma
+                                amostra
+                                das <br class="d-none d-xl-block"> novidades do seu mercado imobiliário</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
 
