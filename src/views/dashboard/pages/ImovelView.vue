@@ -181,7 +181,7 @@
 
         <!-- Informações do Imóvel -->
         <div class="row" id="info">
-          <h2 class="title mt-5">INFORMAÇÕES DO IMÓVEL</h2>
+          <h2 class="title mt-5">Informações do imóvel</h2>
           <div
             class="col container-box"
             style="display: flex; flex-direction: column"
