@@ -17,37 +17,82 @@
                 <div class="card-body">
                   <div class="container-fluid">
                     <div class="row">
-                      <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
+                      <div
+                        v-if="msgSuccess"
+                        class="alert alert-success mt-3"
+                        role="alert"
+                      >
                         <i class="fa fa-check"></i> Conta criada com sucesso!
-                        <span style="float: inline-end"><i class="fa fa-qrcode"></i></span>
+                        <span style="float: inline-end"
+                          ><i class="fa fa-qrcode"></i
+                        ></span>
                       </div>
-                      <div v-if="msgErrorNull" class="alert alert-danger mt-3" role="alert">
+                      <div
+                        v-if="msgErrorNull"
+                        class="alert alert-danger mt-3"
+                        role="alert"
+                      >
                         <i class="fa fa-ban"></i> Por favor, não deixe nenhum
                         campo vazio!
                       </div>
                       <div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                           <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                              data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
-                              aria-selected="true">
+                            <button
+                              class="nav-link active"
+                              id="home-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#home-tab-pane"
+                              type="button"
+                              role="tab"
+                              aria-controls="home-tab-pane"
+                              aria-selected="true"
+                            >
                               Team Zonu
                             </button>
                           </li>
                           <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                              data-bs-target="#profile-tab-pane" type="button" role="tab"
-                              aria-controls="profile-tab-pane" aria-selected="false">
+                            <button
+                              class="nav-link"
+                              id="profile-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#profile-tab-pane"
+                              type="button"
+                              role="tab"
+                              aria-controls="profile-tab-pane"
+                              aria-selected="false"
+                            >
                               Cliente Zonu
+                            </button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button
+                              class="nav-link"
+                              id="convidado-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#convidado-tab-pane"
+                              type="button"
+                              role="tab"
+                              aria-controls="convidado-tab-pane"
+                              aria-selected="false"
+                            >
+                              Convidados
                             </button>
                           </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
-                            aria-labelledby="home-tab" tabindex="0">
+                          <div
+                            class="tab-pane fade show active"
+                            id="home-tab-pane"
+                            role="tabpanel"
+                            aria-labelledby="home-tab"
+                            tabindex="0"
+                          >
                             <div class="row mt-4">
                               <div v-if="iniciais" class="col-md-7">
-                                <div class="avatar-null rounded me-1 mb-4" style="
+                                <div
+                                  class="avatar-null rounded me-1 mb-4"
+                                  style="
                                     width: 128px;
                                     height: 128px;
                                     font-size: 40px;
@@ -57,38 +102,81 @@
                                     justify-content: center;
                                     text-align: center;
                                     padding-top: 30px;
-                                  ">
+                                  "
+                                >
                                   {{ iniciais }}
                                 </div>
                               </div>
 
-                              <label for="nome" class="mb-4"><small><strong><i class="fa fa-user"></i> Dados sobre o
-                                    colaborador Zonu</strong></small></label>
+                              <label for="nome" class="mb-4"
+                                ><small
+                                  ><strong
+                                    ><i class="fa fa-user"></i> Dados sobre o
+                                    colaborador Zonu</strong
+                                  ></small
+                                ></label
+                              >
 
                               <div class="form-group col-md-6">
-                                <label for="nome"><small><strong>Nome</strong></small></label>
-                                <input type="text" v-model="nome" class="form-control mt-2" id="nome"
-                                  placeholder="Digite o nome" />
+                                <label for="nome"
+                                  ><small><strong>Nome</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="nome"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o nome"
+                                />
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="nome"><small><strong>Sobrenome</strong></small></label>
-                                <input type="text" v-model="sobrenome" class="form-control mt-2" id="nome"
-                                  placeholder="Digite o sobrenome" />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Sobrenome</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="sobrenome"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o sobrenome"
+                                />
                               </div>
                               <div class="form-group col-md-12 mt-3">
-                                <label for="nome"><small><strong>E-mail</strong></small></label>
-                                <input type="email" v-model="email" class="form-control mt-2" id="nome"
-                                  placeholder="Insira um e-mail válido" />
+                                <label for="nome"
+                                  ><small><strong>E-mail</strong></small></label
+                                >
+                                <input
+                                  type="email"
+                                  v-model="email"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Insira um e-mail válido"
+                                />
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Senha</strong></small></label>
-                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="senha" :class="{
+                                <label for="nome"
+                                  ><small><strong>Senha</strong></small></label
+                                >
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="senha"
+                                  :class="{
                                     'is-invalid':
                                       !senhaValida && senha.length > 0,
-                                  }" @input="validarSenha" placeholder="Digite sua senha" />
+                                  }"
+                                  @input="validarSenha"
+                                  placeholder="Digite sua senha"
+                                />
 
-                                <p class="text-warning mt-2" v-if="!senhaValida && senha.length > 0">
+                                <p
+                                  class="text-warning mt-2"
+                                  v-if="!senhaValida && senha.length > 0"
+                                >
                                   <small>
                                     <i class="fa fa-bell"></i> Sua senha deve
                                     ter no mínimo 8 caracteres, número e uma
@@ -97,60 +185,112 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Confirme a senha</strong></small></label>
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Confirme a senha</strong></small
+                                  ></label
+                                >
 
-                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="confimSenha" placeholder="Digite a senha novamente" />
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="confimSenha"
+                                  placeholder="Digite a senha novamente"
+                                />
 
-                                <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
+                                <p
+                                  class="text-danger mt-2"
+                                  v-if="confimSenha && !passwordsMatch"
+                                >
                                   <i class="fa fa-ban"></i> As senhas não
                                   conferem!
                                 </p>
-                                <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
+                                <p
+                                  class="text-success mt-2"
+                                  v-if="confimSenha && passwordsMatch"
+                                >
                                   <i class="fa fa-check"></i> As senhas conferem
                                 </p>
                               </div>
 
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Nivel de acesso</strong></small></label>
-                                <select v-model="selectNivel" type="text" class="form-control mt-2" id="nome"
-                                  placeholder="Digite seu nome">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Nivel de acesso</strong></small
+                                  ></label
+                                >
+                                <select
+                                  v-model="selectNivel"
+                                  type="text"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite seu nome"
+                                >
                                   <option disabled selected>Escolha</option>
-                                  <option v-for="item in niveis" :value="item.id_nivel">
+                                  <option
+                                    v-for="item in niveis"
+                                    :value="item.id_nivel"
+                                  >
                                     {{ item.label }}
                                   </option>
                                 </select>
                               </div>
 
-                              <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button :disabled="autenticando" @click="handleSalvarUserZonu()" class="btn btn-success"
-                                  type="button">
+                              <div
+                                class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"
+                              >
+                                <button
+                                  :disabled="autenticando"
+                                  @click="handleSalvarUserZonu()"
+                                  class="btn btn-success"
+                                  type="button"
+                                >
                                   {{ textoBotao }}
-                                  <span v-if="autenticando" class="spinner-border spinner-border-sm"
-                                    aria-hidden="true"></span>
-                                  <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
+                                  <span
+                                    v-if="autenticando"
+                                    class="spinner-border spinner-border-sm"
+                                    aria-hidden="true"
+                                  ></span>
+                                  <span
+                                    v-if="autenticando"
+                                    class="visually-hidden"
+                                    >Aguarde...</span
+                                  >
                                 </button>
                               </div>
-
-
-
-
 
                               <h5 class="card-title mb-0">
                                 <i class="fa fa-building"></i> Lista de usuários
                               </h5>
                             </div>
                             <div class="card-body">
-                              <div v-if="msgSuccessEdit" class="alert alert-success mt-3" role="alert">
-                                <i class="fa fa-check"></i> Status atualizado com sucesso!
+                              <div
+                                v-if="msgSuccessEdit"
+                                class="alert alert-success mt-3"
+                                role="alert"
+                              >
+                                <i class="fa fa-check"></i> Status atualizado
+                                com sucesso!
                               </div>
 
-                              <div v-if="msgSuccessDelete" class="alert alert-success mt-3" role="alert">
-                                <i class="fa fa-check"></i> Usuário Excluído com sucesso!
+                              <div
+                                v-if="msgSuccessDelete"
+                                class="alert alert-success mt-3"
+                                role="alert"
+                              >
+                                <i class="fa fa-check"></i> Usuário Excluído com
+                                sucesso!
                               </div>
 
-                              <div v-if="msgMaxUsers" class="alert alert-danger mt-3" role="alert">
-                                <i class="fa fa-exclamation-triangle"></i> {{ msgMaxUsers }}
+                              <div
+                                v-if="msgMaxUsers"
+                                class="alert alert-danger mt-3"
+                                role="alert"
+                              >
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ msgMaxUsers }}
                               </div>
 
                               <div class="container-fluid">
@@ -169,64 +309,123 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <TableRowList v-for="item in clientesOnCurrentPage" :key="item.id_user"
-                                        :item="item" />
+                                      <TableRowList
+                                        v-for="item in clientesOnCurrentPage"
+                                        :key="item.id_user"
+                                        :item="item"
+                                      />
                                     </tbody>
                                   </table>
 
-                                  <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-dark btn-sm" @click="previousPageCliente()"
-                                      :disabled="currentPageCliente <= 1">
+                                  <div
+                                    class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end"
+                                  >
+                                    <button
+                                      class="btn btn-dark btn-sm"
+                                      @click="previousPageCliente()"
+                                      :disabled="currentPageCliente <= 1"
+                                    >
                                       Anterior
                                     </button>
-                                    <button class="btn btn-dark btn-sm" style="margin-right: 3% !important"
-                                      @click="nextPageCliente()" :disabled="currentPageCliente >= totalPagesClientes">
+                                    <button
+                                      class="btn btn-dark btn-sm"
+                                      style="margin-right: 3% !important"
+                                      @click="nextPageCliente()"
+                                      :disabled="
+                                        currentPageCliente >= totalPagesClientes
+                                      "
+                                    >
                                       Proximo
                                     </button>
                                   </div>
                                 </div>
                               </div>
-
-
                             </div>
                           </div>
 
-                          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
-                            tabindex="0">
+                          <div
+                            class="tab-pane fade"
+                            id="profile-tab-pane"
+                            role="tabpanel"
+                            aria-labelledby="profile-tab"
+                            tabindex="0"
+                          >
                             <p v-if="msgCnpjActive" class="text-danger mt-2">
                               <i class="fa fa-circle-exclamation"></i> Desculpe,
                               mas já temos esse CNPJ em nossa base de dados.
                               Volte e insira outro.
                             </p>
 
-                            <div v-if="emailValid" class="alert alert-warning alert-dismissible fade show" role="alert">
-                              <strong><i class="fa fa-bell"></i> Atenção!</strong>
+                            <div
+                              v-if="emailValid"
+                              class="alert alert-warning alert-dismissible fade show"
+                              role="alert"
+                            >
+                              <strong
+                                ><i class="fa fa-bell"></i> Atenção!</strong
+                              >
                               Já temos esse E-mail cadastrado.
                             </div>
 
-                            <div v-if="erro" class="alert alert-danger alert-dismissible fade show" role="alert">
-                              <strong><i class="fa fa-ban"></i> Desculpe!</strong>
+                            <div
+                              v-if="erro"
+                              class="alert alert-danger alert-dismissible fade show"
+                              role="alert"
+                            >
+                              <strong
+                                ><i class="fa fa-ban"></i> Desculpe!</strong
+                              >
                               Houve um problema ao cadastrar, tente novamente!
                             </div>
 
                             <div class="row mt-4">
-                              <label for="nome" class="mb-4"><small><strong><i class="fa fa-user"></i> Dados sobre o
-                                    operador da conta</strong></small></label>
+                              <label for="nome" class="mb-4"
+                                ><small
+                                  ><strong
+                                    ><i class="fa fa-user"></i> Dados sobre o
+                                    operador da conta</strong
+                                  ></small
+                                ></label
+                              >
 
                               <div class="form-group col-md-6">
-                                <label for="nome"><small><strong>Nome</strong></small></label>
-                                <input type="text" v-model="nome" class="form-control mt-2" id="nome"
-                                  placeholder="Digite o nome" />
+                                <label for="nome"
+                                  ><small><strong>Nome</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="nome"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o nome"
+                                />
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="nome"><small><strong>Sobrenome</strong></small></label>
-                                <input type="text" v-model="sobrenome" class="form-control mt-2" id="nome"
-                                  placeholder="Digite o sobrenome" />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Sobrenome</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="sobrenome"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o sobrenome"
+                                />
                               </div>
                               <div class="form-group col-md-12 mt-3">
-                                <label for="nome"><small><strong>E-mail</strong></small></label>
-                                <input type="email" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="email" placeholder="Digite um e-mail válido" />
+                                <label for="nome"
+                                  ><small><strong>E-mail</strong></small></label
+                                >
+                                <input
+                                  type="email"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="email"
+                                  placeholder="Digite um e-mail válido"
+                                />
 
                                 <p v-if="emailValid" class="text-danger mt-2">
                                   <i class="fa fa-circle-exclamation"></i>
@@ -234,14 +433,27 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Senha</strong></small></label>
-                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="senha" :class="{
+                                <label for="nome"
+                                  ><small><strong>Senha</strong></small></label
+                                >
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="senha"
+                                  :class="{
                                     'is-invalid':
                                       !senhaValida && senha.length > 0,
-                                  }" @input="validarSenha" placeholder="Digite sua senha" />
+                                  }"
+                                  @input="validarSenha"
+                                  placeholder="Digite sua senha"
+                                />
 
-                                <p class="text-warning mt-2" v-if="!senhaValida && senha.length > 0">
+                                <p
+                                  class="text-warning mt-2"
+                                  v-if="!senhaValida && senha.length > 0"
+                                >
                                   <small>
                                     <i class="fa fa-bell"></i> Sua senha deve
                                     ter no mínimo 8 caracteres, número e uma
@@ -250,68 +462,157 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Confirme a senha</strong></small></label>
-                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="confimSenha" placeholder="Digite a senha novamente" />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Confirme a senha</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="confimSenha"
+                                  placeholder="Digite a senha novamente"
+                                />
 
-                                <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
+                                <p
+                                  class="text-danger mt-2"
+                                  v-if="confimSenha && !passwordsMatch"
+                                >
                                   <i class="fa fa-ban"></i> As senhas não
                                   conferem!
                                 </p>
-                                <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
+                                <p
+                                  class="text-success mt-2"
+                                  v-if="confimSenha && passwordsMatch"
+                                >
                                   <i class="fa fa-check"></i> As senhas conferem
                                 </p>
                               </div>
 
                               <hr class="mt-4" />
-                              <label for="nome"><small><strong><i class="fa fa-building"></i> Dados sobre
-                                    a empresa</strong></small></label>
+                              <label for="nome"
+                                ><small
+                                  ><strong
+                                    ><i class="fa fa-building"></i> Dados sobre
+                                    a empresa</strong
+                                  ></small
+                                ></label
+                              >
 
                               <div class="form-group col-md-3 mt-3">
-                                <label for="nome"><small><strong>Telefone</strong></small></label>
-                                <input v-model="telefone" type="text" @input="aplicaMascaraTelefone"
-                                  class="form-control mt-2" id="nome" placeholder="(00) 90000-0000" />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Telefone</strong></small
+                                  ></label
+                                >
+                                <input
+                                  v-model="telefone"
+                                  type="text"
+                                  @input="aplicaMascaraTelefone"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="(00) 90000-0000"
+                                />
                               </div>
                               <div class="form-group col-md-3 mt-3">
-                                <label for="nome"><small><strong>CEP</strong></small></label>
-                                <input type="text" required v-if="!mostrarSkeleton" @input="aplicaMascaraCEP"
-                                  class="form-control mt-2" v-model="buscarCEP" placeholder="000000-000" />
+                                <label for="nome"
+                                  ><small><strong>CEP</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  @input="aplicaMascaraCEP"
+                                  class="form-control mt-2"
+                                  v-model="buscarCEP"
+                                  placeholder="000000-000"
+                                />
                                 <p v-if="msgErrorCep" class="text-danger mt-2">
-                                  <small><i class="fa fa-check"></i> Cep
-                                    inválido</small>
+                                  <small
+                                    ><i class="fa fa-check"></i> Cep
+                                    inválido</small
+                                  >
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Endereço</strong></small></label>
-                                <input type="text" disabled v-model="logradouro" class="form-control mt-2" id="nome"
-                                  placeholder="Aguardando" />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Endereço</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  disabled
+                                  v-model="logradouro"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Aguardando"
+                                />
                               </div>
 
-                              <div v-if="msgErrorCnpj" class="mt-2 alert alert-danger alert-dismissible fade show"
-                                role="alert">
-                                <strong><i class="fa fa-ban"></i>
-                                  Lamentamos...</strong>
+                              <div
+                                v-if="msgErrorCnpj"
+                                class="mt-2 alert alert-danger alert-dismissible fade show"
+                                role="alert"
+                              >
+                                <strong
+                                  ><i class="fa fa-ban"></i>
+                                  Lamentamos...</strong
+                                >
                                 Seu CNPJ não é válido, tenho outro.
                               </div>
 
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>CNPJ</strong></small></label>
-                                <input type="text" v-model="cnpj" class="form-control mt-2" id="nome"
-                                  placeholder="00.000.000/0001-00" @input="aplicaMascaraCNPJ" />
+                                <label for="nome"
+                                  ><small><strong>CNPJ</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="cnpj"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="00.000.000/0001-00"
+                                  @input="aplicaMascaraCNPJ"
+                                />
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Razão Social</strong></small></label>
-                                <input type="text" v-model="razao_social" disabled class="form-control mt-2" id="nome"
-                                  placeholder="..." />
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Razão Social</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="razao_social"
+                                  disabled
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="..."
+                                />
                               </div>
 
-                              <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button :disabled="autenticando" @click="handleSalvarUserZonu()" class="btn btn-success"
-                                  type="button">
+                              <div
+                                class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"
+                              >
+                                <button
+                                  :disabled="autenticando"
+                                  @click="handleSalvarUserZonu()"
+                                  class="btn btn-success"
+                                  type="button"
+                                >
                                   {{ textoBotao }}
-                                  <span v-if="autenticando" class="spinner-border spinner-border-sm"
-                                    aria-hidden="true"></span>
-                                  <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
+                                  <span
+                                    v-if="autenticando"
+                                    class="spinner-border spinner-border-sm"
+                                    aria-hidden="true"
+                                  ></span>
+                                  <span
+                                    v-if="autenticando"
+                                    class="visually-hidden"
+                                    >Aguarde...</span
+                                  >
                                 </button>
                               </div>
                             </div>
@@ -323,8 +624,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </main>
@@ -341,8 +640,6 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import _ from "lodash";
 import TableRowList from "@/components/usersListView/TableRowList.vue";
-
-
 
 import api from "../../../../service/api/index.js";
 export default {
@@ -408,7 +705,7 @@ export default {
     SideBar,
     NavBar,
     Footer,
-    TableRowList
+    TableRowList,
   },
   watch: {
     cnpj(newVal) {
@@ -477,7 +774,6 @@ export default {
   },
 
   methods: {
-
     previousPageCliente() {
       if (this.currentPageCliente > 1) {
         this.currentPageCliente--;
@@ -498,7 +794,7 @@ export default {
       }
 
       listUsers.push(newUser);
-      console.log('Usuário cadastrado com sucesso!');
+      console.log("Usuário cadastrado com sucesso!");
     },
     canRegisterUser(user, currentUserCount) {
       switch (user.id_nivel) {
@@ -508,24 +804,40 @@ export default {
 
         case 3:
           // Construtora não pode cadastrar ninguém
-          return { allowed: false, message: 'Construtoras não podem cadastrar novos usuários.' };
+          return {
+            allowed: false,
+            message: "Construtoras não podem cadastrar novos usuários.",
+          };
 
         case 4:
           // Corretor tem acesso único e não pode cadastrar ninguém
-          return { allowed: false, message: 'Corretores não podem cadastrar novos usuários.' };
+          return {
+            allowed: false,
+            message: "Corretores não podem cadastrar novos usuários.",
+          };
 
         case 2:
           // Imobiliaria pode cadastrar de acordo com o plano
           if (user.id_plano === 1 && currentUserCount >= 5) {
-            return { allowed: false, message: 'Plano imobiliária 1 permite cadastrar até 5 usuários.' }; //plano 1 da imobiliaria que permite cadastrar apenas 5 usuarios 
+            return {
+              allowed: false,
+              message: "Plano imobiliária 1 permite cadastrar até 5 usuários.",
+            }; //plano 1 da imobiliaria que permite cadastrar apenas 5 usuarios
           } else if (user.id_plano === 2 && currentUserCount >= 10) {
-            return { allowed: false, message: 'Plano imobiliária 2 permite cadastrar até 10 usuários.' }; //plano 2 da imobiliaria que permite cadastrar apenas 5 usuarios 
+            return {
+              allowed: false,
+              message: "Plano imobiliária 2 permite cadastrar até 10 usuários.",
+            }; //plano 2 da imobiliaria que permite cadastrar apenas 5 usuarios
           }
           return { allowed: true };
 
         default:
           // Caso padrão para outros tipos de usuário
-          return { allowed: false, message: 'Permissão desconhecida. Não é possível cadastrar novos usuários.' };
+          return {
+            allowed: false,
+            message:
+              "Permissão desconhecida. Não é possível cadastrar novos usuários.",
+          };
       }
     },
     handleSalvarUserZonu() {
@@ -539,15 +851,18 @@ export default {
       let selectNivel = this.selectNivel;
       // let selectPlano = this.selectPlano;
 
-        // Verificar a quantidade máxima de usuários permitidos
+      // Verificar a quantidade máxima de usuários permitidos
       const currentUserCount = this.listUsers.length;
-      const permissionCheck = this.canRegisterUser({ id_nivel: selectNivel }, currentUserCount);
+      const permissionCheck = this.canRegisterUser(
+        { id_nivel: selectNivel },
+        currentUserCount
+      );
 
-          if (!permissionCheck.allowed) {
-          this.msgMaxUsers = permissionCheck.message;
-          this.textoBotao = "Criar novo usuário";
-          this.autenticando = false;
-          return;
+      if (!permissionCheck.allowed) {
+        this.msgMaxUsers = permissionCheck.message;
+        this.textoBotao = "Criar novo usuário";
+        this.autenticando = false;
+        return;
       }
 
       if (
@@ -558,21 +873,23 @@ export default {
         selectNivel
       ) {
         if (selectNivel === 1) {
-          api.cadastroAdmin(nome, sobrenome, email, senha, selectNivel).then((res) => {
-            if (res.status == 202) {
-              this.nome = "";
-              this.sobrenome = "";
-              this.email = "";
-              this.senha = "";
-              this.confimSenha = "";
-              this.selectNivel = "";
-              this.msgSuccess = true;
-              this.textoBotao = "Criar novo usuário";
-              this.autenticando = false;
+          api
+            .cadastroAdmin(nome, sobrenome, email, senha, selectNivel)
+            .then((res) => {
+              if (res.status == 202) {
+                this.nome = "";
+                this.sobrenome = "";
+                this.email = "";
+                this.senha = "";
+                this.confimSenha = "";
+                this.selectNivel = "";
+                this.msgSuccess = true;
+                this.textoBotao = "Criar novo usuário";
+                this.autenticando = false;
 
-              this.fetchUsuarios();
-            }
-          });
+                this.fetchUsuarios();
+              }
+            });
         }
 
         if (selectNivel === 2) {
