@@ -50,115 +50,90 @@
                     <section class="pricing-table">
                       <div class="container">
                         <div class="block-heading">
-                          <h2>Our Pricing</h2>
-                          <p>
+                          <h2>Meu plano</h2>
+                          <!-- <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Nunc quam urna, dignissim nec auctor in,
                             mattis vitae leo.
-                          </p>
+                          </p> -->
                         </div>
-                        <div class="row justify-content-md-center">
-                          <div class="col-md-5 col-lg-4">
-                            <div class="item">
-                              <div class="heading">
-                                <h3>BASIC</h3>
-                              </div>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
-                              </p>
-                              <div class="features">
-                                <h4>
-                                  <span class="feature">Full Support</span> :
-                                  <span class="value">No</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Duration</span> :
-                                  <span class="value">30 Days</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Storage</span> :
-                                  <span class="value">10GB</span>
-                                </h4>
-                              </div>
-                              <div class="price">
-                                <h4>$25</h4>
-                              </div>
-                              <button
-                                class="btn btn-block btn-outline-primary"
-                                type="submit"
+                        <div
+                          class=""
+                          style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                          "
+                        >
+                          <div class="" style="margin-bottom: 20px">
+                            <div class="d-flex justify-content-center">
+                              <label
+                                class="form-check-label me-2"
+                                for="customSwitch1"
+                                >Mensal</label
                               >
-                                BUY NOW
-                              </button>
+                              <div class="form-check form-switch">
+                                <input
+                                  class="form-check-input"
+                                  id="customSwitch1"
+                                  type="checkbox"
+                                  v-model="isAnnual"
+                                  @change="togglePlan"
+                                />
+                                <label
+                                  class="form-check-label align-top"
+                                  for="customSwitch1"
+                                  >Anual</label
+                                >
+                              </div>
                             </div>
                           </div>
-                          <div class="col-md-5 col-lg-4">
-                            <div class="item">
-                              <div class="ribbon">Best Value</div>
-                              <div class="heading">
-                                <h3>PRO</h3>
-                              </div>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
-                              </p>
-                              <div class="features">
-                                <h4>
-                                  <span class="feature">Full Support</span> :
-                                  <span class="value">Yes</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Duration</span> :
-                                  <span class="value">60 Days</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Storage</span> :
-                                  <span class="value">50GB</span>
-                                </h4>
-                              </div>
-                              <div class="price">
-                                <h4>$50</h4>
-                              </div>
-                              <button
-                                class="btn btn-block btn-primary"
-                                type="submit"
+                          <div class="col-lg-4" v-if="plano != null">
+                            {{ console.log("plano =>", plano) }}
+                            <div
+                              class="card shadow-lg mb-4 border-0 d-flex flex-column"
+                              style="height: 500px"
+                            >
+                              <div
+                                class="card-header border-bottom-0 pt-7 pb-5"
+                                style="background-color: #fafafa"
                               >
-                                BUY NOW
-                              </button>
-                            </div>
-                          </div>
-                          <div class="col-md-5 col-lg-4">
-                            <div class="item">
-                              <div class="heading">
-                                <h3>PREMIUM</h3>
+                                <div class="d-flex justify-content-center">
+                                  <h1 class="fw-bold fs-2">
+                                    {{ formatCurrency(plano.valor_plano) }}
+                                  </h1>
+                                  <span class="d-flex align-items-center"
+                                    >/{{ planPeriod }}</span
+                                  >
+                                </div>
+                                <h5 class="fw-bold text-center fs-1">
+                                  {{ plano.nome_plano }}
+                                </h5>
+                                <span class="text-700 text-center d-block">{{
+                                  plano.descricao
+                                }}</span>
                               </div>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
-                              </p>
-                              <div class="features">
-                                <h4>
-                                  <span class="feature">Full Support</span> :
-                                  <span class="value">Yes</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Duration</span> :
-                                  <span class="value">120 Days</span>
-                                </h4>
-                                <h4>
-                                  <span class="feature">Storage</span> :
-                                  <span class="value">150GB</span>
-                                </h4>
+                              <div class="card-body mx-auto flex-grow-1">
+                                <ul class="list-unstyled mb-4">
+                                  <li
+                                    class="text-700 py-2 text-secondary"
+                                    v-for="(itens, index) in plano
+                                      .itens_do_plano[0]"
+                                  >
+                                    <i class="fa fa-check"></i> &nbsp;
+                                    {{ itens }}
+                                  </li>
+                                </ul>
                               </div>
-                              <div class="price">
-                                <h4>$150</h4>
-                              </div>
-                              <button
-                                class="btn btn-block btn-outline-primary"
-                                type="submit"
-                              >
-                                BUY NOW
-                              </button>
+                              <!-- <div class="mt-auto text-center">
+                                <a
+                                  class="btn btn-lg btn-primary rounded-pill mb-3"
+                                  @click="handleCadastrar(plano.id_plano)"
+                                >
+                                  Cadastre-se agora
+                                </a>
+                              </div> -->
                             </div>
                           </div>
                         </div>
@@ -179,6 +154,7 @@
 import Navbar from "../../../components/navbar/navbar-imobiliaria.vue";
 import Footer from "../../../components/footer/index.vue";
 import api from "../../../../service/api/planos/index";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   name: "meuPlano",
@@ -187,7 +163,11 @@ export default {
     Footer,
   },
   data() {
-    return {};
+    return {
+      plano: null,
+      planPeriod: "/mês",
+      isAnnual: false,
+    };
   },
 
   //Aqui está o MOSTRA e ESCONDE dos INPUTS do dashboard
@@ -202,9 +182,43 @@ export default {
 
   methods: {
     fetchPlano() {
+      let token = localStorage.getItem("token");
+
+      const decoded = jwtDecode(token);
+
       api.getPlanos().then((res) => {
-        console.log(res);
+        res.data.map((plano) => {
+          if (plano.id_plano === decoded.id_plano) {
+            this.plano = plano;
+          }
+        });
       });
+    },
+
+    formatCurrency(value) {
+      let valor = this.parseCurrency(value);
+      if (this.isAnnual) {
+        valor *= 12;
+      }
+      return `R$ ${valor
+        .toFixed(2)
+        .replace(".", ",")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
+    },
+
+    parseCurrency(value) {
+      if (typeof value === "string" && value) {
+        let valor = value.replace(/\./g, "").replace(",", ".");
+        return parseFloat(valor);
+      } else {
+        console.error("Invalid value provided:", value);
+        return 0; // valor padrão
+      }
+    },
+
+    togglePlan() {
+      this.planPeriod = this.isAnnual ? "/ano" : "/mês";
+      //   this.updatePrices();
     },
   },
 };
