@@ -6,6 +6,18 @@
 
     <div class="navbar-collapse collapse">
       <ul class="navbar-nav navbar-align">
+        <li class="nav-item dropdown" v-if="nivel == 1">
+          <a
+            style="text-decoration: none !important; margin-left: -50%"
+            class="nav-icon dropdown-toggle"
+            href="/dashboard-admin"
+          >
+            <div class="position-relative">
+              <i class="align-middle" data-feather="monitor"></i>
+              <span style="font-size: 15px"> Dashboard</span>
+            </div>
+          </a>
+        </li>
         <li class="nav-item dropdown">
           <a
             style="text-decoration: none !important; margin-left: -40%"
@@ -19,7 +31,7 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-if="nivel != 6">
           <a
             style="text-decoration: none !important; margin-left: -50%"
             class="nav-icon dropdown-toggle"

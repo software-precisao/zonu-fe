@@ -617,6 +617,269 @@
                               </div>
                             </div>
                           </div>
+
+                          <div
+                            class="tab-pane fade show active"
+                            id="convidado-tab-pane"
+                            role="tabpanel"
+                            aria-labelledby="convidado-tab"
+                            tabindex="0"
+                          >
+                            <div class="row mt-4">
+                              <label for="nome" class="mb-4"
+                                ><small
+                                  ><strong
+                                    ><i class="fa fa-user"></i> Dados sobre o
+                                    operador da conta</strong
+                                  ></small
+                                ></label
+                              >
+
+                              <div class="form-group col-md-6">
+                                <label for="nome"
+                                  ><small><strong>Nome</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="nomeCon"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o nome"
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Sobrenome</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="sobrenomeCon"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Digite o sobrenome"
+                                />
+                              </div>
+                              <div class="form-group col-md-12 mt-3">
+                                <label for="nome"
+                                  ><small><strong>E-mail</strong></small></label
+                                >
+                                <input
+                                  type="email"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="emailCon"
+                                  placeholder="Digite um e-mail válido"
+                                />
+
+                                <p
+                                  v-if="emailValidCon"
+                                  class="text-danger mt-2"
+                                >
+                                  <i class="fa fa-circle-exclamation"></i>
+                                  Por favor, forneça um e-mail válido.
+                                </p>
+                              </div>
+                              <div class="form-group col-md-6 mt-3">
+                                <label for="nome"
+                                  ><small><strong>Senha</strong></small></label
+                                >
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="senhaCon"
+                                  :class="{
+                                    'is-invalid':
+                                      !senhaValidaCon && senhaCon.length > 0,
+                                  }"
+                                  @input="validarSenhaCon"
+                                  placeholder="Digite sua senha"
+                                />
+
+                                <p
+                                  class="text-warning mt-2"
+                                  v-if="!senhaValidaCon && senhaCon.length > 0"
+                                >
+                                  <small>
+                                    <i class="fa fa-bell"></i> Sua senha deve
+                                    ter no mínimo 8 caracteres, número e uma
+                                    letra MAIÚSCULA.
+                                  </small>
+                                </p>
+                              </div>
+                              <div class="form-group col-md-6 mt-3">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Confirme a senha</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="password"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  class="form-control"
+                                  v-model="confimSenhaCon"
+                                  placeholder="Digite a senha novamente"
+                                />
+
+                                <p
+                                  class="text-danger mt-2"
+                                  v-if="confimSenhaCon && !passwordsMatchCon"
+                                >
+                                  <i class="fa fa-ban"></i> As senhas não
+                                  conferem!
+                                </p>
+                                <p
+                                  class="text-success mt-2"
+                                  v-if="confimSenhaCon && passwordsMatchCon"
+                                >
+                                  <i class="fa fa-check"></i> As senhas conferem
+                                </p>
+                              </div>
+
+                              <div class="form-group col-md-6 mt-3">
+                                <select
+                                  v-model="selectNivelCon"
+                                  type="text"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                >
+                                  <option value="">Escolha</option>
+                                  <option value="5">Imobiliária</option>
+                                  <option value="4">Corretor</option>
+                                </select>
+                              </div>
+
+                              <hr class="mt-4" />
+                              <label for="nome"
+                                ><small
+                                  ><strong
+                                    ><i class="fa fa-building"></i> Dados sobre
+                                    a empresa</strong
+                                  ></small
+                                ></label
+                              >
+
+                              <div class="form-group col-md-3 mt-3">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Telefone</strong></small
+                                  ></label
+                                >
+                                <input
+                                  v-model="telefoneCon"
+                                  type="text"
+                                  @input="aplicaMascaraTelefoneCon"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="(00) 90000-0000"
+                                />
+                              </div>
+                              <div class="form-group col-md-3 mt-3">
+                                <label for="nome"
+                                  ><small><strong>CEP</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  required
+                                  v-if="!mostrarSkeleton"
+                                  @input="aplicaMascaraCEPCon"
+                                  class="form-control mt-2"
+                                  v-model="buscarCEPCon"
+                                  placeholder="000000-000"
+                                />
+                                <p v-if="msgErrorCep" class="text-danger mt-2">
+                                  <small
+                                    ><i class="fa fa-check"></i> Cep
+                                    inválido</small
+                                  >
+                                </p>
+                              </div>
+                              <div class="form-group col-md-6 mt-3">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Endereço</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  disabled
+                                  v-model="logradouroCon"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="Aguardando"
+                                />
+                              </div>
+
+                              <div
+                                v-if="msgErrorCnpj"
+                                class="mt-2 alert alert-danger alert-dismissible fade show"
+                                role="alert"
+                              >
+                                <strong
+                                  ><i class="fa fa-ban"></i>
+                                  Lamentamos...</strong
+                                >
+                                Seu CNPJ não é válido, tenho outro.
+                              </div>
+
+                              <div class="form-group col-md-6 mt-3">
+                                <label for="nome"
+                                  ><small><strong>CNPJ</strong></small></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="cnpjCon"
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="00.000.000/0001-00"
+                                  @input="aplicaMascaraCNPJCon"
+                                />
+                              </div>
+                              <div class="form-group col-md-6 mt-3">
+                                <label for="nome"
+                                  ><small
+                                    ><strong>Razão Social</strong></small
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="razao_socialCon"
+                                  disabled
+                                  class="form-control mt-2"
+                                  id="nome"
+                                  placeholder="..."
+                                />
+                              </div>
+
+                              <div
+                                class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"
+                              >
+                                <button
+                                  :disabled="autenticando"
+                                  @click="handleSalvarUserConvidadosZonu()"
+                                  class="btn btn-success"
+                                  type="button"
+                                >
+                                  {{ textoBotao }}
+                                  <span
+                                    v-if="autenticando"
+                                    class="spinner-border spinner-border-sm"
+                                    aria-hidden="true"
+                                  ></span>
+                                  <span
+                                    v-if="autenticando"
+                                    class="visually-hidden"
+                                    >Aguarde...</span
+                                  >
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -642,6 +905,7 @@ import _ from "lodash";
 import TableRowList from "@/components/usersListView/TableRowList.vue";
 
 import api from "../../../../service/api/index.js";
+import apiAuth from "../../../../service/api/auth/index";
 export default {
   name: "UsuariosView",
   data() {
@@ -699,6 +963,22 @@ export default {
       searchCliente: "",
 
       senhaValida: true,
+
+      cnpjCon: "",
+      razao_socialCon: "",
+      nomeCon: "",
+      sobrenomeCon: "",
+      emailCon: "",
+      senhaCon: "",
+      confimSenhaCon: "",
+      telefoneCon: "",
+      buscarCEPCon: "",
+      logradouroCon: "",
+
+      emailValidCon: false,
+      senhaValidaCon: true,
+
+      selectNivelCon: "",
     };
   },
   components: {
@@ -716,10 +996,23 @@ export default {
         this.debouncedCheckCEP();
       }
     },
+    cnpjCon(newVal) {
+      this.debouncedCheckCNPJCon();
+    },
+    buscarCEPCon(newVal, oldVal) {
+      if (newVal.length === 9 && newVal !== oldVal) {
+        this.debouncedCheckCEPCon();
+      }
+    },
   },
   created() {
     this.debouncedCheckCNPJ = _.debounce(this.consultarCNPJ, 100);
     this.debouncedCheckCEP = _.debounce(this.consultarCEP, 100);
+
+    this.debouncedCheckCNPJCon = _.debounce(this.consultarCNPJCon, 100);
+    this.debouncedCheckCEPCon = _.debounce(this.consultarCEPCon, 100);
+
+    this.fetchUsuarios();
   },
   computed: {
     clientesOnCurrentPage() {
@@ -747,6 +1040,9 @@ export default {
     passwordsMatch() {
       return this.senha === this.confimSenha;
     },
+    passwordsMatchCon() {
+      return this.senhaCon === this.confimSenhaCon;
+    },
     iniciais() {
       let inicialNome = this.nome.charAt(0);
       let inicialSobrenome = this.sobrenome.charAt(0);
@@ -767,10 +1063,6 @@ export default {
 
     this.fetchUsuarios();
     this.fetchNivel();
-  },
-
-  created() {
-    this.fetchUsuarios();
   },
 
   methods: {
@@ -921,6 +1213,89 @@ export default {
         }, 3000);
       }
     },
+    handleSalvarUserConvidadosZonu() {
+      this.textoBotao = "Salvando...";
+      this.autenticando = true;
+
+      let nome = this.nomeCon;
+      let sobrenome = this.sobrenomeCon;
+      let email = this.emailCon;
+      let senha = this.senhaCon;
+      let selectNivel = this.selectNivelCon;
+      // let selectPlano = this.selectPlano;
+
+      // Verificar a quantidade máxima de usuários permitidos
+      // const currentUserCount = this.listUsers.length;
+      // const permissionCheck = this.canRegisterUser(
+      //   { id_nivel: selectNivel },
+      //   currentUserCount
+      // );
+
+      // if (!permissionCheck.allowed) {
+      //   this.msgMaxUsers = permissionCheck.message;
+      //   this.textoBotao = "Criar novo usuário";
+      //   this.autenticando = false;
+      //   return;
+      // }
+
+      if (
+        nome !== "" &&
+        sobrenome !== "" &&
+        email !== "" &&
+        senha !== "" &&
+        selectNivel
+      ) {
+        if (selectNivel === 4) {
+          //Corretor
+          apiAuth
+            .cadastroCorretor(nome, sobrenome, email, senha, selectNivel)
+            .then((res) => {
+              if (res.status == 202) {
+                this.nome = "";
+                this.sobrenome = "";
+                this.email = "";
+                this.senha = "";
+                this.confimSenha = "";
+                this.selectNivel = "";
+                this.msgSuccess = true;
+                this.textoBotao = "Criar novo usuário";
+                this.autenticando = false;
+
+                this.fetchUsuarios();
+              }
+            });
+        }
+
+        if (selectNivel === 5) {
+          //Imobiliaria
+          apiAuth
+            .cadastroImobiliaria(nome, sobrenome, email, senha, selectNivel)
+            .then((res) => {
+              if (res.status == 202) {
+                this.nome = "";
+                this.sobrenome = "";
+                this.email = "";
+                this.senha = "";
+                this.confimSenha = "";
+                this.selectNivel = "";
+                this.msgSuccess = true;
+                this.textoBotao = "Criar novo usuário";
+                this.autenticando = false;
+
+                this.fetchUsuarios();
+              }
+            });
+        }
+      } else {
+        this.msgErrorNull = true;
+        this.textoBotao = "Criar novo usuário";
+        this.autenticando = false;
+
+        setTimeout(() => {
+          this.msgErrorNull = false;
+        }, 3000);
+      }
+    },
 
     handledSelect() {
       let escolha = this.selectTab;
@@ -948,6 +1323,21 @@ export default {
 
       this.cnpj = v;
     },
+    aplicaMascaraCNPJCon() {
+      let v = this.cnpjCon;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 14) {
+        v = v.substring(0, 14);
+      }
+
+      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+      v = v.replace(/(\d{4})(\d)/, "$1-$2");
+
+      this.cnpjCon = v;
+    },
     aplicaMascaraCEP() {
       let v = this.buscarCEP;
 
@@ -960,6 +1350,18 @@ export default {
 
       this.buscarCEP = v;
     },
+    aplicaMascaraCEPCon() {
+      let v = this.buscarCEPCon;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 8) {
+        v = v.substring(0, 8);
+      }
+
+      v = v.replace(/^(\d{5})(\d)/, "$1-$2");
+
+      this.buscarCEPCon = v;
+    },
     aplicaMascaraTelefone() {
       let v = this.telefone;
 
@@ -971,6 +1373,18 @@ export default {
       v = v.replace(/(\d{5})(\d)/, "$1-$2");
 
       this.telefone = v;
+    },
+    aplicaMascaraTelefoneCon() {
+      let v = this.telefoneCon;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 11) {
+        v = v.substring(0, 11);
+      }
+      v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+      v = v.replace(/(\d{5})(\d)/, "$1-$2");
+
+      this.telefoneCon = v;
     },
     async consultarCNPJ() {
       if (this.cnpj.length === 18) {
@@ -994,12 +1408,41 @@ export default {
         }
       }
     },
+    async consultarCNPJCon() {
+      if (this.cnpjCon.length === 18) {
+        const cnpj = this.cnpjCon.replace(/\D/g, "");
+        try {
+          const response = await axios.get(
+            `https://brasilapi.com.br/api/cnpj/v1/${cnpj}`
+          );
+
+          if (response.data.descricao_situacao_cadastral == "ATIVA") {
+            this.razao_socialCon = response.data.razao_social;
+            this.msgSuccessCnpj = true;
+            this.msgErrorCnpj = false;
+          } else {
+            this.msgErrorCnpj = true;
+            this.msgSuccessCnpj = false;
+          }
+        } catch (error) {
+          this.msgErrorCnpj = true;
+          this.msgSuccessCnpj = false;
+        }
+      }
+    },
     validarSenha() {
       const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
       this.senhaValida = regex.test(this.senha);
     },
     toggleMostrarSenha() {
       this.mostrarSenha = !this.mostrarSenha;
+    },
+    validarSenhaCon() {
+      const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
+      this.senhaValidaCon = regex.test(this.senhaCon);
+    },
+    toggleMostrarSenhaCon() {
+      this.mostrarSenhaCon = !this.mostrarSenhaCon;
     },
     async consultarCEP() {
       if (this.buscarCEP.length === 9) {
@@ -1017,6 +1460,30 @@ export default {
           let estado = res.data.uf;
 
           this.logradouro = rua;
+          this.bairro = bairro;
+          this.cidade = cidade;
+          this.estado = estado;
+        } catch (error) {
+          console.error("Erro ao consultar CEP: ", error);
+        }
+      }
+    },
+    async consultarCEPCon() {
+      if (this.buscarCEPCon.length === 9) {
+        const cep = this.buscarCEPCon.replace(/\D/g, "");
+
+        try {
+          const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+          console.log("Aqui está a resposta do CEP ======>", res);
+
+          // Correção nas propriedades de acordo com a resposta da API
+          let rua = res.data.logradouro;
+          let bairro = res.data.bairro;
+          let cidade = res.data.localidade;
+          let estado = res.data.uf;
+
+          this.logradouroCon = rua;
           this.bairro = bairro;
           this.cidade = cidade;
           this.estado = estado;
