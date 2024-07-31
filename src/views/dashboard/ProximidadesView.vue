@@ -272,7 +272,16 @@ export default {
 
     fetchList() {
       api.listproximidade().then((res) => {
-        this.lists = res.data.response;
+        res.data.response.map((proximidade, index) => {
+          if (proximidade.id_user == null || proximidade.id_user == 1) {
+            this.lists[index] = proximidade;
+          } else {
+            return;
+          }
+        });
+        console.log("res ===> ", res.data.response);
+        console.log("lista ===>", this.lists);
+        // this.lists = res.data.response;
       });
     },
   },

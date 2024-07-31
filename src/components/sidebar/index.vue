@@ -364,8 +364,16 @@ export default {
 
     fetchProximidades() {
       api.listproximidade().then((res) => {
-        this.listsProximidades = res.data.response;
-        this.totalProximidades = this.listsProximidades.length;
+        res.data.response.map((proximidade) => {
+          if (proximidade.id_user == null || proximidade.id_user == 1) {
+            this.totalProximidades += 1;
+          } else {
+            return;
+          }
+        });
+        // console.log(res.data.response);
+        // this.listsProximidades = res.data.response;
+        // this.totalProximidades = this.listsProximidades.length;
       });
     },
   },
