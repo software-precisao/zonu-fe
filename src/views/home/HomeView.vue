@@ -381,64 +381,106 @@
   <!-- <section> close ============================-->
   <!-- ============================================-->
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="py-4">
-
-        <div class="container">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6 order-md-1 text-center text-md-start"><img class="mb-4 img-fluid"
-                        style="max-width: 130%;"   src="../../../assets/images/graficoAi.png" alt="" /></div>
-                    <div class="col-md-6 text-center text-md-start">
-                        <h6 class="fw-bold fs-4 display-3 lh-sm">Ultimate features<br />that we built</h6>
-                        <p class="my-4 pe-xl-5"> The rise of mobile devices transforms the way we consume information
-                            entirely.
-                        </p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="py-4"><img class="img-fluid"
-                                            src="../../../assets/img/illustrations/app.png" width="90" alt="" /></div>
-                                    <h5 class="fw-bold text-undefined">App Development</h5>
-                                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from
-                                        the news your
-                                        blood tests.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="py-4"><img class="img-fluid"
-                                            src="../../../assets/img/illustrations/ux.png" width="90" alt="" /></div>
-                                    <h5 class="fw-bold text-undefined">UX Planning</h5>
-                                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from
-                                        the news your
-                                        blood tests.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="py-4"><img class="img-fluid"
-                                            src="../../../assets/img/illustrations/cloud.png" width="90" alt="" /></div>
-                                    <h5 class="fw-bold text-undefined">Cloud Storage</h5>
-                                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from
-                                        the news your
-                                        blood tests.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="py-4"><img class="img-fluid"
-                                            src="../../../assets/img/illustrations/support.png" width="90" alt="" />
-                                    </div>
-                                    <h5 class="fw-bold text-undefined">Customer support</h5>
-                                    <p class="mt-2 mb-0">Get your blood tests delivered at home collect a sample from
-                                        the news your
-                                        blood tests.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <a class="btn btn-lg btn-primary rounded-pill hover-top" href="#" role="button">See
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="py-4">
+    <div class="container">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-md-1 text-center text-md-start">
+            <img
+              class="mb-4 img-fluid"
+              style="max-width: 95%"
+              src="../../../assets/images/graficoAi.png"
+              alt=""
+            />
+          </div>
+          <div class="col-md-6 text-center text-md-start">
+            <h6 class="fw-bold fs-4 display-3 lh-sm">
+              Recursos Inovadores<br />que Desenvolvemos
+            </h6>
+            <p class="my-4 pe-xl-5">
+              O aumento do uso de dispositivos móveis está transformando
+              completamente a maneira como consumimos informações no mercado
+              imobiliário.
+            </p>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <div class="py-4">
+                    <img
+                      class="img-fluid"
+                      src="../../../assets/img/illustrations/app.png"
+                      width="90"
+                      alt=""
+                    />
+                  </div>
+                  <h5 class="fw-bold text-undefined">
+                    App ZONU
+                  </h5>
+                  <p class="mt-2 mb-0">
+                    Desenvolvemos telas que permitem que você visualize e
+                    gerencie seus imóveis diretamente do seu celular, com
+                    atualizações em tempo real sobre o mercado.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <div class="py-4">
+                    <img
+                      class="img-fluid"
+                      src="../../../assets/img/illustrations/ux.png"
+                      width="90"
+                      alt=""
+                    />
+                  </div>
+                  <h5 class="fw-bold text-undefined">Planejamento de UX</h5>
+                  <p class="mt-2 mb-0">
+                    Nosso planejamento de UX é centrado no usuário, garantindo
+                    uma navegação intuitiva e uma experiência agradável enquanto
+                    você busca pelos melhores imóveis.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <div class="py-4">
+                    <img
+                      class="img-fluid"
+                      src="../../../assets/img/illustrations/cloud.png"
+                      width="90"
+                      alt=""
+                    />
+                  </div>
+                  <h5 class="fw-bold text-undefined">Armazenamento em Nuvem</h5>
+                  <p class="mt-2 mb-0">
+                    Armazenamos todos os dados dos imóveis na nuvem,
+                    proporcionando acesso rápido e seguro a partir de qualquer
+                    dispositivo, a qualquer momento.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <div class="py-4">
+                    <img
+                      class="img-fluid"
+                      src="../../../assets/img/illustrations/support.png"
+                      width="90"
+                      alt=""
+                    />
+                  </div>
+                  <h5 class="fw-bold text-undefined">Suporte ao Cliente</h5>
+                  <p class="mt-2 mb-0">
+                    Oferecemos suporte ao cliente dedicado para ajudar você com
+                    qualquer dúvida ou problema, garantindo que você tenha a
+                    melhor experiência possível na nossa plataforma.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- <a class="btn btn-lg btn-primary rounded-pill hover-top" href="#" role="button">See
                             all</a> -->
           </div>
         </div>
