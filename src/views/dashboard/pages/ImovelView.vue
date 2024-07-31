@@ -181,131 +181,134 @@
 
         <!-- Informações do Imóvel -->
         <div class="row" id="info">
-          <div class="col container-box">
-            <h2 class="text-title-h2 mt-5">
-              <strong>INFORMAÇÕES DO IMÓVEL</strong>
-            </h2>
-            <p class="text-title-subtitle mt-2">
+          <h2 class="title mt-5">Informações do imóvel</h2>
+          <div
+            class="col container-box"
+            style="display: flex; flex-direction: column"
+          >
+            <!-- <p class="text-title-subtitle mt-2">
               Abaixo, você encontrará uma visão geral detalhada deste imóvel.
               Essas informações são projetadas para fornecer uma compreensão
               completa das características e especificações do imóvel, ajudando
               você a avaliar se ele atende às suas necessidades e expectativas
-            </p>
+            </p> -->
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Condomínio</strong></h4>
-                <h2 class="">
-                  <strong>{{ condominio }}</strong>
-                </h2>
+            <div class="row">
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Condomínio</h4>
+                  <h2 class="subTitle-com">
+                    {{ condominio }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Tipo do Imóvel</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.tipo }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Tipo do Imóvel</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.tipo }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Perfil do Imóvel</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.perfil_imovel }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Perfil do Imóvel</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.perfil_imovel }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Situação do Imóvel</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.situacao_imovel }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Situação do Imóvel</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.situacao_imovel }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Ano da construção</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.ano_construcao }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Ano da construção</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.ano_construcao }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Incorporação</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.incorporacao }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Incorporação</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.incorporacao }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Posição Solar</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.posicao_solar }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Posição Solar</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.posicao_solar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Terreno</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.terreno }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Terreno</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.terreno }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Próximo do mar?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.proximo_mar }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Próximo do mar?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.proximo_mar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Está Averbado?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.averbado }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Está Averbado?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.averbado }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Escriturado</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.escriturado }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Escriturado</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.escriturado }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>De esquina?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.esquina }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">De esquina?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.esquina }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Possue Mobília?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.info.mobilia }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Possue Mobília?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.info.mobilia }}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
@@ -313,156 +316,158 @@
 
         <!-- Cômodos -->
         <div class="row" id="comodos">
+          <h2 class="title mt-5">Cômodos</h2>
           <div class="col container-box">
-            <h2 class="text-title-h2 mt-5"><strong>Cômodos</strong></h2>
-            <p class="text-title-subtitle mt-2">
+            <!-- <p class="text-title-subtitle mt-2">
               A seguir, apresentamos a quantidade de cômodos disponíveis neste
               imóvel. Esta informação proporciona uma visão geral da disposição
               e da funcionalidade dos espaços, ajudando você a ter uma ideia
               clara do layout do imóvel
-            </p>
+            </p> -->
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Dormitórios</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.dormitorio }}</strong>
-                </h2>
+            <div class="row">
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Dormitórios</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.dormitorio }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Suites</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.suite }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Suites</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.suite }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Banheiro</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.banheiro }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Banheiro</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.banheiro }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Garagem</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.garagem }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Garagem</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.garagem }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Possue Garem coberta?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.garagem_coberta }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Garagem coberta?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.garagem_coberta }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Tem box na garagem</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.garagem_box }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Tem box na garagem</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.garagem_box }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Sala de TV</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.sala_tv }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Sala de TV</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.sala_tv }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Sala de Jantar</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.sala_jantar }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Sala de Jantar</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.sala_jantar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Sala de estar</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.sala_estar }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Sala de estar</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.sala_estar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Lavabo</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.lavabo }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Lavabo</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.lavabo }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Área de serviço</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.area_servico }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Área de serviço</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.area_servico }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Cozinha</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.cozinha }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Cozinha</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.cozinha }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Closet</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.closet }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Closet</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.closet }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Escritório</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.escritorio }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Escritório</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.escritorio }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Cômodos p/ empregados</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.casa_empregada }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Cômodos p/ empregado</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.casa_empregada }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Copa</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.comodos.copa }}</strong>
-                </h2>
+              <div class="col-sm-2 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Copa</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.copa }}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
@@ -471,52 +476,43 @@
         <!-- Medidas -->
         <div class="row" id="medidas">
           <div class="col container-box">
-            <div class="row">
-              <div class="col-12">
-                <h2 class="text-title-h2 mt-5"><strong>Medidas</strong></h2>
-                <p class="text-title-subtitle mt-2">
+            <h2 class="title mt-5">Medidas</h2>
+            <div class="col-12" style="display: flex; flex-direction: column">
+              <!-- <p class="text-title-subtitle mt-2">
                   Aqui estão as principais medidas deste imóvel, fornecendo uma
                   visão clara das dimensões e da distribuição dos espaços
-                </p>
-              </div>
-            </div>
+                </p> -->
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Área construida</strong></h4>
-                <h2 class="">
-                  <strong
-                    >{{
-                      formatarDecimal(imovel.medidas.area_contruida)
-                    }}
-                    m2</strong
-                  >
-                </h2>
-              </div>
-            </div>
+              <div class="row">
+                <div class="col-sm-3 features-box">
+                  <div class="box-item">
+                    <h4 class="title-com">Área construida</h4>
+                    <h2 class="subTitle-com">
+                      {{ formatarDecimal(imovel.medidas.area_contruida) }}
+                      m2
+                    </h2>
+                  </div>
+                </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Área Privativa</strong></h4>
-                <h2 class="">
-                  <strong
-                    >{{
-                      formatarDecimal(imovel.medidas.area_privativa)
-                    }}
-                    m2</strong
-                  >
-                </h2>
-              </div>
-            </div>
+                <div class="col-sm-3 features-box">
+                  <div class="box-item">
+                    <h4 class="title-com">Área Privativa</h4>
+                    <h2 class="subTitle-com">
+                      {{ formatarDecimal(imovel.medidas.area_privativa) }}
+                      m2
+                    </h2>
+                  </div>
+                </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Área Total</strong></h4>
-                <h2 class="">
-                  <strong
-                    >{{ formatarDecimal(imovel.medidas.area_total) }} m2</strong
-                  >
-                </h2>
+                <div class="col-sm-3 features-box">
+                  <div class="box-item">
+                    <h4 class="title-com">Área Total</h4>
+                    <h2 class="subTitle-com">
+                      {{ formatarDecimal(imovel.medidas.area_total) }}
+                      m2
+                    </h2>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -525,116 +521,115 @@
         <!-- Preço -->
         <div class="row" id="preco">
           <div class="col container-box">
+            <h2 class="title mt-5">Preço</h2>
             <div class="row">
-              <div class="col-12">
-                <h2 class="text-title-h2 mt-5"><strong>Preço</strong></h2>
-                <p class="text-title-subtitle mt-2">
+              <!-- <div class="col-12"> -->
+              <!-- <p class="text-title-subtitle mt-2">
                   Nesta seção, apresentamos os preços relacionados a este
                   imóvel. As informações a seguir fornecem uma visão geral dos
                   valores envolvidos, ajudando você a avaliar o custo e a tomar
                   decisões informadas
-                </p>
-              </div>
-            </div>
+                </p> -->
+              <!-- </div> -->
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Valor do Imóvel</strong></h4>
-                <h2 class="">
-                  <strong
-                    >R$ {{ formatarDecimal(imovel.preco.preco_imovel) }}</strong
-                  >
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Valor do Imóvel</h4>
+                  <h2 class="subTitle-com">
+                    R$
+                    {{ formatarDecimal(imovel.preco.preco_imovel) }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Valor IPTU</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.preco_iptu }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Valor IPTU</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.preco_iptu }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Período</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.periodo }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Período</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.periodo }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Valor do condomínio</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.preco_condominio }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Valor do condomínio</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.preco_condominio }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Está financiado?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.financiado }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Está financiado?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.financiado }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Aceita financiamento?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.aceita_financiamento }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Aceita financiamento?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.aceita_financiamento }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Minha casa Minha vida</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.minhacasa_minhavida }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Minha casa Minha vida</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.minhacasa_minhavida }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Valor total de taxas</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.total_mensal_taxas }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Valor total de taxas</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.total_mensal_taxas }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box-alter">
-              <div class="box-item">
-                <h4 class=""><strong>Descrição das taxas</strong></h4>
-                <h2 class="text-title-subtitle">
-                  <strong>{{ imovel.preco.descricao_taxas }}</strong>
-                </h2>
+              <div class="col-sm-12 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Descrição das taxas</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.descricao_taxas }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Aceita Permuta?</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.preco.aceita_permuta }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Aceita Permuta?</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.aceita_permuta }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box-alter">
-              <div class="box-item">
-                <h4 class=""><strong>Descrição das permutas</strong></h4>
-                <h2 class="text-title-subtitle">
-                  <strong>{{ imovel.preco.descricao_permuta }}</strong>
-                </h2>
+              <div class="col-sm-12 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Descrição das permutas</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.preco.descricao_permuta }}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
@@ -643,32 +638,29 @@
         <!-- Característica -->
         <div class="row" id="caracteristicas">
           <div class="col container-box">
-            <h2 class="text-title-h2 mt-5">
-              <strong>CARACTERÍSTICAS DO IMÓVEL</strong>
-            </h2>
-            <p class="text-title-subtitle mt-2">
+            <h2 class="title mt-5">Característica do imóvel</h2>
+            <!-- <p class="text-title-subtitle mt-2">
               A seguir, você encontrará as características adicionais deste
               imóvel. Essas informações destacam aspectos importantes e
-              diferenciais que podem agregar valor e conforto ao seu dia a dia
-            </p>
+              diferenciais que podem agregar valor e conforto ao seu dia a dia.
+            </p> -->
 
-            <div
-              class="box"
-              v-for="caracteristica in imovel.caracteristicas"
-              :key="caracteristica.id_caracteristica"
-            >
-              <div class="box-item">
-                <div class="box-check">
-                  <i class="fas fa-check"></i>
-                  <h4 class="ms-2 text-title-check">
-                    <strong>
-                      {{
-                        caracteristica.detalhesCaracteristica
-                          ? caracteristica.detalhesCaracteristica
-                              .nome_caracteristica
-                          : null
-                      }}
-                    </strong>
+            <!-- Contêiner para características -->
+            <div class="features-container">
+              <div
+                class="feature-box"
+                v-for="caracteristica in imovel.caracteristicas"
+                :key="caracteristica.id_caracteristica"
+              >
+                <div class="feature-item">
+                  <i class="fas fa-check feature-icon"></i>
+                  <h4 class="feature-text">
+                    {{
+                      caracteristica.detalhesCaracteristica
+                        ? caracteristica.detalhesCaracteristica
+                            .nome_caracteristica
+                        : "Não disponível"
+                    }}
                   </h4>
                 </div>
               </div>
@@ -679,127 +671,129 @@
         <!-- Localização -->
         <div class="row" id="localizacao">
           <div class="col container-box">
-            <h2 class="text-title-h2 mt-5"><strong>LOCALIZAÇÃO</strong></h2>
-            <p class="text-title-subtitle mt-2">
+            <h2 class="title mt-5">Localização</h2>
+            <!-- <p class="text-title-subtitle mt-2">
               Conheça a localização deste imóvel e descubra as vantagens de
               viver em uma área estratégica e conveniente. A seção a seguir
               fornece uma visão geral da localização do imóvel
-            </p>
+            </p> -->
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>CEP</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.cep }}</strong>
-                </h2>
+            <div class="row">
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">CEP</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.cep }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>País</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.pais }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">País</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.pais }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Estado</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.estado }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Estado</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.estado }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Cidade</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.cidade }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Cidade</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.cidade }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Bairro</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.bairro }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Bairro</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.bairro }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Logradouro</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.logradouro }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Logradouro</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.logradouro }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Número</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.numero }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Número</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.numero }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Complemento</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.complemento }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Complemento</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.complemento }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>ID da Unidade</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.numero_unidade }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">ID da Unidade</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.numero_unidade }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Andar</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.andar }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Andar</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.andar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Unidades por andar</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.unidade_por_andar }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Unidades por andar</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.unidade_por_andar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Total de andares</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.total_andar }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Total de andares</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.total_andar }}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div class="box">
-              <div class="box-item">
-                <h4 class=""><strong>Total de torres</strong></h4>
-                <h2 class="">
-                  <strong>{{ imovel.localizacao.total_torres }}</strong>
-                </h2>
+              <div class="col-sm-3 features-box">
+                <div class="box-item">
+                  <h4 class="title-com">Total de torres</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.localizacao.total_torres }}
+                  </h2>
+                </div>
               </div>
             </div>
 
@@ -834,30 +828,31 @@
 
         <!-- Proximidades -->
         <div class="row" id="proximidades">
-          <div class="col container-box">
-            <h2 class="text-title-h2 mt-5"><strong>PROXIMIDADES</strong></h2>
-            <p class="text-title-subtitle mt-2">
+          <div
+            class="col container-box"
+            style="display: flex; flex-direction: column"
+          >
+            <h2 class="title mt-5">Proximidades</h2>
+            <!-- <p class="text-title-subtitle mt-2">
               Descubra as vantagens de viver próximo a uma variedade de serviços
               e amenidades. A seção a seguir destaca as principais atrações e
               facilidades nas proximidades deste imóvel
-            </p>
+            </p> -->
 
-            <div
-              class="box"
-              v-for="proximidade in imovel.proximidades"
-              :key="proximidade.id_proximidade"
-            >
-              <div class="box-item">
-                <div class="box-check">
-                  <i class="fas fa-check"></i>
-                  <h4 class="ms-2 text-title-check">
-                    <strong>
-                      {{
-                        proximidade.detalhesProximidade
-                          ? proximidade.detalhesProximidade.nome_proximidade
-                          : null
-                      }}
-                    </strong>
+            <div class="features-container">
+              <div
+                class="feature-box"
+                v-for="proximidade in imovel.proximidades"
+                :key="proximidade.id_proximidade"
+              >
+                <div class="feature-item">
+                  <i class="fas fa-check feature-icon"></i>
+                  <h4 class="feature-text">
+                    {{
+                      proximidade.detalhesProximidade
+                        ? proximidade.detalhesProximidade.nome_proximidade
+                        : null
+                    }}
                   </h4>
                 </div>
               </div>
@@ -875,34 +870,46 @@
               destacando os principais aspectos e características do imóvel, e
               ajudando você a visualizar melhor o espaço
             </p>
-            <div class="box-video mx-auto" style="max-width: 100%">
-              <iframe
-                width="100%"
-                height="300"
-                :src="
-                  imovel.complemento.link_youtube.replace('watch?v=', 'embed/')
-                "
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
+            {{ console.log(imovel) }}
+            <div style="display: flex; flex-direction: column">
+              <div style="margin-bottom: 50px; display: flex">
+                <img
+                  :src="googleDrive"
+                  alt="Icone do Google Drive"
+                  style="margin-right: 10px"
+                />
+                <span style="display: flex; align-items: center">
+                  <i class="fa fa-link" style="margin-right: 4px"></i
+                  ><a
+                    v-if="imovel.complemento.link_drive != ''"
+                    :href="imovel.complemento.link_drive"
+                    >{{ imovel.complemento.link_drive }}</a
+                  >
+                  <span v-if="imovel.complemento.link_drive == ''"
+                    >Sem link</span
+                  >
+                </span>
+              </div>
+
+              <div style="display: flex">
+                <img
+                  :src="youtube"
+                  alt="Icone do Youtube"
+                  style="margin-right: 10px"
+                />
+                <span style="display: flex; align-items: center">
+                  <i class="fa fa-link" style="margin-right: 4px"></i
+                  ><a
+                    v-if="imovel.complemento.link_youtube"
+                    :href="imovel.complemento.link_youtube"
+                    >{{ imovel.complemento.link_youtube }}</a
+                  >
+                  <span v-if="imovel.complemento.link_youtube == ''"
+                    >Sem link</span
+                  >
+                </span>
+              </div>
             </div>
-            <!-- <div class="box-video mx-auto" style="max-width: 100%;">
-              <iframe
-                width="100%"
-                height="300"
-                :src="imovel.complemento.link_youtube.replace('watch?v=', 'embed/')"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </div> -->
-            <span>
-              <i class="fa fa-link"></i><a href="www.google.com">google.com</a>
-            </span>
-            <!-- <p>Link do video</p> -->
           </div>
         </div>
       </div>
@@ -957,6 +964,8 @@ import Footer from "../../../components/footer/index.vue";
 import api from "../../../../service/api/imoveis/index";
 import apiRaiz from "../../../../service/api/index";
 import axios from "axios";
+import googleDrive from "../../../../assets/images/icons/googleDriveLogo.svg";
+import youtube from "../../../../assets/images/icons/youtubeLogo.svg";
 
 export default {
   name: "ImovelView",
@@ -980,6 +989,9 @@ export default {
       showModal: false,
       currentImageIndex: 0,
       currentImage: "",
+
+      googleDrive,
+      youtube,
     };
   },
 
@@ -1320,5 +1332,64 @@ export default {
 
 .modal-thumbnail:hover {
   transform: scale(1.1);
+}
+
+#caracteristicas {
+  margin-top: 30px;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.feature-box {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.features-box {
+  border-radius: 15px;
+  margin-right: 40px;
+  padding: 10px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+}
+
+.feature-icon {
+  color: #28a745; /* Cor do ícone de verificação */
+  font-size: 20px;
+}
+
+.feature-text {
+  margin-left: 10px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.title-com {
+  font-size: 14px;
+  color: #3c4453;
+  font-weight: 400;
+  line-height: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.subTitle-com {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 2px;
 }
 </style>

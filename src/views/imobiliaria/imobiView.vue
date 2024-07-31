@@ -6,7 +6,7 @@
         <div class="card" style="margin-top: -80px">
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2">
                 <select
                   v-model="tipoNegocio"
                   @change="onTipoNegocioChange"
@@ -18,7 +18,7 @@
                   <option value="Aluguel">Aluguel</option>
                 </select>
               </div>
-              <div class="col-5">
+              <div class="col-2">
                 <select
                   v-model="cidadeSelecionada"
                   @change="onCidadeChange"
@@ -35,7 +35,7 @@
                   </option>
                 </select>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <select
                   v-model="faixaPreco"
                   style="height: 55px"
@@ -54,15 +54,15 @@
                   </option>
                 </select>
               </div>
-              <div class="col-1">
-                <button
+              <div class="col-6">
+                <input
+                  type="text"
+                  v-model="nomeImovel"
                   style="height: 55px"
-                  type="button"
-                  class="btn btn-primary btn-lg"
-                  @click="redirectFiltro"
-                >
-                  Buscar
-                </button>
+                  class="form-control"
+                  placeholder="Nome do imóvel"
+                  @input="fetchImoveisFiltrados"
+                />
               </div>
             </div>
           </div>
@@ -312,6 +312,8 @@ export default {
       qualidadeProgress: "",
       qualidade: {},
       estrelaImovel: {},
+
+      nomeImovel: "",
     };
   },
 
@@ -408,6 +410,16 @@ export default {
             return preco >= minPreco && preco <= maxPreco;
           });
         }
+
+        if (this.nomeImovel) {
+          imoveis = imoveis.filter((imovel) =>
+            imovel.descricao.titulo
+              .toLowerCase()
+              .includes(this.nomeImovel.toLowerCase())
+          );
+        }
+
+        // console.log(this.nomeImovel);
 
         this.imoveis = this.ultimosImoveis(imoveis);
         this.avaliarQualidadeCadastro(this.imoveis);
