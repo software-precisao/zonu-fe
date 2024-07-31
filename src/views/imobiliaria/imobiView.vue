@@ -479,22 +479,22 @@ export default {
     },
 
     storeImovelId(id) {
-      sessionStorage.setItem("imovelId", id);
+      localStorage.setItem("imovelId", id);
       this.$router.push({ name: "imovel" });
     },
 
     storeFiltro(filtro) {
-      sessionStorage.setItem("TipoNegocio", filtro);
+      localStorage.setItem("TipoNegocio", filtro);
       this.$router.push({ name: "filtro-imovel" });
     },
 
     storeFiltroVistaMar(filtro) {
-      sessionStorage.setItem("Casa", filtro);
+      localStorage.setItem("Casa", filtro);
       this.$router.push({ name: "filtro-imovel" });
     },
 
     storeFiltroGaragem(filtro) {
-      sessionStorage.setItem("Garagem", filtro);
+      localStorage.setItem("Garagem", filtro);
       this.$router.push({ name: "filtro-imovel" });
     },
 

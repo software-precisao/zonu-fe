@@ -1391,7 +1391,7 @@ export default {
   methods: {
     handleCadastrar(id) {
       // console.log("id do plano ====> ", id)
-      sessionStorage.setItem("plano", id);
+      localStorage.setItem("plano", id);
       if (id === 1) {
         this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 2) {

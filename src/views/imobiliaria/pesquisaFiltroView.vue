@@ -732,20 +732,20 @@ export default {
     this.fetchMyImoveis();
     this.fetchMyCondominios();
 
-    const storedTipoNegocio = sessionStorage.getItem("TipoNegocio");
+    const storedTipoNegocio = localStorage.getItem("TipoNegocio");
     if (storedTipoNegocio) {
       this.tipoNegocio = storedTipoNegocio;
-      sessionStorage.removeItem("TipoNegocio");
+      localStorage.removeItem("TipoNegocio");
     }
-    const storedVistaMar = sessionStorage.getItem("Casa");
+    const storedVistaMar = localStorage.getItem("Casa");
     if (storedVistaMar) {
       this.tipoImovel = storedVistaMar;
-      sessionStorage.removeItem("Casa");
+      localStorage.removeItem("Casa");
     }
-    const storedGaragem = sessionStorage.getItem("Garagem");
+    const storedGaragem = localStorage.getItem("Garagem");
     if (storedGaragem) {
       this.temGaragem = storedGaragem;
-      sessionStorage.removeItem("Garagem");
+      localStorage.removeItem("Garagem");
     }
 
     this.fetchImoveis();
@@ -847,9 +847,9 @@ export default {
           if (res.status === 201) {
             // Copiar o link para a área de transferência
             await navigator.clipboard.writeText(url.toString());
-            sessionStorage.setItem("url", url.toString());
-            sessionStorage.setItem("id", decoded.id_user);
-            // sessionStorage.setItem("data", currentDate);
+            localStorage.setItem("url", url.toString());
+            localStorage.setItem("id", decoded.id_user);
+            // localStorage.setItem("data", currentDate);
             this.copyStatus = "Link copiado para a área de transferência!";
           }
         });
@@ -1323,7 +1323,7 @@ export default {
     },
 
     storeImovelId(id) {
-      sessionStorage.setItem("imovelId", id);
+      localStorage.setItem("imovelId", id);
       this.$router.push({ name: "imovel" });
     },
 
