@@ -46,9 +46,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/novo-plano">
             <i class="align-middle" data-feather="dollar-sign"></i>
-            <span class="align-middle"
-              >Planos
-            </span>
+            <span class="align-middle">Planos </span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -60,14 +58,14 @@
             </span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
             <span class="align-middle"
               >Leads Site
             </span>
           </a>
-        </li>
+        </li> -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">
@@ -349,9 +347,18 @@ export default {
 
     fetchCaracteristica() {
       api.listcaracteristica().then((res) => {
-        this.lists = res.data.response;
+        res.data.response.map((caracteristica) => {
+          if (caracteristica.id_user == null || caracteristica.id_user == 1) {
+            this.totalCaracteristica += 1;
+          } else {
+            return;
+          }
+        });
+        // console.log("res ===> ", res.data.response);
+        // console.log("lista ===>", this.lists);
+        // this.lists = res.data.response;
 
-        this.totalCaracteristica = this.lists.length;
+        // this.totalCaracteristica = this.lists.length;
       });
     },
 

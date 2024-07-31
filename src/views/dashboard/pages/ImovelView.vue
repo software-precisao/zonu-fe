@@ -1059,7 +1059,7 @@ export default {
   },
 
   created() {
-    this.imovelId = sessionStorage.getItem("imovelId");
+    this.imovelId = localStorage.getItem("imovelId");
     this.fetchImovel();
   },
 

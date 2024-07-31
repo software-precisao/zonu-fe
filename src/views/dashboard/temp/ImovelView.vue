@@ -45,11 +45,11 @@
                 >PROXIMIDADES</a
               >
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link text-uppercase" href="#complemento"
                 >COMPLEMENTO</a
               >
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -911,7 +911,7 @@
         <h2 class="text-title-h2 mb-4">
           <strong>Esse link já expirou</strong>
         </h2>
-        <a href="/login" class="btn btn-primary">Voltar para o login</a>
+        <a href="/" class="btn btn-primary">Voltar para o site</a>
       </div>
     </div>
   </div>
@@ -1022,27 +1022,33 @@ export default {
   },
 
   created() {
-    // this.imovelId = sessionStorage.getItem("imovelId");
-    this.imovelId = this.propertyId = this.$route.query.id;
-    this.donoId = this.propertyId = this.$route.query.idUser;
-    // console.log(this.imovelId, this.donoId);
+    // Atribuição dos valores das queries
+    this.imovelId = this.$route.query.id;
+    this.donoId = this.$route.query.idUser;
+
     const url = window.location.href;
+
     apiUser.meusLinks(this.donoId).then((res) => {
-      // console.log(res);
-      res.data.response.map((link) => {
-        if (link.url == url) {
-          console.log(link.url == url, link.url, url);
-          if (link.ativo == true) {
-            console.log("link ativo");
-            this.link = true;
-          } else {
-            console.log("link inativo");
-            this.link = false;
-          }
-        }
-      });
+      const links = res.data.response;
+
+      if (links.length === 0) {
+        this.link = false;
+        return;
+      }
+
+      // Verificar se algum link corresponde ao URL atual
+      const linkAtivo = links.find((link) => link.url === url && link.ativo);
+
+      if (linkAtivo) {
+        console.log("link ativo");
+        this.link = true;
+        this.fetchImovel();
+      } else {
+        console.log("link inativo");
+        this.link = false;
+      }
     });
-    this.fetchImovel();
+    console.log(this.link);
   },
 
   computed: {

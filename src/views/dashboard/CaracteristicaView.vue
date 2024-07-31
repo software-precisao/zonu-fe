@@ -274,7 +274,15 @@ export default {
 
     fetchList() {
       api.listcaracteristica().then((res) => {
-        this.lists = res.data.response;
+        res.data.response.map((caracteristica, index) => {
+          if (caracteristica.id_user == null || caracteristica.id_user == 1) {
+            this.lists[index] = caracteristica;
+          } else {
+            return;
+          }
+        });
+        console.log("res ===> ", res.data.response);
+        console.log("lista ===>", this.lists);
       });
     },
   },
