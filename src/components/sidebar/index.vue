@@ -347,9 +347,18 @@ export default {
 
     fetchCaracteristica() {
       api.listcaracteristica().then((res) => {
-        this.lists = res.data.response;
+        res.data.response.map((caracteristica) => {
+          if (caracteristica.id_user == null || caracteristica.id_user == 1) {
+            this.totalCaracteristica += 1;
+          } else {
+            return;
+          }
+        });
+        // console.log("res ===> ", res.data.response);
+        // console.log("lista ===>", this.lists);
+        // this.lists = res.data.response;
 
-        this.totalCaracteristica = this.lists.length;
+        // this.totalCaracteristica = this.lists.length;
       });
     },
 

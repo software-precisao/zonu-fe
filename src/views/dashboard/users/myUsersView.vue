@@ -460,7 +460,7 @@ export default {
                                 </p>
                               </div>
 
-                              <div class="form-group col-md-6 mt-3">
+                              <!-- <div class="form-group col-md-6 mt-3">
                                 <label for="nome"
                                   ><small
                                     ><strong>Nivel de acesso</strong></small
@@ -481,7 +481,7 @@ export default {
                                     {{ item.label }}
                                   </option>
                                 </select>
-                              </div>
+                              </div> -->
 
                               <div
                                 class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"

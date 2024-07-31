@@ -911,7 +911,7 @@
         <h2 class="text-title-h2 mb-4">
           <strong>Esse link já expirou</strong>
         </h2>
-        <a href="/login" class="btn btn-primary">Voltar para o login</a>
+        <a href="/" class="btn btn-primary">Voltar para o site</a>
       </div>
     </div>
   </div>

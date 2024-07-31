@@ -31,7 +31,7 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="card col-3 m-2">
+            <div class="card col-3 m-2" style="width: 23.5%">
               <div class="card-body">
                 <div class="row">
                   <div class="container-fluid p-0 mt-3 mb-3">
@@ -395,17 +395,28 @@
                       />
                     </div>
 
-                    <div class="form-group col-md-11 mt-3">
+                    <div class="form-group col-md-11 mt-3" style="width: 100%">
                       <label
                         ><small><strong>Características</strong></small></label
                       >
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="d-flex flex-column">
+                      <div
+                        class=""
+                        style="
+                          display: flex;
+                          justify-content: left;
+                          width: 100%;
+                          flex-wrap: wrap;
+                        "
+                      >
+                        <div class="">
+                          <div class="" style="">
                             <div
-                              v-for="(caracteristica, index) in primeiraColuna"
+                              v-for="(
+                                caracteristica, index
+                              ) in todasCaracteristicas"
                               :key="caracteristica"
                               class="form-check"
+                              style="margin-right: 8px"
                             >
                               <input
                                 class="form-check-input"
@@ -420,7 +431,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="">
                           <div class="d-flex flex-column">
                             <div
                               v-for="(caracteristica, index) in segundaColuna"
@@ -439,7 +450,7 @@
                               }}</label>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
                       <div class="form-group col-md-12 mt-3">
@@ -465,7 +476,7 @@
               </div>
             </div>
 
-            <div class="card col-8 m-2" style="width: 72.5%">
+            <div class="card col-8 m-2" style="width: 72%">
               <div class="card-body">
                 <div class="row">
                   <div class="container-fluid p-0 mt-3 mb-3">
@@ -479,33 +490,52 @@
                       <span>1 - 12 de {{ quantidadeImoveis }} resultados</span>
                     </h6>
                   </div>
-                  <div class="row">
+                  <div
+                    class=""
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      flex-wrap: wrap;
+                      justify-content: flex-start;
+                    "
+                  >
                     <div
-                      class="col-md-4 mb-3"
+                      class="mb-3"
+                      style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        flex-direction: column;
+                        margin-right: 60px;
+                      "
                       v-for="imovel in imoveisOnCurrentPage"
                     >
                       <div
                         class="mb-2"
                         style="
-                          width: 80%;
                           display: flex;
-                          justify-content: flex-end;
+                          justify-content: right;
+                          width: 15rem;
                         "
                       >
                         <button
                           class="btn btn-light rounded-circle icon-button"
                           @click="handleCompartilhar(imovel.id_imovel)"
                         >
-                          <i class="fas fa-home"></i>
+                          <i class="fas fa-share"></i>
                         </button>
                       </div>
                       <a
                         href="#"
                         @click="storeImovelId(imovel.id_imovel)"
-                        style="color: inherit; text-decoration: none"
+                        style="
+                          color: inherit;
+                          text-decoration: none;
+                          width: 15rem;
+                        "
+                        class="card shadow-lg"
                       >
                         {{ console.log(imovel) }}
-                        <div class="card shadow-lg" style="width: 15rem">
+                        <div>
                           <img
                             :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`"
                             class="card-img-top"
