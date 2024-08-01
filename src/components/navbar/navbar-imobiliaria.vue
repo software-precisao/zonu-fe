@@ -220,16 +220,17 @@
 
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/seu-tutorial-imcor"
-              ><i class="align-middle me-1" data-feather="play"></i> Tutoriai</a
+              ><i class="align-middle me-1" data-feather="play"></i>
+              Tutoriais</a
             >
-            <div class="dropdown-divider"></div>
+            <!-- <div class="dropdown-divider"></div>
             <a
               class="dropdown-item"
               target="_blank"
               href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
               ><i class="align-middle me-1" data-feather="folder"></i>
               Arquivos</a
-            >
+            > -->
 
             <div class="dropdown-divider"></div>
             <a
