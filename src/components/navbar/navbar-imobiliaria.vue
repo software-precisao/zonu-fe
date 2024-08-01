@@ -262,7 +262,8 @@
       </ul>
     </div>
   </nav>
-  <div v-if="status !== 1">
+  {{ console.log("nivel para aparecer a progress bar ===> ", nivel) }}
+  <div v-if="nivel !== 1">
     <div
       class="progress"
       role="progressbar"
@@ -490,6 +491,7 @@ export default {
 
     async getPeriodoTeste() {
       let id_user = this.idUser;
+      console.log(id_user);
       try {
         const res = await teste.myPeriodoTeste(id_user);
         console.log("Aqui ta o periodo de Teste ====>", res.data);

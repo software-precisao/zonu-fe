@@ -169,7 +169,7 @@ export default {
       this.mostrarSenha = !this.mostrarSenha;
     },
     canRegisterUser(user, currentUserCount) {
-      console.log(user);
+      // console.log(user);
       switch (user.id_nivel) {
         case 1:
           // Administrador pode cadastrar quantos quiser
@@ -206,13 +206,13 @@ export default {
 
         case 5:
           // Imobiliaria pode cadastrar de acordo com o plano
-          console.log(user.id_plano, currentUserCount);
-          if (user.id_plano === 1 && currentUserCount >= 5) {
+          // console.log("plano ====> ", this.perfil.id_plano, currentUserCount);
+          if (this.perfil.id_plano === 1 && currentUserCount >= 5) {
             return {
               allowed: false,
               message: "Plano imobiliária 1 permite cadastrar até 5 usuários.",
             }; //plano 1 da imobiliaria que permite cadastrar apenas 5 usuarios
-          } else if (user.id_plano === 2 && currentUserCount >= 10) {
+          } else if (this.perfil.id_plano === 2 && currentUserCount >= 10) {
             return {
               allowed: false,
               message: "Plano imobiliária 2 permite cadastrar até 10 usuários.",
@@ -260,6 +260,8 @@ export default {
         { id_nivel: selectNivel },
         currentUserCount
       );
+
+      // console.log(permissionCheck);
 
       if (!permissionCheck.allowed) {
         this.msgMaxUsers = permissionCheck.message;
@@ -625,8 +627,8 @@ export default {
                                   </option>
                                 </select>
                               </div> -->
-                              <hr class="mt-4" />
-                              <label for="nome"
+
+                              <!-- <label for="nome"
                                 ><small
                                   ><strong
                                     ><i class="fa fa-building"></i> Dados sobre
@@ -724,7 +726,7 @@ export default {
                                   id="nome"
                                   placeholder="..."
                                 />
-                              </div>
+                              </div> -->
 
                               <div
                                 class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"
@@ -748,6 +750,7 @@ export default {
                                   >
                                 </button>
                               </div>
+                              <hr class="mt-4" />
                               <div class="card-header">
                                 <h5 class="card-title mb-0">
                                   <i class="fa fa-building"></i> Lista dos meus
