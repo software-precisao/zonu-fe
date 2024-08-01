@@ -205,7 +205,7 @@
                     </p>
 
                     <div v-if="mostrarSkeleton" class="skeleton-button mt-5"></div>
-                    <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit" :disabled="!msgSuccessCnpj"
+                    <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit"
                         class="btn btn-dark bot mt-4">
                         Avançar
                     </button>
