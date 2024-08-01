@@ -78,7 +78,6 @@
             </span>
           </a>
         <!-- </li> -->
-        -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">
