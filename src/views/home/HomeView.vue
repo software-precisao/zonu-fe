@@ -103,10 +103,10 @@
           </p>
           <a
             class="btn btn-lg btn-primary rounded-pill hover-top"
-            href="#"
+            href="#pricing"
             role="button"
             >Teste grátis</a
-          ><a class="btn btn-link ps-md-4" href="#" role="button">
+          ><a class="btn btn-link ps-md-4" href="#features" role="button">
             Conheça nossa plataforma</a
           >
         </div>
