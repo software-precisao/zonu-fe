@@ -37,6 +37,7 @@ import MyUsersView from "@/views/dashboard/users/myUsersView.vue";
 import LeadsView from "@/components/leads/LeadsView.vue";
 import ImobiTicketView from "@/views/dashboard/ticket/imobiTicketView.vue";
 import MessagesView from "@/views/dashboard/messages/messagesView.vue";
+import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -314,6 +315,20 @@ const routes = [
     path: "/seu-perfil/:hash",
     name: "PerfilWithHash",
     component: PerfilView,
+  },
+  {
+    path: "/seu-perfil-imcor",
+    name: "perfilImobiCor",
+    component: PerfilImobCorView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-perfil-imcor/${hash}`);
+    },
+  },
+  {
+    path: "/seu-perfil-imcor/:hash",
+    name: "PerfilImobiCorWithHash",
+    component: PerfilImobCorView,
   },
   {
     path: "/seus-links",

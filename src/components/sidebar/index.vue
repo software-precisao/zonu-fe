@@ -5,7 +5,7 @@
     :class="{ collapsed: isCollapsed }"
   >
     <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="">
+      <a class="sidebar-brand" href="/">
         <span class="align-middle">
           <img
             src="../../../assets/images/logo.svg"
@@ -337,9 +337,7 @@ export default {
 
         let usuariosFiltrados = usuarios.filter((user) => {
           if (
-            (user.id_nivel === 1 ||
-              user.id_nivel === 2 ||
-              user.id_nivel === 4) &&
+            (user.id_nivel === 1 || user.id_nivel === 2) &&
             !idsAdicionados.has(user.id_user)
           ) {
             idsAdicionados.add(user.id_user);
