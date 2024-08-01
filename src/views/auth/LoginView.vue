@@ -141,21 +141,103 @@ export default {
 
     if (this.token !== null) {
       let decode = jwtDecode(this.token);
-  
-      console.log(decode.id_nivel)
-      if (decode.id_nivel == 1) {
-        this.textoBotao = "Sucesso, redirecionando...";
+
+      let nivel = decode.id_nivel;
+      let status = decode.id_status;
+      let initial = decode.initial;
+
+      if (nivel == 1) {
+        this.autenticando = false;
         window.location.href = "/dashboard-admin";
-      }else if(decode.id_nivel == 3 &&  decode.id_status == 1){
-        window.location.href = "/dashboard";
-        this.textoBotao = "Sucesso, redirecionando...";
-      }else if(decode.id_nivel == 4 &&  decode.id_status == 1){
-        window.location.href = "/sua-imobiliaria-virtual";
-        this.textoBotao = "Sucesso, redirecionando...";
-      }else if(decode.id_nivel == 5 &&  decode.id_status == 1){
-        window.location.href = "/sua-imobiliaria-virtual";
-        this.textoBotao = "Sucesso, redirecionando...";
+      } else if (nivel == 2 && status == 1) {
+        this.autenticando = false;
+        window.location.href = "/suporte-zonu";
+      } else if (nivel == 2 && status == 2) {
+        this.msgNotActivate = true;
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
       }
+
+      //Construtora
+
+      if (nivel == 3 && status == 1 && initial == 1) {
+        this.autenticando = false;
+        window.location.href = "/dashboard";
+      } else if (nivel == 3 && status == 1 && initial == 2) {
+        this.autenticando = false;
+        window.location.href = "/primeiro-acesso";
+      } else if (nivel == 3 && status == 2) {
+        this.msgNotActivate = true;
+
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
+      }
+
+      //Corretor
+
+      if (nivel == 4 && status == 1) {
+        this.autenticando = false;
+        window.location.href = "/sua-imobiliaria-virtual";
+      } else if (nivel == 4 && status == 2) {
+        this.msgNotActivate = true;
+
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
+      }
+
+
+      //Imobiliaria
+
+      if (nivel == 5 && status == 1) {
+        this.autenticando = false;
+        window.location.href = "/sua-imobiliaria-virtual";
+      } else if (nivel == 5 && status == 2) {
+        this.msgNotActivate = true;
+
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
+      }
+
+      if (nivel == 6 && status == 1) {
+        this.autenticando = false;
+        window.location.href = "/sua-imobiliaria-virtual";
+      } else if (nivel == 6 && status == 2) {
+        this.msgNotActivate = true;
+
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
+      }
+
+      //Pessoa física
+
+      if (nivel == 7 && status == 1) {
+        this.autenticando = false;
+        window.location.href = "/dashboard";
+      } else if (nivel == 7 && status == 2) {
+        this.msgNotActivate = true;
+
+        setTimeout(() => {
+          this.msgNotActivate = true;
+          this.autenticando = false;
+          this.textoBotao = "Tentar novamente...";
+        }, 3000);
+      }
+
     }
 
   },
@@ -181,74 +263,131 @@ export default {
           this.textoBotao = "Tentar novamente...";
         }, 2000);
       } else {
-        api
-          .login(email, senha)
-          .then((response) => {
-            if (response.status == 200) {
-              const token = response.data.token;
-              const decode = jwtDecode(token);
-              let statusAccess = decode.id_nivel;
-              let status = decode.id_status;
-              let config = decode.initial;
+        api.login(email, senha).then((res) => {
+          if (res.status == 200) {
 
-              this.textoBotao = "Sucesso, redirecionando...";
-             
-              if (statusAccess == 1) {
-                localStorage.setItem("token", token);
-                this.autenticando = false;
-                window.location.href = "/dashboard-admin";
-              } else if (statusAccess == 2) {
-                (this.email = ""),
-                  (this.senha = ""),
-                  (this.msgNotActivate = true);
+            const token = res.data.token;
+            localStorage.setItem("token", token);
+            const status = res.data.id_status;
+            const initial = res.data.initial;
+            const nivel = res.data.id_nivel;
 
-                setTimeout(() => {
-                  this.msgNotActivate = false;
-                  this.autenticando = false;
-                  this.textoBotao = "Acessar sua conta";
-                }, 5000);
-              }
-              else if (statusAccess == 3 && status == 1 ) {
-                localStorage.setItem("token", token);
-                this.autenticando = false;
-                window.location.href = "/dashboard";
-              }
-              else if (statusAccess == 4) {
-                localStorage.setItem("token", token);
-                this.autenticando = false;
-                window.location.href = "/sua-imobiliaria-virtual";
-              }
-              else if (statusAccess == 5) {
-                localStorage.setItem("token", token);
-                this.autenticando = false;
-                window.location.href = "/sua-imobiliaria-virtual";
-              }
-              else if (statusAccess == 6) {
-                localStorage.setItem("token", token);
-                this.autenticando = false;
-                window.location.href = "/sua-imobiliaria-virtual";
-              }
-            } else if (response.status == 401) {
-              this.msgEmailErro = true;
-              this.emailValid = false;
-              this.senhaValid = false;
 
+
+            //Administrador
+
+            if (nivel == 1) {
+              this.autenticando = false;
+              window.location.href = "/dashboard-admin";
+            } else if (nivel == 2 && status == 1) {
+              this.autenticando = false;
+              window.location.href = "/suporte-zonu";
+            } else if (nivel == 2 && status == 2) {
+              this.msgNotActivate = true;
               setTimeout(() => {
-                this.emailValid = true;
-                this.senhaValid = true;
-                this.msgEmailErro = false;
-              }, 4000);
-
-              setTimeout(() => {
+                this.msgNotActivate = true;
                 this.autenticando = false;
-                this.textoBotao = "Acessar sua conta";
-              }, 2000);
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
             }
-          })
-          .catch(() => {
-            this.autenticando = false;
-            this.textoBotao = "Acessar sua conta";
-          });
+
+            //Construtora
+
+            if (nivel == 3 && status == 1 && initial == 1) {
+              this.autenticando = false;
+              window.location.href = "/dashboard";
+            } else if (nivel == 3 && status == 1 && initial == 2) {
+              this.autenticando = false;
+              window.location.href = "/primeiro-acesso";
+            } else if (nivel == 3 && status == 2) {
+              this.msgNotActivate = true;
+
+              setTimeout(() => {
+                this.msgNotActivate = true;
+                this.autenticando = false;
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
+            }
+
+            //Corretor
+
+            if (nivel == 4 && status == 1) {
+              this.autenticando = false;
+              window.location.href = "/sua-imobiliaria-virtual";
+            } else if (nivel == 4 && status == 2) {
+              this.msgNotActivate = true;
+
+              setTimeout(() => {
+                this.msgNotActivate = true;
+                this.autenticando = false;
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
+            }
+
+
+            //Imobiliaria
+
+            if (nivel == 5 && status == 1) {
+              this.autenticando = false;
+              window.location.href = "/sua-imobiliaria-virtual";
+            } else if (nivel == 5 && status == 2) {
+              this.msgNotActivate = true;
+
+              setTimeout(() => {
+                this.msgNotActivate = true;
+                this.autenticando = false;
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
+            }
+
+            if (nivel == 6 && status == 1) {
+              this.autenticando = false;
+              window.location.href = "/sua-imobiliaria-virtual";
+            } else if (nivel == 6 && status == 2) {
+              this.msgNotActivate = true;
+
+              setTimeout(() => {
+                this.msgNotActivate = true;
+                this.autenticando = false;
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
+            }
+
+            //Pessoa física
+
+            if (nivel == 7 && status == 1) {
+              this.autenticando = false;
+              window.location.href = "/dashboard";
+            } else if (nivel == 7 && status == 2) {
+              this.msgNotActivate = true;
+
+              setTimeout(() => {
+                this.msgNotActivate = true;
+                this.autenticando = false;
+                this.textoBotao = "Tentar novamente...";
+              }, 3000);
+            }
+
+          } else if (res.status == 401) {
+            this.msgEmailErro = true;
+            this.emailValid = false;
+            this.senhaValid = false;
+
+            setTimeout(() => {
+              this.emailValid = true;
+              this.senhaValid = true;
+              this.msgEmailErro = false;
+            }, 4000);
+
+            setTimeout(() => {
+              this.autenticando = false;
+              this.textoBotao = "Acessar sua conta";
+            }, 2000);
+          }
+        }).catch(() => {
+          this.autenticando = false;
+          this.textoBotao = "Acessar sua conta";
+        });
       }
     },
 
