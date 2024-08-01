@@ -70,6 +70,12 @@
             <span class="align-middle">Imobiliária Virtual </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/seu-tutorial">
+            <i class="align-middle" data-feather="play"></i>
+            <span class="align-middle"> Tutoriais </span>
+          </a>
+        </li>
         <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
@@ -77,7 +83,7 @@
               >Leads Site
             </span>
           </a>
-        <!-- </li> -->
+         </li> -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">
