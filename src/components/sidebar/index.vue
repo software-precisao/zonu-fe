@@ -64,6 +64,7 @@
             <span class="align-middle">Mensagens </span>
           </a>
         </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="/sua-imobiliaria-virtual">
             <i class="align-middle" data-feather="grid"></i>
             <span class="align-middle"
@@ -78,7 +79,7 @@
               >Leads Site
             </span>
           </a>
-        </li> -->
+        <!-- </li> --> -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">

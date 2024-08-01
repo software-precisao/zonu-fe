@@ -82,8 +82,9 @@
             src="../../../assets/img/illustrations/plataform.png"
             width="550"
             alt=""
-          />
-        </div>
+        ></div>
+      </div>
+      </div> 
     </section>
 
     <section class="py-5" id="features">
@@ -195,8 +196,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </section>
 
   <!-- ============================================-->
