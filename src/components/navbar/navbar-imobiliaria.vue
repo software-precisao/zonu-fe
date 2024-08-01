@@ -8,7 +8,7 @@
       <ul class="navbar-nav navbar-align">
         <li class="nav-item dropdown" v-if="nivel == 1">
           <a
-            style="text-decoration: none !important; margin-left: -50%"
+            style="text-decoration: none !important; margin-left: -60%"
             class="nav-icon dropdown-toggle"
             href="/dashboard-admin"
           >
@@ -19,8 +19,11 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -40%" class="nav-icon dropdown-toggle"
-            href="/sua-imobiliaria-virtual">
+          <a
+            style="text-decoration: none !important; margin-left: -40%"
+            class="nav-icon dropdown-toggle"
+            href="/sua-imobiliaria-virtual"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="layers"></i>
               <span style="font-size: 15px"> Imobiliária Vitual</span>
@@ -35,11 +38,6 @@
             href="/meus-plano"
             id="alertsDropdown"
           >
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -50%" class="nav-icon dropdown-toggle"
-            href="/meus-plano" id="alertsDropdown">
             <div class="position-relative">
               <i class="align-middle" data-feather="dollar-sign"></i>
               <span style="font-size: 15px"> Meu plano</span>
@@ -48,18 +46,28 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -50%" class="nav-icon dropdown-toggle"
-            href="/seus-links" id="alertsDropdown">
+          <a
+            style="text-decoration: none !important; margin-left: -50%"
+            class="nav-icon dropdown-toggle"
+            href="/seus-links"
+            id="alertsDropdown"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="grid"></i>
               <span style="font-size: 15px"> Meus links</span>
             </div>
           </a>
         </li>
-
-        <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -40%" class="nav-icon dropdown-toggle"
-            href="/meus-usuarios" id="alertsDropdown">
+        {{
+          console.log(nivel)
+        }}
+        <li class="nav-item dropdown" v-if="nivel !== 4 && nivel !== 6">
+          <a
+            style="text-decoration: none !important; margin-left: -40%"
+            class="nav-icon dropdown-toggle"
+            href="/meus-usuarios"
+            id="alertsDropdown"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="users"></i>
               <span style="font-size: 15px"> Meus usuarios</span>
@@ -68,8 +76,12 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a style="text-decoration: none !important; margin-left: -60%" class="nav-icon dropdown-toggle"
-            href="/seu-ticket" id="alertsDropdown">
+          <a
+            style="text-decoration: none !important; margin-left: -60%"
+            class="nav-icon dropdown-toggle"
+            href="/seu-ticket"
+            id="alertsDropdown"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="tag"></i>
               <span style="font-size: 15px"> Suporte</span>
@@ -77,13 +89,21 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+          <a
+            class="nav-icon dropdown-toggle"
+            href="#"
+            id="alertsDropdown"
+            data-bs-toggle="dropdown"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="bell"></i>
               <span class="indicator">{{ totalTickets }}</span>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+          <div
+            class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+            aria-labelledby="alertsDropdown"
+          >
             <div class="dropdown-menu-header">
               {{ totalTickets }} Novas Notificações
             </div>
@@ -91,7 +111,10 @@
               <a href="#" class="list-group-item">
                 <div class="row g-0 align-items-center">
                   <div class="col-2">
-                    <div class="avatar-null img-fluid rounded me-1" alt="Avatar">
+                    <div
+                      class="avatar-null img-fluid rounded me-1"
+                      alt="Avatar"
+                    >
                       {{ iniciaisUser }}
                     </div>
                   </div>
@@ -119,12 +142,20 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+          <a
+            class="nav-icon dropdown-toggle"
+            href="#"
+            id="messagesDropdown"
+            data-bs-toggle="dropdown"
+          >
             <div class="position-relative">
               <i class="align-middle" data-feather="message-square"></i>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
+          <div
+            class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+            aria-labelledby="messagesDropdown"
+          >
             <div class="dropdown-menu-header">
               <div class="position-relative">0 Novas mensagens</div>
             </div>
@@ -150,89 +181,160 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+          <a
+            class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
             <i class="align-middle" data-feather="settings"></i>
           </a>
 
-          <a v-if="image == !null" class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
-            data-bs-toggle="dropdown">
-            <img :src="`https://www.zonu.com.br/api/public${image}`" class="avatar img-fluid rounded me-1"
-              alt="Imagem de perfil" />
+          <a
+            v-if="image == !null"
+            class="nav-link dropdown-toggle d-none d-sm-inline-block"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            <img
+              :src="`https://www.zonu.com.br/api/public${image}`"
+              class="avatar img-fluid rounded me-1"
+              alt="Imagem de perfil"
+            />
             <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
           </a>
-          <a v-if="image == null || image == '/avatar/default-avatar.png'"
-            class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+          <a
+            v-if="image == null || image == '/avatar/default-avatar.png'"
+            class="nav-link dropdown-toggle d-flex align-items-center"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
             <div class="avatar-null img-fluid rounded me-1" alt="Avatar">
               {{ iniciais }}
             </div>
             <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="/seu-perfil"><i class="align-middle me-1" data-feather="user"></i> Perfil</a>
+            <a class="dropdown-item" href="/seu-perfil"
+              ><i class="align-middle me-1" data-feather="user"></i> Perfil</a
+            >
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#termosModal"><i
-                class="align-middle me-1" data-feather="play"></i>
-              Tutoriais</a>
+            <a
+              class="dropdown-item"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#termosModal"
+              ><i class="align-middle me-1" data-feather="play"></i>
+              Tutoriais</a
+            >
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" target="_blank"
-              href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"><i
-                class="align-middle me-1" data-feather="folder"></i>
-              Arquivos</a>
+            <a
+              class="dropdown-item"
+              target="_blank"
+              href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
+              ><i class="align-middle me-1" data-feather="folder"></i>
+              Arquivos</a
+            >
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#termosModal"><i
-                class="align-middle me-1" data-feather="file"></i> Termos &
-              Condições</a>
+            <a
+              class="dropdown-item"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#termosModal"
+              ><i class="align-middle me-1" data-feather="file"></i> Termos &
+              Condições</a
+            >
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" target="_blank"
-              href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"><i
-                class="align-middle me-1" data-feather="help-circle"></i> Help
-              Center</a>
+            <a
+              class="dropdown-item"
+              target="_blank"
+              href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
+              ><i class="align-middle me-1" data-feather="help-circle"></i> Help
+              Center</a
+            >
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" @click="handleLogout" href="#"><i class="fa fa-power-off"></i> Sair</a>
+            <a class="dropdown-item" @click="handleLogout" href="#"
+              ><i class="fa fa-power-off"></i> Sair</a
+            >
           </div>
         </li>
       </ul>
     </div>
   </nav>
   <div v-if="status === 1">
-    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-bar overflow-visible text-dark bg-warning" :style="{ width: barprogress + '%' }">
+    <div
+      class="progress"
+      role="progressbar"
+      aria-label="Example with label"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div
+        class="progress-bar overflow-visible text-dark bg-warning"
+        :style="{ width: barprogress + '%' }"
+      >
         Seu período de teste
       </div>
     </div>
   </div>
-  <img src="../../../assets/images/banner.png" style="position: relative" alt="" />
+  <img
+    src="../../../assets/images/banner.png"
+    style="position: relative"
+    alt=""
+  />
   <div class="container-fluid p-0">
-    <h1 class="h3 text-light" style="
+    <h1
+      class="h3 text-light"
+      style="
         position: absolute;
         margin-top: -10%;
         margin-left: 2%;
         font-size: 40px;
-      ">
-      <strong>Olá Imobiliária</strong>
+      "
+    >
+      <strong v-if="nivel == 5 || nivel == 6">Olá Imobiliária</strong>
+      <strong v-if="nivel == 1 || nivel == 2">Olá Admim</strong>
+      <strong v-if="nivel == 4">Olá Corretor</strong>
     </h1>
-    <h1 class="h3 text-light" style="position: absolute; margin-top: -6.5%; margin-left: 2%">
+    <h1
+      class="h3 text-light"
+      style="position: absolute; margin-top: -6.5%; margin-left: 2%"
+    >
       Esse é seu espaço, seja bem-vindo!
     </h1>
   </div>
 
-  <div style="position: absolute !important" class="modal fade" id="termosModal" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    style="position: absolute !important"
+    class="modal fade"
+    id="termosModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">
             Termos e Condições
           </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <div v-html="termos"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             Fechar
           </button>
         </div>
@@ -240,19 +342,34 @@
     </div>
   </div>
 
-  <div style="position: absolute !important" class="modal fade" id="privacidadeModal" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    style="position: absolute !important"
+    class="modal fade"
+    id="privacidadeModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Privacidade</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <div v-html="privacidade"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             Fechar
           </button>
         </div>
@@ -263,7 +380,7 @@
 <script>
 import { jwtDecode } from "jwt-decode";
 import api from "../../../service/api/index";
-import teste from '../../../service/api/teste/index';
+import teste from "../../../service/api/teste/index";
 import { format, parseISO } from "date-fns";
 
 export default {
@@ -375,29 +492,30 @@ export default {
       let id_user = this.idUser;
       try {
         const res = await teste.myPeriodoTeste(id_user);
-        console.log('Aqui ta o periodo de Teste ====>', res.data);
+        console.log("Aqui ta o periodo de Teste ====>", res.data);
 
         const dataInicio = new Date(res.data.data_inicio);
         const hoje = new Date();
-        const diasRestantes = 7 - Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
+        const diasRestantes =
+          7 - Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
 
-        console.log('Dias Restantes:', diasRestantes);
+        console.log("Dias Restantes:", diasRestantes);
 
         if (diasRestantes <= 0 && res.data.status === 1) {
-          window.location.href = '/pagamento-zonu';
+          window.location.href = "/pagamento-zonu";
         } else {
           this.status = res.data.status;
           this.updateProgressBar(diasRestantes);
         }
       } catch (error) {
-        console.error('Erro ao buscar o período de teste:', error);
+        console.error("Erro ao buscar o período de teste:", error);
       }
     },
     updateProgressBar(diasRestantes) {
       const totalDias = 7;
       const progresso = Math.max(0, (diasRestantes / totalDias) * 100); // Garantir que a barra não fique negativa
       this.barprogress = progresso.toFixed(2); // Garantir que seja um valor com duas casas decimais
-      console.log('Progresso da Barra:', this.barprogress);
+      console.log("Progresso da Barra:", this.barprogress);
     },
 
     fetchPrivacidade() {

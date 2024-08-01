@@ -67,9 +67,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/sua-imobiliaria-virtual">
             <i class="align-middle" data-feather="grid"></i>
-            <span class="align-middle"
-              >Imobiliária Virtual
-            </span>
+            <span class="align-middle">Imobiliária Virtual </span>
           </a>
         </li>
         <!-- <li class="sidebar-item">
@@ -79,7 +77,8 @@
               >Leads Site
             </span>
           </a>
-        <!-- </li> --> -->
+        <!-- </li> -->
+        -->
         <li class="sidebar-header">Configurações iniciais</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">
@@ -335,11 +334,20 @@ export default {
       api.listusuarios().then((res) => {
         let usuarios = res.data.response;
         // Filtrar os usuários com id_nivel igual a 1
-        let usuariosFiltrados = usuarios.filter(
-          (user, index, self) =>
-            user.id_nivel === 1 &&
-            index === self.findIndex((u) => u.id_user === user.id_user)
-        );
+        const idsAdicionados = new Set();
+
+        let usuariosFiltrados = usuarios.filter((user) => {
+          if (
+            (user.id_nivel === 1 ||
+              user.id_nivel === 2 ||
+              user.id_nivel === 4) &&
+            !idsAdicionados.has(user.id_user)
+          ) {
+            idsAdicionados.add(user.id_user);
+            return true;
+          }
+          return false;
+        });
         // Atribuir os usuários filtrados ao estado listUsers
         this.listUsers = usuariosFiltrados;
         // Atualizar o total de usuários filtrados
@@ -352,7 +360,10 @@ export default {
         let clientes = res.data.response;
         // Filtrar os usuários com id_nivel igual a 1
         let clientesFiltrados = clientes.filter(
-          (cliente) => cliente.id_nivel === 3
+          (cliente) =>
+            cliente.id_nivel === 3 ||
+            cliente.id_nivel === 4 ||
+            cliente.id_nivel === 5
         );
         // Atribuir os usuários filtrados ao estado listUsers
         this.totalClientes = clientesFiltrados.length;

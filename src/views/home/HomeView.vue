@@ -82,7 +82,8 @@
             src="../../../assets/img/illustrations/plataform.png"
             width="550"
             alt=""
-        ></div>
+          />
+        </div>
         <div class="col-md-7 col-lg-6 text-center text-md-start">
           <span
             class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3"
@@ -111,49 +112,89 @@
         </div>
       </div>
     </div>
-    </section>
+  </section>
 
-    <section class="py-5" id="features">
-        <div class="container-lg">
-            <div class="row align-items-center">
-                <div class="col-md-5 col-lg-6 order-md-0 text-center text-md-start"><img class="img-fluid"
-                        src="../../../assets/img/illustrations/location.png" width="550" alt="" /></div>
-                <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
-                    <h6 class="fw-bold fs-4 display-3 lh-sm">Vantagens de ser <br />Zonu</h6>
-                    <p class="my-4">Transforme suas oportunidades imobiliárias em sucesso com tecnologia <br
-                            class="d-none d-xl-block" />avançada e insights precisos.</p>
-                    <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconHome.png" width="90" alt="" /></div>
-                        <div class="px-4">
-                            <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
-                            <p>Aumente a visibilidade dos seus imóveis com cadastros <br class="d-none d-xl-block">
-                                detalhados e atraentes, otimizados para chamar
-                                a atenção <br class="d-none d-xl-block"> dos compradores</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconPesquisa.png" width="90" alt="" />
-                        </div>
-                        <div class="px-4">
-                            <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
-                            <p>Conte com análises detalhadas e precisas do mercado, garantindo que <br
-                                    class="d-none d-xl-block"> suas decisões sejam sempre baseadas
-                                nas melhores <br class="d-none d-xl-block"> informações disponíveis</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-5">
-                        <div><img class="img-fluid" src="../../../assets/images/iconReport.png" width="90" alt="" />
-                        </div>
-                        <div class="px-4">
-                            <h5 class="fw-bold text-success">Relatórios</h5>
-                            <p>Obtenha seus relatórios entregues <br class="d-none d-xl-block"> em casa, colete uma
-                                amostra
-                                das <br class="d-none d-xl-block"> novidades do seu mercado imobiliário</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="py-5" id="features">
+    <div class="container-lg">
+      <div class="row align-items-center">
+        <div class="col-md-5 col-lg-6 order-md-0 text-center text-md-start">
+          <img
+            class="img-fluid"
+            src="../../../assets/img/illustrations/location.png"
+            width="550"
+            alt=""
+          />
         </div>
+        <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
+          <h6 class="fw-bold fs-4 display-3 lh-sm">
+            Vantagens de ser <br />Zonu
+          </h6>
+          <p class="my-4">
+            Transforme suas oportunidades imobiliárias em sucesso com tecnologia
+            <br class="d-none d-xl-block" />avançada e insights precisos.
+          </p>
+          <div class="d-flex align-items-center mb-5">
+            <div>
+              <img
+                class="img-fluid"
+                src="../../../assets/images/iconHome.png"
+                width="90"
+                alt=""
+              />
+            </div>
+            <div class="px-4">
+              <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
+              <p>
+                Aumente a visibilidade dos seus imóveis com cadastros
+                <br class="d-none d-xl-block" />
+                detalhados e atraentes, otimizados para chamar a atenção
+                <br class="d-none d-xl-block" />
+                dos compradores
+              </p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-5">
+            <div>
+              <img
+                class="img-fluid"
+                src="../../../assets/images/iconPesquisa.png"
+                width="90"
+                alt=""
+              />
+            </div>
+            <div class="px-4">
+              <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
+              <p>
+                Conte com análises detalhadas e precisas do mercado, garantindo
+                que <br class="d-none d-xl-block" />
+                suas decisões sejam sempre baseadas nas melhores
+                <br class="d-none d-xl-block" />
+                informações disponíveis
+              </p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-5">
+            <div>
+              <img
+                class="img-fluid"
+                src="../../../assets/images/iconReport.png"
+                width="90"
+                alt=""
+              />
+            </div>
+            <div class="px-4">
+              <h5 class="fw-bold text-success">Relatórios</h5>
+              <p>
+                Obtenha seus relatórios entregues
+                <br class="d-none d-xl-block" />
+                em casa, colete uma amostra das <br class="d-none d-xl-block" />
+                novidades do seu mercado imobiliário
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============================================-->
@@ -526,11 +567,12 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3" v-for="item in allPlanos">
+        <div class="col-lg-4" v-for="item in allPlanos">
           {{ console.log("item =>", item) }}
           <div
             class="card shadow-lg mb-4 border-0 d-flex flex-column"
             style="height: 500px"
+            v-if="item.id_plano != 4"
           >
             <div class="card-header border-bottom-0 pt-5 pb-4">
               <div class="d-flex justify-content-center">
@@ -717,11 +759,13 @@
                         d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
                       ></path>
                     </svg>
-                    <h5 class="my-4 fw-bold lh-sm">
-                        Simples &amp; Eficaz
-                    </h5>
+                    <h5 class="my-4 fw-bold lh-sm">Simples &amp; Eficaz</h5>
                     <p class="mb-0 text-center text-md-start">
-                        O site se destacou pela sua simplicidade e flexibilidade, o que foi fundamental para otimizar nossas operações. Como a maior plataforma imobiliária do Brasil, ela oferece uma solução completa e integrada para construtores, corretores e imobiliárias.
+                      O site se destacou pela sua simplicidade e flexibilidade,
+                      o que foi fundamental para otimizar nossas operações. Como
+                      a maior plataforma imobiliária do Brasil, ela oferece uma
+                      solução completa e integrada para construtores, corretores
+                      e imobiliárias.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -807,7 +851,13 @@
                       Fácil de usar &amp; personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                        A interface é intuitiva e simplificada, o que tornou a experiência muito agradável. A capacidade de gerar e interagir com conteúdo em tempo real é um grande diferencial, criando vários pontos de contato e oferecendo uma vantagem competitiva significativa. Estou muito satisfeito com a solução e a recomendaria a outros profissionais do setor!
+                      A interface é intuitiva e simplificada, o que tornou a
+                      experiência muito agradável. A capacidade de gerar e
+                      interagir com conteúdo em tempo real é um grande
+                      diferencial, criando vários pontos de contato e oferecendo
+                      uma vantagem competitiva significativa. Estou muito
+                      satisfeito com a solução e a recomendaria a outros
+                      profissionais do setor!
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -890,10 +940,15 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                        Intuitiva &amp; Personalizável
+                      Intuitiva &amp; Personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                        A plataforma se destacou pela sua facilidade de uso e flexibilidade. Ela oferece soluções inteligentes e estratégias eficazes que garantem um controle proativo e eficiente. Ao longo do tempo, a plataforma evoluiu para se adaptar às novas necessidades, oferecendo uma solução em nuvem que simplifica todos os processos.
+                      A plataforma se destacou pela sua facilidade de uso e
+                      flexibilidade. Ela oferece soluções inteligentes e
+                      estratégias eficazes que garantem um controle proativo e
+                      eficiente. Ao longo do tempo, a plataforma evoluiu para se
+                      adaptar às novas necessidades, oferecendo uma solução em
+                      nuvem que simplifica todos os processos.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
