@@ -219,13 +219,8 @@
             >
 
             <div class="dropdown-divider"></div>
-            <a
-              class="dropdown-item"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#termosModal"
-              ><i class="align-middle me-1" data-feather="play"></i>
-              Tutoriais</a
+            <a class="dropdown-item" href="/seu-tutorial-imcor"
+              ><i class="align-middle me-1" data-feather="play"></i> Tutoriai</a
             >
             <div class="dropdown-divider"></div>
             <a

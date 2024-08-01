@@ -82,6 +82,7 @@ export default {
 
     // this.fetcUsuarios();
     this.fetchMyUsers();
+    this.fetchMyUsersImobiliaria();
   },
 
   created() {
@@ -103,6 +104,12 @@ export default {
   },
 
   methods: {
+    fetchMyUsersImobiliaria() {
+      console.log("id do perfil imobi ===> ", this.perfil.id_user);
+      apiAuth.getMyImobiliaria(this.perfil.id_user).then((res) => {
+        console.log(res);
+      });
+    },
     fetchMyUsers() {
       const decoded = jwtDecode(this.token);
 

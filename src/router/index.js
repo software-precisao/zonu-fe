@@ -38,6 +38,8 @@ import LeadsView from "@/components/leads/LeadsView.vue";
 import ImobiTicketView from "@/views/dashboard/ticket/imobiTicketView.vue";
 import MessagesView from "@/views/dashboard/messages/messagesView.vue";
 import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
+import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue";
+import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -329,6 +331,34 @@ const routes = [
     path: "/seu-perfil-imcor/:hash",
     name: "PerfilImobiCorWithHash",
     component: PerfilImobCorView,
+  },
+  {
+    path: "/seu-tutorial-imcor",
+    name: "tutorialImobiCor",
+    component: TutorialImobiView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-tutorial-imcor/${hash}`);
+    },
+  },
+  {
+    path: "/seu-tutorial-imcor/:hash",
+    name: "TutorialImobiCorWithHash",
+    component: TutorialImobiView,
+  },
+  {
+    path: "/seu-tutorial",
+    name: "tutorial",
+    component: TutorialAdmimView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-tutorial/${hash}`);
+    },
+  },
+  {
+    path: "/seu-tutorial/:hash",
+    name: "TutorialWithHash",
+    component: TutorialAdmimView,
   },
   {
     path: "/seus-links",
