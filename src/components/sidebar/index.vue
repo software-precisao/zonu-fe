@@ -5,7 +5,7 @@
     :class="{ collapsed: isCollapsed }"
   >
     <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="">
+      <a class="sidebar-brand" href="/">
         <span class="align-middle">
           <img
             src="../../../assets/images/logo.svg"

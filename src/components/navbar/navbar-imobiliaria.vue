@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand navbar-light navbar-bg">
-    <a class="sidebar-toggle js-sidebar-toggle">
+    <a class="sidebar-toggle js-sidebar-toggle" href="/" style="width: 107px">
       <img src="../../../assets/images/logo-transparente.png" alt="" />
     </a>
 
@@ -26,7 +26,7 @@
           >
             <div class="position-relative">
               <i class="align-middle" data-feather="layers"></i>
-              <span style="font-size: 15px"> Imobiliária Vitual</span>
+              <span style="font-size: 15px"> Imobiliária Virtual</span>
             </div>
           </a>
         </li>
@@ -214,7 +214,7 @@
             <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="/seu-perfil"
+            <a class="dropdown-item" href="/seu-perfil-imcor"
               ><i class="align-middle me-1" data-feather="user"></i> Perfil</a
             >
 
@@ -262,7 +262,7 @@
       </ul>
     </div>
   </nav>
-  <div v-if="status === 1">
+  <div v-if="status !== 1">
     <div
       class="progress"
       role="progressbar"

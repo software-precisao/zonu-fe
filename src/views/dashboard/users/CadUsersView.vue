@@ -619,7 +619,7 @@
                           </div>
 
                           <div
-                            class="tab-pane fade show active"
+                            class="tab-pane fade"
                             id="convidado-tab-pane"
                             role="tabpanel"
                             aria-labelledby="convidado-tab"

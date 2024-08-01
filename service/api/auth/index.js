@@ -145,7 +145,7 @@ export default {
           avatar: "",
           nivel: 2,
           status: 2,
-          id_plano: 1,
+          id_plano: 4,
           razao_social: razao_social,
           cnpj: cnpj,
           telefone: telefone,
@@ -263,6 +263,41 @@ export default {
           cidade: cidade,
           estado: estado,
           bairro: bairro,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  cadastroSubImobiliaria: async (
+    nome,
+    sobrenome,
+    email,
+    senha,
+    idUser,
+    id_plano
+  ) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-imobiliaria-user",
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+          id_user: idUser,
+          id_plano: id_plano,
         },
         {
           headers: {
