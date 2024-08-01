@@ -355,7 +355,7 @@
             tipo, a relação entre aluguéis e vendas, e a localização dos imóveis
             em diversas cidades. Essas ferramentas visuais são essenciais para
             tomar decisões informadas e estratégicas, aproveitando ao máximo as
-            oportunidades do mercado.
+            oportunidades do mercado..
           </p>
         </div>
       </div>
