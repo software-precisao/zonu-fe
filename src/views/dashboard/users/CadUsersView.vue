@@ -619,7 +619,7 @@
                           </div>
 
                           <div
-                            class="tab-pane fade show active"
+                            class="tab-pane fade"
                             id="convidado-tab-pane"
                             role="tabpanel"
                             aria-labelledby="convidado-tab"
@@ -1573,10 +1573,7 @@ export default {
 
         // Filtrar usuários com id_nivel 1, 2 ou 4
         let filteredUsuariosTime = usuarios.filter(
-          (usuario) =>
-            usuario.id_nivel === 1 ||
-            usuario.id_nivel === 2 ||
-            usuario.id_nivel === 4
+          (usuario) => usuario.id_nivel === 1 || usuario.id_nivel === 2
         );
 
         // Remover duplicatas (caso necessário)
