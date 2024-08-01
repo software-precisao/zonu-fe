@@ -46,9 +46,9 @@
           <li class="nav-item" data-anchor="data-anchor">
             <a class="nav-link fw-medium" href="#pricing">Preço</a>
           </li>
-          <li class="nav-item" data-anchor="data-anchor">
+          <!-- <li class="nav-item" data-anchor="data-anchor">
             <a class="nav-link fw-medium" href="#testimonial">Cases</a>
-          </li>
+          </li> -->
           <li class="nav-item" data-anchor="data-anchor">
             <a class="nav-link fw-medium" href="#faq">FAQ</a>
           </li>
@@ -84,92 +84,47 @@
             alt=""
           />
         </div>
+        <div class="col-md-7 col-lg-6 text-center text-md-start">
+          <span
+            class="badge bg-light rounded-pill text-dark align-items-center d-flex flex-row-reverse justify-content-end mx-auto mx-md-0 ps-0 w-75 w-sm-50 w-md-75 w-xl-50 mb-3"
+            >#SejaZonu<img
+              class="img-fluid float-start me-3"
+              src="../../../assets/img/illustrations/arrow-right.png"
+              alt=""
+          /></span>
+          <h1 class="mb-4 display-3 fw-bold lh-sm">
+            A maior plataforma imobiliária
+            <br class="d-block d-lg-none d-xl-block" />do Brasil
+          </h1>
+          <p class="mt-3 mb-4 fs-1">
+            A plataforma definitiva para construtores, corretores e
+            imobiliárias. <br class="d-none d-lg-block" />Tudo em um único
+            lugar.
+          </p>
+          <a
+            class="btn btn-lg btn-primary rounded-pill hover-top"
+            href="#"
+            role="button"
+            >Teste grátis</a
+          ><a class="btn btn-link ps-md-4" href="#" role="button">
+            Conheça nossa plataforma</a
+          >
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="py-5" id="features">
-    <div class="container-lg">
-      <div class="row align-items-center">
-        <div class="col-md-5 col-lg-6 order-md-0 text-center text-md-start">
-          <img
-            class="img-fluid"
-            src="../../../assets/img/illustrations/location.png"
-            width="550"
-            alt=""
-          />
-        </div>
-        <div class="col-md-7 col-lg-6 px-sm-5 px-md-0">
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="py-7" hidden>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mx-auto align-items-center text-center">
           <h6 class="fw-bold fs-4 display-3 lh-sm">
-            Vantagens de ser <br />Zonu
+            Quer receber novidades Zonu?
           </h6>
-          <p class="my-4">
-            Transforme suas oportunidades imobiliárias em sucesso com tecnologia
-            <br class="d-none d-xl-block" />avançada e insights precisos.
-          </p>
-          <div class="d-flex align-items-center mb-5">
-            <div>
-              <img
-                class="img-fluid"
-                src="../../../assets/images/iconHome.png"
-                width="90"
-                alt=""
-              />
-            </div>
-            <div class="px-4">
-              <h5 class="fw-bold text-danger">Imóveis mapeados</h5>
-              <p>
-                Aumente a visibilidade dos seus imóveis com cadastros
-                <br class="d-none d-xl-block" />
-                detalhados e atraentes, otimizados para chamar a atenção
-                <br class="d-none d-xl-block" />
-                dos compradores
-              </p>
-            </div>
-          </div>
-          <div class="d-flex align-items-center mb-5">
-            <div>
-              <img
-                class="img-fluid"
-                src="../../../assets/images/iconPesquisa.png"
-                width="90"
-                alt=""
-              />
-            </div>
-            <div class="px-4">
-              <h5 class="fw-bold text-primary">Pesquisa apurada</h5>
-              <p>
-                Conte com análises detalhadas e precisas do mercado, garantindo
-                que <br class="d-none d-xl-block" />
-                suas decisões sejam sempre baseadas nas melhores
-                <br class="d-none d-xl-block" />
-                informações disponíveis
-              </p>
-            </div>
-          </div>
-          <div class="d-flex align-items-center mb-5">
-            <div>
-              <img
-                class="img-fluid"
-                src="../../../assets/images/iconReport.png"
-                width="90"
-                alt=""
-              />
-            </div>
-            <div class="px-4">
-              <h5 class="fw-bold text-success">Relatórios</h5>
-              <p>
-                Obtenha seus relatórios entregues
-                <br class="d-none d-xl-block" />
-                em casa, colete uma amostra das <br class="d-none d-xl-block" />
-                novidades do seu mercado imobiliário
-              </p>
-            </div>
-          </div>
         </div>
       </div>
-      <!-- </div>
-      </div> -->
 
       <div
         class="row align-items-center justify-content-center justify-content-lg-around mt-4"
@@ -312,8 +267,13 @@
         </div>
         <div class="col-md-6 col-lg-5 offset-lg-1 border-start py-5 ps-5">
           <p class="mb-0">
-            The rise of mobile devices transforms the way we consume information
-            entirely and the world's most elevant channels such as Facebook.
+            O aumento do uso de dispositivos móveis está revolucionando a
+            maneira como consumimos informações, impactando diretamente os
+            principais canais do mundo, como o Facebook. Nossa plataforma
+            imobiliária aproveita essa transformação digital para oferecer
+            soluções inteligentes e inovadoras, conectando construtores,
+            corretores e imobiliárias com seus clientes de forma mais eficaz e
+            eficiente.
           </p>
         </div>
       </div>
@@ -633,11 +593,13 @@
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6 col-xxl-5 text-center mb-3">
           <h6 class="fw-bold fs-4 display-3 lh-sm mb-3">
-            Get awesome features, without extra charges
+            Aproveite recursos incríveis incluídos no seu plano
           </h6>
           <p class="mb-4">
-            The rise of mobile devices transforms the way we consume information
-            entirely and the world's most elevant channels such as Facebook.
+            Nossa plataforma imobiliária aproveita essa transformação digital
+            para oferecer recursos incríveis e inovadores, todos inclusos no seu
+            plano, conectando construtores, corretores e imobiliárias com seus
+            clientes de forma mais eficaz e eficiente.
           </p>
         </div>
       </div>
@@ -661,13 +623,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3" v-for="item in allPlanos">
+        <div class="col-lg-4" v-for="item in allPlanos">
           {{ console.log("item =>", item) }}
           <div
             class="card shadow-lg mb-4 border-0 d-flex flex-column"
             style="height: 500px"
+            v-if="item.id_plano != 4"
           >
-            <div class="card-header border-bottom-0 pt-7 pb-5">
+            <div class="card-header border-bottom-0 pt-5 pb-3">
               <div class="d-flex justify-content-center">
                 <h1 class="fw-bold fs-2">
                   {{ formatCurrency(item.valor_plano) }}
@@ -683,7 +646,7 @@
               <ul class="list-unstyled mb-4">
                 <li
                   class="text-700 py-2 text-secondary"
-                  v-for="(itens, index) in item.itens_do_plano[0]"
+                  v-for="(itens, index) in item.itens_do_plano"
                 >
                   <i class="fa fa-check"></i> &nbsp; {{ itens }}
                 </li>
@@ -761,7 +724,7 @@
   <!-- <section> close ============================-->
   <!-- ============================================-->
 
-  <section class="py-8" id="testimonial">
+  <section class="py-8" hidden id="testimonial">
     <div class="container-lg">
       <div class="row flex-center">
         <div
@@ -1445,13 +1408,13 @@ export default {
     handleCadastrar(id) {
       // console.log("id do plano ====> ", id)
       sessionStorage.setItem("plano", id);
-      if (id === 1) {
+      if (id === 4) {
         this.$router.push({ name: "cadastro-construtora" });
+      } else if (id === 1) {
+        this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 2) {
         this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 3) {
-        this.$router.push({ name: "cadastro-imobiliaria" });
-      } else if (id === 4) {
         this.$router.push({ name: "cadastro-corretor" });
       }
     },
