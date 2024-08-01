@@ -114,64 +114,6 @@
     </div>
   </section>
 
-  <!-- ============================================-->
-  <!-- <section> begin ============================-->
-  <section class="py-7">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 mx-auto align-items-center text-center">
-          <h6 class="fw-bold fs-4 display-3 lh-sm">
-            Quer receber novidades Zonu?
-          </h6>
-        </div>
-      </div>
-
-      <div
-        class="row align-items-center justify-content-center justify-content-lg-around mt-4"
-      >
-        <div
-          class="col-12 col-sm-12 col-md-12 col-lg-12 px-md-0 mb-5 mb-lg-0 text-center"
-        >
-          <div class="row">
-            <div class="col-9" style="margin-left: 10%">
-              <label for="inputPassword2" class="visually-hidden"
-                >Seu email</label
-              >
-              <input
-                required
-                style="
-                  border-top-left-radius: 30px;
-                  border-bottom-left-radius: 30px;
-                "
-                type="email"
-                class="form-control"
-                v-model="inscrever"
-                id="inputPassword2"
-                placeholder="Deixe seu email aqui"
-              />
-            </div>
-            <div class="col-1">
-              <button
-                @click="handleInscrever()"
-                class="btn btn-primary mb-3"
-                style="margin-left: -30px; height: 50px; width: 150px"
-              >
-                Inscrever-se
-              </button>
-            </div>
-
-            <p v-if="msgSuccess" class="text-success">
-              <i class="fa fa-check"></i> E-mail cadastrado com sucesso
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end of .container-->
-  </section>
-  <!-- <section> close ============================-->
-  <!-- ============================================-->
-
   <section class="py-5" id="features">
     <div class="container-lg">
       <div class="row align-items-center">
@@ -179,7 +121,7 @@
           <img
             class="img-fluid"
             src="../../../assets/img/illustrations/location.png"
-            width="550"
+            width="60%"
             alt=""
           />
         </div>
@@ -267,8 +209,13 @@
         </div>
         <div class="col-md-6 col-lg-5 offset-lg-1 border-start py-5 ps-5">
           <p class="mb-0">
-            The rise of mobile devices transforms the way we consume information
-            entirely and the world's most elevant channels such as Facebook.
+            O aumento do uso de dispositivos móveis está revolucionando a
+            maneira como consumimos informações, impactando diretamente os
+            principais canais do mundo, como o Facebook. Nossa plataforma
+            imobiliária aproveita essa transformação digital para oferecer
+            soluções inteligentes e inovadoras, conectando construtores,
+            corretores e imobiliárias com seus clientes de forma mais eficaz e
+            eficiente.
           </p>
         </div>
       </div>
@@ -350,7 +297,7 @@
             tipo, a relação entre aluguéis e vendas, e a localização dos imóveis
             em diversas cidades. Essas ferramentas visuais são essenciais para
             tomar decisões informadas e estratégicas, aproveitando ao máximo as
-            oportunidades do mercado.
+            oportunidades do mercado
           </p>
         </div>
       </div>
@@ -507,7 +454,9 @@
                       alt=""
                     />
                   </div>
-                  <h5 class="fw-bold text-undefined">App ZONU</h5>
+                  <h5 class="fw-bold text-undefined">
+                    Desenvolvimento de sites
+                  </h5>
                   <p class="mt-2 mb-0">
                     Desenvolvemos telas que permitem que você visualize e
                     gerencie seus imóveis diretamente do seu celular, com
@@ -588,11 +537,13 @@
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6 col-xxl-5 text-center mb-3">
           <h6 class="fw-bold fs-4 display-3 lh-sm mb-3">
-            Get awesome features, without extra charges
+            Aproveite recursos incríveis incluídos no seu plano
           </h6>
           <p class="mb-4">
-            The rise of mobile devices transforms the way we consume information
-            entirely and the world's most elevant channels such as Facebook.
+            Nossa plataforma imobiliária aproveita essa transformação digital
+            para oferecer recursos incríveis e inovadores, todos inclusos no seu
+            plano, conectando construtores, corretores e imobiliárias com seus
+            clientes de forma mais eficaz e eficiente.
           </p>
         </div>
       </div>
@@ -622,7 +573,7 @@
             class="card shadow-lg mb-4 border-0 d-flex flex-column"
             style="height: 500px"
           >
-            <div class="card-header border-bottom-0 pt-7 pb-5">
+            <div class="card-header border-bottom-0 pt-5 pb-4">
               <div class="d-flex justify-content-center">
                 <h1 class="fw-bold fs-2">
                   {{ formatCurrency(item.valor_plano) }}
@@ -635,10 +586,10 @@
               }}</span>
             </div>
             <div class="card-body mx-auto flex-grow-1">
-              <ul class="list-unstyled mb-4">
+              <ul class="list-unstyled mb-2">
                 <li
                   class="text-700 py-2 text-secondary"
-                  v-for="(itens, index) in item.itens_do_plano[0]"
+                  v-for="(itens, index) in item.itens_do_plano"
                 >
                   <i class="fa fa-check"></i> &nbsp; {{ itens }}
                 </li>
@@ -646,7 +597,7 @@
             </div>
             <div class="mt-auto text-center">
               <a
-                class="btn btn-lg btn-primary rounded-pill mb-3"
+                class="btn btn-lg btn-primary rounded-pill mb-5"
                 @click="handleCadastrar(item.id_plano)"
               >
                 Cadastre-se agora
@@ -732,11 +683,11 @@
           class="col-sm-10 col-md-6 col-lg-6 text-center text-md-start offset-md-1"
         >
           <h6 class="fw-bold fs-4 display-3 lh-sm">
-            Meet Client Satisfaction <br />by using product
+            Conheça a satisfação do cliente<br />usando nosso produto
           </h6>
           <p class="my-4 pe-xl-5">
-            The rise of mobile devices transforms the way we consume.Elevant
-            channels such as Facebook.
+            Nossa plataforma imobiliária aproveita essa transformação digital
+            para oferecer soluções que garantem a satisfação do cliente.
           </p>
           <div
             class="carousel slide"
@@ -808,15 +759,10 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
+                        Simples &amp; Eficaz
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                        O site se destacou pela sua simplicidade e flexibilidade, o que foi fundamental para otimizar nossas operações. Como a maior plataforma imobiliária do Brasil, ela oferece uma solução completa e integrada para construtores, corretores e imobiliárias.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -899,15 +845,10 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
+                      Fácil de usar &amp; personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                        A interface é intuitiva e simplificada, o que tornou a experiência muito agradável. A capacidade de gerar e interagir com conteúdo em tempo real é um grande diferencial, criando vários pontos de contato e oferecendo uma vantagem competitiva significativa. Estou muito satisfeito com a solução e a recomendaria a outros profissionais do setor!
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -990,15 +931,10 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
+                        Intuitiva &amp; Personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                        A plataforma se destacou pela sua facilidade de uso e flexibilidade. Ela oferece soluções inteligentes e estratégias eficazes que garantem um controle proativo e eficiente. Ao longo do tempo, a plataforma evoluiu para se adaptar às novas necessidades, oferecendo uma solução em nuvem que simplifica todos os processos.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -1273,8 +1209,8 @@
         </div>
       </div>
       <div class="row flex-center">
-        <div class="col-auto mb-5">
-          <ul class="list-unstyled list-inline mb-0">
+        <div class="col-auto mb-1">
+          <!-- <ul class="list-unstyled list-inline mb-0">
             <li class="list-inline-item me3 me-sm-4">
               <a class="text-light text-decoration-none" href="#!">Home</a>
             </li>
@@ -1294,7 +1230,7 @@
             <li class="list-inline-item me3 me-sm-4">
               <a class="text-light text-decoration-none" href="#!">FAQ</a>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <div class="row flex-center">
@@ -1398,15 +1334,12 @@ export default {
   },
   methods: {
     handleCadastrar(id) {
-      // console.log("id do plano ====> ", id)
-      sessionStorage.setItem("plano", id);
+      localStorage.setItem("plano", id);
       if (id === 1) {
-        this.$router.push({ name: "cadastro-construtora" });
+        this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 2) {
         this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 3) {
-        this.$router.push({ name: "cadastro-imobiliaria" });
-      } else if (id === 4) {
         this.$router.push({ name: "cadastro-corretor" });
       }
     },
