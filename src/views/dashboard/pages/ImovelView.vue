@@ -863,7 +863,7 @@
         <!-- Complementos -->
         <div class="row" id="complemento">
           <div class="col container-box">
-            <h2 class="text-title-h2 mt-5"><strong>COMPLEMENTOS</strong></h2>
+            <h2 class="title mt-5">COMPLEMENTOS</h2>
             <p class="text-title-subtitle mt-2">
               Para uma visão mais detalhada e completa deste imóvel, assista ao
               vídeo de apresentação abaixo. Este vídeo oferece um tour virtual,
@@ -886,6 +886,25 @@
                     >{{ imovel.complemento.link_drive }}</a
                   >
                   <span v-if="imovel.complemento.link_drive == ''"
+                    >Sem link</span
+                  >
+                </span>
+              </div>
+
+              <div style="margin-bottom: 50px; display: flex">
+                <img
+                  :src="presentation"
+                  alt="Icone do video 360"
+                  style="margin-right: 10px; width: 32px; height: 32px"
+                />
+                <span style="display: flex; align-items: center">
+                  <i class="fa fa-link" style="margin-right: 4px"></i
+                  ><a
+                    v-if="imovel.complemento.link_apresentacao != ''"
+                    :href="imovel.complemento.link_apresentacao"
+                    >{{ imovel.complemento.link_apresentacao }}</a
+                  >
+                  <span v-if="imovel.complemento.link_apresentacao == ''"
                     >Sem link</span
                   >
                 </span>
@@ -966,6 +985,7 @@ import apiRaiz from "../../../../service/api/index";
 import axios from "axios";
 import googleDrive from "../../../../assets/images/icons/googleDriveLogo.svg";
 import youtube from "../../../../assets/images/icons/youtubeLogo.svg";
+import presentation from "../../../../assets/images/icons/presentationIcon.svg";
 
 export default {
   name: "ImovelView",
@@ -992,6 +1012,7 @@ export default {
 
       googleDrive,
       youtube,
+      presentation,
     };
   },
 

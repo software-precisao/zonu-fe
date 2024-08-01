@@ -68,6 +68,7 @@ import NavBar from "../../../components/navbar/index.vue";
 import Footer from "../../../components/footer/index.vue";
 import { jwtDecode } from "jwt-decode";
 import api from "../../../../service/api/index";
+import apiTutorial from "../../../../service/api/tutorial/index";
 
 export default {
   name: "TutorialView",
@@ -142,6 +143,10 @@ export default {
         this.textoError = "";
         this.textoBotao = "Enviando...";
         console.log("mandar esse link ===>", this.url);
+        apiTutorial.mandarTutorial(this.url).then((res) => {
+          console.log(this.url)  
+          console.log(res);
+        });
         setTimeout(() => {
           this.textoBotao = "Enviar";
         }, 3000);

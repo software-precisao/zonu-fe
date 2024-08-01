@@ -54,7 +54,7 @@
                   </option>
                 </select>
               </div>
-              <div class="col-6">
+              <div class="col-3">
                 <input
                   type="text"
                   v-model="nomeImovel"
@@ -63,6 +63,31 @@
                   placeholder="Nome do imóvel"
                   @input="fetchImoveisFiltrados"
                 />
+              </div>
+              <div class="col-3" style="margin-top: -5px">
+                <label for="area"
+                  ><small><strong>Intervalo de Área (m²)</strong></small></label
+                >
+                <div class="d-flex justify-content-around">
+                  <input
+                    type="number"
+                    v-model.number="areaMin"
+                    @input="fetchImoveisFiltrados"
+                    class="form-control"
+                    style="height: 40px"
+                    placeholder="Área Mínima"
+                    min="0"
+                  />
+                  <input
+                    type="number"
+                    v-model.number="areaMax"
+                    @input="fetchImoveisFiltrados"
+                    class="form-control"
+                    style="height: 40px"
+                    placeholder="Área Máxima"
+                    min="0"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -329,6 +354,9 @@ export default {
 
       mensagem: "",
       mensagemAtivo: false,
+
+      areaMin: 0,
+      areaMax: 0,
     };
   },
 
@@ -461,6 +489,17 @@ export default {
               .toLowerCase()
               .includes(this.nomeImovel.toLowerCase())
           );
+        }
+
+        if (this.areaMin !== 0 || this.areaMax !== 0) {
+          imoveis = imoveis.filter((imovel) => {
+            const areaImovel = parseFloat(imovel.medidas.area_total);
+            return (
+              (this.areaMin === 0 && areaImovel <= this.areaMax) ||
+              (this.areaMax === 0 && areaImovel >= this.areaMin) ||
+              (areaImovel >= this.areaMin && areaImovel <= this.areaMax)
+            );
+          });
         }
 
         // console.log(this.nomeImovel);

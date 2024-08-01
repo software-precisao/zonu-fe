@@ -83,13 +83,12 @@ export default {
     // this.fetcUsuarios();
     this.fetchMyUsers();
     this.fetchMyUsersImobiliaria();
+    this.fetcUsuarios();
   },
 
   created() {
     this.debouncedCheckCNPJ = _.debounce(this.consultarCNPJ, 100);
     this.debouncedCheckCEP = _.debounce(this.consultarCEP, 100);
-
-    this.fetcUsuarios();
   },
 
   watch: {
@@ -106,7 +105,7 @@ export default {
   methods: {
     fetchMyUsersImobiliaria() {
       console.log("id do perfil imobi ===> ", this.perfil.id_user);
-      apiAuth.getMyImobiliaria(this.perfil.id_user).then((res) => {
+      api.listusuarios().then((res) => {
         console.log(res);
       });
     },
@@ -131,8 +130,10 @@ export default {
     },
 
     fetcUsuarios() {
-      api.listusuarios().then((res) => {
-        let usuarios = res.data.response;
+      console.log(this.perfil.id_user);
+      apiAuth.getMyImobiliaria(this.perfil.id_user).then((res) => {
+        let usuarios = res.data;
+        console.log("aqui que esta o res ===> ", res);
         // Filtrar os usuários com id_nivel igual a 1
         const idsAdicionados = new Set();
         // let usuariosFiltrados = usuarios.filter(
@@ -292,10 +293,12 @@ export default {
             idPlano
           )
           .then((res) => {
+            console.log(res);
             if (res.status === 202) {
               console.log(res.data);
               this.textoBotao = "Criar novo usuário";
               this.autenticando = false;
+              this.fetcUsuarios();
             } else {
               this.textoBotao = "Houve um erro...";
               this.msgErrorNull = true;
@@ -758,20 +761,13 @@ export default {
                                 </button>
                               </div>
                               <hr class="mt-4" />
-                              <div class="card-header">
+                              <!-- <div class="card-header">
                                 <h5 class="card-title mb-0">
                                   <i class="fa fa-building"></i> Lista dos meus
                                   usuários
                                 </h5>
                               </div>
                               <div class="card-body">
-                                <!-- <div
-                                  v-if="msgSuccess"
-                                  class="alert alert-success mt-3"
-                                  role="alert"
-                                >
-                                  <i class="fa fa-check"></i> {{ msgSuccess }}
-                                </div> -->
 
                                 <div class="container">
                                   <div class="row">
@@ -783,7 +779,7 @@ export default {
                                           <th scope="col">Status</th>
                                         </tr>
                                       </thead>
-                                      <!-- <tbody>
+                                      <tbody>
                           <tr v-for="link in links" :key="link.id">
                             <th>{{ nome }} {{ sobrenome }}</th>
                             <th>
@@ -800,11 +796,11 @@ export default {
                               >
                             </th>
                           </tr>
-                        </tbody> -->
+                        </tbody>
                                     </table>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                         </div>
