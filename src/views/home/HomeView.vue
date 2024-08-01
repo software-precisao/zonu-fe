@@ -113,7 +113,6 @@
       </div>
     </div>
   </section>
-
   <!-- ============================================-->
   <!-- <section> begin ============================-->
   <section class="py-7" hidden>
@@ -171,7 +170,6 @@
   </section>
   <!-- <section> close ============================-->
   <!-- ============================================-->
-
   <section class="py-5" id="features">
     <div class="container-lg">
       <div class="row align-items-center">
@@ -355,7 +353,7 @@
             tipo, a relação entre aluguéis e vendas, e a localização dos imóveis
             em diversas cidades. Essas ferramentas visuais são essenciais para
             tomar decisões informadas e estratégicas, aproveitando ao máximo as
-            oportunidades do mercado..
+            oportunidades do mercado.
           </p>
         </div>
       </div>
@@ -512,7 +510,9 @@
                       alt=""
                     />
                   </div>
-                  <h5 class="fw-bold text-undefined">App ZONU</h5>
+                  <h5 class="fw-bold text-undefined">
+                    Desenvolvimento de sites
+                  </h5>
                   <p class="mt-2 mb-0">
                     Desenvolvemos telas que permitem que você visualize e
                     gerencie seus imóveis diretamente do seu celular, com
@@ -630,7 +630,7 @@
             style="height: 500px"
             v-if="item.id_plano != 4"
           >
-            <div class="card-header border-bottom-0 pt-5 pb-3">
+            <div class="card-header border-bottom-0 pt-5 pb-4">
               <div class="d-flex justify-content-center">
                 <h1 class="fw-bold fs-2">
                   {{ formatCurrency(item.valor_plano) }}
@@ -643,7 +643,7 @@
               }}</span>
             </div>
             <div class="card-body mx-auto flex-grow-1">
-              <ul class="list-unstyled mb-4">
+              <ul class="list-unstyled mb-2">
                 <li
                   class="text-700 py-2 text-secondary"
                   v-for="(itens, index) in item.itens_do_plano"
@@ -654,7 +654,7 @@
             </div>
             <div class="mt-auto text-center">
               <a
-                class="btn btn-lg btn-primary rounded-pill mb-3"
+                class="btn btn-lg btn-primary rounded-pill mb-5"
                 @click="handleCadastrar(item.id_plano)"
               >
                 Cadastre-se agora
@@ -740,11 +740,11 @@
           class="col-sm-10 col-md-6 col-lg-6 text-center text-md-start offset-md-1"
         >
           <h6 class="fw-bold fs-4 display-3 lh-sm">
-            Meet Client Satisfaction <br />by using product
+            Conheça a satisfação do cliente<br />usando nosso produto
           </h6>
           <p class="my-4 pe-xl-5">
-            The rise of mobile devices transforms the way we consume.Elevant
-            channels such as Facebook.
+            Nossa plataforma imobiliária aproveita essa transformação digital
+            para oferecer soluções que garantem a satisfação do cliente.
           </p>
           <div
             class="carousel slide"
@@ -815,16 +815,13 @@
                         d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
                       ></path>
                     </svg>
-                    <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
-                    </h5>
+                    <h5 class="my-4 fw-bold lh-sm">Simples &amp; Eficaz</h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                      O site se destacou pela sua simplicidade e flexibilidade,
+                      o que foi fundamental para otimizar nossas operações. Como
+                      a maior plataforma imobiliária do Brasil, ela oferece uma
+                      solução completa e integrada para construtores, corretores
+                      e imobiliárias.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -907,15 +904,16 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
+                      Fácil de usar &amp; personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                      A interface é intuitiva e simplificada, o que tornou a
+                      experiência muito agradável. A capacidade de gerar e
+                      interagir com conteúdo em tempo real é um grande
+                      diferencial, criando vários pontos de contato e oferecendo
+                      uma vantagem competitiva significativa. Estou muito
+                      satisfeito com a solução e a recomendaria a outros
+                      profissionais do setor!
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -998,15 +996,15 @@
                       ></path>
                     </svg>
                     <h5 class="my-4 fw-bold lh-sm">
-                      User friendly &amp; Customizable
+                      Intuitiva &amp; Personalizável
                     </h5>
                     <p class="mb-0 text-center text-md-start">
-                      Bring to the table win-win survival strategies to ensure
-                      proactive domination. At the end of the day, going
-                      forward, a new normal that has evolved from generation X
-                      is on the runway heading towards a streamlined cloud
-                      solution. User generated content in real-time will have
-                      multiple touchpoints for offshoring.
+                      A plataforma se destacou pela sua facilidade de uso e
+                      flexibilidade. Ela oferece soluções inteligentes e
+                      estratégias eficazes que garantem um controle proativo e
+                      eficiente. Ao longo do tempo, a plataforma evoluiu para se
+                      adaptar às novas necessidades, oferecendo uma solução em
+                      nuvem que simplifica todos os processos.
                     </p>
                   </div>
                   <div class="col-xl-6 pt-4 d-flex d-sm-block flex-center">
@@ -1281,8 +1279,8 @@
         </div>
       </div>
       <div class="row flex-center">
-        <div class="col-auto mb-5">
-          <ul class="list-unstyled list-inline mb-0">
+        <div class="col-auto mb-1">
+          <!-- <ul class="list-unstyled list-inline mb-0">
             <li class="list-inline-item me3 me-sm-4">
               <a class="text-light text-decoration-none" href="#!">Home</a>
             </li>
@@ -1302,7 +1300,7 @@
             <li class="list-inline-item me3 me-sm-4">
               <a class="text-light text-decoration-none" href="#!">FAQ</a>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <div class="row flex-center">
@@ -1371,8 +1369,7 @@
             >
               <path
                 d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"
-              ></path></svg
-            >&nbsp;&nbsp;<a
+              ></path></svg>&nbsp;&nbsp;<a
               class="text-700"
               href="https://themewagon.com/"
               target="_blank"
@@ -1406,11 +1403,8 @@ export default {
   },
   methods: {
     handleCadastrar(id) {
-      // console.log("id do plano ====> ", id)
-      sessionStorage.setItem("plano", id);
-      if (id === 4) {
-        this.$router.push({ name: "cadastro-construtora" });
-      } else if (id === 1) {
+      localStorage.setItem("plano", id);
+      if (id === 1) {
         this.$router.push({ name: "cadastro-imobiliaria" });
       } else if (id === 2) {
         this.$router.push({ name: "cadastro-imobiliaria" });

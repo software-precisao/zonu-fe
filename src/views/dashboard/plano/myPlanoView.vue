@@ -94,6 +94,7 @@
                             <div
                               class="card shadow-lg mb-4 border-0 d-flex flex-column"
                               style="height: 500px"
+                              v-if="plano.id_plano != 4"
                             >
                               <div
                                 class="card-header border-bottom-0 pt-7 pb-5"
@@ -118,8 +119,9 @@
                                 <ul class="list-unstyled mb-4">
                                   <li
                                     class="text-700 py-2 text-secondary"
-                                    v-for="(itens, index) in plano
-                                      .itens_do_plano[0]"
+                                    v-for="(
+                                      itens, index
+                                    ) in plano.itens_do_plano"
                                   >
                                     <i class="fa fa-check"></i> &nbsp;
                                     {{ itens }}
