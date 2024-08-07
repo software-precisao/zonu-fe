@@ -225,6 +225,58 @@ export default {
     }
   },
 
+  cadastroPessoaFisica: async (
+    nome,
+    sobrenome,
+    email,
+    senha,
+    cpf,
+    id_plano,
+    telefone,
+    cep,
+    endereco,
+    complemento,
+    numero,
+    cidade,
+    estado,
+    bairro
+  ) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-pessoa-fisica",
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+          avatar: "",
+          cpf: cpf,
+          id_plano: id_plano,
+          telefone: telefone,
+          cep: cep,
+          endereco: endereco,
+          complemento: complemento,
+          numero: numero,
+          cidade: cidade,
+          estado: estado,
+          bairro: bairro,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   cadastroImobiliaria: async (
     nome,
     sobrenome,

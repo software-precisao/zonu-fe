@@ -40,6 +40,7 @@ import MessagesView from "@/views/dashboard/messages/messagesView.vue";
 import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
 import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue";
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
+import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -75,6 +76,11 @@ const routes = [
     path: "/cadastro-imobiliaria",
     name: "cadastro-imobiliaria",
     component: CadastroImobiliariaView,
+  },
+  {
+    path: "/cadastro-pessoa-fisica",
+    name: "cadastro pessoa fisica",
+    component: CadastroPessoaFisicaView,
   },
   {
     path: "/enviar-documentos",
