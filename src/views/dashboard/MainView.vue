@@ -8,6 +8,7 @@
         <div class="container-fluid p-0">
           <div v-if="mostrarSkeleton" class="skeleton-title-dashboard"></div>
           <h1 v-if="!mostrarSkeleton" class="h3 mb-3">
+            {{console.log(decode)}}
             <strong>Dashboard |</strong> Construtora
           </h1>
 
@@ -290,7 +291,7 @@ export default {
       map: null,
       latitude: "-15.7934",
       longitude: "-47.8823",
-
+      decode: null,
       mensagem: "",
       mensagemAtivo: false,
     };
@@ -321,7 +322,7 @@ export default {
     this.id_user = id_user;
     const iniciais = this.nome.charAt(0) + this.sobrenome.charAt(0);
     this.iniciais = iniciais;
-
+    this.decode = decode;
     this.ferchProgress();
     this.fetchMyImoveis();
     this.fetchMyCondominios();
