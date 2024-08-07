@@ -40,6 +40,7 @@ import MessagesView from "@/views/dashboard/messages/messagesView.vue";
 import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
 import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue";
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
+import Countdown from "@/views/countdown/Countdown.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -57,9 +58,14 @@ const routes = [
     component: SeuImovelView,
   },
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/",
+    name: "countdown",
+    component: Countdown,
   },
   {
     path: "/cadastro-construtora",

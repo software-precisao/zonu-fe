@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     calculateCountdown() {
-      const launchDate = new Date("2024-08-15T00:00:00"); // Data e hora do lançamento
+      const launchDate = new Date("2024-08-19T00:00:00"); // Data e hora do lançamento
       const currentDate = new Date();
       const timeDiff = launchDate - currentDate;
 
