@@ -65,7 +65,7 @@
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="/sua-imobiliaria-virtual">
+          <a class="sidebar-link" href="/filtro-imovel">
             <i class="align-middle" data-feather="grid"></i>
             <span class="align-middle">Imobiliária Virtual </span>
           </a>

@@ -16,7 +16,7 @@
     <div class="card-body py-3">
       <div class="chart chart-sm">
         <div class="row">
-          <div class="col-2">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="tipoNegocio" class="form-label"
               >Tipo de negócio <small><i class="fa fa-filter"></i></small
             ></label>
@@ -31,7 +31,7 @@
               </option>
             </select>
           </div>
-          <div class="col-1 mb-3">
+          <div class="col-md-4 col-lg-4 col-xl-2 mb-3">
             <label for="tipoNegocio" class="form-label"
               >UF <small><i class="fa fa-filter"></i></small
             ></label>
@@ -44,7 +44,7 @@
               <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
             </select>
           </div>
-          <div class="col-2">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="cidade" class="form-label"
               >Cidade <small><i class="fa fa-filter"></i></small
             ></label>
@@ -59,7 +59,7 @@
               </option>
             </select>
           </div>
-          <div class="col-1">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="bairro" class="form-label"
               >Bairro <small><i class="fa fa-filter"></i></small
             ></label>
@@ -84,7 +84,7 @@
                             <option value="Não">Não publicado</option>
                         </select>
                     </div> -->
-          <div class="col-2">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="tipoImovel" class="form-label"
               >Tipo do imóvel <small><i class="fa fa-filter"></i></small
             ></label>
@@ -99,7 +99,7 @@
               </option>
             </select>
           </div>
-          <div class="col-2">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="proximoMar" class="form-label"
               >Proximo do Mar? <small><i class="fa fa-filter"></i></small
             ></label>
@@ -118,7 +118,7 @@
               </option>
             </select>
           </div>
-          <div class="col-2">
+          <div class="col-md-4 col-lg-4 col-xl-2">
             <label for="quartos" class="form-label"
               >Quartos <small><i class="fa fa-filter"></i></small
             ></label>
