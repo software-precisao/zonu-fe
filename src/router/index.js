@@ -42,7 +42,6 @@ import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
 import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 import Countdown from "@/views/countdown/Countdown.vue";
-import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
