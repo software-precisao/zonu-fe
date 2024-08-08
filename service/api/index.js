@@ -973,17 +973,18 @@ export default {
   },
 
   editarImovel: async (id, formData) => {
+    console.log("FormatData ===> ", formData);
     try {
-      const response = await http.patch(
+      const response = await http.put(
         `/imovel/editar/${id}`,
         formData,
 
         {
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Accept: "application/json",
             "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH,PUT",
           },
         }
       );

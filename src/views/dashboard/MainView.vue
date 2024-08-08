@@ -8,7 +8,7 @@
         <div class="container-fluid p-0">
           <div v-if="mostrarSkeleton" class="skeleton-title-dashboard"></div>
           <h1 v-if="!mostrarSkeleton" class="h3 mb-3">
-            {{console.log(decode)}}
+            <!-- {{ console.log(decode) }} -->
             <strong>Dashboard |</strong> Construtora
           </h1>
 
@@ -366,16 +366,16 @@ export default {
           // Calcula a diferença em minutos
           const diffInMinutes = (now - createdAt) / (1000 * 60);
 
-          console.log("Diferença em minutos:", diffInMinutes);
+          // console.log("Diferença em minutos:", diffInMinutes);
 
           if (diffInMinutes <= tempo) {
             // Mensagem ainda está ativa
-            console.log("Aqui está a mensagem ====>", latestMessage.mensagem);
+            // console.log("Aqui está a mensagem ====>", latestMessage.mensagem);
             this.mensagemAtivo = true;
             this.mensagem = latestMessage.mensagem;
           } else {
             // Mensagem não está mais ativa
-            console.log("A mensagem não está mais ativa");
+            // console.log("A mensagem não está mais ativa");
             this.mensagemAtivo = false;
             this.mensagem = "";
           }
@@ -661,7 +661,7 @@ export default {
     addMarkerImoveis() {
       const lat = this.latitudeImoveis;
       const lng = this.longitudeImoveis;
-      console.log(this.latitudeImoveis);
+      // console.log(this.latitudeImoveis);
       if (!isNaN(lat) && !isNaN(lng)) {
         const customIcon = {
           url: "https://zonu.com.br/emailmkt/IconLocationMaps.png", // Caminho para o ícone personalizado
