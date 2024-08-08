@@ -40,6 +40,7 @@ import MessagesView from "@/views/dashboard/messages/messagesView.vue";
 import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
 import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue";
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
+import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 import Countdown from "@/views/countdown/Countdown.vue";
 import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 
