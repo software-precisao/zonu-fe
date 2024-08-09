@@ -366,7 +366,8 @@ export default {
           (cliente) =>
             cliente.id_nivel === 3 ||
             cliente.id_nivel === 4 ||
-            cliente.id_nivel === 5
+            cliente.id_nivel === 5 ||
+            cliente.id_nivel === 7
         );
         // Atribuir os usuários filtrados ao estado listUsers
         this.totalClientes = clientesFiltrados.length;

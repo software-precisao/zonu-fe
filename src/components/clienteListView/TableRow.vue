@@ -21,6 +21,9 @@
     <td v-if="item.id_nivel == 5">
       <span class="badge text-bg-success">Imobiliaria</span>
     </td>
+    <td v-if="item.id_nivel == 7">
+      <span class="badge text-bg-success">Pessoa Física</span>
+    </td>
     <td v-if="item.id_status == 1">
       <span class="badge text-bg-success">Ativo</span>
     </td>
@@ -179,6 +182,7 @@ export default {
         if (res.status == 202) {
           this.$emit("updateUsers");
           this.msgSuccess = "Usuário Excluído com sucesso!";
+          window.location.reload();
           setTimeout(() => {
             this.msgSuccess = "";
           }, 3000);

@@ -7,11 +7,25 @@
       <main class="content">
         <div class="container-fluid p-0">
           <div v-if="mostrarSkeleton" class="skeleton-title-dashboard"></div>
-          <h1 v-if="!mostrarSkeleton" class="h3 mb-3">
-            <!-- {{ console.log(decode) }} -->
+          <h1
+            v-if="!mostrarSkeleton && decode && decode.id_nivel === 3"
+            class="h3 mb-3"
+          >
             <strong>Dashboard |</strong> Construtora
           </h1>
-
+          <h1
+            v-if="!mostrarSkeleton && decode && decode.id_nivel === 1"
+            class="h3 mb-3"
+          >
+            <strong>Dashboard |</strong> Administrador
+          </h1>
+          <h1
+            v-if="!mostrarSkeleton && decode && decode.id_nivel === 7"
+            class="h3 mb-3"
+          >
+            <strong>Dashboard |</strong> Pessoa Física
+          </h1>
+          <!-- {{ console.log(decode) }} -->
           <div class="col-xl-12 mt-2" v-if="progressView">
             <div class="w-100">
               <div class="row">
@@ -211,14 +225,23 @@
                   </div>
                 </div>
 
-                <div class="col-xl-4 col-xxl-4">
+                <div
+                  class="col-xl-4 col-xxl-4"
+                  v-if="decode && decode.id_nivel !== 7"
+                >
                   <GraphAluguelVenda />
                 </div>
 
-                <div class="col-xl-4 col-xxl-4">
+                <div
+                  class="col-xl-4 col-xxl-4"
+                  v-if="decode && decode.id_nivel !== 7"
+                >
                   <GraphPublicados />
                 </div>
-                <div class="col-xl-4 col-xxl-4">
+                <div
+                  class="col-xl-4 col-xxl-4"
+                  v-if="decode && decode.id_nivel !== 7"
+                >
                   <GraphTipo />
                 </div>
 
@@ -226,7 +249,10 @@
                   <FilterGraph />
                 </div>
 
-                <div class="col-xl-12 col-xxl-12">
+                <div
+                  class="col-xl-12 col-xxl-12"
+                  v-if="decode && decode.id_nivel !== 7"
+                >
                   <GraphMercado />
                 </div>
               </div>

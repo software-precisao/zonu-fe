@@ -7,6 +7,9 @@
       <main class="content">
         <div class="container-fluid p-0">
           <h1 class="h3 mb-3"><strong>Cadastro |</strong> Novo Imóveis</h1>
+          <div class="alert alert-danger" role="alert" v-if="messageLimit">
+            Você o máximo de imóveis permitido!
+          </div>
 
           <div class="row d-flex flex-row justify-content-between">
             <div style="width: 19%; margin-right: 1%">
@@ -945,6 +948,7 @@
                               <div
                                 class="d-grid gap-2 d-md-flex justify-content-md-end"
                               >
+                                <!-- {{ console.log(idNivel) }} -->
                                 <button
                                   class="btn btn-success"
                                   @click="handleProximoComodo()"
@@ -956,6 +960,17 @@
                                     aria-hidden="true"
                                   ></i>
                                 </button>
+                                <!-- <button
+                                  v-if="idNivel === 7"
+                                  class="btn btn-success"
+                                  type="submit"
+                                >
+                                  Próximo
+                                  <i
+                                    class="fa fa-arrow-right"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button> -->
                               </div>
                             </div>
                           </div>
@@ -8879,6 +8894,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import _ from "lodash";
 import L from "leaflet";
+import apiImovel from "../../../service/api/imoveis/index";
 
 export default {
   name: "CadImoveisView",
@@ -9100,6 +9116,8 @@ export default {
       id_progress: "",
       nome: "",
       email: "",
+      idNivel: "",
+      messageLimit: false,
     };
   },
 
@@ -9263,17 +9281,18 @@ export default {
     this.id_user = decode.id_user;
     let nome = decode.nome;
     let email = decode.email;
+    this.idNivel = decode.id_nivel;
 
     let id_user = this.id_user;
 
     this.nome = nome;
     this.email = email;
 
-    this.fetchProximidades();
     this.fetchAllProximidades();
-
-    this.fetchCaracteristicas();
     this.fetchAllCaracteristicas();
+
+    this.fetchProximidades();
+    this.fetchCaracteristicas();
 
     api.listcondominio(id_user).then((res) => {
       this.condominios = res.data.response;
@@ -9683,18 +9702,45 @@ export default {
     },
     fetchCaracteristicas() {
       let id_user = this.id_user;
-      api.listminhascaracteristicas(id_user).then((res) => {
-        this.minhasCaracteristicas = res.data.response;
+      api
+        .listminhascaracteristicas(id_user)
+        .then((res) => {
+          // console.log(res);
+          if (res.status == 404) {
+            return;
+          } else {
+            this.minhasCaracteristicas = res.data.response;
+          }
 
-        // console.log(this.minhasCaracteristicas);
-      });
+          // console.log(this.minhasCaracteristicas);
+        })
+        .catch((error) => {
+          // Trate o erro aqui, se necessário
+          console.error("Erro ao buscar proximidades:", error);
+        })
+        .finally(() => {
+          this.fetchAllCaracteristicas();
+        });
     },
     fetchProximidades() {
       let id_user = this.id_user;
-      api.listminhasproximidades(id_user).then((res) => {
-        // console.log(res);
-        this.minhasProximidades = res.data.response;
-      });
+      api
+        .listminhasproximidades(id_user)
+        .then((res) => {
+          // console.log(res);
+          if (res.status === 404) {
+            return;
+          } else {
+            this.minhasProximidades = res.data.response;
+          }
+        })
+        .catch((error) => {
+          // Trate o erro aqui, se necessário
+          console.error("Erro ao buscar proximidades:", error);
+        })
+        .finally(() => {
+          this.fetchAllProximidades();
+        });
     },
     fetchProprietatio() {
       let id_user = this.id_user;
@@ -9705,16 +9751,19 @@ export default {
     fetchAllProximidades() {
       api.listproximidade().then((res) => {
         const todasProximidades = res.data.response;
+        // this.listProximidades = todasProximidades ;
         this.listProximidades = todasProximidades.filter(
-          (proximidade) => proximidade.id_user === null
+          (proximidade) => proximidade.id_user !== this.id_user
         );
       });
     },
     fetchAllCaracteristicas() {
       api.listcaracteristica().then((res) => {
         const todasCaracteristicas = res.data.response;
+        console.log(todasCaracteristicas);
+        // this.listcaracteristicas = todasCaracteristicas;
         this.listcaracteristicas = todasCaracteristicas.filter(
-          (caracteristica) => caracteristica.id_user === null
+          (caracteristica) => caracteristica.id_user !== this.id_user
         );
       });
     },
@@ -9749,29 +9798,64 @@ export default {
 
     //Ação do botão Proximo de cada tab
     handleProximoComodo() {
-      const campos = [
-        this.codigoref,
-        this.tipoImovel,
-        this.perfilImovel,
-        this.situacaoImovel,
-        this.posicaoSolar,
-        this.proximoMar,
-      ];
+      if (this.idNivel === 7) {
+        apiImovel.listmyImoveis(this.id_user).then((res) => {
+          if (res.data.length >= 3) {
+            this.messageLimit = true;
+            console.log("Limite de imoveis atingido");
+            return;
+          } else {
+            const campos = [
+              this.codigoref,
+              this.tipoImovel,
+              this.perfilImovel,
+              this.situacaoImovel,
+              this.posicaoSolar,
+              this.proximoMar,
+            ];
 
-      const algumCampoVazio = campos.some(
-        (campo) => campo === null || campo === ""
-      );
+            const algumCampoVazio = campos.some(
+              (campo) => campo === null || campo === ""
+            );
 
-      if (algumCampoVazio) {
-        this.msgNull = true;
-        this.infoTab = true;
-        this.comodosTab = false;
-        this.stepInfo = false;
+            if (algumCampoVazio) {
+              this.msgNull = true;
+              this.infoTab = true;
+              this.comodosTab = false;
+              this.stepInfo = false;
+            } else {
+              this.msgNull = false;
+              this.infoTab = false;
+              this.comodosTab = true;
+              this.stepInfo = true;
+            }
+          }
+        });
       } else {
-        this.msgNull = false;
-        this.infoTab = false;
-        this.comodosTab = true;
-        this.stepInfo = true;
+        const campos = [
+          this.codigoref,
+          this.tipoImovel,
+          this.perfilImovel,
+          this.situacaoImovel,
+          this.posicaoSolar,
+          this.proximoMar,
+        ];
+
+        const algumCampoVazio = campos.some(
+          (campo) => campo === null || campo === ""
+        );
+
+        if (algumCampoVazio) {
+          this.msgNull = true;
+          this.infoTab = true;
+          this.comodosTab = false;
+          this.stepInfo = false;
+        } else {
+          this.msgNull = false;
+          this.infoTab = false;
+          this.comodosTab = true;
+          this.stepInfo = true;
+        }
       }
     },
     handleProximoMedida() {

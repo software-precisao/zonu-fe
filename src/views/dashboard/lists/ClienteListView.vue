@@ -68,7 +68,8 @@ export default {
           if (
             (user.id_nivel === 3 ||
               user.id_nivel === 4 ||
-              user.id_nivel === 5) &&
+              user.id_nivel === 5 ||
+              user.id_nivel === 7) &&
             !idsAdicionados.has(user.id_user)
           ) {
             idsAdicionados.add(user.id_user);

@@ -10039,7 +10039,7 @@ export default {
       api.listproximidade().then((res) => {
         const todasProximidades = res.data.response;
         this.listProximidades = todasProximidades.filter(
-          (proximidade) => proximidade.id_user === null
+          (proximidade) => proximidade.id_user !== this.id_user
         );
       });
     },
@@ -10047,7 +10047,7 @@ export default {
       api.listcaracteristica().then((res) => {
         const todasCaracteristicas = res.data.response;
         this.listcaracteristicas = todasCaracteristicas.filter(
-          (caracteristica) => caracteristica.id_user === null
+          (caracteristica) => caracteristica.id_user !== this.id_user
         );
       });
     },
