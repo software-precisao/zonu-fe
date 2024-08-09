@@ -10622,4 +10622,10 @@ export default {
 </script>
 <style>
 @import url("../../../../assets/css/config.css");
+.modal-backdrop {
+  z-index: 99 !important; /* Valor menor que o do modal */
+}
+.modal {
+  z-index: 9999 !important; /* Valor maior que o backdrop */
+}
 </style>
