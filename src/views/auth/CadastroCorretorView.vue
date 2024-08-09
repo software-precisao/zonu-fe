@@ -385,7 +385,12 @@
             type="submit"
             class="btn btn-dark bot mt-4"
           >
-            Avançar
+            {{ textoBotao }}
+            <span
+              v-if="autenticando"
+              class="spinner-border spinner-border-sm"
+              aria-hidden="true"
+            ></span>
           </button>
 
           <a href="/select">
@@ -397,6 +402,48 @@
               Voltar
             </button>
           </a>
+        </div>
+        <div v-if="validationTab" class="px-4">
+          <div v-if="mostrarSkeleton" class="skeleton-title"></div>
+          <h1 v-if="!mostrarSkeleton" class="title-login mt-5">Sucesso...</h1>
+
+          <div v-if="mostrarSkeleton" class="skeleton-title-subtitle"></div>
+          <p v-if="!mostrarSkeleton">
+            Estamos validando tudo. Fique de olho no seu email.
+          </p>
+
+          <div v-if="loading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status"></div>
+          </div>
+
+          <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
+            <i class="fa fa-check"></i> Dados gravados com sucesso! Aguarde até
+            que sua conta seja liberada.
+          </div>
+
+          <div
+            v-if="iconLoading"
+            style="margin-left: auto; margin-right: auto; display: block"
+            class="spinner-border text-center"
+            role="status"
+          >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+          <button
+            v-if="!mostrarSkeleton"
+            :disabled="autenticando"
+            type="submit"
+            class="btn btn-dark bot mt-4"
+          >
+            {{ textoBotao }}
+            <span
+              v-if="autenticando"
+              class="spinner-border spinner-border-sm"
+              aria-hidden="true"
+            ></span>
+            <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
+          </button>
         </div>
       </div>
 
