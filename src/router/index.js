@@ -42,6 +42,9 @@ import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
 import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
 import Countdown from "@/views/countdown/Countdown.vue";
+import CrmView from "@/views/dashboard/crm/CrmView.vue";
+import CrmConfigView from "@/views/dashboard/crm/CrmConfigView.vue";
+import CrmContatoView from "@/views/dashboard/crm/CrmContatoView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -116,6 +119,50 @@ const routes = [
     path: "/dashboard/:hash",
     name: "DashboardWithHash",
     component: MainView,
+  },
+  {
+    path: "/seu-crm",
+    name: "crm",
+    component: CrmView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crm/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crm/:hash",
+    name: "CrmWithHash",
+    component: CrmView,
+  },
+
+  {
+    path: "/seu-crmconfig",
+    name: "crmconfig",
+    component: CrmConfigView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmconfig/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmconfig/:hash",
+    name: "CrmConfgiWithHash",
+    component: CrmConfigView,
+  },
+
+  {
+    path: "/seu-crmcontato",
+    name: "crmcontato",
+    component: CrmContatoView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmcontato/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmcontato/:hash",
+    name: "CrmContatoiWithHash",
+    component: CrmContatoView,
   },
 
   {

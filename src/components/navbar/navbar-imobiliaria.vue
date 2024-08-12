@@ -8,7 +8,7 @@
       <ul class="navbar-nav navbar-align">
         <li class="nav-item dropdown" v-if="nivel == 1">
           <a
-            style="text-decoration: none !important; margin-left: -60%"
+            style="text-decoration: none !important; margin-left: -20%"
             class="nav-icon dropdown-toggle"
             href="/dashboard-admin"
           >
@@ -20,7 +20,7 @@
         </li>
         <li class="nav-item dropdown">
           <a
-            style="text-decoration: none !important; margin-left: -40%"
+            style="text-decoration: none !important; margin-left: -20%"
             class="nav-icon dropdown-toggle"
             href="/filtro-imovel"
           >
@@ -33,7 +33,7 @@
 
         <li class="nav-item dropdown" v-if="nivel != 6">
           <a
-            style="text-decoration: none !important; margin-left: -50%"
+            style="text-decoration: none !important; margin-left: -20%"
             class="nav-icon dropdown-toggle"
             href="/meus-plano"
             id="alertsDropdown"
@@ -47,7 +47,7 @@
 
         <li class="nav-item dropdown">
           <a
-            style="text-decoration: none !important; margin-left: -50%"
+            style="text-decoration: none !important; margin-left: -20%"
             class="nav-icon dropdown-toggle"
             href="/seus-links"
             id="alertsDropdown"
@@ -63,7 +63,7 @@
         }}
         <li class="nav-item dropdown" v-if="nivel !== 4 && nivel !== 6">
           <a
-            style="text-decoration: none !important; margin-left: -40%"
+            style="text-decoration: none !important; margin-left: -10%"
             class="nav-icon dropdown-toggle"
             href="/meus-usuarios"
             id="alertsDropdown"
@@ -77,7 +77,7 @@
 
         <li class="nav-item dropdown">
           <a
-            style="text-decoration: none !important; margin-left: -60%"
+            style="text-decoration: none !important; margin-left: -10%"
             class="nav-icon dropdown-toggle"
             href="/seu-ticket"
             id="alertsDropdown"
@@ -85,6 +85,19 @@
             <div class="position-relative">
               <i class="align-middle" data-feather="tag"></i>
               <span style="font-size: 15px"> Suporte</span>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            style="text-decoration: none !important; margin-left: -20%"
+            class="nav-icon dropdown-toggle"
+            href="/seu-crm"
+            id="alertsDropdown"
+          >
+            <div class="position-relative">
+              <i class="align-middle" data-feather="tag"></i>
+              <span style="font-size: 15px"> CRM</span>
             </div>
           </a>
         </li>
