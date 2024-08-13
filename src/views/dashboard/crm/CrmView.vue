@@ -60,7 +60,7 @@
                 style="display: flex; align-items: center; height: 30px"
               >
                 <i class="align-middle" data-feather="file-plus"></i>
-                <span style="margin-left: 3px">Negócio</span>
+                <span style="margin-left: 3px">Exportar</span>
               </button>
               <a
                 class="btn btn-white ms-2"
@@ -71,7 +71,7 @@
               </a>
             </div>
           </header>
-          <div class="p-3 mt-3">
+          <div class="mt-4">
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
@@ -315,10 +315,484 @@
                   class="card pe-4 ps-4 pt-4"
                   style="border: 1px solid rgb(211, 220, 235)"
                 >
-                  <h2 class="card-title">Etapas do Funil</h2>
-                  <h4 class="card-title">
+                  <h2
+                    class="mb-0"
+                    style="
+                      font-size: 14px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 900;
+                    "
+                  >
+                    Etapas do Funil
+                  </h2>
+                  <p
+                    class="mb-4"
+                    style="
+                      font-size: 14px;
+                      line-height: 21px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 400;
+                    "
+                  >
                     Quantidade de negócios e VGV por etapa
-                  </h4>
+                  </p>
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6 mb-4">
+                        <div
+                          class="mb-2"
+                          v-for="(etapa, index) in etapas"
+                          :key="etapa.nome"
+                        >
+                          <div
+                            class="card-body d-flex justify-content-between align-items-center"
+                            :style="{
+                              width: `${etapa.vgv}%`,
+                              backgroundColor: calculateBarColor(index),
+                              color: '#fff',
+                              borderRadius: '10px',
+                              height: '62px',
+                            }"
+                          >
+                            <div>
+                              <h6 class="mb-0" style="color: #fff">
+                                {{ etapa.nome }}
+                              </h6>
+                            </div>
+                            <div class="text-end">
+                              <h5 style="color: #fff">{{ etapa.qtd }}</h5>
+                              <p class="mb-0">
+                                R$
+                                {{
+                                  etapa.valor.toLocaleString("pt-BR", {
+                                    minimumFractionDigits: 2,
+                                  })
+                                }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Coluna para o gráfico de clientes, estagnados e imóveis -->
+                      <div class="col-lg-5" style="margin-left: 60px">
+                        <!-- Adicione aqui o gráfico de pizza e os dados dos clientes, estagnados e imóveis -->
+                        <div class="row mb-4">
+                          <div
+                            class=""
+                            style="
+                              width: 28%;
+                              padding: 10px;
+                              border-left: 4px solid rgb(0, 99, 192);
+                              box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
+                              height: 70px;
+                              margin-right: 10px;
+                            "
+                          >
+                            <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
+                              Clientes
+                            </h2>
+                            <p
+                              style="
+                                font-size: 24px;
+                                font-weight: bold;
+                                text-align: right;
+                              "
+                            >
+                              54
+                            </p>
+                          </div>
+                          <div
+                            class="col-4"
+                            style="
+                              width: 28%;
+                              padding: 10px;
+                              border-left: 4px solid rgb(248, 67, 67);
+                              box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
+                              height: 70px;
+                              margin-right: 10px;
+                            "
+                          >
+                            <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
+                              Estagnados
+                            </h2>
+                            <p
+                              style="
+                                font-size: 24px;
+                                font-weight: bold;
+                                text-align: right;
+                              "
+                            >
+                              52
+                            </p>
+                          </div>
+                          <div
+                            class="col-4"
+                            style="
+                              width: 28%;
+                              padding: 10px;
+                              border-left: 4px solid rgb(0, 99, 192);
+                              box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
+                              height: 70px;
+                            "
+                          >
+                            <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
+                              Imóveis
+                            </h2>
+                            <p
+                              style="
+                                font-size: 24px;
+                                font-weight: bold;
+                                text-align: right;
+                              "
+                            >
+                              1
+                            </p>
+                          </div>
+                        </div>
+                        <div>
+                          <h2
+                            class="mb-0"
+                            style="
+                              font-size: 14px;
+                              color: rgb(33, 35, 44);
+                              font-weight: 900;
+                            "
+                          >
+                            Canal de origem dos clientes
+                          </h2>
+                          <p
+                            class="mb-4"
+                            style="
+                              font-size: 14px;
+                              line-height: 21px;
+                              color: rgb(33, 35, 44);
+                              font-weight: 400;
+                            "
+                          >
+                            Distribuição por canal
+                          </p>
+                          <div class="w-52">
+                            <graphAtivCrmComp />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="card mb-2"
+                  style="
+                    background: rgb(237, 238, 242);
+                    padding: 5px 15px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                  "
+                >
+                  <h2 style="font-size: 14px; font-weight: 600">
+                    Análise de resultado por período
+                  </h2>
+                  <div
+                    class=""
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                    "
+                  >
+                    <div class="">
+                      <input
+                        id="start_date"
+                        type="text"
+                        class="formControl"
+                        placeholder="DD/MM/AAAA"
+                        name="start_date"
+                        value="01/01/2024"
+                        style="
+                          height: 45px;
+                          width: 120px;
+                          padding-left: 8px;
+                          border: solid #d3d3d3 1px;
+                          border-radius: 5px;
+                          font-size: 1em;
+                          font-weight: 500;
+                        "
+                      />
+                    </div>
+                    <div
+                      class=""
+                      style="
+                        width: 15px;
+                        background-color: #d3dceb;
+                        height: 1px;
+                      "
+                    ></div>
+                    <div class="">
+                      <input
+                        id="end_date"
+                        type="text"
+                        class="formControl"
+                        placeholder="DD/MM/AAAA"
+                        name="end_date"
+                        value="13/08/2024"
+                        style="
+                          height: 45px;
+                          width: 120px;
+                          padding-left: 8px;
+                          border: solid #d3d3d3 1px;
+                          border-radius: 5px;
+                          font-size: 1em;
+                          font-weight: 500;
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class=""
+                  style="
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                  "
+                >
+                  <div
+                    class="card"
+                    style="
+                      width: 49%;
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      justify-content: space-around;
+                      padding: 20px 10px;
+                      border-left: 3px solid rgb(0, 99, 192);
+                    "
+                  >
+                    <h2 style="font-size: 24px; color: rgb(92, 82, 96)">
+                      Negócios
+                    </h2>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                      "
+                    >
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Iniciados
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 22px;
+                          font-weight: 600;
+                        "
+                      >
+                        54
+                      </p>
+                    </div>
+                    <div>
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Ganhos
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 22px;
+                          font-weight: 600;
+                        "
+                      >
+                        0
+                      </p>
+                    </div>
+                    <div>
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Perdidos
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 20px;
+                          font-weight: 600;
+                        "
+                      >
+                        0
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="card"
+                    style="
+                      width: 49%;
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      justify-content: space-around;
+                      padding: 10px;
+                      border-left: 3px solid rgb(0, 99, 192);
+                    "
+                  >
+                    <h2 style="font-size: 24px; color: rgb(92, 82, 96)">
+                      Clientes
+                    </h2>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: left;
+                      "
+                    >
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Iniciados
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 22px;
+                          font-weight: 600;
+                        "
+                      >
+                        54
+                      </p>
+                    </div>
+                    <div>
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Ganhos
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 22px;
+                          font-weight: 600;
+                        "
+                      >
+                        0
+                      </p>
+                    </div>
+                    <div>
+                      <h3
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 16px;
+                          color: rgb(92, 82, 96);
+                          font-weight: 600;
+                        "
+                      >
+                        Perdidos
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0;
+                          font-size: 20px;
+                          font-weight: 600;
+                        "
+                      >
+                        0
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card pe-4 ps-4 pt-4">
+                  <h2
+                    class="mb-0"
+                    style="
+                      font-size: 14px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 900;
+                    "
+                  >
+                    Negócios Perdidos por Etapa
+                  </h2>
+                  <p
+                    class="mb-6"
+                    style="
+                      font-size: 14px;
+                      line-height: 21px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 400;
+                    "
+                  >
+                    Análise de percentual de perdas em cada etapa
+                  </p>
+
+                  <graphBarAtivCrmComp />
+                </div>
+                <div class="card pe-4 ps-4 pt-4">
+                  <h2
+                    class="mb-0"
+                    style="
+                      font-size: 14px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 900;
+                    "
+                  >
+                    Principais motivos de perda
+                  </h2>
+                  <p
+                    class="mb-2"
+                    style="
+                      font-size: 14px;
+                      line-height: 21px;
+                      color: rgb(33, 35, 44);
+                      font-weight: 400;
+                    "
+                  >
+                    Contabilizado por motivo
+                  </p>
+
+                  <graphBarLaterCrmComp />
                 </div>
               </div>
             </div>
@@ -335,6 +809,9 @@ import navbarImobiliaria from "@/components/navbar/navbar-imobiliaria.vue";
 import footer from "@/components/footer/index.vue";
 import sidebarCrm from "@/components/sidebar/sidebarCrm.vue";
 import youtubeLogo from "../../../../assets/images/icons/youtubeLogo.svg";
+import graphAtivCrmComp from "@/components/admin/graph/graphAtivCrmComp.vue";
+import graphBarAtivCrmComp from "@/components/graph/graphBarAtivCrmComp.vue";
+import graphBarLaterCrmComp from "@/components/graph/graphBarLaterCrmComp.vue";
 
 export default {
   name: "CrmView",
@@ -342,12 +819,62 @@ export default {
     navbarImobiliaria,
     footer,
     sidebarCrm,
+    graphAtivCrmComp,
+    graphBarAtivCrmComp,
+    graphBarLaterCrmComp,
   },
   data() {
     return {
       graphType: "",
       youtubeLogo,
+
+      etapas: [
+        { nome: "Contato", qtd: 3, vgv: 100, valor: "748.356,00" },
+        { nome: "Atendimento", qtd: 5, vgv: 98, valor: "1.247.260,00" },
+        { nome: "Procurando Imóvel", qtd: 3, vgv: 96, valor: "748.356,00" },
+        { nome: "Efetuar ligação", qtd: 6, vgv: 94, valor: "1.496.712,00" },
+        { nome: "WhatsApp (Dia 1)", qtd: 0, vgv: 92, valor: "0,00" },
+        { nome: "WhatsApp (Dia 2)", qtd: 0, vgv: 90, valor: "0,00" },
+        { nome: "WhatsApp (Dia 3)", qtd: 0, vgv: 88, valor: "0,00" },
+        { nome: "Aquecimento 01", qtd: 2, vgv: 87, valor: "498.904,00" },
+        { nome: "Aquecimento 02", qtd: 0, vgv: 86, valor: " 0,00" },
+        { nome: "Aquecimento 02", qtd: 0, vgv: 85, valor: "0,00" },
+        { nome: "Aquecimento 02", qtd: 0, vgv: 84, valor: "0,00" },
+        { nome: "Aquecimento 02", qtd: 21, vgv: 83, valor: "5.238.492,00" },
+        { nome: "Agendado Compromisso", qtd: 2, vgv: 82, valor: "498.904,00" },
+        { nome: "Agendamento Longo", qtd: 2, vgv: 81, valor: "498.904,00" },
+        { nome: "Agendado Visita", qtd: 0, vgv: 80, valor: "0,00" },
+        { nome: "Visita Realizada", qtd: 1, vgv: 79, valor: "249.452,00" },
+        { nome: "Proposta", qtd: 0, vgv: 78, valor: "0,00" },
+        { nome: "Documentação", qtd: 0, vgv: 77, valor: "0,00" },
+        { nome: "Assinatura", qtd: 0, vgv: 76, valor: "0,00" },
+        { nome: "Sem Interação", qtd: 0, vgv: 75, valor: "0,00" },
+        { nome: "Descartado", qtd: 9, vgv: 74, valor: "2.245.068,00" },
+      ],
     };
+  },
+  methods: {
+    calculateBarWidth(vgv) {
+      const maxVGV = Math.max(...this.etapas.map((etapa) => etapa.vgv));
+      return (vgv / maxVGV) * 100; // Proporção em relação ao maior VGV
+    },
+    calculateBarColor(index) {
+      // Cor base para a primeira barra
+      const baseColor = { r: 25, g: 114, b: 198 };
+
+      // Fator de escurecimento
+      const darkenFactor = 0.1 * (index / 3.5);
+
+      // Calcula a nova cor escurecendo a base
+      const newColor = {
+        r: Math.floor(baseColor.r * (1 - darkenFactor)),
+        g: Math.floor(baseColor.g * (1 - darkenFactor)),
+        b: Math.floor(baseColor.b * (1 - darkenFactor)),
+      };
+
+      // Retorna a cor em formato RGB
+      return `rgb(${newColor.r}, ${newColor.g}, ${newColor.b})`;
+    },
   },
 };
 </script>

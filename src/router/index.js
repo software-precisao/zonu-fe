@@ -45,6 +45,13 @@ import Countdown from "@/views/countdown/Countdown.vue";
 import CrmView from "@/views/dashboard/crm/CrmView.vue";
 import CrmConfigView from "@/views/dashboard/crm/CrmConfigView.vue";
 import CrmContatoView from "@/views/dashboard/crm/CrmContatoView.vue";
+import CrmVisaoEtapasView from "@/views/dashboard/crm/CrmVisaoEtapasView.vue";
+import CrmListClientView from "@/views/dashboard/crm/CrmListClientView.vue";
+import CrmImoveisReserView from "@/views/dashboard/crm/CrmImoveisReserView.vue";
+import CrmClientCompatView from "@/views/dashboard/crm/CrmClientCompatView.vue";
+import CrmImovCompatView from "@/views/dashboard/crm/CrmImovCompatView.vue";
+import CrmNegoEncerView from "@/views/dashboard/crm/CrmNegoEncerView.vue";
+import CrmShareImovView from "@/views/dashboard/crm/CrmShareImovView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -163,6 +170,104 @@ const routes = [
     path: "/seu-crmcontato/:hash",
     name: "CrmContatoiWithHash",
     component: CrmContatoView,
+  },
+  {
+    path: "/seu-crmvisaoetapas",
+    name: "crmvisaoetapas",
+    component: CrmVisaoEtapasView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmvisaoetapas/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmvisaoetapas/:hash",
+    name: "CrmVisaoEtapasWithHash",
+    component: CrmVisaoEtapasView,
+  },
+  {
+    path: "/seu-crmlistacliente",
+    name: "crmlistaClient",
+    component: CrmListClientView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmlistacliente/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmlistacliente/:hash",
+    name: "CrmListaClientWithHash",
+    component: CrmListClientView,
+  },
+  {
+    path: "/seu-crmimoveisreser",
+    name: "crmimovreser",
+    component: CrmImoveisReserView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmimoveisreser/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmimoveisreser/:hash",
+    name: "CrmImovReserWithHash",
+    component: CrmImoveisReserView,
+  },
+  {
+    path: "/seu-crmclientcompat",
+    name: "crmclientcompat",
+    component: CrmClientCompatView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmclientcompat/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmclientcompat/:hash",
+    name: "CrmClientCompatWithHash",
+    component: CrmClientCompatView,
+  },
+  {
+    path: "/seu-crmimovcompat",
+    name: "crmimovcompat",
+    component: CrmImovCompatView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmimovcompat/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmimovcompat/:hash",
+    name: "CrmImovCompatWithHash",
+    component: CrmImovCompatView,
+  },
+  {
+    path: "/seu-crmnegoencer",
+    name: "crmnegoencer",
+    component: CrmNegoEncerView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmnegoencer/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmnegoencer/:hash",
+    name: "CrmNegoEncerWithHash",
+    component: CrmNegoEncerView,
+  },
+  {
+    path: "/seu-crmshareimov",
+    name: "crmshareimov",
+    component: CrmShareImovView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmshareimov/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmshareimov/:hash",
+    name: "CrmShareImovWithHash",
+    component: CrmShareImovView,
   },
 
   {
