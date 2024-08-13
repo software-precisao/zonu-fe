@@ -50,7 +50,8 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmvisaoetapas"
+              :style="{ fontWeight: tab === 'Visão etapas' ? 600 : 400 }"
             >
               <i class="align-middle me-2" data-feather="list"></i>
               <!-- Ícone para Visão em Etapas -->
@@ -60,7 +61,8 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmlistacliente"
+              :style="{ fontWeight: tab === 'Lista clientes' ? 600 : 400 }"
             >
               <i class="align-middle me-2" data-feather="clipboard"></i>
               <!-- Ícone para Lista de Clientes -->
@@ -70,7 +72,8 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmimoveisreser"
+              :style="{ fontWeight: tab === 'Imóveis reservados' ? 600 : 400 }"
             >
               <i class="align-middle me-2" data-feather="home"></i>
               <!-- Ícone para Imóveis Reservados -->
@@ -85,7 +88,10 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmclientcompat"
+              :style="{
+                fontWeight: tab === 'Clientes compativeis' ? 600 : 400,
+              }"
             >
               <i class="align-middle me-2" data-feather="users"></i>
               <!-- Ícone para Clientes Compatíveis -->
@@ -95,7 +101,8 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmimovcompat"
+              :style="{ fontWeight: tab === 'Imóveis compativeis' ? 600 : 400 }"
             >
               <i class="align-middle me-2" data-feather="home"></i>
               <!-- Ícone para Imóveis Compatíveis -->
@@ -110,7 +117,8 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmnegoencer"
+              :style="{ fontWeight: tab === 'Negócios encerrados' ? 600 : 400 }"
             >
               <i class="align-middle me-2" data-feather="bar-chart"></i>
               <!-- Ícone para Negócios Encerrados -->
@@ -120,7 +128,10 @@
           <li class="nav-item">
             <a
               class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="#"
+              href="/seu-crmshareimov"
+              :style="{
+                fontWeight: tab === 'Imóveis compartilhados' ? 600 : 400,
+              }"
             >
               <i class="align-middle me-2" data-feather="share"></i>
               <!-- Ícone para Imóveis Compartilhados -->

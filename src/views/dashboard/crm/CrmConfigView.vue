@@ -3,10 +3,10 @@
     <NavbarImobiliaria />
     <main class="">
       <div class="" style="display: flex; flex-direction: row">
-        <SidebarCrm tab="config"/>
+        <SidebarCrm tab="config" />
 
         <div class="" style="width: 100%">
-          <div class="p-3 mt-3">
+          <div class="mt-4">
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
