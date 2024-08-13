@@ -19,7 +19,7 @@
             <li class="list-inline-item">
               <a
                 class="text-muted"
-                href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
+                href="https://wa.me/5583998587672?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
                 target="_blank"
                 >Suporte</a
               >
@@ -27,7 +27,7 @@
             <li class="list-inline-item">
               <a
                 class="text-muted"
-                href="https://wa.me/5583996795816?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
+                href="https://wa.me/5583998587672?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
                 target="_blank"
                 >Help Center</a
               >
