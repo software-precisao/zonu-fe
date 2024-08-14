@@ -1345,7 +1345,7 @@
 
         <!-- Modal para adicionar telefones -->
         <div
-          class="modal fade"
+          class="modal fade modalTelefone"
           id="modalAdicionarTelefone"
           tabindex="-1"
           role="dialog"
@@ -1506,6 +1506,126 @@
           </div>
         </div>
 
+        <!-- Modal para ligar pessoas -->
+        <div
+          class="modal fade modalTelefone"
+          id="modalLigarPessoa"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="modalLigarPessoa"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-sm"
+            style="padding-top: 150px; margin-right: 12%"
+            role="document"
+          >
+            <div class="modal-content">
+              <!-- <div class="modal-header"> -->
+              <button
+                type="button"
+                class="close custom-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- </div> -->
+              <div class="modal-body">
+                <!-- Conteúdo do modal de ligar pessoas -->
+
+                <div class="form-group mt-3">
+                  <label for="client" style="font-weight: 600">Cliente</label>
+                  <div class="custom-select" ref="selectContainerPessoa">
+                    <div
+                      class="select-box"
+                      @click="toggleDropdownPessoa"
+                      :aria-expanded="isOpenPessoa.toString()"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <span v-if="selectedOptionPessoa">{{
+                        selectedOptionPessoa.name
+                      }}</span>
+                      <span v-else>Selecione um cliente</span>
+                      <i class="align-middle" data-feather="chevron-down"></i>
+                    </div>
+                    <ul v-if="isOpenPessoa" class="options-list">
+                      <li @click="addClient" style="background-color: #f1f4f9">
+                        <button
+                          class="btn"
+                          style="
+                            color: #026da6;
+                            display: flex;
+                            align-items: center;
+                            font-weight: 600;
+                          "
+                        >
+                          <img
+                            :src="plusCircle"
+                            style="width: 12px; height: 12px; margin-right: 6px"
+                          />Adicionar
+                        </button>
+                      </li>
+                      <li
+                        v-for="client in clients"
+                        :key="client.value"
+                        @click="selectOptionPessoa(client)"
+                      >
+                        <div style="display: flex; flex-direction: column">
+                          <span
+                            >{{ client.name }}
+                            <img
+                              :src="userIcon"
+                              style="
+                                width: 12px;
+                                height: 12px;
+                                margin-bottom: 2px;
+                                margin-left: 2px;
+                              "
+                            />
+                          </span>
+                          <span class="">{{ client.phone }}</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="form-group mt-3">
+                  <span style="font-size: 13px; font-weight: 600"
+                    >Descrição</span
+                  >
+                  <input
+                    type="text"
+                    placeholder="Ex: Conjuge"
+                    class="form-control"
+                    style="height: 40px"
+                  />
+                </div>
+              </div>
+              <div
+                class="form-group"
+                style="
+                  background-color: #fff;
+                  padding: 1rem 18px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn btn-greenHover"
+                  style="width: 100%; padding: 15px 0 !important"
+                >
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Modal de cadastro completo -->
         <div
           class="modal fade"
@@ -1523,9 +1643,43 @@
           >
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h5
+                  class="modal-title"
+                  style="font-size: 15px; font-weight: 600"
+                  id="exampleModalLabel"
+                >
                   Cadastrar Clientes
                 </h5>
+
+                <div
+                  class="form-group col-8"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                  "
+                >
+                  <label
+                    class="col-3"
+                    for="corretorResponsavel"
+                    style="font-size: 14px; font-weight: 600"
+                    >Corretor Responsável</label
+                  >
+                  <select
+                    class="form-floating col-4"
+                    id="corretorResponsavel"
+                    v-model="corretorResponsavel"
+                    style="
+                      height: 40px;
+                      border: 1px solid #dee2e6;
+                      padding-left: 8px;
+                    "
+                  >
+                    <option value="" disabled selected hidden>Selecione</option>
+                    <option value="Rodrigo Castelo">Rodrigo Castelo</option>
+                    <option value="corretor2">Corretor 2</option>
+                  </select>
+                </div>
                 <button
                   type="button"
                   class="close custom-close"
@@ -1540,7 +1694,7 @@
                 <div class="row">
                   <!-- Esquerda: Inputs e Selects com linha divisória -->
                   <div
-                    class="col-6"
+                    class="col-9"
                     style="
                       border-right: 1px solid #ced4da;
                       padding-right: 15px;
@@ -1550,10 +1704,114 @@
                     "
                   >
                     <div class="row">
-                      <div class="form-group col-6">
+                      <div class="form-group col-3">
+                        <label
+                          for="categoria"
+                          style="font-size: 13px; font-weight: 600"
+                          >Categoria</label
+                        ><strong class="text-danger">*</strong>
+                        <select
+                          class="form-floating"
+                          id="categoria"
+                          v-model="categoria"
+                          style="
+                            height: 40px;
+                            border: 1px solid #dee2e6;
+                            width: 100%;
+                            padding-left: 8px;
+                          "
+                        >
+                          <option value="" disabled selected hidden>
+                            Selecione
+                          </option>
+                          <option value="categoria1">Categoria 1</option>
+                          <option value="categoria2">Categoria 2</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-3">
+                        <label
+                          for="origemCaptacao"
+                          style="font-size: 13px; font-weight: 600"
+                          >Origem de Captação</label
+                        ><strong class="text-danger">*</strong>
+                        <select
+                          class="form-floating"
+                          id="origemCaptacao"
+                          v-model="origemCaptacao"
+                          style="
+                            height: 40px;
+                            border: 1px solid #dee2e6;
+                            width: 100%;
+                            padding-left: 8px;
+                          "
+                        >
+                          <option value="" disabled selected hidden>
+                            Selecione
+                          </option>
+                          <option value="origem1">Origem 1</option>
+                          <option value="origem2">Origem 2</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-2">
+                        <label
+                          for="tipoCliente"
+                          style="font-size: 13px; font-weight: 600"
+                          >Tipo de Cliente</label
+                        >
+                        <select
+                          class="form-floating"
+                          id="tipoCliente"
+                          v-model="tipoCliente"
+                          style="
+                            height: 40px;
+                            border: 1px solid #dee2e6;
+                            width: 100%;
+                            padding-left: 8px;
+                          "
+                        >
+                          <option value="Fisica">Fisica</option>
+                          <option value="Juridica">Juridica</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-2">
+                        <label
+                          for="cpf"
+                          style="font-size: 13px; font-weight: 600"
+                          >CPF</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="cpf"
+                          v-model="cpf"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-2">
+                        <label
+                          for="cpf"
+                          style="font-size: 13px; font-weight: 600"
+                          >RG</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="rg"
+                          v-model="rg"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-3 mt-3">
                         <label
                           for="nome"
-                          style="font-size: 14px; font-weight: 600"
+                          style="font-size: 13px; font-weight: 600"
                           >Nome</label
                         ><strong class="text-danger">*</strong>
                         <input
@@ -1566,10 +1824,10 @@
                         />
                       </div>
 
-                      <div class="form-group col-6">
+                      <div class="form-group col-3 mt-3">
                         <label
                           for="email"
-                          style="font-size: 14px; font-weight: 600"
+                          style="font-size: 13px; font-weight: 600"
                           >Email</label
                         >
                         <input
@@ -1582,10 +1840,10 @@
                         />
                       </div>
 
-                      <div class="form-group mt-3">
+                      <div class="form-group col-3 mt-3">
                         <label
                           for="dataNascimento"
-                          style="font-size: 14px; font-weight: 600"
+                          style="font-size: 13px; font-weight: 600"
                           >Data de Nascimento</label
                         >
                         <input
@@ -1598,99 +1856,254 @@
                         />
                       </div>
 
-                      <div class="form-group mt-3">
+                      <div class="form-group col-3 mt-3">
                         <label
-                          for="categoria"
-                          style="font-size: 14px; font-weight: 600"
-                          >Categoria</label
-                        ><strong class="text-danger">*</strong>
+                          for="profissao"
+                          style="font-size: 13px; font-weight: 600"
+                          >Profissão</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="profissao"
+                          v-model="profissao"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-2 mt-3">
+                        <label
+                          for="profissao"
+                          style="font-size: 13px; font-weight: 600"
+                          >CEP</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cep"
+                          v-model="cep"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-2 mt-3">
+                        <label
+                          for="pais"
+                          style="font-size: 13px; font-weight: 600"
+                          >País</label
+                        >
                         <select
                           class="form-floating"
-                          id="categoria"
-                          v-model="categoria"
+                          id="pais"
+                          v-model="pais"
                           style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
+                            padding-left: 8px;
                           "
                         >
-                          <option value="" disabled selected hidden>
-                            Selecione uma categoria
-                          </option>
-                          <option value="categoria1">Categoria 1</option>
-                          <option value="categoria2">Categoria 2</option>
+                          <option value="brasil">Brasil</option>
                         </select>
                       </div>
 
-                      <div class="form-group mt-3">
+                      <div class="form-group col-2 mt-3">
                         <label
-                          for="origemCaptacao"
-                          style="font-size: 14px; font-weight: 600"
-                          >Origem de Captação</label
-                        ><strong class="text-danger">*</strong>
+                          for="uf"
+                          style="font-size: 13px; font-weight: 600"
+                          >UF</label
+                        >
                         <select
                           class="form-floating"
-                          id="origemCaptacao"
-                          v-model="origemCaptacao"
+                          id="uf"
+                          v-model="uf"
                           style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
+                            padding-left: 8px;
                           "
                         >
                           <option value="" disabled selected hidden>
-                            Selecione uma origem
+                            Selecione
                           </option>
-                          <option value="origem1">Origem 1</option>
-                          <option value="origem2">Origem 2</option>
+                          <option value="brasil">Brasil</option>
                         </select>
                       </div>
+
+                      <div class="form-group col-3 mt-3">
+                        <label
+                          for="cidade"
+                          style="font-size: 13px; font-weight: 600"
+                          >Cidade
+                          <span style="color: #0084f4"
+                            >(Cadastrar nova)</span
+                          ></label
+                        >
+                        <select
+                          class="form-floating"
+                          id="cidade"
+                          v-model="cidade"
+                          style="
+                            height: 40px;
+                            border: 1px solid #dee2e6;
+                            width: 100%;
+                            padding-left: 8px;
+                          "
+                        >
+                          <option value="" disabled selected hidden>
+                            Selecione
+                          </option>
+                          <option value="brasilia">Brasilia</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-3 mt-3">
+                        <label
+                          for="bairro"
+                          style="font-size: 13px; font-weight: 600"
+                          >Bairro
+                          <span style="color: #0084f4"
+                            >(Cadastrar novo)</span
+                          ></label
+                        >
+                        <select
+                          class="form-floating"
+                          id="bairro"
+                          v-model="bairro"
+                          style="
+                            height: 40px;
+                            border: 1px solid #dee2e6;
+                            width: 100%;
+                            padding-left: 8px;
+                          "
+                        >
+                          <option value="" disabled selected hidden>
+                            Selecione
+                          </option>
+                          <option value="taguatinga">Taguatinga</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-4 mt-3">
+                        <label
+                          for="logradouro"
+                          style="font-size: 13px; font-weight: 600"
+                          >Logradouro</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="logradouro"
+                          v-model="logradouro"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-3 mt-3">
+                        <label
+                          for="numero"
+                          style="font-size: 13px; font-weight: 600"
+                          >Número</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="numero"
+                          v-model="numero"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-5 mt-3">
+                        <label
+                          for="complemento"
+                          style="font-size: 13px; font-weight: 600"
+                          >Complemento</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="complemento"
+                          v-model="complemento"
+                          placeholder="Digite..."
+                          style="height: 40px"
+                        />
+                      </div>
+
+                      <div class="form-group col-12 mt-3">
+                        <label
+                          for="anotacoes"
+                          style="font-size: 13px; font-weight: 600"
+                          >Anotações<img
+                            :src="InterrSvg"
+                            class="ms-2"
+                            style="width: 12px; height: 12px"
+                        /></label>
+                      </div>
+                    </div>
+                    <div
+                      class="modal-footer mt-4"
+                      style="display: flex; justify-content: space-between"
+                    >
+                      <button
+                        type="button"
+                        class="btn btnModal"
+                        style="
+                          padding: 10px 15px;
+                          border: 1px solid #d3dceb;
+                          background-color: #fff;
+                          color: #1c0c1e;
+                          box-shadow: 0 0 5px rgba(211, 220, 235, 0.6);
+                          font-size: 1em;
+                          font-weight: 600;
+                          cursor: pointer;
+                        "
+                        data-bs-dismiss="modal"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btnModal2"
+                        style="
+                          padding: 10px 15px;
+                          border: 1px solid #d3dceb;
+                          color: #fff;
+                          background-color: #31d084;
+                          box-shadow: 0 0 5px rgba(49, 208, 132, 0.6),
+                            inset 0 0 1px rgba(0, 0, 0, 0.6);
+                          font-size: 1em;
+                          font-weight: 600;
+                          cursor: pointer;
+                        "
+                      >
+                        Cadastrar
+                      </button>
                     </div>
                   </div>
 
                   <!-- Direita: Select Corretor, Títulos e Botão -->
                   <div
-                    class="col-6"
+                    class="col-3"
                     style="
-                      padding-top: 20px;
                       padding-bottom: 20px;
                       padding-right: 12px;
                       padding-left: 0;
                     "
                   >
                     <div
-                      class="form-group"
+                      class="mt-4"
                       style="
-                        border-bottom: 1px solid #dee2e6;
-                        padding-right: 15px;
                         padding-left: 15px;
                         padding-bottom: 20px;
+                        border-bottom: 1px solid #ced4da;
                       "
                     >
-                      <label
-                        for="corretorResponsavel"
-                        style="font-size: 14px; font-weight: 600"
-                        >Corretor Responsável</label
-                      >
-                      <select
-                        class="form-floating"
-                        id="corretorResponsavel"
-                        v-model="corretorResponsavel"
-                        style="
-                          height: 40px;
-                          border: 1px solid #dee2e6;
-                          width: 100%;
-                        "
-                      >
-                        <option value="" disabled selected hidden>
-                          Selecione um corretor
-                        </option>
-                        <option value="corretor1">Corretor 1</option>
-                        <option value="corretor2">Corretor 2</option>
-                      </select>
-                    </div>
-
-                    <div class="mt-4" style="padding-left: 15px">
                       <h5 style="font-size: 14px; font-weight: 600">
                         Telefones
                       </h5>
@@ -1722,48 +2135,41 @@
                         Adicionar telefones
                       </button>
                     </div>
+
+                    <div class="mt-4" style="padding-left: 15px">
+                      <h5 style="font-size: 14px; font-weight: 600">
+                        Pessoas Ligadas
+                      </h5>
+                      <p
+                        class="text-muted"
+                        style="
+                          font-size: 12px;
+                          font-weight: 500;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        Você ainda não ligou nenhuma pessoa a esse cliente.
+                      </p>
+                      <button
+                        type="button "
+                        class="btn btnModal"
+                        @click="openLigarPessoaModal"
+                        style="
+                          padding: 5px 15px;
+                          border: 1px solid #d3dceb;
+                          background-color: #fff;
+                          color: #1c0c1e;
+                          box-shadow: 0 0 5px rgba(211, 220, 235, 0.6);
+                          font-size: 0.9em;
+                          font-weight: 600;
+                          cursor: pointer;
+                        "
+                      >
+                        Ligar pessoa
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div
-                class="modal-footer"
-                style="display: flex; justify-content: space-between"
-              >
-                <button
-                  type="button"
-                  class="btn btnModal"
-                  style="
-                    padding: 10px 15px;
-                    border: 1px solid #d3dceb;
-                    background-color: #fff;
-                    color: #1c0c1e;
-                    box-shadow: 0 0 5px rgba(211, 220, 235, 0.6);
-                    font-size: 1em;
-                    font-weight: 600;
-                    cursor: pointer;
-                  "
-                  data-bs-dismiss="modal"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="button"
-                  class="btn btnModal2"
-                  style="
-                    padding: 10px 15px;
-                    border: 1px solid #d3dceb;
-                    color: #fff;
-                    background-color: #31d084;
-                    box-shadow: 0 0 5px rgba(49, 208, 132, 0.6),
-                      inset 0 0 1px rgba(0, 0, 0, 0.6);
-                    font-size: 1em;
-                    font-weight: 600;
-                    cursor: pointer;
-                  "
-                >
-                  Cadastrar
-                </button>
               </div>
             </div>
           </div>
@@ -1784,6 +2190,7 @@ import graphBarAtivCrmComp from "@/components/graph/graphBarAtivCrmComp.vue";
 import graphBarLaterCrmComp from "@/components/graph/graphBarLaterCrmComp.vue";
 import userIcon from "../../../../assets/images/icons/userIconBlue.svg";
 import plusCircle from "../../../../assets/images/icons/plusCircle.svg";
+import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 
 export default {
   name: "CrmView",
@@ -1801,6 +2208,7 @@ export default {
       youtubeLogo,
       userIcon,
       plusCircle,
+      InterrSvg,
 
       posicao: "", // Variável para armazenar o contato selecionado
       nivelInteresse: 1,
@@ -1896,6 +2304,19 @@ export default {
         { flag: "fi-gb", codigo: "+44" }, // Reino Unido
         // Adicione mais países aqui
       ],
+
+      //cliente
+      tipoCliente: "Fisica",
+      categoria: "",
+      origemCaptacao: "",
+      pais: "brasil",
+      uf: "",
+      cidade: "",
+      bairro: "",
+      corretorResponsavel: "Rodrigo Castelo",
+
+      isOpenPessoa: false,
+      selectedOptionPessoa: null,
     };
   },
   methods: {
@@ -1909,6 +2330,9 @@ export default {
 
       // Abrir o segundo modal
       $("#modalAdicionarTelefone").modal("show");
+    },
+    openLigarPessoaModal() {
+      $("#modalLigarPessoa").modal("show");
     },
     calculateBarWidth(vgv) {
       const maxVGV = Math.max(...this.etapas.map((etapa) => etapa.vgv));
@@ -1968,6 +2392,13 @@ export default {
       this.selectedOptionImovel = client;
       this.isOpenImovel = false;
     },
+    toggleDropdownPessoa() {
+      this.isOpenPessoa = !this.isOpenPessoa;
+    },
+    selectOptionPessoa(client) {
+      this.selectedOptionPessoa = client;
+      this.isOpenPessoa = false;
+    },
     addClientImovel() {
       // Implementar a lógica para adicionar um novo cliente
     },
@@ -1979,6 +2410,11 @@ export default {
     handleClickOutsideImovel(event) {
       if (!this.$refs.selectContainerImovel.contains(event.target)) {
         this.isOpenImovel = false;
+      }
+    },
+    handleClickOutsidePessoa(event) {
+      if (!this.$refs.selectContainerPessoa.contains(event.target)) {
+        this.isOpenPessoa = false;
       }
     },
   },
@@ -2005,6 +2441,9 @@ export default {
 
 .modal {
   z-index: 1050 !important;
+}
+.modalTelefone {
+  z-index: 1060 !important;
 }
 /* Custom styles for reducing font size */
 .custom-nav-link {
