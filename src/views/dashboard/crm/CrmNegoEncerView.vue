@@ -174,6 +174,140 @@
               </div>
             </div>
           </header>
+
+          <div class="mt-4">
+            <div class="row justify-content-center">
+              <div class="col-10 mb-3">
+                <div class="card">
+                  <div class="table-responsive">
+                    <table
+                      class="table"
+                      style="
+                        font-size: 14px;
+                        border: 1px solid rgb(216, 216, 216);
+                        border-radius: 5px;
+                      "
+                    >
+                      <thead>
+                        <tr style="background-color: rgb(244, 244, 244)">
+                          <th>
+                            Cliente<i
+                              class="align-middle"
+                              data-feather="arrow-up"
+                            ></i>
+                            <i
+                              class="align-middle"
+                              data-feather="arrow-down"
+                            ></i>
+                          </th>
+                          <th class="text-center">
+                            Ultima interação<i
+                              class="align-middle"
+                              data-feather="arrow-up"
+                            ></i>
+                            <i
+                              class="align-middle"
+                              data-feather="arrow-down"
+                            ></i>
+                          </th>
+                          <th class="text-center">
+                            Data Encerrado<i
+                              class="align-middle"
+                              data-feather="arrow-up"
+                            ></i>
+                            <i
+                              class="align-middle"
+                              data-feather="arrow-down"
+                            ></i>
+                          </th>
+                          <th class="text-center">Etapa</th>
+                          <th class="text-center">Imóvel</th>
+                          <th class="text-center">
+                            Motivo<i
+                              class="align-middle"
+                              data-feather="arrow-up"
+                            ></i>
+                            <i
+                              class="align-middle"
+                              data-feather="arrow-down"
+                            ></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="item in usuariosOnCurrentPage"
+                          :key="item.id"
+                          style="cursor: pointer"
+                        >
+                          <td>{{ item.cliente }}</td>
+                          <td class="text-center">
+                            {{ item.ultimaInteracao }}
+                          </td>
+                          <td class="text-center">{{ item.dataEncerrado }}</td>
+                          <td class="text-center">
+                            {{ item.etapa }}
+                          </td>
+                          <td class="text-center">
+                            <a
+                              style="text-decoration: underline; color: blue"
+                              >{{ item.imovel }}</a
+                            >
+                          </td>
+                          <td class="text-center">
+                            {{ item.motivo }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <button
+                    class="btnHoverPag"
+                    style="
+                      border: none;
+                      color: #0084f4;
+                      font-weight: 700;
+                      line-height: 22px;
+                      margin-right: 50px;
+                      padding: 0 0.25em;
+                      border-radius: 4px;
+                    "
+                    @click="previousPageUser()"
+                    :disabled="currentPageUser <= 1"
+                  >
+                    <i class="align-middle" data-feather="chevron-left"></i
+                    >Anterior
+                  </button>
+                  <button
+                    class="btnHoverPag"
+                    style="
+                      border: none;
+                      color: #0084f4;
+                      font-weight: 700;
+                      line-height: 22px;
+                      padding: 0 0.25em;
+                      border-radius: 8px;
+                    "
+                    @click="nextPageUser()"
+                    :disabled="currentPageUser >= totalPagesUsuarios"
+                  >
+                    Próximo
+                    <i class="align-middle" data-feather="chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -207,11 +341,105 @@ export default {
       dataFinal: "",
 
       btnActive: "all",
+
+      items: [
+        {
+          id: 1,
+          ultimaInteracao: "10/04/24",
+          dataEncerrado: "12/08/24",
+          cliente: "Bergh Souza",
+          etapa: "Contato",
+          imovel: "138",
+          motivo: "Removido - imóvel indisponível",
+        },
+        {
+          id: 2,
+          ultimaInteracao: "27/03/24",
+          dataEncerrado: "29/07/24",
+          cliente: "Josilda Guimarães",
+          etapa: "Descartado",
+          imovel: "102",
+          motivo: "Removido - imóvel indisponível",
+        },
+        {
+          id: 3,
+          ultimaInteracao: "26/03/24",
+          dataEncerrado: "28/07/24",
+          cliente: "Genilson Soares",
+          etapa: "Descartado",
+          imovel: "102",
+          motivo: "Removido - imóvel indisponível",
+        },
+        {
+          id: 4,
+          ultimaInteracao: "26/03/24",
+          dataEncerrado: "28/07/24",
+          cliente: "AJN CONSULTORIA",
+          etapa: "Descartado",
+          imovel: "102",
+          motivo: "Removido - imóvel indisponível",
+        },
+        {
+          id: 5,
+          ultimaInteracao: "26/03/24",
+          dataEncerrado: "28/07/24",
+          cliente: "Socorro Silva",
+          etapa: "Descartado",
+          imovel: "102",
+          motivo: "Removido - imóvel indisponível",
+        },
+        {
+          id: 6,
+          ultimaInteracao: "26/03/24",
+          dataEncerrado: "28/07/24",
+          cliente: "Mara Dalila",
+          etapa: "Descartado",
+          imovel: "102",
+          motivo: "Removido - imóvel indisponível",
+        },
+      ],
+
+      currentPageUser: 1,
+      perPageUser: 10,
+      searchUsuario: "",
     };
   },
   methods: {
+    previousPageUser() {
+      if (this.currentPageUser > 1) {
+        this.currentPageUser -= 1;
+      }
+    },
+    nextPageUser() {
+      if (this.currentPageUser < this.totalPagesUsuarios) {
+        this.currentPageUser += 1;
+      }
+    },
     handleType(btn) {
       this.btnActive = btn;
+    },
+  },
+  computed: {
+    usuariosOnCurrentPage() {
+      const startIndex = (this.currentPageUser - 1) * this.perPageUser;
+      const endIndex = startIndex + this.perPageUser;
+      return this.items
+        .filter((usuario) => {
+          return usuario.cliente
+            .toLowerCase()
+            .includes(this.searchUsuario.toLowerCase());
+        })
+        .slice(startIndex, endIndex);
+    },
+    totalPagesUsuarios() {
+      return Math.ceil(
+        this.items.filter((usuario) => {
+          this.currentPageConcept = 1;
+          return usuario.cliente
+            .toLowerCase()
+            .includes(this.searchUsuario.toLowerCase());
+        }).length / this.perPageUser
+      );
     },
   },
 };
