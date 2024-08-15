@@ -1153,6 +1153,236 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  postPosicao: async (tipo_posicao) => {
+    try {
+      const response = await http.post(
+        "/posicao/cadastrar",
+        {
+          tipo_posicao: tipo_posicao,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getPosicao: async () => {
+    try {
+      const response = await http.get("/posicao/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postNivelInteresse: async (nivel_interesse) => {
+    try {
+      const response = await http.post(
+        "/niveisInteresse/cadastrar",
+        {
+          nivel_interesse: nivel_interesse,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getNivelInteresse: async () => {
+    try {
+      const response = await http.get("/niveisInteresse/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postCliente: async (
+    id_captacao,
+    id_categoria_cliente,
+    nome,
+    rg,
+    email,
+    data_de_nascimento,
+    profissao,
+    cep,
+    pais,
+    uf,
+    cidade,
+    bairro,
+    logradouro,
+    numero,
+    complemento,
+    anotacao
+  ) => {
+    try {
+      const response = await http.post(
+        "/clientes/cadastrar",
+        {
+          id_captacao: id_captacao,
+          id_categoria_cliente: id_categoria_cliente,
+          nome: nome,
+          rg: rg,
+          email: email,
+          data_de_nascimento: data_de_nascimento,
+          profissao: profissao,
+          cep: cep,
+          pais: pais,
+          uf: uf,
+          cidade: cidade,
+          bairro: bairro,
+          logradouro: logradouro,
+          numero: numero,
+          complemento: complemento,
+          anotacao: anotacao,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getCliente: async () => {
+    try {
+      const response = await http.get("/clientes/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postTipoCliente: async (tipo_cliente) => {
+    try {
+      const response = await http.post(
+        "/tipoCliente/cadastrar",
+        {
+          tipo_cliente: tipo_cliente,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getTipoCliente: async () => {
+    try {
+      const response = await http.get("/tipoCliente/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postNegocio: async (
+    id_posicao,
+    id_nivel_interesse,
+    id_cliente,
+    id_imovel
+  ) => {
+    try {
+      const response = await http.post(
+        "/negocios/cadastrar",
+        {
+          id_posicao: id_posicao,
+          id_nivel_interesse: id_nivel_interesse,
+          id_cliente: id_cliente,
+          id_imovel: id_imovel,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getNegocios: async () => {
+    try {
+      const response = await http.get("/negocios/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };
 
 getAllLeads: async () => {
