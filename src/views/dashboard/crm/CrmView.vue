@@ -111,9 +111,9 @@
                   <div class="d-flex">
                     <!-- Barra lateral dentro do card -->
                     <div
-                      class="bg-primary"
+                      class=""
                       style="
-                        background-color: rgb(23, 110, 200);
+                        background-color: rgb(130, 90, 220);
                         width: 15%;
                         display: flex;
                         flex-direction: column;
@@ -820,7 +820,39 @@
         >
           <div class="modal-dialog" style="padding-top: 80px" role="document">
             <div class="modal-content">
-              <div class="modal-header">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  align-items: flex-start;
+                "
+              >
+                <div
+                  v-if="msgNegocioSuccess"
+                  class="alert alert-success"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Negócio Criado com sucesso
+                </div>
+                <div
+                  v-if="msgNegocioError"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Falha ao criar o negócio
+                </div>
+                <div
+                  v-if="msgNegocioErrorSemCampos"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Preencha todos os campos!
+                </div>
                 <h5 class="modal-title" id="exampleModalLabel">
                   Adicionar Negócio
                 </h5>
@@ -896,7 +928,7 @@
                       tabindex="0"
                     >
                       <span v-if="selectedOption">{{
-                        selectedOption.name
+                        selectedOption.nome
                       }}</span>
                       <span v-else>Selecione um cliente</span>
                       <i class="align-middle" data-feather="chevron-down"></i>
@@ -922,13 +954,13 @@
                         </button>
                       </li>
                       <li
-                        v-for="client in clients"
-                        :key="client.value"
+                        v-for="client in allClientes"
+                        :key="client.id_cliente"
                         @click="selectOption(client)"
                       >
                         <div style="display: flex; flex-direction: column">
                           <span
-                            >{{ client.name }}
+                            >{{ client.nome }}
                             <img
                               :src="userIcon"
                               style="
@@ -939,7 +971,8 @@
                               "
                             />
                           </span>
-                          <span class="">{{ client.phone }}</span>
+                          <span class="">(99) 99999-9999</span>
+                          <!-- <span class="">{{ client.telefone }}</span> -->
                         </div>
                       </li>
                     </ul>
@@ -960,7 +993,7 @@
                       tabindex="0"
                     >
                       <span v-if="selectedOptionImovel">{{
-                        selectedOptionImovel.titulo
+                        selectedOptionImovel.descricao.titulo
                       }}</span>
                       <span v-else
                         >Procure por endereço ou nome do condomínio</span
@@ -970,12 +1003,12 @@
                     <ul v-if="isOpenImovel" class="options-list">
                       <li
                         v-for="item in imovel"
-                        :key="item.value"
+                        :key="item.id_imovel"
                         @click="selectOptionImovel(item)"
                       >
                         <div style="display: flex">
                           <img
-                            :src="item.image"
+                            :src="`https://zonu.com.br/api${item.fotos[0].foto}`"
                             style="
                               width: 70px;
                               height: 70px;
@@ -999,7 +1032,7 @@
                                 font-weight: 600;
                               "
                             >
-                              {{ item.titulo }}
+                              {{ item.descricao.titulo }}
                             </h2>
                             <p
                               style="
@@ -1010,7 +1043,11 @@
                                 color: #31d084;
                               "
                             >
-                              R${{ item.value }}
+                              R${{
+                                aplicaMascaraDinheiroPrecoImovel(
+                                  item.preco.preco_imovel
+                                )
+                              }}
                             </p>
                             <p
                               style="
@@ -1020,7 +1057,7 @@
                                 font-weight: 400;
                               "
                             >
-                              {{ item.subTitulo }}
+                              {{ item.descricao.apresentacao }}
                             </p>
                           </div>
                         </div>
@@ -1065,8 +1102,9 @@
                     font-weight: 600;
                     cursor: pointer;
                   "
+                  @click="cadastraNegocio"
                 >
-                  Adicionar Negócio
+                  {{ textAddNegocio }}
                 </button>
               </div>
             </div>
@@ -1089,7 +1127,39 @@
             role="document"
           >
             <div class="modal-content">
-              <div class="modal-header">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  align-items: flex-start;
+                "
+              >
+                <div
+                  v-if="msgClienteSuccess"
+                  class="alert alert-success"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Cliente Criado com sucesso
+                </div>
+                <div
+                  v-if="msgClienteError"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Falha ao criar o cliente
+                </div>
+                <div
+                  v-if="msgClienteErrorSemCampos"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Preencha os campos obrigatórios!
+                </div>
                 <h5 class="modal-title" id="exampleModalLabel">
                   Cadastrar Cliente
                 </h5>
@@ -1178,13 +1248,18 @@
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
+                          padding-left: 8px;
                         "
                       >
                         <option value="" disabled selected hidden>
                           Selecione
                         </option>
-                        <option value="categoria1">Categoria 1</option>
-                        <option value="categoria2">Categoria 2</option>
+                        <option
+                          v-for="item in allCategorias"
+                          :value="item.categoria_cliente"
+                        >
+                          {{ item.categoria_cliente }}
+                        </option>
                       </select>
                     </div>
 
@@ -1202,13 +1277,18 @@
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
+                          padding-left: 8px;
                         "
                       >
                         <option value="" disabled selected hidden>
                           Selecione
                         </option>
-                        <option value="origem1">Origem 1</option>
-                        <option value="origem2">Origem 2</option>
+                        <option
+                          v-for="item in allOrigensCapitacao"
+                          :value="item.origem_captacao"
+                        >
+                          {{ item.origem_captacao }}
+                        </option>
                       </select>
                     </div>
 
@@ -1264,13 +1344,13 @@
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
+                          padding-left: 8px;
                         "
                       >
-                        <option value="" disabled selected hidden>
-                          Selecione
+                        <option value="" disabled hidden>Selecione</option>
+                        <option :value="`${userName} ${userSobrenome}`">
+                          {{ userName }} {{ userSobrenome }}
                         </option>
-                        <option value="corretor1">Corretor 1</option>
-                        <option value="corretor2">Corretor 2</option>
                       </select>
                     </div>
 
@@ -1347,7 +1427,7 @@
                   "
                   @click="cadastraCliente"
                 >
-                  Cadastrar
+                  {{ textAddCliente }}
                 </button>
               </div>
             </div>
@@ -1653,43 +1733,79 @@
             role="document"
           >
             <div class="modal-content">
-              <div class="modal-header">
-                <h5
-                  class="modal-title"
-                  style="font-size: 15px; font-weight: 600"
-                  id="exampleModalLabel"
-                >
-                  Cadastrar Clientes
-                </h5>
-
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  align-items: flex-start;
+                "
+              >
                 <div
-                  class="form-group col-8"
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                  "
+                  v-if="msgClienteSuccess"
+                  class="alert alert-success"
+                  role="alert"
+                  style="width: 100%"
                 >
-                  <label
-                    class="col-3"
-                    for="corretorResponsavel"
-                    style="font-size: 14px; font-weight: 600"
-                    >Corretor Responsável</label
+                  Cliente Criado com sucesso
+                </div>
+                <div
+                  v-if="msgClienteError"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Falha ao criar o cliente
+                </div>
+                <div
+                  v-if="msgClienteErrorSemCampos"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="width: 100%"
+                >
+                  Preencha os campos obrigatórios!
+                </div>
+                <div style="display: flex; flex-direction: row; width: 100%">
+                  <h5
+                    class="modal-title col-4"
+                    style="font-size: 15px; font-weight: 600"
+                    id="exampleModalLabel"
                   >
-                  <select
-                    class="form-floating col-4"
-                    id="corretorResponsavel"
-                    v-model="corretorResponsavel"
+                    Cadastrar Clientes
+                  </h5>
+
+                  <div
+                    class="form-group col-8"
                     style="
-                      height: 40px;
-                      border: 1px solid #dee2e6;
-                      padding-left: 8px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-end;
                     "
                   >
-                    <option value="" disabled selected hidden>Selecione</option>
-                    <option value="Rodrigo Castelo">Rodrigo Castelo</option>
-                    <option value="corretor2">Corretor 2</option>
-                  </select>
+                    <label
+                      class="col-3"
+                      for="corretorResponsavel"
+                      style="font-size: 14px; font-weight: 600"
+                      >Corretor Responsável</label
+                    >
+                    <select
+                      class="form-floating col-4"
+                      id="corretorResponsavel"
+                      v-model="corretorResponsavel"
+                      style="
+                        height: 40px;
+                        border: 1px solid #dee2e6;
+                        padding-left: 8px;
+                      "
+                    >
+                      <option value="" disabled selected hidden>
+                        Selecione
+                      </option>
+                      <option value="Rodrigo Castelo">Rodrigo Castelo</option>
+                      <option value="corretor2">Corretor 2</option>
+                    </select>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -1735,8 +1851,12 @@
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option value="categoria1">Categoria 1</option>
-                          <option value="categoria2">Categoria 2</option>
+                          <option
+                            v-for="item in allCategorias"
+                            :value="item.categoria_cliente"
+                          >
+                            {{ item.categoria_cliente }}
+                          </option>
                         </select>
                       </div>
 
@@ -1760,8 +1880,12 @@
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option value="origem1">Origem 1</option>
-                          <option value="origem2">Origem 2</option>
+                          <option
+                            v-for="item in allOrigensCapitacao"
+                            :value="item.origem_captacao"
+                          >
+                            {{ item.origem_captacao }}
+                          </option>
                         </select>
                       </div>
 
@@ -1782,8 +1906,12 @@
                             padding-left: 8px;
                           "
                         >
-                          <option value="Fisica">Fisica</option>
-                          <option value="Juridica">Juridica</option>
+                          <option
+                            v-for="item in allTiposClientes"
+                            :value="item.tipo_cliente"
+                          >
+                            {{ item.tipo_cliente }}
+                          </option>
                         </select>
                       </div>
 
@@ -1916,7 +2044,7 @@
                             padding-left: 8px;
                           "
                         >
-                          <option value="brasil">Brasil</option>
+                          <option value="Brasil">Brasil</option>
                         </select>
                       </div>
 
@@ -2059,6 +2187,7 @@
                           />
                         </label>
                         <Editor
+                          ref="editorComponent"
                           api-key="a0eo66lpqzpu1anhsfgh9ru0bp7id447c6hsvz9cgexp82oh"
                           :init="{
                             toolbar_mode: 'sliding',
@@ -2110,8 +2239,9 @@
                           font-weight: 600;
                           cursor: pointer;
                         "
+                        @click="cadastraCliente()"
                       >
-                        Cadastrar
+                        {{ textAddCliente }}
                       </button>
                     </div>
                   </div>
@@ -2222,6 +2352,7 @@ import plusCircle from "../../../../assets/images/icons/plusCircle.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import Editor from "@tinymce/tinymce-vue";
 import api from "../../../../service/api/index";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   name: "CrmView",
@@ -2236,7 +2367,10 @@ export default {
   },
   data() {
     return {
-      termos: "",
+      token: localStorage.getItem("token"),
+      id_user: "",
+      userName: "",
+      userSobrenome: "",
 
       graphType: "",
       youtubeLogo,
@@ -2277,59 +2411,8 @@ export default {
       isOpenImovel: false,
       selectedOption: null,
       selectedOptionImovel: null,
-      clients: [
-        {
-          value: "client1",
-          name: "Marcelo Agostini",
-          phone: "(61) 98107-8419",
-        },
-        // Adicione outros clientes aqui
-      ],
-      imovel: [
-        {
-          id: 1,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 144",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-        {
-          id: 2,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 128",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-        {
-          id: 2,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 144",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-        {
-          id: 2,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 144",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-        {
-          id: 2,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 144",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-        {
-          id: 2,
-          image: "../../../../assets/images/casaFrente.jpeg",
-          titulo: "Apartamento - Ref.: 144",
-          value: "2.000,00",
-          subTitulo: "Manaíra - João Pessoa/PB",
-        },
-      ],
-
+      allClientes: [],
+      imovel: [],
       telefone: "",
       selectedFlag: "fi-br", // Bandeira inicial (Brasil)
       selectedCode: "+55", // Código inicial
@@ -2345,21 +2428,50 @@ export default {
       email: "",
       dataNascimento: "",
       categoria: "",
-      tipoCliente: "Fisica",
+      allCategorias: [],
+      tipoCliente: "",
+      allTiposClientes: [],
       origemCaptacao: "",
-      pais: "brasil",
+      allOrigensCapitacao: [],
+      cpf: "",
+      rg: "",
+      cep: "",
+      profissao: "",
+      pais: "Brasil",
       uf: "",
       cidade: "",
       bairro: "",
+      logradouro: "",
+      numero: "",
+      complemento: "",
+      termos: "", // Contém o conteúdo do editor
+      textContent: "", // Contém o texto puro
       corretorResponsavel: "",
 
       isOpenPessoa: false,
       selectedOptionPessoa: null,
+
+      // erros e sucessos dos modais
+      //modal negocios
+      msgNegocioSuccess: false,
+      msgNegocioErrorSemCampos: false,
+      msgNegocioError: false,
+      textAddNegocio: "Adicionar Negócio",
+      //modal clientes
+      msgClienteSuccess: false,
+      msgClienteErrorSemCampos: false,
+      msgClienteError: false,
+      textAddCliente: "Cadastrar",
     };
   },
   methods: {
+    handleAddOrigemCaptacao() {
+      console.log("Clique");
+    },
     handleEditorChange(content) {
-      this.termos = content;
+      // this.termos = content.replace(/(<([^>]+)>)/gi, "");
+      // const editor = tinymce.get(this.$refs.editorComponent.id);
+      this.textContent = content.replace(/<\/?[^>]+(>|$)/g, "");
     },
     selecionarPais(pais) {
       this.selectedFlag = pais.flag;
@@ -2381,7 +2493,7 @@ export default {
     },
     calculateBarColor(index) {
       // Cor base para a primeira barra
-      const baseColor = { r: 25, g: 114, b: 198 };
+      const baseColor = { r: 130, g: 90, b: 220 };
 
       // Fator de escurecimento
       const darkenFactor = 0.1 * (index / 3.5);
@@ -2469,9 +2581,59 @@ export default {
 
     fetchPosicao() {
       api.getPosicao().then((res) => {
-        console.log("Aqui ta as posições ====> ", res);
+        // console.log("Aqui ta as posições ====> ", res);
         if (res.status === 200) {
           this.posicoes = res.data;
+        }
+      });
+    },
+
+    fetchCategorias() {
+      api.getCategorias().then((res) => {
+        // console.log("Aqui estão as categorias ====> ", res);
+        if (res.status === 200) {
+          this.allCategorias = res.data;
+        }
+      });
+    },
+    fetchOrigemCaptacao() {
+      api.getOrigemCaptacao().then((res) => {
+        // console.log("Aqui estão as origens de capitação ====> ", res);
+        if (res.status === 200) {
+          this.allOrigensCapitacao = res.data;
+        }
+      });
+    },
+
+    fetchTipoCliente() {
+      api.getTipoCliente().then((res) => {
+        if (res.status === 200) {
+          // console.log(res.data);
+          this.allTiposClientes = res.data;
+          res.data.map((tipo) => {
+            if (tipo.tipo_cliente == "Pessoa Física") {
+              // console.log(tipo);
+              this.tipoCliente = tipo.tipo_cliente;
+            }
+          });
+        }
+      });
+    },
+
+    fetchCliente() {
+      api.getCliente().then((res) => {
+        console.log("Aqui esta o cliente ====> ", res);
+        if (res.status === 200) {
+          this.allClientes = res.data;
+        }
+      });
+    },
+
+    fetchImoveis() {
+      api.listallImoveis().then((res) => {
+        console.log("Aqui estao os imoveis ====> ", res);
+        if (res.status === 200) {
+          this.imovel = res.data;
         }
       });
     },
@@ -2480,31 +2642,200 @@ export default {
       let idCaptacao = "";
       let idCategoriaCliente = "";
       let nome = this.nome;
-      let rg = "";
-      let email = this.email;
+      let rg = this.rg;
+      let cpf = this.cpf;
+      let email = this.email == "" ? null : this.email;
       let dataDeNascimento = this.dataNascimento;
-      let profissao = "";
-      let cep = "";
-      let pais = "";
-      let uf = "";
-      let cidade = "";
-      let bairro = "";
-      let logradouro = "";
-      let numero = "";
-      let complemento = "";
-      let anotacao = "";
+      let profissao = this.profissao;
+      let cep = this.cep;
+      let pais = this.pais;
+      let uf = this.uf;
+      let cidade = this.cidade;
+      let bairro = this.bairro;
+      let logradouro = this.logradouro;
+      let numero = Number(this.numero);
+      let complemento = this.numero;
+      // let anotacao = this.termos;
+      const anotacao = this.termos.replace(/<\/?[^>]+(>|$)/g, "");
+      let telefone1 = "61 99999-9999";
+      let telefone2 = "";
+      let idUser = this.id_user;
 
+      idCaptacao = this.allOrigensCapitacao.find(
+        (origem) => origem.origem_captacao === this.origemCaptacao
+      )?.id_captacao;
+      idCategoriaCliente = this.allCategorias.find(
+        (categoria) => categoria.categoria_cliente === this.categoria
+      )?.id_categoria_cliente;
+
+      // console.log(this.allOrigensCapitacao);
+      // console.log(idCaptacao, idCategoriaCliente);
+      // console.log(this.origemCaptacao, this.categoria);
+      // console.log(this.allOrigensCapitacao, this.allCategorias);
+      console.log(dataDeNascimento);
       if (
         this.nome != "" &&
         this.categoria != "" &&
         this.origemCaptacao != ""
       ) {
-        api.postCliente();
+        api
+          .postCliente(
+            idCaptacao,
+            idCategoriaCliente,
+            nome,
+            cpf,
+            rg,
+            email,
+            dataDeNascimento,
+            profissao,
+            cep,
+            pais,
+            uf,
+            cidade,
+            bairro,
+            logradouro,
+            numero,
+            complemento,
+            anotacao,
+            telefone1,
+            telefone2,
+            idUser
+          )
+          .then((res) => {
+            this.textAddCliente = "Adicionando...";
+            console.log("aqui estao o res do Postcliente ===> ", res);
+            if (res.status === 201) {
+              this.msgClienteSuccess = true;
+
+              setTimeout(() => {
+                const modalCliente = bootstrap.Modal.getInstance(
+                  this.$refs.myModalComplete
+                );
+                const modal = bootstrap.Modal.getInstance(
+                  this.$refs.myModalClient
+                );
+                if (modalCliente) {
+                  modalCliente.hide();
+                }
+                if (modal) {
+                  modal.hide();
+                }
+                this.msgClienteSuccess = false;
+                this.textAddCliente = "Cadastrar";
+                this.fetchCliente();
+              }, 3000);
+            } else {
+              this.textAddCliente = "Cadastrar";
+              this.msgClienteError = true;
+
+              setTimeout(() => {
+                this.msgClienteError = false;
+              }, 3000);
+            }
+          });
+      } else {
+        this.msgClienteErrorSemCampos = true;
+
+        setTimeout(() => {
+          this.msgClienteErrorSemCampos = false;
+          this.textAddCliente = "Cadastrar";
+        }, 3000);
       }
+    },
+
+    cadastraNegocio() {
+      // cadastraNegocio(idPosicao, idNivelInteresse, idCliente, idImovel) {
+      let idPosicao = "";
+      let idNivel = "";
+      let idCliente = "";
+      let idImovel = "";
+
+      this.posicoes.map((posi) => {
+        if (posi.tipo_posicao == this.posicao) {
+          idPosicao = posi.id_posicao;
+        }
+      });
+      idNivel = this.nivelInteresse;
+      idCliente =
+        this.selectedOption == null ? "" : this.selectedOption.id_cliente;
+      idImovel =
+        this.selectedOptionImovel == null
+          ? ""
+          : this.selectedOptionImovel.id_imovel;
+      if (
+        idPosicao != "" &&
+        idNivel != "" &&
+        idCliente != "" &&
+        idImovel != ""
+      ) {
+        api.postNegocio(idPosicao, idNivel, idCliente, idImovel).then((res) => {
+          this.textAddNegocio = "Adicionando...";
+          // console.log("Res do postNegocio ===>", res);
+          if (res.status === 201) {
+            this.msgNegocioSuccess = true;
+
+            setTimeout(() => {
+              const modalNegocio = bootstrap.Modal.getInstance(
+                this.$refs.myModal
+              );
+
+              this.textAddNegocio = "Adicionar Negócio";
+              if (modalNegocio) {
+                // setTimeout(() => {
+                modalNegocio.hide(); // Fecha o modal atual
+                // }, 1000);
+              }
+              this.msgNegocioSuccess = false;
+              this.textAddCliente = "Adicionar Negócio";
+            }, 3000);
+          } else {
+            this.textAddNegocio = "Adicionar Negócio";
+            this.msgNegocioError = true;
+
+            setTimeout(() => {
+              this.msgNegocioError = false;
+            }, 3000);
+          }
+        });
+      } else {
+        this.msgNegocioErrorSemCampos = true;
+
+        setTimeout(() => {
+          this.msgNegocioErrorSemCampos = false;
+          this.textAddNegocio = "Adicionar Negócio";
+        }, 3000);
+      }
+    },
+
+    aplicaMascaraDinheiroPrecoImovel(preco) {
+      let v = preco;
+
+      // Remove tudo o que não é dígito
+      v = v.replace(/\D/g, "");
+
+      // Divide o número para preparar a adição de vírgula e ponto
+      let valorDecimal = parseInt(v) / 100;
+
+      // Formata o número como valor monetário
+      return valorDecimal.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      // console.log(this.currentImovel)
     },
   },
 
   mounted() {
+    let token = this.token;
+    let decode = jwtDecode(token);
+    let id_user = decode.id_user;
+    this.userName = decode.nome;
+    this.userSobrenome = decode.sobrenome;
+
+    this.id_user = id_user;
+
+    this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
+
     document.addEventListener("click", this.handleClickOutside);
     // Initialize Feather icons
     if (window.feather) window.feather.replace();
@@ -2514,6 +2845,11 @@ export default {
     if (window.feather) window.feather.replace();
 
     this.fetchPosicao();
+    this.fetchCategorias();
+    this.fetchOrigemCaptacao();
+    this.fetchTipoCliente();
+    this.fetchCliente();
+    this.fetchImoveis();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);

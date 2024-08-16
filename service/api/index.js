@@ -1234,6 +1234,7 @@ export default {
     id_captacao,
     id_categoria_cliente,
     nome,
+    cpf,
     rg,
     email,
     data_de_nascimento,
@@ -1246,7 +1247,10 @@ export default {
     logradouro,
     numero,
     complemento,
-    anotacao
+    anotacao,
+    telefone1,
+    telefone2,
+    idUser
   ) => {
     try {
       const response = await http.post(
@@ -1255,6 +1259,7 @@ export default {
           id_captacao: id_captacao,
           id_categoria_cliente: id_categoria_cliente,
           nome: nome,
+          cpf: cpf,
           rg: rg,
           email: email,
           data_de_nascimento: data_de_nascimento,
@@ -1268,6 +1273,9 @@ export default {
           numero: numero,
           complemento: complemento,
           anotacao: anotacao,
+          telefone_1: telefone1,
+          telefone_2: telefone2,
+          id_user: idUser,
         },
         {
           headers: {
@@ -1407,7 +1415,23 @@ export default {
 
   getCategorias: async () => {
     try {
-      const response = await http.get("/tipoCliente/", {
+      const response = await http.get("/categoriaCliente/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getOrigemCaptacao: async () => {
+    try {
+      const response = await http.get("/captacao/", {
         headers: {
           Accept: "application/json",
           "Access-Control-Allow-Headers": "*",

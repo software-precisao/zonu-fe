@@ -58,7 +58,7 @@ export default {
               data: data,
               backgroundColor: [
                 // "rgb(255, 99, 66)",
-                "rgb(54, 162, 235)",
+                "rgb(130, 90, 220)",
                 "rgb(75, 192, 192)",
                 "rgb(255, 205, 86)",
                 "rgb(153, 102, 255)",

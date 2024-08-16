@@ -37,9 +37,9 @@
                   <div class="d-flex">
                     <!-- Barra lateral dentro do card -->
                     <div
-                      class="bg-primary"
+                      class=""
                       style="
-                        background-color: rgb(23, 110, 200);
+                        background-color: rgb(130, 90, 220);
                         width: 15%;
                         display: flex;
                         flex-direction: column;
