@@ -1383,25 +1383,41 @@ export default {
       return error.response || error.message || error;
     }
   },
-};
 
-getAllLeads: async () => {
-  try {
-    const response = await http.get("/leads", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Headers": "*",
-        "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-      },
-    });
+  getAllLeads: async () => {
+    try {
+      const response = await http.get("/leads", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
 
-    return response.data;
-  } catch (error) {
-    console.error(
-      "Erro ao buscar leads:",
-      error.response || error.message || error
-    );
-    throw error;
-  }
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Erro ao buscar leads:",
+        error.response || error.message || error
+      );
+      throw error;
+    }
+  },
+
+  getCategorias: async () => {
+    try {
+      const response = await http.get("/tipoCliente/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };

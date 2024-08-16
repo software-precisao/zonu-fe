@@ -854,7 +854,12 @@
                       <option value="" disabled selected hidden>
                         Selecione uma opção
                       </option>
-                      <option value="contato">Contato</option>
+                      <option
+                        v-for="item in posicoes"
+                        :value="item.tipo_posicao"
+                      >
+                        {{ item.tipo_posicao }}
+                      </option>
                     </select>
                   </div>
 
@@ -879,6 +884,7 @@
                   </div>
                 </div>
 
+                <!-- campo de cliente -->
                 <div class="form-group mt-3 col-12">
                   <label for="client" style="font-weight: 600">Cliente</label>
                   <div class="custom-select" ref="selectContainer">
@@ -896,7 +902,10 @@
                       <i class="align-middle" data-feather="chevron-down"></i>
                     </div>
                     <ul v-if="isOpen" class="options-list">
-                      <li @click="addClient" style="background-color: #f1f4f9">
+                      <li
+                        @click="openModalClient"
+                        style="background-color: #f1f4f9"
+                      >
                         <button
                           class="btn"
                           style="
@@ -937,6 +946,7 @@
                   </div>
                 </div>
 
+                <!-- campo de enconte um imovel -->
                 <div class="form-group mt-3 col-12">
                   <label for="client" style="font-weight: 600"
                     >Encontre o imóvel</label
@@ -1171,7 +1181,7 @@
                         "
                       >
                         <option value="" disabled selected hidden>
-                          Selecione uma categoria
+                          Selecione
                         </option>
                         <option value="categoria1">Categoria 1</option>
                         <option value="categoria2">Categoria 2</option>
@@ -1195,7 +1205,7 @@
                         "
                       >
                         <option value="" disabled selected hidden>
-                          Selecione uma origem
+                          Selecione
                         </option>
                         <option value="origem1">Origem 1</option>
                         <option value="origem2">Origem 2</option>
@@ -1257,7 +1267,7 @@
                         "
                       >
                         <option value="" disabled selected hidden>
-                          Selecione um corretor
+                          Selecione
                         </option>
                         <option value="corretor1">Corretor 1</option>
                         <option value="corretor2">Corretor 2</option>
@@ -1335,6 +1345,7 @@
                     font-weight: 600;
                     cursor: pointer;
                   "
+                  @click="cadastraCliente"
                 >
                   Cadastrar
                 </button>
@@ -1638,7 +1649,7 @@
         >
           <div
             class="modal-dialog modal-xl"
-            style="padding-top: 40px"
+            style="padding-top: 20px"
             role="document"
           >
             <div class="modal-content">
@@ -2039,11 +2050,29 @@
                         <label
                           for="anotacoes"
                           style="font-size: 13px; font-weight: 600"
-                          >Anotações<img
+                        >
+                          Anotações
+                          <img
                             :src="InterrSvg"
                             class="ms-2"
                             style="width: 12px; height: 12px"
-                        /></label>
+                          />
+                        </label>
+                        <Editor
+                          api-key="a0eo66lpqzpu1anhsfgh9ru0bp7id447c6hsvz9cgexp82oh"
+                          :init="{
+                            toolbar_mode: 'sliding',
+                            plugins:
+                              'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                            toolbar:
+                              'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                            height: 150,
+                            menubar: false,
+                            branding: false,
+                          }"
+                          v-model="termos"
+                          @editorChange="handleEditorChange"
+                        />
                       </div>
                     </div>
                     <div
@@ -2191,6 +2220,8 @@ import graphBarLaterCrmComp from "@/components/graph/graphBarLaterCrmComp.vue";
 import userIcon from "../../../../assets/images/icons/userIconBlue.svg";
 import plusCircle from "../../../../assets/images/icons/plusCircle.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
+import Editor from "@tinymce/tinymce-vue";
+import api from "../../../../service/api/index";
 
 export default {
   name: "CrmView",
@@ -2201,9 +2232,12 @@ export default {
     graphAtivCrmComp,
     graphBarAtivCrmComp,
     graphBarLaterCrmComp,
+    Editor,
   },
   data() {
     return {
+      termos: "",
+
       graphType: "",
       youtubeLogo,
       userIcon,
@@ -2211,6 +2245,7 @@ export default {
       InterrSvg,
 
       posicao: "", // Variável para armazenar o contato selecionado
+      posicoes: [], // Variável para armazenar o contato selecionado
       nivelInteresse: 1,
       selectCliente: "",
 
@@ -2306,20 +2341,26 @@ export default {
       ],
 
       //cliente
-      tipoCliente: "Fisica",
+      nome: "",
+      email: "",
+      dataNascimento: "",
       categoria: "",
+      tipoCliente: "Fisica",
       origemCaptacao: "",
       pais: "brasil",
       uf: "",
       cidade: "",
       bairro: "",
-      corretorResponsavel: "Rodrigo Castelo",
+      corretorResponsavel: "",
 
       isOpenPessoa: false,
       selectedOptionPessoa: null,
     };
   },
   methods: {
+    handleEditorChange(content) {
+      this.termos = content;
+    },
     selecionarPais(pais) {
       this.selectedFlag = pais.flag;
       this.selectedCode = pais.codigo;
@@ -2362,6 +2403,14 @@ export default {
     openModalClient() {
       const modal = new bootstrap.Modal(this.$refs.myModalClient);
       modal.show();
+
+      const modalNegocio = bootstrap.Modal.getInstance(this.$refs.myModal);
+
+      if (modalNegocio) {
+        // setTimeout(() => {
+        modalNegocio.hide(); // Fecha o modal atual
+        // }, 1000);
+      }
     },
     openThirdModal() {
       const modal = new bootstrap.Modal(this.$refs.myModalComplete);
@@ -2417,6 +2466,42 @@ export default {
         this.isOpenPessoa = false;
       }
     },
+
+    fetchPosicao() {
+      api.getPosicao().then((res) => {
+        console.log("Aqui ta as posições ====> ", res);
+        if (res.status === 200) {
+          this.posicoes = res.data;
+        }
+      });
+    },
+
+    cadastraCliente() {
+      let idCaptacao = "";
+      let idCategoriaCliente = "";
+      let nome = this.nome;
+      let rg = "";
+      let email = this.email;
+      let dataDeNascimento = this.dataNascimento;
+      let profissao = "";
+      let cep = "";
+      let pais = "";
+      let uf = "";
+      let cidade = "";
+      let bairro = "";
+      let logradouro = "";
+      let numero = "";
+      let complemento = "";
+      let anotacao = "";
+
+      if (
+        this.nome != "" &&
+        this.categoria != "" &&
+        this.origemCaptacao != ""
+      ) {
+        api.postCliente();
+      }
+    },
   },
 
   mounted() {
@@ -2427,6 +2512,8 @@ export default {
     document.addEventListener("click", this.handleClickOutsideImovel);
     // Initialize Feather icons
     if (window.feather) window.feather.replace();
+
+    this.fetchPosicao();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);
