@@ -7,9 +7,7 @@
         <sidebarCrm tab="Visão geral" />
         <!-- Dashboard -->
         <div class="" style="width: 100%">
-          <header
-            class="pe-3 ps-3"
-            style="
+          <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
               width: 100%;
@@ -17,17 +15,12 @@
               display: flex;
               align-items: center;
               justify-content: space-between;
-            "
-          >
+            ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
               Visão geral
             </h4>
             <div style="display: flex; align-items: center">
-              <select
-                class="form-select"
-                v-model="graphType"
-                style="height: 30px; font-size: 13px; font-weight: 600"
-              >
+              <select class="form-select" v-model="graphType" style="height: 30px; font-size: 13px; font-weight: 600">
                 <option value="" style="font-weight: 600">
                   Vita Studios Manaíra (54 negócios)
                 </option>
@@ -48,34 +41,22 @@
                 </option>
               </select>
 
-              <button
-                class="btn btn-oranges ms-2"
-                style="display: flex; align-items: center; height: 30px"
-                @click="openModal"
-              >
+              <button class="btn btn-oranges ms-2" style="display: flex; align-items: center; height: 30px"
+                @click="openModal">
                 <i class="align-middle" data-feather="plus"></i>
                 <span style="margin-left: 3px">Negócio</span>
               </button>
-              <button
-                class="btn btn-blues ms-2"
-                style="display: flex; align-items: center; height: 30px"
-                @click="openModalClient"
-              >
+              <button class="btn btn-blues ms-2" style="display: flex; align-items: center; height: 30px"
+                @click="openModalClient">
                 <i class="align-middle" data-feather="plus"></i>
                 <span style="margin-left: 3px">Clientes</span>
               </button>
-              <button
-                class="btn btn-white ms-2"
-                style="display: flex; align-items: center; height: 30px"
-              >
+              <button class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px">
                 <i class="align-middle" data-feather="file-plus"></i>
                 <span style="margin-left: 3px">Exportar</span>
               </button>
-              <a
-                class="btn btn-white ms-2"
-                style="display: flex; align-items: center; height: 30px"
-                href="/seu-crmconfig"
-              >
+              <a class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px"
+                href="/seu-crmconfig">
                 <i class="align-middle" data-feather="settings"></i>
               </a>
             </div>
@@ -84,15 +65,11 @@
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
-                <div
-                  class="card"
-                  style="
+                <div class="card" style="
                     position: relative;
                     border: 1px solid rgb(211, 220, 235);
-                  "
-                >
-                  <div
-                    style="
+                  ">
+                  <div style="
                       position: absolute;
                       bottom: 95%;
                       left: 98.5%;
@@ -104,15 +81,12 @@
                       display: grid;
                       place-items: center;
                       cursor: pointer;
-                    "
-                  >
+                    ">
                     <i class="align-middle" data-feather="x"></i>
                   </div>
                   <div class="d-flex">
                     <!-- Barra lateral dentro do card -->
-                    <div
-                      class=""
-                      style="
+                    <div class="" style="
                         background-color: rgb(130, 90, 220);
                         width: 15%;
                         display: flex;
@@ -122,248 +96,150 @@
                         color: #fff;
                         border-top-left-radius: 5px;
                         border-bottom-left-radius: 5px;
-                      "
-                    >
-                      <i
-                        class="align-middle"
-                        style="width: 60%; height: 60%"
-                        data-feather="help-circle"
-                      ></i>
+                      ">
+                      <i class="align-middle" style="width: 60%; height: 60%" data-feather="help-circle"></i>
                       <span class="mt-1" style="font-weight: 800">Ajuda</span>
                     </div>
                     <!-- Conteúdo do card -->
                     <div class="card-body flex-fill ms-3">
-                      <h5
-                        class="card-title"
-                        style="color: #000; font-size: 16px; font-weight: 500"
-                      >
+                      <h5 class="card-title" style="color: #000; font-size: 16px; font-weight: 500">
                         Precisa de ajuda?
                       </h5>
-                      <p
-                        class="card-text"
-                        style="color: #000; font-size: 13.5px; font-weight: 400"
-                      >
+                      <p class="card-text" style="color: #000; font-size: 13.5px; font-weight: 400">
                         Separamos alguns tópicos desta área
                       </p>
                       <div style="display: flex; flex-direction: column">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Adicionar negócio ao CRM</a
-                          >
+                            " class="ms-2">Adicionar negócio ao CRM</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Criar Funil</a
-                          >
+                            " class="ms-2">Criar Funil</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Editar Funil</a
-                          >
+                            " class="ms-2">Editar Funil</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Radar de oportunidades</a
-                          >
+                            " class="ms-2">Radar de oportunidades</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Distribuição padrão de funil por negócio</a
-                          >
+                            " class="ms-2">Distribuição padrão de funil por negócio</a>
                         </div>
                       </div>
-                      <div
-                        style="
+                      <div style="
                           display: flex;
                           flex-direction: column;
                           margin-left: -6px;
-                        "
-                        class="mt-3"
-                      >
-                        <a
-                          href="#"
-                          style="
+                        " class="mt-3">
+                        <a href="#" style="
                             text-decoration: none;
                             color: rgb(23, 110, 200);
                             font-size: 13px;
                             font-weight: 500;
                             display: flex;
-                          "
-                          class="ms-2"
-                          ><span style="color: #000">Acessar</span> &nbsp;
-                          Central de ajuda</a
-                        >
+                          " class="ms-2"><span style="color: #000">Acessar</span> &nbsp;
+                          Central de ajuda</a>
                       </div>
                     </div>
                     <div class="me-3 mt-3">
-                      <h5
-                        class="card-title"
-                        style="color: #000; font-size: 16px; font-weight: 500"
-                      >
+                      <h5 class="card-title" style="color: #000; font-size: 16px; font-weight: 500">
                         Vídeo demonstrativo
                       </h5>
-                      <div
-                        style="
+                      <div style="
                           position: relative;
                           width: 240px;
                           height: 135px;
                           cursor: pointer;
-                        "
-                      >
-                        <img
-                          src="https://img.youtube.com/vi/8DX7mudPCNs/0.jpg"
-                          style="
+                        ">
+                        <img src="https://img.youtube.com/vi/8DX7mudPCNs/0.jpg" style="
                             width: inherit;
                             height: inherit;
                             object-fit: cover;
                             border-radius: 4px;
-                          "
-                        />
-                        <img
-                          :src="youtubeLogo"
-                          style="
+                          " />
+                        <img :src="youtubeLogo" style="
                             position: absolute;
                             top: 49%;
                             left: 50%;
                             transform: translate(-50%, -50%);
                             height: 50px;
                             width: 50px;
-                          "
-                        />
+                          " />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div
-                  class="card pe-4 ps-4 pt-4"
-                  style="border: 1px solid rgb(211, 220, 235)"
-                >
-                  <h2
-                    class="mb-0"
-                    style="
+                <div class="card pe-4 ps-4 pt-4" style="border: 1px solid rgb(211, 220, 235)">
+                  <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
                       font-weight: 900;
-                    "
-                  >
+                    ">
                     Etapas do Funil
                   </h2>
-                  <p
-                    class="mb-4"
-                    style="
+                  <p class="mb-4" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
                       font-weight: 400;
-                    "
-                  >
+                    ">
                     Quantidade de negócios e VGV por etapa
                   </p>
 
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-6 mb-4">
-                        <div
-                          class="mb-2"
-                          v-for="(etapa, index) in etapas"
-                          :key="etapa.nome"
-                        >
-                          <div
-                            class="card-body d-flex justify-content-between align-items-center"
-                            :style="{
-                              width: `${etapa.vgv}%`,
-                              backgroundColor: calculateBarColor(index),
-                              color: '#fff',
-                              borderRadius: '10px',
-                              height: '62px',
-                            }"
-                          >
+                        <div class="mb-2" v-for="(etapa, index) in etapas" :key="etapa.nome">
+                          <div class="card-body d-flex justify-content-between align-items-center" :style="{
+                            width: `${etapa.vgv}%`,
+                            backgroundColor: calculateBarColor(index),
+                            color: '#fff',
+                            borderRadius: '10px',
+                            height: '62px',
+                          }">
                             <div>
                               <h6 class="mb-0" style="color: #fff">
                                 {{ etapa.nome }}
@@ -387,98 +263,77 @@
                       <div class="col-lg-5" style="margin-left: 60px">
                         <!-- Adicione aqui o gráfico de pizza e os dados dos clientes, estagnados e imóveis -->
                         <div class="row mb-4">
-                          <div
-                            class=""
-                            style="
+                          <div class="" style="
                               width: 28%;
                               padding: 10px;
                               border-left: 4px solid rgb(0, 99, 192);
                               box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
                               height: 70px;
                               margin-right: 10px;
-                            "
-                          >
+                            ">
                             <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
                               Clientes
                             </h2>
-                            <p
-                              style="
+                            <p style="
                                 font-size: 24px;
                                 font-weight: bold;
                                 text-align: right;
-                              "
-                            >
+                              ">
                               54
                             </p>
                           </div>
-                          <div
-                            class="col-4"
-                            style="
+                          <div class="col-4" style="
                               width: 28%;
                               padding: 10px;
                               border-left: 4px solid rgb(248, 67, 67);
                               box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
                               height: 70px;
                               margin-right: 10px;
-                            "
-                          >
+                            ">
                             <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
                               Estagnados
                             </h2>
-                            <p
-                              style="
+                            <p style="
                                 font-size: 24px;
                                 font-weight: bold;
                                 text-align: right;
-                              "
-                            >
+                              ">
                               52
                             </p>
                           </div>
-                          <div
-                            class="col-4"
-                            style="
+                          <div class="col-4" style="
                               width: 28%;
                               padding: 10px;
                               border-left: 4px solid rgb(0, 99, 192);
                               box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 5px;
                               height: 70px;
-                            "
-                          >
+                            ">
                             <h2 style="font-size: 14px; color: rgb(92, 82, 96)">
                               Imóveis
                             </h2>
-                            <p
-                              style="
+                            <p style="
                                 font-size: 24px;
                                 font-weight: bold;
                                 text-align: right;
-                              "
-                            >
+                              ">
                               1
                             </p>
                           </div>
                         </div>
                         <div>
-                          <h2
-                            class="mb-0"
-                            style="
+                          <h2 class="mb-0" style="
                               font-size: 14px;
                               color: rgb(33, 35, 44);
                               font-weight: 900;
-                            "
-                          >
+                            ">
                             Canal de origem dos clientes
                           </h2>
-                          <p
-                            class="mb-4"
-                            style="
+                          <p class="mb-4" style="
                               font-size: 14px;
                               line-height: 21px;
                               color: rgb(33, 35, 44);
                               font-weight: 400;
-                            "
-                          >
+                            ">
                             Distribuição por canal
                           </p>
                           <div class="w-52">
@@ -490,37 +345,25 @@
                   </div>
                 </div>
 
-                <div
-                  class="card mb-2"
-                  style="
+                <div class="card mb-2" style="
                     background: rgb(237, 238, 242);
                     padding: 5px 15px;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
                     justify-content: space-between;
-                  "
-                >
+                  ">
                   <h2 style="font-size: 14px; font-weight: 600">
                     Análise de resultado por período
                   </h2>
-                  <div
-                    class=""
-                    style="
+                  <div class="" style="
                       display: flex;
                       flex-direction: row;
                       align-items: center;
-                    "
-                  >
+                    ">
                     <div class="">
-                      <input
-                        id="start_date"
-                        type="text"
-                        class="formControl"
-                        placeholder="DD/MM/AAAA"
-                        name="start_date"
-                        value="01/01/2024"
-                        style="
+                      <input id="start_date" type="text" class="formControl" placeholder="DD/MM/AAAA" name="start_date"
+                        value="01/01/2024" style="
                           height: 45px;
                           width: 120px;
                           padding-left: 8px;
@@ -528,26 +371,16 @@
                           border-radius: 5px;
                           font-size: 1em;
                           font-weight: 500;
-                        "
-                      />
+                        " />
                     </div>
-                    <div
-                      class=""
-                      style="
+                    <div class="" style="
                         width: 15px;
                         background-color: #d3dceb;
                         height: 1px;
-                      "
-                    ></div>
+                      "></div>
                     <div class="">
-                      <input
-                        id="end_date"
-                        type="text"
-                        class="formControl"
-                        placeholder="DD/MM/AAAA"
-                        name="end_date"
-                        value="13/08/2024"
-                        style="
+                      <input id="end_date" type="text" class="formControl" placeholder="DD/MM/AAAA" name="end_date"
+                        value="13/08/2024" style="
                           height: 45px;
                           width: 120px;
                           padding-left: 8px;
@@ -555,23 +388,17 @@
                           border-radius: 5px;
                           font-size: 1em;
                           font-weight: 500;
-                        "
-                      />
+                        " />
                     </div>
                   </div>
                 </div>
 
-                <div
-                  class=""
-                  style="
+                <div class="" style="
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
-                  "
-                >
-                  <div
-                    class="card"
-                    style="
+                  ">
+                  <div class="card" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -579,90 +406,73 @@
                       justify-content: space-around;
                       padding: 20px 10px;
                       border-left: 3px solid rgb(0, 99, 192);
-                    "
-                  >
+                    ">
                     <h2 style="font-size: 24px; color: rgb(92, 82, 96)">
                       Negócios
                     </h2>
-                    <div
-                      style="
+                    <div style="
                         display: flex;
                         flex-direction: column;
                         align-items: left;
-                      "
-                    >
-                      <h3
-                        style="
+                      ">
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Iniciados
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 22px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         54
                       </p>
                     </div>
                     <div>
-                      <h3
-                        style="
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Ganhos
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 22px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         0
                       </p>
                     </div>
                     <div>
-                      <h3
-                        style="
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Perdidos
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 20px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         0
                       </p>
                     </div>
                   </div>
-                  <div
-                    class="card"
-                    style="
+                  <div class="card" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -670,83 +480,68 @@
                       justify-content: space-around;
                       padding: 10px;
                       border-left: 3px solid rgb(0, 99, 192);
-                    "
-                  >
+                    ">
                     <h2 style="font-size: 24px; color: rgb(92, 82, 96)">
                       Clientes
                     </h2>
-                    <div
-                      style="
+                    <div style="
                         display: flex;
                         flex-direction: column;
                         align-items: left;
-                      "
-                    >
-                      <h3
-                        style="
+                      ">
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Iniciados
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 22px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         54
                       </p>
                     </div>
                     <div>
-                      <h3
-                        style="
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Ganhos
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 22px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         0
                       </p>
                     </div>
                     <div>
-                      <h3
-                        style="
+                      <h3 style="
                           margin: 0;
                           padding: 0;
                           font-size: 16px;
                           color: rgb(92, 82, 96);
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         Perdidos
                       </h3>
-                      <p
-                        style="
+                      <p style="
                           margin: 0;
                           padding: 0;
                           font-size: 20px;
                           font-weight: 600;
-                        "
-                      >
+                        ">
                         0
                       </p>
                     </div>
@@ -754,50 +549,38 @@
                 </div>
 
                 <div class="card pe-4 ps-4 pt-4">
-                  <h2
-                    class="mb-0"
-                    style="
+                  <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
                       font-weight: 900;
-                    "
-                  >
+                    ">
                     Negócios Perdidos por Etapa
                   </h2>
-                  <p
-                    class="mb-6"
-                    style="
+                  <p class="mb-6" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
                       font-weight: 400;
-                    "
-                  >
+                    ">
                     Análise de percentual de perdas em cada etapa
                   </p>
 
                   <graphBarAtivCrmComp />
                 </div>
                 <div class="card pe-4 ps-4 pt-4">
-                  <h2
-                    class="mb-0"
-                    style="
+                  <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
                       font-weight: 900;
-                    "
-                  >
+                    ">
                     Principais motivos de perda
                   </h2>
-                  <p
-                    class="mb-2"
-                    style="
+                  <p class="mb-2" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
                       font-weight: 400;
-                    "
-                  >
+                    ">
                     Contabilizado por motivo
                   </p>
 
@@ -809,59 +592,29 @@
         </div>
 
         <!-- modal criar negocio -->
-        <div
-          class="modal fade"
-          id="myModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="myModal"
-        >
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true" ref="myModal">
           <div class="modal-dialog" style="padding-top: 80px" role="document">
             <div class="modal-content">
-              <div
-                class="modal-header"
-                style="
+              <div class="modal-header" style="
                   display: flex;
                   flex-direction: column;
                   width: 100%;
                   align-items: flex-start;
-                "
-              >
-                <div
-                  v-if="msgNegocioSuccess"
-                  class="alert alert-success"
-                  role="alert"
-                  style="width: 100%"
-                >
+                ">
+                <div v-if="msgNegocioSuccess" class="alert alert-success" role="alert" style="width: 100%">
                   Negócio Criado com sucesso
                 </div>
-                <div
-                  v-if="msgNegocioError"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgNegocioError" class="alert alert-danger" role="alert" style="width: 100%">
                   Falha ao criar o negócio
                 </div>
-                <div
-                  v-if="msgNegocioErrorSemCampos"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgNegocioErrorSemCampos" class="alert alert-danger" role="alert" style="width: 100%">
                   Preencha todos os campos!
                 </div>
                 <h5 class="modal-title" id="exampleModalLabel">
                   Adicionar Negócio
                 </h5>
-                <button
-                  type="button"
-                  class="close custom-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -874,22 +627,12 @@
 
                 <div class="row">
                   <div class="form-group mt-3 col-6">
-                    <label for="selectContato" style="font-weight: 600"
-                      >Posição</label
-                    >
-                    <select
-                      class="form-control"
-                      v-model="posicao"
-                      id="selectContato"
-                      style="height: 40px !important"
-                    >
+                    <label for="selectContato" style="font-weight: 600">Posição</label>
+                    <select class="form-control" v-model="posicao" id="selectContato" style="height: 40px !important">
                       <option value="" disabled selected hidden>
                         Selecione uma opção
                       </option>
-                      <option
-                        v-for="item in posicoes"
-                        :value="item.tipo_posicao"
-                      >
+                      <option v-for="item in posicoes" :value="item.tipo_posicao">
                         {{ item.tipo_posicao }}
                       </option>
                     </select>
@@ -897,18 +640,10 @@
 
                   <!-- Campo Nível de Interesse -->
                   <div class="form-group mt-3 col-6">
-                    <label for="nivelInteresse" style="font-weight: 600"
-                      >Nível de interesse</label
-                    >
+                    <label for="nivelInteresse" style="font-weight: 600">Nível de interesse</label>
                     <div class="nivel-interesse">
-                      <button
-                        v-for="nivel in 5"
-                        :key="nivel"
-                        type="button"
-                        class="nivel-btn"
-                        :class="{ active: nivelInteresse >= nivel }"
-                        @click="nivelInteresse = nivel"
-                      >
+                      <button v-for="nivel in 5" :key="nivel" type="button" class="nivel-btn"
+                        :class="{ active: nivelInteresse >= nivel }" @click="nivelInteresse = nivel">
                         {{ nivel }}
                       </button>
                       <div class="nivel-linha"></div>
@@ -920,13 +655,8 @@
                 <div class="form-group mt-3 col-12">
                   <label for="client" style="font-weight: 600">Cliente</label>
                   <div class="custom-select" ref="selectContainer">
-                    <div
-                      class="select-box"
-                      @click="toggleDropdown"
-                      :aria-expanded="isOpen.toString()"
-                      role="button"
-                      tabindex="0"
-                    >
+                    <div class="select-box" @click="toggleDropdown" :aria-expanded="isOpen.toString()" role="button"
+                      tabindex="0">
                       <span v-if="selectedOption">{{
                         selectedOption.nome
                       }}</span>
@@ -934,42 +664,25 @@
                       <i class="align-middle" data-feather="chevron-down"></i>
                     </div>
                     <ul v-if="isOpen" class="options-list">
-                      <li
-                        @click="openModalClient"
-                        style="background-color: #f1f4f9"
-                      >
-                        <button
-                          class="btn"
-                          style="
+                      <li @click="openModalClient" style="background-color: #f1f4f9">
+                        <button class="btn" style="
                             color: #026da6;
                             display: flex;
                             align-items: center;
                             font-weight: 600;
-                          "
-                        >
-                          <img
-                            :src="plusCircle"
-                            style="width: 12px; height: 12px; margin-right: 6px"
-                          />Adicionar
+                          ">
+                          <img :src="plusCircle" style="width: 12px; height: 12px; margin-right: 6px" />Adicionar
                         </button>
                       </li>
-                      <li
-                        v-for="client in allClientes"
-                        :key="client.id_cliente"
-                        @click="selectOption(client)"
-                      >
+                      <li v-for="client in allClientes" :key="client.id_cliente" @click="selectOption(client)">
                         <div style="display: flex; flex-direction: column">
-                          <span
-                            >{{ client.nome }}
-                            <img
-                              :src="userIcon"
-                              style="
+                          <span>{{ client.nome }}
+                            <img :src="userIcon" style="
                                 width: 12px;
                                 height: 12px;
                                 margin-bottom: 2px;
                                 margin-left: 2px;
-                              "
-                            />
+                              " />
                           </span>
                           <span class="">(99) 99999-9999</span>
                           <!-- <span class="">{{ client.telefone }}</span> -->
@@ -981,82 +694,58 @@
 
                 <!-- campo de enconte um imovel -->
                 <div class="form-group mt-3 col-12">
-                  <label for="client" style="font-weight: 600"
-                    >Encontre o imóvel</label
-                  >
+                  <label for="client" style="font-weight: 600">Encontre o imóvel</label>
                   <div class="custom-select" ref="selectContainerImovel">
-                    <div
-                      class="select-box"
-                      @click="toggleDropdownImovel"
-                      :aria-expanded="isOpenImovel.toString()"
-                      role="button"
-                      tabindex="0"
-                    >
+                    <div class="select-box" @click="toggleDropdownImovel" :aria-expanded="isOpenImovel.toString()"
+                      role="button" tabindex="0">
                       <span v-if="selectedOptionImovel">{{
                         selectedOptionImovel.descricao.titulo
                       }}</span>
-                      <span v-else
-                        >Procure por endereço ou nome do condomínio</span
-                      >
+                      <span v-else>Procure por endereço ou nome do condomínio</span>
                       <i class="align-middle" data-feather="chevron-down"></i>
                     </div>
                     <ul v-if="isOpenImovel" class="options-list">
-                      <li
-                        v-for="item in imovel"
-                        :key="item.id_imovel"
-                        @click="selectOptionImovel(item)"
-                      >
+                      <li v-for="item in imovel" :key="item.id_imovel" @click="selectOptionImovel(item)">
                         <div style="display: flex">
-                          <img
-                            :src="`https://zonu.com.br/api${item.fotos[0].foto}`"
-                            style="
+                          <img :src="`https://zonu.com.br/api${item.fotos[0].foto}`" style="
                               width: 70px;
                               height: 70px;
                               border-radius: 10px;
                               margin-top: 3px;
                               margin-right: 8px;
-                            "
-                          />
-                          <div
-                            style="
+                            " />
+                          <div style="
                               display: flex;
                               flex-direction: column;
                               justify-content: center;
-                            "
-                          >
-                            <h2
-                              style="
+                            ">
+                            <h2 style="
                                 margin: 0;
                                 padding: 0;
                                 font-size: 14px;
                                 font-weight: 600;
-                              "
-                            >
+                              ">
                               {{ item.descricao.titulo }}
                             </h2>
-                            <p
-                              style="
+                            <p style="
                                 margin: 0;
                                 padding: 0;
                                 font-size: 14px;
                                 font-weight: 500;
                                 color: #31d084;
-                              "
-                            >
+                              ">
                               R${{
                                 aplicaMascaraDinheiroPrecoImovel(
                                   item.preco.preco_imovel
                                 )
                               }}
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 margin: 0;
                                 padding: 0;
                                 font-size: 14px;
                                 font-weight: 400;
-                              "
-                            >
+                              ">
                               {{ item.descricao.apresentacao }}
                             </p>
                           </div>
@@ -1067,14 +756,8 @@
                 </div>
               </div>
 
-              <div
-                class="modal-footer"
-                style="display: flex; justify-content: space-between"
-              >
-                <button
-                  type="button"
-                  class="btn btnModal"
-                  style="
+              <div class="modal-footer" style="display: flex; justify-content: space-between">
+                <button type="button" class="btn btnModal" style="
                     padding: 10px 15px;
                     border: 1px solid #d3dceb;
                     background-color: #fff;
@@ -1083,15 +766,10 @@
                     font-size: 1em;
                     font-weight: 600;
                     cursor: pointer;
-                  "
-                  data-bs-dismiss="modal"
-                >
+                  " data-bs-dismiss="modal">
                   Cancelar
                 </button>
-                <button
-                  type="button"
-                  class="btn btnModal2"
-                  style="
+                <button type="button" class="btn btnModal2" style="
                     padding: 10px 15px;
                     border: 1px solid #d3dceb;
                     color: #fff;
@@ -1101,9 +779,7 @@
                     font-size: 1em;
                     font-weight: 600;
                     cursor: pointer;
-                  "
-                  @click="cadastraNegocio"
-                >
+                  " @click="cadastraNegocio">
                   {{ textAddNegocio }}
                 </button>
               </div>
@@ -1112,63 +788,29 @@
         </div>
 
         <!-- modal para criar cliente -->
-        <div
-          class="modal fade"
-          id="myModalClient"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="myModalClient"
-        >
-          <div
-            class="modal-dialog"
-            style="max-width: 600px !important; padding-top: 40px"
-            role="document"
-          >
+        <div class="modal fade" id="myModalClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true" ref="myModalClient">
+          <div class="modal-dialog" style="max-width: 600px !important; padding-top: 40px" role="document">
             <div class="modal-content">
-              <div
-                class="modal-header"
-                style="
+              <div class="modal-header" style="
                   display: flex;
                   flex-direction: column;
                   width: 100%;
                   align-items: flex-start;
-                "
-              >
-                <div
-                  v-if="msgClienteSuccess"
-                  class="alert alert-success"
-                  role="alert"
-                  style="width: 100%"
-                >
+                ">
+                <div v-if="msgClienteSuccess" class="alert alert-success" role="alert" style="width: 100%">
                   Cliente Criado com sucesso
                 </div>
-                <div
-                  v-if="msgClienteError"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgClienteError" class="alert alert-danger" role="alert" style="width: 100%">
                   Falha ao criar o cliente
                 </div>
-                <div
-                  v-if="msgClienteErrorSemCampos"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgClienteErrorSemCampos" class="alert alert-danger" role="alert" style="width: 100%">
                   Preencha os campos obrigatórios!
                 </div>
                 <h5 class="modal-title" id="exampleModalLabel">
                   Cadastrar Cliente
                 </h5>
-                <button
-                  type="button"
-                  class="close custom-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -1176,177 +818,102 @@
               <div class="modal-body" style="padding: 0 0">
                 <div class="row">
                   <!-- Esquerda: Inputs e Selects com linha divisória -->
-                  <div
-                    class="col-6"
-                    style="
+                  <div class="col-6" style="
                       border-right: 1px solid #ced4da;
                       padding-right: 15px;
                       padding-left: 25px;
                       padding-top: 20px;
                       padding-bottom: 20px;
-                    "
-                  >
+                    ">
                     <div class="form-group">
-                      <label
-                        for="nome"
-                        style="font-size: 14px; font-weight: 600"
-                        >Nome</label
-                      ><strong class="text-danger">*</strong>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nome"
-                        v-model="nome"
-                        placeholder="Digite..."
-                        style="height: 40px"
-                      />
+                      <label for="nome" style="font-size: 14px; font-weight: 600">Nome</label><strong
+                        class="text-danger">*</strong>
+                      <input type="text" class="form-control" id="nome" v-model="nome" placeholder="Digite..."
+                        style="height: 40px" />
                     </div>
 
                     <div class="form-group mt-3">
-                      <label
-                        for="email"
-                        style="font-size: 14px; font-weight: 600"
-                        >Email</label
-                      >
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        v-model="email"
-                        placeholder="Digite..."
-                        style="height: 40px"
-                      />
+                      <label for="email" style="font-size: 14px; font-weight: 600">Email</label>
+                      <input type="email" class="form-control" id="email" v-model="email" placeholder="Digite..."
+                        style="height: 40px" />
                     </div>
 
                     <div class="form-group mt-3">
-                      <label
-                        for="dataNascimento"
-                        style="font-size: 14px; font-weight: 600"
-                        >Data de Nascimento</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="dataNascimento"
-                        v-model="dataNascimento"
-                        placeholder="Digite..."
-                        style="height: 40px"
-                      />
+                      <label for="dataNascimento" style="font-size: 14px; font-weight: 600">Data de Nascimento</label>
+                      <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                        placeholder="Digite..." style="height: 40px" />
                     </div>
 
                     <div class="form-group mt-3">
-                      <label
-                        for="categoria"
-                        style="font-size: 14px; font-weight: 600"
-                        >Categoria</label
-                      ><strong class="text-danger">*</strong>
-                      <select
-                        class="form-floating"
-                        id="categoria"
-                        v-model="categoria"
-                        style="
+                      <label for="categoria" style="font-size: 14px; font-weight: 600">Categoria</label><strong
+                        class="text-danger">*</strong>
+                      <select class="form-floating" id="categoria" v-model="categoria" style="
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
                           padding-left: 8px;
-                        "
-                      >
+                        ">
                         <option value="" disabled selected hidden>
                           Selecione
                         </option>
-                        <option
-                          v-for="item in allCategorias"
-                          :value="item.categoria_cliente"
-                        >
+                        <option v-for="item in allCategorias" :value="item.categoria_cliente">
                           {{ item.categoria_cliente }}
                         </option>
                       </select>
                     </div>
 
                     <div class="form-group mt-3">
-                      <label
-                        for="origemCaptacao"
-                        style="font-size: 14px; font-weight: 600"
-                        >Origem de Captação</label
-                      ><strong class="text-danger">*</strong>
-                      <select
-                        class="form-floating"
-                        id="origemCaptacao"
-                        v-model="origemCaptacao"
-                        style="
+                      <label for="origemCaptacao" style="font-size: 14px; font-weight: 600">Origem de
+                        Captação</label><strong class="text-danger">*</strong>
+                      <select class="form-floating" id="origemCaptacao" v-model="origemCaptacao" style="
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
                           padding-left: 8px;
-                        "
-                      >
+                        ">
                         <option value="" disabled selected hidden>
                           Selecione
                         </option>
-                        <option
-                          v-for="item in allOrigensCapitacao"
-                          :value="item.origem_captacao"
-                        >
+                        <option v-for="item in allOrigensCapitacao" :value="item.origem_captacao">
                           {{ item.origem_captacao }}
                         </option>
                       </select>
                     </div>
 
-                    <div
-                      class="mt-4"
-                      style="
+                    <div class="mt-4" style="
                         width: 100%;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                      "
-                    >
-                      <a
-                        @click="openThirdModal"
-                        style="
+                      ">
+                      <a @click="openThirdModal" style="
                           text-decoration: underline;
                           color: rgb(0, 132, 244);
-                        "
-                        >Ver cadastro completo</a
-                      >
+                        ">Ver cadastro completo</a>
                     </div>
                   </div>
 
                   <!-- Direita: Select Corretor, Títulos e Botão -->
-                  <div
-                    class="col-6"
-                    style="
+                  <div class="col-6" style="
                       padding-top: 20px;
                       padding-bottom: 20px;
                       padding-right: 12px;
                       padding-left: 0;
-                    "
-                  >
-                    <div
-                      class="form-group"
-                      style="
+                    ">
+                    <div class="form-group" style="
                         border-bottom: 1px solid #dee2e6;
                         padding-right: 15px;
                         padding-left: 15px;
                         padding-bottom: 20px;
-                      "
-                    >
-                      <label
-                        for="corretorResponsavel"
-                        style="font-size: 14px; font-weight: 600"
-                        >Corretor Responsável</label
-                      >
-                      <select
-                        class="form-floating"
-                        id="corretorResponsavel"
-                        v-model="corretorResponsavel"
-                        style="
+                      ">
+                      <label for="corretorResponsavel" style="font-size: 14px; font-weight: 600">Corretor
+                        Responsável</label>
+                      <select class="form-floating" id="corretorResponsavel" v-model="corretorResponsavel" style="
                           height: 40px;
                           border: 1px solid #dee2e6;
                           width: 100%;
                           padding-left: 8px;
-                        "
-                      >
+                        ">
                         <option value="" disabled hidden>Selecione</option>
                         <option :value="`${userName} ${userSobrenome}`">
                           {{ userName }} {{ userSobrenome }}
@@ -1358,21 +925,27 @@
                       <h5 style="font-size: 14px; font-weight: 600">
                         Telefones
                       </h5>
-                      <p
-                        class="text-muted"
-                        style="
+                      <p v-if="alltelefones.length == 0" class="text-muted" style="
                           font-size: 12px;
                           font-weight: 500;
                           margin-bottom: 5px;
-                        "
-                      >
+                        ">
                         Você ainda não cadastrou nenhum telefone.
                       </p>
-                      <button
-                        type="button "
-                        class="btn btnModal"
-                        @click="openSecondModal"
-                        style="
+                      <div v-if="alltelefones.length > 0" v-for="(item, index) in alltelefones" style="display: flex; 
+                        justify-content: space-between; 
+                        align-items: center;
+                        padding: 0 10px; 
+                        margin-bottom: 1rem; 
+                        margin-top: 1rem;">
+                        <h2 style="font-size: 13px; font-weight: 500">
+                          {{ item.NumTelefone }} ({{ item.Descricao }})
+                        </h2>
+                        <img style="width: 14px; height: 14px; margin-bottom: 10px; cursor: pointer"
+                          @click="handleDelete(index)" :src="trashIcon"></img>
+                      </div>
+                      <button v-if="alltelefones.length < 2" type="button " class="btn btnModal"
+                        @click="openSecondModal" style="
                           padding: 5px 15px;
                           border: 1px solid #d3dceb;
                           background-color: #fff;
@@ -1381,8 +954,7 @@
                           font-size: 0.9em;
                           font-weight: 600;
                           cursor: pointer;
-                        "
-                      >
+                        ">
                         Adicionar telefones
                       </button>
                     </div>
@@ -1390,14 +962,8 @@
                 </div>
               </div>
 
-              <div
-                class="modal-footer"
-                style="display: flex; justify-content: space-between"
-              >
-                <button
-                  type="button"
-                  class="btn btnModal"
-                  style="
+              <div class="modal-footer" style="display: flex; justify-content: space-between">
+                <button type="button" class="btn btnModal" style="
                     padding: 10px 15px;
                     border: 1px solid #d3dceb;
                     background-color: #fff;
@@ -1406,15 +972,10 @@
                     font-size: 1em;
                     font-weight: 600;
                     cursor: pointer;
-                  "
-                  data-bs-dismiss="modal"
-                >
+                  " data-bs-dismiss="modal">
                   Cancelar
                 </button>
-                <button
-                  type="button"
-                  class="btn btnModal2"
-                  style="
+                <button type="button" class="btn btnModal2" style="
                     padding: 10px 15px;
                     border: 1px solid #d3dceb;
                     color: #fff;
@@ -1424,9 +985,7 @@
                     font-size: 1em;
                     font-weight: 600;
                     cursor: pointer;
-                  "
-                  @click="cadastraCliente"
-                >
+                  " @click="cadastraCliente">
                   {{ textAddCliente }}
                 </button>
               </div>
@@ -1435,161 +994,95 @@
         </div>
 
         <!-- Modal para adicionar telefones -->
-        <div
-          class="modal fade modalTelefone"
-          id="modalAdicionarTelefone"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="modalAdicionarTelefoneLabel"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-sm"
-            style="padding-top: 80px; margin-right: 10%"
-            role="document"
-          >
+        <div class="modal fade modalTelefone" id="modalAdicionarTelefone" tabindex="-1" role="dialog"
+          aria-labelledby="modalAdicionarTelefoneLabel" aria-hidden="true" ref="modalAdicionarTelefoneLabel">
+          <div class="modal-dialog modal-sm" style="padding-top: 80px; margin-right: 10%" role="document">
             <div class="modal-content">
               <!-- <div class="modal-header"> -->
-              <button
-                type="button"
-                class="close custom-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
+              <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
               <!-- </div> -->
               <div class="modal-body">
                 <!-- Conteúdo do modal de adicionar telefones -->
                 <div class="form-group">
-                  <label
-                    for="telefone"
-                    style="font-size: 14px; font-weight: 600"
-                    >Telefone</label
-                  >
+                  <label for="telefone" style="font-size: 14px; font-weight: 600">Telefone</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <button
-                        class="btn btn-outline-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        style="
+                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="
                           height: 40px;
                           border: 1px solid #d3dceb;
                           border-right: none;
-                        "
-                      >
-                        <span
-                          :class="'fi ' + selectedFlag"
-                          style="margin-right: 8px"
-                        ></span>
+                        ">
+                        <span :class="'fi ' + selectedFlag" style="margin-right: 8px"></span>
                         {{ selectedCode }}
                       </button>
-                      <ul
-                        class="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton"
-                      >
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li v-for="pais in paises" :key="pais.codigo">
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            @click.prevent="selecionarPais(pais)"
-                          >
-                            <span
-                              :class="'fi ' + pais.flag"
-                              style="margin-right: 8px"
-                            ></span>
+                          <a class="dropdown-item" href="#" @click.prevent="selecionarPais(pais)">
+                            <span :class="'fi ' + pais.flag" style="margin-right: 8px"></span>
                             {{ pais.codigo }}
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="telefone"
-                      v-model="telefone"
-                      placeholder="(99) 99999-9999"
-                      style="height: 40px"
-                    />
+                    <input type="text" class="form-control" id="telefone" v-model="telefone"
+                      placeholder="(99) 99999-9999" style="height: 40px" />
                   </div>
                 </div>
 
-                <div
-                  class="form-group mt-3"
-                  style="display: flex; flex-direction: column"
-                >
-                  <span style="font-size: 13px; font-weight: 600"
-                    >É WhatsApp?</span
-                  >
+                <div class="form-group mt-3" style="display: flex; flex-direction: column">
+                  <span style="font-size: 13px; font-weight: 600">É WhatsApp?</span>
                   <div style="width: 100%">
-                    <button
-                      class="btn btn-green"
-                      style="width: 50% !important; padding: 10px 0 !important"
-                    >
+                    <button :class="`btn ${whatsappYes == 'Sim'
+                      ? 'btn-green'
+                      : 'btn-white-no-border'
+                      }`" style="width: 50% !important; padding: 10px 0 !important" @click="handleWhats('Sim')">
                       Sim
                     </button>
-                    <button
-                      class="btn btn-white-no-border"
-                      style="width: 50% !important; padding: 10px 0 !important"
-                    >
+                    <button :class="`btn ${whatsappYes == 'Não'
+                      ? 'btn-reds'
+                      : 'btn-white-no-border'
+                      }`" style="width: 50% !important; padding: 10px 0 !important" @click="handleWhats('Não')">
                       Não
                     </button>
                   </div>
                 </div>
 
-                <div
-                  class="form-group mt-3"
-                  style="display: flex; flex-direction: column"
-                >
-                  <span style="font-size: 13px; font-weight: 600"
-                    >Telefone Principal?</span
-                  >
+                <div class="form-group mt-3" style="display: flex; flex-direction: column">
+                  <span style="font-size: 13px; font-weight: 600">Telefone Principal?</span>
                   <div style="width: 100%">
-                    <button
-                      class="btn btn-green"
-                      style="width: 50% !important; padding: 10px 0 !important"
-                    >
+                    <button :class="`btn ${principalYes == 'Sim'
+                      ? 'btn-green'
+                      : 'btn-white-no-border'
+                      }`" style="width: 50% !important; padding: 10px 0 !important" @click="handlePrincipal('Sim')">
                       Sim
                     </button>
-                    <button
-                      class="btn btn-white-no-border"
-                      style="width: 50% !important; padding: 10px 0 !important"
-                    >
+                    <button :class="`btn ${principalYes == 'Não'
+                      ? 'btn-reds'
+                      : 'btn-white-no-border'
+                      }`" style="width: 50% !important; padding: 10px 0 !important" @click="handlePrincipal('Não')">
                       Não
                     </button>
                   </div>
                 </div>
 
                 <div class="form-group mt-3">
-                  <span style="font-size: 13px; font-weight: 600"
-                    >Breve descrição</span
-                  >
-                  <input
-                    type="text"
-                    placeholder="Ex: Celular"
-                    class="form-control"
-                    style="height: 40px"
-                  />
+                  <span style="font-size: 13px; font-weight: 600">Breve descrição</span>
+                  <input type="text" placeholder="Ex: Celular" class="form-control" style="height: 40px"
+                    v-model="breveDescricao" />
                 </div>
               </div>
-              <div
-                class="form-group"
-                style="
+              <div class="form-group" style="
                   background-color: #fff;
                   padding: 1rem 18px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                "
-              >
-                <button
-                  type="button"
-                  class="btn btn-greenHover"
-                  style="width: 100%; padding: 15px 0 !important"
-                >
+                ">
+                <button type="button" class="btn btn-greenHover" style="width: 100%; padding: 15px 0 !important"
+                  @click="handleAddTelefone">
                   Concluir
                 </button>
               </div>
@@ -1598,27 +1091,12 @@
         </div>
 
         <!-- Modal para ligar pessoas -->
-        <div
-          class="modal fade modalTelefone"
-          id="modalLigarPessoa"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="modalLigarPessoa"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-sm"
-            style="padding-top: 150px; margin-right: 12%"
-            role="document"
-          >
+        <div class="modal fade modalTelefone" id="modalLigarPessoa" tabindex="-1" role="dialog"
+          aria-labelledby="modalLigarPessoa" aria-hidden="true">
+          <div class="modal-dialog modal-sm" style="padding-top: 150px; margin-right: 12%" role="document">
             <div class="modal-content">
               <!-- <div class="modal-header"> -->
-              <button
-                type="button"
-                class="close custom-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
+              <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
               <!-- </div> -->
@@ -1628,13 +1106,8 @@
                 <div class="form-group mt-3">
                   <label for="client" style="font-weight: 600">Cliente</label>
                   <div class="custom-select" ref="selectContainerPessoa">
-                    <div
-                      class="select-box"
-                      @click="toggleDropdownPessoa"
-                      :aria-expanded="isOpenPessoa.toString()"
-                      role="button"
-                      tabindex="0"
-                    >
+                    <div class="select-box" @click="toggleDropdownPessoa" :aria-expanded="isOpenPessoa.toString()"
+                      role="button" tabindex="0">
                       <span v-if="selectedOptionPessoa">{{
                         selectedOptionPessoa.name
                       }}</span>
@@ -1643,38 +1116,24 @@
                     </div>
                     <ul v-if="isOpenPessoa" class="options-list">
                       <li @click="addClient" style="background-color: #f1f4f9">
-                        <button
-                          class="btn"
-                          style="
+                        <button class="btn" style="
                             color: #026da6;
                             display: flex;
                             align-items: center;
                             font-weight: 600;
-                          "
-                        >
-                          <img
-                            :src="plusCircle"
-                            style="width: 12px; height: 12px; margin-right: 6px"
-                          />Adicionar
+                          ">
+                          <img :src="plusCircle" style="width: 12px; height: 12px; margin-right: 6px" />Adicionar
                         </button>
                       </li>
-                      <li
-                        v-for="client in clients"
-                        :key="client.value"
-                        @click="selectOptionPessoa(client)"
-                      >
+                      <li v-for="client in clients" :key="client.value" @click="selectOptionPessoa(client)">
                         <div style="display: flex; flex-direction: column">
-                          <span
-                            >{{ client.name }}
-                            <img
-                              :src="userIcon"
-                              style="
+                          <span>{{ client.name }}
+                            <img :src="userIcon" style="
                                 width: 12px;
                                 height: 12px;
                                 margin-bottom: 2px;
                                 margin-left: 2px;
-                              "
-                            />
+                              " />
                           </span>
                           <span class="">{{ client.phone }}</span>
                         </div>
@@ -1684,32 +1143,18 @@
                 </div>
 
                 <div class="form-group mt-3">
-                  <span style="font-size: 13px; font-weight: 600"
-                    >Descrição</span
-                  >
-                  <input
-                    type="text"
-                    placeholder="Ex: Conjuge"
-                    class="form-control"
-                    style="height: 40px"
-                  />
+                  <span style="font-size: 13px; font-weight: 600">Descrição</span>
+                  <input type="text" placeholder="Ex: Conjuge" class="form-control" style="height: 40px" />
                 </div>
               </div>
-              <div
-                class="form-group"
-                style="
+              <div class="form-group" style="
                   background-color: #fff;
                   padding: 1rem 18px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                "
-              >
-                <button
-                  type="button"
-                  class="btn btn-greenHover"
-                  style="width: 100%; padding: 15px 0 !important"
-                >
+                ">
+                <button type="button" class="btn btn-greenHover" style="width: 100%; padding: 15px 0 !important">
                   Adicionar
                 </button>
               </div>
@@ -1718,101 +1163,52 @@
         </div>
 
         <!-- Modal de cadastro completo -->
-        <div
-          class="modal fade"
-          id="myModalComplete"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="myModalComplete"
-          aria-hidden="true"
-          ref="myModalComplete"
-        >
-          <div
-            class="modal-dialog modal-xl"
-            style="padding-top: 20px"
-            role="document"
-          >
+        <div class="modal fade" id="myModalComplete" tabindex="-1" role="dialog" aria-labelledby="myModalComplete"
+          aria-hidden="true" ref="myModalComplete">
+          <div class="modal-dialog modal-xl" style="padding-top: 20px" role="document">
             <div class="modal-content">
-              <div
-                class="modal-header"
-                style="
+              <div class="modal-header" style="
                   display: flex;
                   flex-direction: column;
                   width: 100%;
                   align-items: flex-start;
-                "
-              >
-                <div
-                  v-if="msgClienteSuccess"
-                  class="alert alert-success"
-                  role="alert"
-                  style="width: 100%"
-                >
+                ">
+                <div v-if="msgClienteSuccess" class="alert alert-success" role="alert" style="width: 100%">
                   Cliente Criado com sucesso
                 </div>
-                <div
-                  v-if="msgClienteError"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgClienteError" class="alert alert-danger" role="alert" style="width: 100%">
                   Falha ao criar o cliente
                 </div>
-                <div
-                  v-if="msgClienteErrorSemCampos"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgClienteErrorSemCampos" class="alert alert-danger" role="alert" style="width: 100%">
                   Preencha os campos obrigatórios!
                 </div>
                 <div style="display: flex; flex-direction: row; width: 100%">
-                  <h5
-                    class="modal-title col-4"
-                    style="font-size: 15px; font-weight: 600"
-                    id="exampleModalLabel"
-                  >
+                  <h5 class="modal-title col-4" style="font-size: 15px; font-weight: 600" id="exampleModalLabel">
                     Cadastrar Clientes
                   </h5>
 
-                  <div
-                    class="form-group col-8"
-                    style="
+                  <div class="form-group col-8" style="
                       display: flex;
                       align-items: center;
                       justify-content: flex-end;
-                    "
-                  >
-                    <label
-                      class="col-3"
-                      for="corretorResponsavel"
-                      style="font-size: 14px; font-weight: 600"
-                      >Corretor Responsável</label
-                    >
-                    <select
-                      class="form-floating col-4"
-                      id="corretorResponsavel"
-                      v-model="corretorResponsavel"
-                      style="
+                    ">
+                    <label class="col-3" for="corretorResponsavel" style="font-size: 14px; font-weight: 600">Corretor
+                      Responsável</label>
+                    <select class="form-floating col-4" id="corretorResponsavel" v-model="corretorResponsavel" style="
                         height: 40px;
                         border: 1px solid #dee2e6;
                         padding-left: 8px;
-                      "
-                    >
-                      <option value="" disabled selected hidden>
-                        Selecione
+                      ">
+                      <option value="" disabled hidden>Selecione</option>
+                      <option :value="`${userName} ${userSobrenome}`">
+                        {{ userName }} {{ userSobrenome }}
                       </option>
-                      <option value="Rodrigo Castelo">Rodrigo Castelo</option>
-                      <option value="corretor2">Corretor 2</option>
                     </select>
+
+
                   </div>
                 </div>
-                <button
-                  type="button"
-                  class="close custom-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -1820,251 +1216,127 @@
               <div class="modal-body" style="padding: 0 0">
                 <div class="row">
                   <!-- Esquerda: Inputs e Selects com linha divisória -->
-                  <div
-                    class="col-9"
-                    style="
+                  <div class="col-9" style="
                       border-right: 1px solid #ced4da;
                       padding-right: 15px;
                       padding-left: 25px;
                       padding-top: 20px;
                       padding-bottom: 20px;
-                    "
-                  >
+                    ">
                     <div class="row">
                       <div class="form-group col-3">
-                        <label
-                          for="categoria"
-                          style="font-size: 13px; font-weight: 600"
-                          >Categoria</label
-                        ><strong class="text-danger">*</strong>
-                        <select
-                          class="form-floating"
-                          id="categoria"
-                          v-model="categoria"
-                          style="
+                        <label for="categoria" style="font-size: 13px; font-weight: 600">Categoria</label><strong
+                          class="text-danger">*</strong>
+                        <select class="form-floating" id="categoria" v-model="categoria" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option
-                            v-for="item in allCategorias"
-                            :value="item.categoria_cliente"
-                          >
+                          <option v-for="item in allCategorias" :value="item.categoria_cliente">
                             {{ item.categoria_cliente }}
                           </option>
                         </select>
                       </div>
 
                       <div class="form-group col-3">
-                        <label
-                          for="origemCaptacao"
-                          style="font-size: 13px; font-weight: 600"
-                          >Origem de Captação</label
-                        ><strong class="text-danger">*</strong>
-                        <select
-                          class="form-floating"
-                          id="origemCaptacao"
-                          v-model="origemCaptacao"
-                          style="
+                        <label for="origemCaptacao" style="font-size: 13px; font-weight: 600">Origem de
+                          Captação</label><strong class="text-danger">*</strong>
+                        <select class="form-floating" id="origemCaptacao" v-model="origemCaptacao" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option
-                            v-for="item in allOrigensCapitacao"
-                            :value="item.origem_captacao"
-                          >
+                          <option v-for="item in allOrigensCapitacao" :value="item.origem_captacao">
                             {{ item.origem_captacao }}
                           </option>
                         </select>
                       </div>
 
                       <div class="form-group col-2">
-                        <label
-                          for="tipoCliente"
-                          style="font-size: 13px; font-weight: 600"
-                          >Tipo de Cliente</label
-                        >
-                        <select
-                          class="form-floating"
-                          id="tipoCliente"
-                          v-model="tipoCliente"
-                          style="
+                        <label for="tipoCliente" style="font-size: 13px; font-weight: 600">Tipo de Cliente</label>
+                        <select class="form-floating" id="tipoCliente" v-model="tipoCliente" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
-                          <option
-                            v-for="item in allTiposClientes"
-                            :value="item.tipo_cliente"
-                          >
+                          ">
+                          <option v-for="item in allTiposClientes" :value="item.tipo_cliente">
                             {{ item.tipo_cliente }}
                           </option>
                         </select>
                       </div>
 
                       <div class="form-group col-2">
-                        <label
-                          for="cpf"
-                          style="font-size: 13px; font-weight: 600"
-                          >CPF</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="cpf"
-                          v-model="cpf"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="cpf" style="font-size: 13px; font-weight: 600">CPF</label>
+                        <input type="number" class="form-control" id="cpf" v-model="cpf" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-2">
-                        <label
-                          for="cpf"
-                          style="font-size: 13px; font-weight: 600"
-                          >RG</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="rg"
-                          v-model="rg"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="cpf" style="font-size: 13px; font-weight: 600">RG</label>
+                        <input type="number" class="form-control" id="rg" v-model="rg" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="nome"
-                          style="font-size: 13px; font-weight: 600"
-                          >Nome</label
-                        ><strong class="text-danger">*</strong>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nome"
-                          v-model="nome"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="nome" style="font-size: 13px; font-weight: 600">Nome</label><strong
+                          class="text-danger">*</strong>
+                        <input type="text" class="form-control" id="nome" v-model="nome" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="email"
-                          style="font-size: 13px; font-weight: 600"
-                          >Email</label
-                        >
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email"
-                          v-model="email"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="email" style="font-size: 13px; font-weight: 600">Email</label>
+                        <input type="email" class="form-control" id="email" v-model="email" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="dataNascimento"
-                          style="font-size: 13px; font-weight: 600"
-                          >Data de Nascimento</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="dataNascimento"
-                          v-model="dataNascimento"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="dataNascimento" style="font-size: 13px; font-weight: 600">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                          placeholder="Digite..." style="height: 40px" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="profissao"
-                          style="font-size: 13px; font-weight: 600"
-                          >Profissão</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="profissao"
-                          v-model="profissao"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="profissao" style="font-size: 13px; font-weight: 600">Profissão</label>
+                        <input type="text" class="form-control" id="profissao" v-model="profissao"
+                          placeholder="Digite..." style="height: 40px" />
                       </div>
 
                       <div class="form-group col-2 mt-3">
-                        <label
-                          for="profissao"
-                          style="font-size: 13px; font-weight: 600"
-                          >CEP</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="cep"
-                          v-model="cep"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="profissao" style="font-size: 13px; font-weight: 600">CEP</label>
+                        <input type="text" class="form-control" id="cep" v-model="cep" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-2 mt-3">
-                        <label
-                          for="pais"
-                          style="font-size: 13px; font-weight: 600"
-                          >País</label
-                        >
-                        <select
-                          class="form-floating"
-                          id="pais"
-                          v-model="pais"
-                          style="
+                        <label for="pais" style="font-size: 13px; font-weight: 600">País</label>
+                        <select class="form-floating" id="pais" v-model="pais" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="Brasil">Brasil</option>
                         </select>
                       </div>
 
                       <div class="form-group col-2 mt-3">
-                        <label
-                          for="uf"
-                          style="font-size: 13px; font-weight: 600"
-                          >UF</label
-                        >
-                        <select
-                          class="form-floating"
-                          id="uf"
-                          v-model="uf"
-                          style="
+                        <label for="uf" style="font-size: 13px; font-weight: 600">UF</label>
+                        <select class="form-floating" id="uf" v-model="uf" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
@@ -2073,25 +1345,14 @@
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="cidade"
-                          style="font-size: 13px; font-weight: 600"
-                          >Cidade
-                          <span style="color: #0084f4"
-                            >(Cadastrar nova)</span
-                          ></label
-                        >
-                        <select
-                          class="form-floating"
-                          id="cidade"
-                          v-model="cidade"
-                          style="
+                        <label for="cidade" style="font-size: 13px; font-weight: 600">Cidade
+                          <span style="color: #0084f4">(Cadastrar nova)</span></label>
+                        <select class="form-floating" id="cidade" v-model="cidade" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
@@ -2100,25 +1361,14 @@
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="bairro"
-                          style="font-size: 13px; font-weight: 600"
-                          >Bairro
-                          <span style="color: #0084f4"
-                            >(Cadastrar novo)</span
-                          ></label
-                        >
-                        <select
-                          class="form-floating"
-                          id="bairro"
-                          v-model="bairro"
-                          style="
+                        <label for="bairro" style="font-size: 13px; font-weight: 600">Bairro
+                          <span style="color: #0084f4">(Cadastrar novo)</span></label>
+                        <select class="form-floating" id="bairro" v-model="bairro" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
-                          "
-                        >
+                          ">
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
@@ -2127,91 +1377,43 @@
                       </div>
 
                       <div class="form-group col-4 mt-3">
-                        <label
-                          for="logradouro"
-                          style="font-size: 13px; font-weight: 600"
-                          >Logradouro</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="logradouro"
-                          v-model="logradouro"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="logradouro" style="font-size: 13px; font-weight: 600">Logradouro</label>
+                        <input type="text" class="form-control" id="logradouro" v-model="logradouro"
+                          placeholder="Digite..." style="height: 40px" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
-                        <label
-                          for="numero"
-                          style="font-size: 13px; font-weight: 600"
-                          >Número</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="numero"
-                          v-model="numero"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="numero" style="font-size: 13px; font-weight: 600">Número</label>
+                        <input type="text" class="form-control" id="numero" v-model="numero" placeholder="Digite..."
+                          style="height: 40px" />
                       </div>
 
                       <div class="form-group col-5 mt-3">
-                        <label
-                          for="complemento"
-                          style="font-size: 13px; font-weight: 600"
-                          >Complemento</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="complemento"
-                          v-model="complemento"
-                          placeholder="Digite..."
-                          style="height: 40px"
-                        />
+                        <label for="complemento" style="font-size: 13px; font-weight: 600">Complemento</label>
+                        <input type="text" class="form-control" id="complemento" v-model="complemento"
+                          placeholder="Digite..." style="height: 40px" />
                       </div>
 
                       <div class="form-group col-12 mt-3">
-                        <label
-                          for="anotacoes"
-                          style="font-size: 13px; font-weight: 600"
-                        >
+                        <label for="anotacoes" style="font-size: 13px; font-weight: 600">
                           Anotações
-                          <img
-                            :src="InterrSvg"
-                            class="ms-2"
-                            style="width: 12px; height: 12px"
-                          />
+                          <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
                         </label>
-                        <Editor
-                          ref="editorComponent"
-                          api-key="a0eo66lpqzpu1anhsfgh9ru0bp7id447c6hsvz9cgexp82oh"
-                          :init="{
-                            toolbar_mode: 'sliding',
-                            plugins:
-                              'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                            toolbar:
-                              'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                            height: 150,
-                            menubar: false,
-                            branding: false,
-                          }"
-                          v-model="termos"
-                          @editorChange="handleEditorChange"
-                        />
+                        <Editor ref="editorComponent" api-key="a0eo66lpqzpu1anhsfgh9ru0bp7id447c6hsvz9cgexp82oh" :init="{
+                          toolbar_mode: 'sliding',
+                          plugins:
+                            'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                          toolbar:
+                            'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                          height: 150,
+                          menubar: false,
+                          branding: false,
+                          entity_encoding: 'raw',
+                        }" v-model="termos" @editorChange="handleEditorChange" />
                       </div>
                     </div>
-                    <div
-                      class="modal-footer mt-4"
-                      style="display: flex; justify-content: space-between"
-                    >
-                      <button
-                        type="button"
-                        class="btn btnModal"
-                        style="
+                    <div class="modal-footer mt-4" style="display: flex; justify-content: space-between">
+                      <button type="button" class="btn btnModal" style="
                           padding: 10px 15px;
                           border: 1px solid #d3dceb;
                           background-color: #fff;
@@ -2220,15 +1422,10 @@
                           font-size: 1em;
                           font-weight: 600;
                           cursor: pointer;
-                        "
-                        data-bs-dismiss="modal"
-                      >
+                        " data-bs-dismiss="modal">
                         Cancelar
                       </button>
-                      <button
-                        type="button"
-                        class="btn btnModal2"
-                        style="
+                      <button type="button" class="btn btnModal2" style="
                           padding: 10px 15px;
                           border: 1px solid #d3dceb;
                           color: #fff;
@@ -2238,49 +1435,47 @@
                           font-size: 1em;
                           font-weight: 600;
                           cursor: pointer;
-                        "
-                        @click="cadastraCliente()"
-                      >
+                        " @click="cadastraCliente()">
                         {{ textAddCliente }}
                       </button>
                     </div>
                   </div>
 
                   <!-- Direita: Select Corretor, Títulos e Botão -->
-                  <div
-                    class="col-3"
-                    style="
+                  <div class="col-3" style="
                       padding-bottom: 20px;
                       padding-right: 12px;
                       padding-left: 0;
-                    "
-                  >
-                    <div
-                      class="mt-4"
-                      style="
+                    ">
+                    <div class="mt-4" style="
                         padding-left: 15px;
                         padding-bottom: 20px;
                         border-bottom: 1px solid #ced4da;
-                      "
-                    >
+                      ">
                       <h5 style="font-size: 14px; font-weight: 600">
                         Telefones
                       </h5>
-                      <p
-                        class="text-muted"
-                        style="
+                      <p v-if="alltelefones.length == 0" class="text-muted" style="
                           font-size: 12px;
                           font-weight: 500;
                           margin-bottom: 5px;
-                        "
-                      >
+                        ">
                         Você ainda não cadastrou nenhum telefone.
                       </p>
-                      <button
-                        type="button "
-                        class="btn btnModal"
-                        @click="openSecondModal"
-                        style="
+                      <div v-if="alltelefones.length > 0" v-for="(item, index) in alltelefones" style="display: flex; 
+                        justify-content: space-between; 
+                        align-items: center;
+                        padding: 0 10px; 
+                        margin-bottom: 1rem; 
+                        margin-top: 1rem;">
+                        <h2 style="font-size: 13px; font-weight: 500">
+                          {{ item.NumTelefone }} ({{ item.Descricao }})
+                        </h2>
+                        <img style="width: 14px; height: 14px; margin-bottom: 10px; cursor: pointer"
+                          @click="handleDelete(index)" :src="trashIcon"></img>
+                      </div>
+                      <button type="button " class="btn btnModal" v-if="alltelefones.length < 2"
+                        @click="openSecondModal" style="
                           padding: 5px 15px;
                           border: 1px solid #d3dceb;
                           background-color: #fff;
@@ -2289,8 +1484,7 @@
                           font-size: 0.9em;
                           font-weight: 600;
                           cursor: pointer;
-                        "
-                      >
+                        ">
                         Adicionar telefones
                       </button>
                     </div>
@@ -2299,21 +1493,14 @@
                       <h5 style="font-size: 14px; font-weight: 600">
                         Pessoas Ligadas
                       </h5>
-                      <p
-                        class="text-muted"
-                        style="
+                      <p class="text-muted" style="
                           font-size: 12px;
                           font-weight: 500;
                           margin-bottom: 5px;
-                        "
-                      >
+                        ">
                         Você ainda não ligou nenhuma pessoa a esse cliente.
                       </p>
-                      <button
-                        type="button "
-                        class="btn btnModal"
-                        @click="openLigarPessoaModal"
-                        style="
+                      <button type="button " class="btn btnModal" @click="openLigarPessoaModal" style="
                           padding: 5px 15px;
                           border: 1px solid #d3dceb;
                           background-color: #fff;
@@ -2322,8 +1509,7 @@
                           font-size: 0.9em;
                           font-weight: 600;
                           cursor: pointer;
-                        "
-                      >
+                        ">
                         Ligar pessoa
                       </button>
                     </div>
@@ -2350,6 +1536,7 @@ import graphBarLaterCrmComp from "@/components/graph/graphBarLaterCrmComp.vue";
 import userIcon from "../../../../assets/images/icons/userIconBlue.svg";
 import plusCircle from "../../../../assets/images/icons/plusCircle.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
+import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import Editor from "@tinymce/tinymce-vue";
 import api from "../../../../service/api/index";
 import { jwtDecode } from "jwt-decode";
@@ -2377,6 +1564,7 @@ export default {
       userIcon,
       plusCircle,
       InterrSvg,
+      trashIcon,
 
       posicao: "", // Variável para armazenar o contato selecionado
       posicoes: [], // Variável para armazenar o contato selecionado
@@ -2462,16 +1650,52 @@ export default {
       msgClienteErrorSemCampos: false,
       msgClienteError: false,
       textAddCliente: "Cadastrar",
+
+      whatsappYes: "Sim",
+      principalYes: "Sim",
+      breveDescricao: "",
+      alltelefones: [],
     };
   },
   methods: {
+    handleDelete(index) {
+      this.alltelefones.splice(index, 1);
+    },
+    handleAddTelefone() {
+      this.alltelefones.push({
+        NumTelefone: this.telefone,
+        TemWhatsapp: this.whatsappYes,
+        EPrincipal: this.principalYes,
+        Descricao: this.breveDescricao,
+      });
+
+      const modalTelefone = bootstrap.Modal.getInstance(
+        this.$refs.modalAdicionarTelefoneLabel
+      );
+
+      if (modalTelefone) {
+        modalTelefone.hide();
+      }
+      this.telefone = "";
+      this.whatsappYes = "Sim";
+      this.principalYes = "Sim";
+      this.breveDescricao = "";
+      // console.log(this.alltelefones, this.selectedCode);
+    },
+    handleWhats(event) {
+      this.whatsappYes = event;
+    },
+    handlePrincipal(event) {
+      this.principalYes = event;
+    },
     handleAddOrigemCaptacao() {
       console.log("Clique");
     },
     handleEditorChange(content) {
-      // this.termos = content.replace(/(<([^>]+)>)/gi, "");
+      this.termos = content.replace(/<\/?p[^>]*>/g, "");
+
       // const editor = tinymce.get(this.$refs.editorComponent.id);
-      this.textContent = content.replace(/<\/?[^>]+(>|$)/g, "");
+      // this.textContent = content.replace(/<\/?[^>]+(>|$)/g, "");
     },
     selecionarPais(pais) {
       this.selectedFlag = pais.flag;
@@ -2655,9 +1879,8 @@ export default {
       let logradouro = this.logradouro;
       let numero = Number(this.numero);
       let complemento = this.numero;
-      // let anotacao = this.termos;
-      const anotacao = this.termos.replace(/<\/?[^>]+(>|$)/g, "");
-      let telefone1 = "61 99999-9999";
+      let anotacao = this.termos.replace(/<\/?p[^>]*>/gi, "");
+      let telefone1 = "";
       let telefone2 = "";
       let idUser = this.id_user;
 
@@ -2668,11 +1891,22 @@ export default {
         (categoria) => categoria.categoria_cliente === this.categoria
       )?.id_categoria_cliente;
 
+      if (this.alltelefones.length > 0) {
+        // console.log(this.alltelefones[0].NumTelefone)
+        telefone1 = this.alltelefones[0].NumTelefone; // Primeiro telefone
+      }
+
+      if (this.alltelefones.length == 2) {
+        // console.log(this.alltelefones[1].NumTelefone)
+        telefone2 = this.alltelefones[1].NumTelefone; // Segundo telefone
+      }
+
       // console.log(this.allOrigensCapitacao);
       // console.log(idCaptacao, idCategoriaCliente);
       // console.log(this.origemCaptacao, this.categoria);
       // console.log(this.allOrigensCapitacao, this.allCategorias);
-      console.log(dataDeNascimento);
+      // console.log(dataDeNascimento);
+      // console.log(anotacao)
       if (
         this.nome != "" &&
         this.categoria != "" &&
@@ -2865,92 +2099,153 @@ export default {
 .modal {
   z-index: 1050 !important;
 }
+
 .modalTelefone {
   z-index: 1060 !important;
 }
+
 /* Custom styles for reducing font size */
 .custom-nav-link {
-  font-size: 0.79rem; /* Smaller font size */
-  font-weight: 400; /* Increased font-weight */
+  font-size: 0.79rem;
+  /* Smaller font size */
+  font-weight: 400;
+  /* Increased font-weight */
 }
+
 .custom-select {
-  font-size: 0.75rem; /* Smaller font size */
+  font-size: 0.75rem;
+  /* Smaller font size */
 }
 
 .btn-oranges {
-  color: #fff; /* Texto branco */
-  border: none; /* Remove a borda padrão */
+  color: #fff;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
   background-color: #ff9702;
-  box-shadow: 0 0 5px rgba(255, 151, 2, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6); /* Sombra laranja */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  box-shadow: 0 0 5px rgba(255, 151, 2, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
 }
 
 .btn-blues {
-  color: #fff; /* Texto branco */
-  border: none; /* Remove a borda padrão */
+  color: #fff;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
   background-color: #0084f4;
-  box-shadow: 0 0 5px rgba(0, 132, 255, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6); /* Sombra laranja */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  box-shadow: 0 0 5px rgba(0, 132, 255, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
 }
 
 .btn-white {
-  color: #000; /* Texto branco */
-  border: none; /* Remove a borda padrão */
+  color: #000;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(41, 41, 40, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6); /* Sombra laranja */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  box-shadow: 0 0 5px rgba(41, 41, 40, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
 }
 
 .btn-white-no-border {
-  color: #000; /* Texto branco */
-  border: 1px solid #d3dceb; /* Remove a borda padrão */
+  color: #000;
+  /* Texto branco */
+  border: 1px solid #d3dceb;
+  /* Remove a borda padrão */
   background-color: #fff;
 }
 
 .btn-green {
-  color: #fff; /* Texto branco */
-  border: none; /* Remove a borda padrão */
+  color: #fff;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
   background-color: #31d084;
-  box-shadow: 0 0 5px rgba(146, 255, 138, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6); /* Sombra laranja */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  box-shadow: 0 0 5px rgba(146, 255, 138, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
 }
+
+.btn-reds {
+  color: #fff;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
+  background-color: #f84343;
+  box-shadow: 0 0 5px rgba(248, 67, 67, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
+}
+
 .btn-greenHover {
-  color: #fff; /* Texto branco */
-  border: none; /* Remove a borda padrão */
+  color: #fff;
+  /* Texto branco */
+  border: none;
+  /* Remove a borda padrão */
   background-color: #31d084;
-  box-shadow: 0 0 5px rgba(146, 255, 138, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6); /* Sombra laranja */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  box-shadow: 0 0 5px rgba(146, 255, 138, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
+  /* Sombra laranja */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
 }
 
 .btn-oranges:hover {
-  background-color: #af6901; /* Laranja mais escuro ao passar o mouse */
-  color: #fff; /* Garantir que o texto permaneça branco */
+  background-color: #af6901;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #fff;
+  /* Garantir que o texto permaneça branco */
 }
+
 .btn-blues:hover {
-  background-color: #0072e5; /* Laranja mais escuro ao passar o mouse */
-  color: #fff; /* Garantir que o texto permaneça branco */
+  background-color: #0072e5;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #fff;
+  /* Garantir que o texto permaneça branco */
 }
+
 .btn-white:hover {
-  background-color: #efeeee; /* Laranja mais escuro ao passar o mouse */
-  color: #000; /* Garantir que o texto permaneça branco */
+  background-color: #efeeee;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #000;
+  /* Garantir que o texto permaneça branco */
 }
+
 .btn-white-no-border:hover {
   border: 1px solid #d3dceb;
-  background-color: #fff; /* Laranja mais escuro ao passar o mouse */
-  color: #000; /* Garantir que o texto permaneça branco */
+  background-color: #fff;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #000;
+  /* Garantir que o texto permaneça branco */
 }
+
 .btn-green:hover {
-  background-color: #31d084; /* Laranja mais escuro ao passar o mouse */
-  color: #fff; /* Garantir que o texto permaneça branco */
+  background-color: #31d084;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #fff;
+  /* Garantir que o texto permaneça branco */
 }
+
 .btn-greenHover:hover {
-  background-color: #33b476; /* Laranja mais escuro ao passar o mouse */
-  color: #fff; /* Garantir que o texto permaneça branco */
+  background-color: #33b476;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #fff;
+  /* Garantir que o texto permaneça branco */
 }
+
 .custom-close {
   position: absolute;
-  top: -25px; /* Ajuste a posição vertical */
-  right: -20px; /* Ajuste a posição horizontal */
+  top: -25px;
+  /* Ajuste a posição vertical */
+  right: -20px;
+  /* Ajuste a posição horizontal */
   background-color: #fff;
   border-radius: 1.2rem;
   border: none;
@@ -3026,9 +2321,12 @@ export default {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 200px; /* Optional: limit the height of the dropdown */
-  overflow-y: auto; /* Optional: enable scrolling if content is too long */
-  z-index: 1000; /* Ensures the dropdown appears above other elements */
+  max-height: 200px;
+  /* Optional: limit the height of the dropdown */
+  overflow-y: auto;
+  /* Optional: enable scrolling if content is too long */
+  z-index: 1000;
+  /* Ensures the dropdown appears above other elements */
 }
 
 .options-list li {
@@ -3043,12 +2341,15 @@ export default {
 .btnModal:hover {
   background-color: #e8e8e8 !important;
 }
+
 .btnModal2:hover {
   background-color: #28b472 !important;
 }
+
 .modal-header,
 .modal-body,
 .modal-footer {
-  background-color: #fff; /* Garante que cada seção tenha fundo branco */
+  background-color: #fff;
+  /* Garante que cada seção tenha fundo branco */
 }
 </style>
