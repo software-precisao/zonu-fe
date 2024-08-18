@@ -52,6 +52,7 @@ import CrmClientCompatView from "@/views/dashboard/crm/CrmClientCompatView.vue";
 import CrmImovCompatView from "@/views/dashboard/crm/CrmImovCompatView.vue";
 import CrmNegoEncerView from "@/views/dashboard/crm/CrmNegoEncerView.vue";
 import CrmShareImovView from "@/views/dashboard/crm/CrmShareImovView.vue";
+import CrmEditarFunilView from "@/views/dashboard/crm/CrmEditarFunilView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -268,6 +269,20 @@ const routes = [
     path: "/seu-crmshareimov/:hash",
     name: "CrmShareImovWithHash",
     component: CrmShareImovView,
+  },
+  {
+    path: "/seu-crmeditfunil",
+    name: "crmeditfunil",
+    component: CrmEditarFunilView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-crmeditfunil/${hash}`);
+    },
+  },
+  {
+    path: "/seu-crmeditfunil/:hash",
+    name: "CrmEditFunilWithHash",
+    component: CrmEditarFunilView,
   },
 
   {

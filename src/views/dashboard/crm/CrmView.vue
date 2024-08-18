@@ -20,24 +20,9 @@
               Visão geral
             </h4>
             <div style="display: flex; align-items: center">
-              <select class="form-select" v-model="graphType" style="height: 30px; font-size: 13px; font-weight: 600">
-                <option value="" style="font-weight: 600">
-                  Vita Studios Manaíra (54 negócios)
-                </option>
-                <option value="op2" style="font-weight: 600">
-                  Aluguel (37 negócios)
-                </option>
-                <option value="op3" style="font-weight: 600">
-                  Farol das Antilhas (1 negócio)
-                </option>
-                <option value="op4" style="font-weight: 600">
-                  Padrão (0 negócios)
-                </option>
-                <option value="op5" style="font-weight: 600">
-                  Teste (0 negócios)
-                </option>
-                <option value="op6" style="font-weight: 600">
-                  Venda (247 negócios)
+              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect" style="height: 30px; font-size: 13px; font-weight: 600">
+                <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis" v-if="funis.length > 0">
+                  {{funil.nome_funil}} ({{qtdNegoicos}} negócios)
                 </option>
               </select>
 
@@ -232,9 +217,9 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-6 mb-4">
-                        <div class="mb-2" v-for="(etapa, index) in etapas" :key="etapa.nome">
+                        <div class="mb-2" v-for="(etapa, index) in etapas" :key="etapa.nome_etapa">
                           <div class="card-body d-flex justify-content-between align-items-center" :style="{
-                            width: `${etapa.vgv}%`,
+                            width: `${100 - index * 2}%`,
                             backgroundColor: calculateBarColor(index),
                             color: '#fff',
                             borderRadius: '10px',
@@ -242,18 +227,18 @@
                           }">
                             <div>
                               <h6 class="mb-0" style="color: #fff">
-                                {{ etapa.nome }}
+                                {{ etapa.nome_etapa }}
                               </h6>
                             </div>
                             <div class="text-end">
-                              <h5 style="color: #fff">{{ etapa.qtd }}</h5>
+                              <h5 style="color: #fff">3</h5>
                               <p class="mb-0">
-                                R$
-                                {{
+                                R$ 2.000,00
+                                <!-- {{
                                   etapa.valor.toLocaleString("pt-BR", {
                                     minimumFractionDigits: 2,
                                   })
-                                }}
+                                }} -->
                               </p>
                             </div>
                           </div>
@@ -632,8 +617,8 @@
                       <option value="" disabled selected hidden>
                         Selecione uma opção
                       </option>
-                      <option v-for="item in posicoes" :value="item.tipo_posicao">
-                        {{ item.tipo_posicao }}
+                      <option v-for="item in posicoes" :value="item.nome_etapa">
+                        {{ item.nome_etapa }}
                       </option>
                     </select>
                   </div>
@@ -1559,7 +1544,7 @@ export default {
       userName: "",
       userSobrenome: "",
 
-      graphType: "",
+      funilSelect: localStorage.getItem("fs") ? localStorage.getItem("fs") : "1",
       youtubeLogo,
       userIcon,
       plusCircle,
@@ -1571,29 +1556,7 @@ export default {
       nivelInteresse: 1,
       selectCliente: "",
 
-      etapas: [
-        { nome: "Contato", qtd: 3, vgv: 100, valor: "748.356,00" },
-        { nome: "Atendimento", qtd: 5, vgv: 98, valor: "1.247.260,00" },
-        { nome: "Procurando Imóvel", qtd: 3, vgv: 96, valor: "748.356,00" },
-        { nome: "Efetuar ligação", qtd: 6, vgv: 94, valor: "1.496.712,00" },
-        { nome: "WhatsApp (Dia 1)", qtd: 0, vgv: 92, valor: "0,00" },
-        { nome: "WhatsApp (Dia 2)", qtd: 0, vgv: 90, valor: "0,00" },
-        { nome: "WhatsApp (Dia 3)", qtd: 0, vgv: 88, valor: "0,00" },
-        { nome: "Aquecimento 01", qtd: 2, vgv: 87, valor: "498.904,00" },
-        { nome: "Aquecimento 02", qtd: 0, vgv: 86, valor: " 0,00" },
-        { nome: "Aquecimento 02", qtd: 0, vgv: 85, valor: "0,00" },
-        { nome: "Aquecimento 02", qtd: 0, vgv: 84, valor: "0,00" },
-        { nome: "Aquecimento 02", qtd: 21, vgv: 83, valor: "5.238.492,00" },
-        { nome: "Agendado Compromisso", qtd: 2, vgv: 82, valor: "498.904,00" },
-        { nome: "Agendamento Longo", qtd: 2, vgv: 81, valor: "498.904,00" },
-        { nome: "Agendado Visita", qtd: 0, vgv: 80, valor: "0,00" },
-        { nome: "Visita Realizada", qtd: 1, vgv: 79, valor: "249.452,00" },
-        { nome: "Proposta", qtd: 0, vgv: 78, valor: "0,00" },
-        { nome: "Documentação", qtd: 0, vgv: 77, valor: "0,00" },
-        { nome: "Assinatura", qtd: 0, vgv: 76, valor: "0,00" },
-        { nome: "Sem Interação", qtd: 0, vgv: 75, valor: "0,00" },
-        { nome: "Descartado", qtd: 9, vgv: 74, valor: "2.245.068,00" },
-      ],
+      etapas: [],
 
       isOpen: false,
       isOpenImovel: false,
@@ -1655,6 +1618,11 @@ export default {
       principalYes: "Sim",
       breveDescricao: "",
       alltelefones: [],
+
+      funis: [],
+      funilporId: [],
+      funilName: "",
+      qtdNegoicos: 0
     };
   },
   methods: {
@@ -1803,11 +1771,11 @@ export default {
       }
     },
 
-    fetchPosicao() {
-      api.getPosicao().then((res) => {
+    fetchPosicao() { 
+      api.getFunilporId(this.funilSelect).then((res) => {
         // console.log("Aqui ta as posições ====> ", res);
         if (res.status === 200) {
-          this.posicoes = res.data;
+          this.posicoes = res.data.etapas;
         }
       });
     },
@@ -1820,6 +1788,7 @@ export default {
         }
       });
     },
+    
     fetchOrigemCaptacao() {
       api.getOrigemCaptacao().then((res) => {
         // console.log("Aqui estão as origens de capitação ====> ", res);
@@ -1846,7 +1815,7 @@ export default {
 
     fetchCliente() {
       api.getCliente().then((res) => {
-        console.log("Aqui esta o cliente ====> ", res);
+        // console.log("Aqui esta o cliente ====> ", res);
         if (res.status === 200) {
           this.allClientes = res.data;
         }
@@ -1855,7 +1824,7 @@ export default {
 
     fetchImoveis() {
       api.listallImoveis().then((res) => {
-        console.log("Aqui estao os imoveis ====> ", res);
+        // console.log("Aqui estao os imoveis ====> ", res);
         if (res.status === 200) {
           this.imovel = res.data;
         }
@@ -1983,10 +1952,10 @@ export default {
       let idNivel = "";
       let idCliente = "";
       let idImovel = "";
-
       this.posicoes.map((posi) => {
-        if (posi.tipo_posicao == this.posicao) {
-          idPosicao = posi.id_posicao;
+        // console.log(posi, this.posicao)
+        if (posi.nome_etapa == this.posicao) {
+          idPosicao = posi.id_etapa;
         }
       });
       idNivel = this.nivelInteresse;
@@ -2041,6 +2010,57 @@ export default {
       }
     },
 
+    fetchFunil() {
+      api.getAllFunil().then((res) => {
+        console.log(res)
+        if(res.status === 200) {
+          this.funis = res.data
+        }
+      })
+    },
+
+    filtrarEtapasFunil() {
+      console.log(this.funilSelect  )
+      localStorage.setItem("fs", this.funilSelect)
+      this.qtdNegoicos = 0
+      api.getFunilporId(this.funilSelect).then((res) => {
+        if(res.status === 200) {
+          this.funilporId = res.data
+          this.etapas = res.data.etapas
+          this.funilName = res.data.nome_funil
+          this.fetchPosicao()
+          this.fetchNegocios()
+        }
+      })
+    },
+
+    fetchFirstEtapas() {
+      api.getFunilporId(this.funilSelect).then((res) => {
+        if(res.status === 200) {
+          this.funilporId = res.data
+          this.etapas = res.data.etapas
+        }
+      })
+    },
+
+    fetchNegocios() {
+      // let qNegocio = 0
+      api.getNegocios().then((res) => {
+        console.log("Aqui estao os negocios ==>", res)
+        if(res.status === 200) {
+          res.data.map((e) => {
+            if(e.Posicao.tipo_posicao == this.funilName) {
+              console.log(e)
+              this.qtdNegoicos = this.qtdNegoicos + 1
+            }  else {
+              console.log("Nao tem negocios")
+            }
+          })
+        }
+      })
+    },
+    
+
     aplicaMascaraDinheiroPrecoImovel(preco) {
       let v = preco;
 
@@ -2084,6 +2104,9 @@ export default {
     this.fetchTipoCliente();
     this.fetchCliente();
     this.fetchImoveis();
+    this.fetchFunil()
+    this.fetchFirstEtapas()
+    this.fetchNegocios()
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);
@@ -2091,9 +2114,9 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .modal-backdrop {
-  z-index: 1040 !important;
+  z-index: 100 !important;
 }
 
 .modal {

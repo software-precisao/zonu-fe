@@ -1392,6 +1392,22 @@ export default {
     }
   },
 
+  deleteNegocios: async (idNegocio) => {
+    try {
+      const response = await http.delete(`/negocios/deletar/${idNegocio}`, {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   getAllLeads: async () => {
     try {
       const response = await http.get("/leads", {
@@ -1436,6 +1452,104 @@ export default {
           Accept: "application/json",
           "Access-Control-Allow-Headers": "*",
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postFunil: async (nomeFunil, diasLimpeza, descricao, etapas) => {
+    try {
+      const response = await http.post(
+        "/funil/cadastrar",
+        {
+          nome_funil: nomeFunil,
+          dias_limpeza: diasLimpeza,
+          descricao: descricao,
+          etapas: etapas,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  putFunil: async (id, nomeFunil, diasLimpeza, descricao, etapas) => {
+    try {
+      const response = await http.put(
+        `/funil/editar/${id}`,
+        {
+          nome_funil: nomeFunil,
+          dias_limpeza: diasLimpeza,
+          descricao: descricao,
+          etapas: etapas,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getAllFunil: async () => {
+    try {
+      const response = await http.get(`/funil/`, {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getFunilporId: async (idFunil) => {
+    try {
+      const response = await http.get(`/funil/${idFunil}`, {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  removeFunil: async (idFunil) => {
+    try {
+      const response = await http.delete(`/funil/deletar/${idFunil}`, {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
         },
       });
 

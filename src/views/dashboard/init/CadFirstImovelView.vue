@@ -63,7 +63,7 @@
     <div class="context">
       <div class="container" v-if="card" style="margin-top: -350px">
         <div class="row">
-          <div class="col-12" style="z-index: 999 !important">
+          <div class="col-12" style="z-index: 92 !important">
             <div class="row d-flex flex-row justify-content-between">
               <div style="width: 19%; margin-right: 1%">
                 <div class="col-xl-12 col-xxl-12 d-flex">
@@ -4627,7 +4627,7 @@
                                     class="btn btn-success"
                                     type="button"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"
+                                    data-bs-target="#exampleModalss"
                                   >
                                     {{ textoBotaoFinish }} &nbsp;<i
                                       class="fa fa-arrow-right"
@@ -4637,8 +4637,8 @@
 
                                   <div
                                     class="modal fade"
-                                    style="z-index: 9999"
-                                    id="exampleModal"
+                                    style="z-index: 1060 !important"
+                                    id="exampleModalss"
                                     tabindex="-1"
                                     aria-labelledby="exampleModalLabel"
                                     aria-hidden="true"
@@ -9178,12 +9178,12 @@ export default {
   data() {
     return {
       messages: [
-        "Estamos Felizes por ter você aqui.",
-        "Prepare-se para uma experiência incrível.",
-        "Conecte-se e explore novas possibilidades.",
-        "Gestão completa para sua construtora.",
-        "Só mais um pouquinho para começar...",
-        "Estamos aqui para ajudar o sua empresa.",
+        // "Estamos Felizes por ter você aqui.",
+        // "Prepare-se para uma experiência incrível.",
+        // "Conecte-se e explore novas possibilidades.",
+        // "Gestão completa para sua construtora.",
+        // "Só mais um pouquinho para começar...",
+        // "Estamos aqui para ajudar o sua empresa.",
       ],
       currentMessageIndex: 0,
       currentMessage: "",
@@ -10623,9 +10623,6 @@ export default {
 <style>
 @import url("../../../../assets/css/config.css");
 .modal-backdrop {
-  z-index: 99 !important; /* Valor menor que o do modal */
-}
-.modal {
-  z-index: 9999 !important; /* Valor maior que o backdrop */
+  z-index: 10 !important;
 }
 </style>
