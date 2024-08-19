@@ -10,15 +10,11 @@
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
-                <div
-                  class="card"
-                  style="
+                <div class="card" style="
                     position: relative;
                     border: 1px solid rgb(211, 220, 235);
-                  "
-                >
-                  <div
-                    style="
+                  ">
+                  <div style="
                       position: absolute;
                       bottom: 95%;
                       left: 98.5%;
@@ -30,15 +26,12 @@
                       display: grid;
                       place-items: center;
                       cursor: pointer;
-                    "
-                  >
+                    ">
                     <i class="align-middle" data-feather="x"></i>
                   </div>
                   <div class="d-flex">
                     <!-- Barra lateral dentro do card -->
-                    <div
-                      class=""
-                      style="
+                    <div class="" style="
                         background-color: rgb(130, 90, 220);
                         width: 15%;
                         display: flex;
@@ -48,212 +41,128 @@
                         color: #fff;
                         border-top-left-radius: 5px;
                         border-bottom-left-radius: 5px;
-                      "
-                    >
-                      <i
-                        class="align-middle"
-                        style="width: 60%; height: 60%"
-                        data-feather="help-circle"
-                      ></i>
+                      ">
+                      <i class="align-middle" style="width: 60%; height: 60%" data-feather="help-circle"></i>
                       <span class="mt-1" style="font-weight: 800">Ajuda</span>
                     </div>
                     <!-- Conteúdo do card -->
                     <div class="card-body flex-fill ms-3">
-                      <h5
-                        class="card-title"
-                        style="color: #000; font-size: 16px; font-weight: 500"
-                      >
+                      <h5 class="card-title" style="color: #000; font-size: 16px; font-weight: 500">
                         Precisa de ajuda?
                       </h5>
-                      <p
-                        class="card-text"
-                        style="color: #000; font-size: 13.5px; font-weight: 400"
-                      >
+                      <p class="card-text" style="color: #000; font-size: 13.5px; font-weight: 400">
                         Separamos alguns tópicos desta área
                       </p>
                       <div style="display: flex; flex-direction: column">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Adicionar negócio ao CRM</a
-                          >
+                            " class="ms-2">Adicionar negócio ao CRM</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Criar Funil</a
-                          >
+                            " class="ms-2">Criar Funil</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Editar Funil</a
-                          >
+                            " class="ms-2">Editar Funil</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Radar de oportunidades</a
-                          >
+                            " class="ms-2">Radar de oportunidades</a>
                         </div>
                       </div>
-                      <div
-                        style="display: flex; flex-direction: column"
-                        class="mt-1"
-                      >
+                      <div style="display: flex; flex-direction: column" class="mt-1">
                         <div style="display: flex">
-                          <img
-                            :src="youtubeLogo"
-                            style="width: 20px; height: 20px"
-                          />
+                          <img :src="youtubeLogo" style="width: 20px; height: 20px" />
 
-                          <a
-                            href="#"
-                            style="
+                          <a href="#" style="
                               text-decoration: none;
                               color: rgb(23, 110, 200);
                               font-size: 13.5px;
                               font-weight: 500;
-                            "
-                            class="ms-2"
-                            >Distribuição padrão de funil por negócio</a
-                          >
+                            " class="ms-2">Distribuição padrão de funil por negócio</a>
                         </div>
                       </div>
-                      <div
-                        style="
+                      <div style="
                           display: flex;
                           flex-direction: column;
                           margin-left: -6px;
-                        "
-                        class="mt-3"
-                      >
-                        <a
-                          href="#"
-                          style="
+                        " class="mt-3">
+                        <a href="#" style="
                             text-decoration: none;
                             color: rgb(23, 110, 200);
                             font-size: 13px;
                             font-weight: 500;
                             display: flex;
-                          "
-                          class="ms-2"
-                          ><span style="color: #000">Acessar</span> &nbsp;
-                          Central de ajuda</a
-                        >
+                          " class="ms-2"><span style="color: #000">Acessar</span> &nbsp;
+                          Central de ajuda</a>
                       </div>
                     </div>
                     <div class="me-3 mt-3">
-                      <h5
-                        class="card-title"
-                        style="color: #000; font-size: 16px; font-weight: 500"
-                      >
+                      <h5 class="card-title" style="color: #000; font-size: 16px; font-weight: 500">
                         Vídeo demonstrativo
                       </h5>
-                      <div
-                        style="
+                      <div style="
                           position: relative;
                           width: 240px;
                           height: 135px;
                           cursor: pointer;
-                        "
-                      >
-                        <img
-                          src="https://img.youtube.com/vi/8DX7mudPCNs/0.jpg"
-                          style="
+                        ">
+                        <img src="https://img.youtube.com/vi/8DX7mudPCNs/0.jpg" style="
                             width: inherit;
                             height: inherit;
                             object-fit: cover;
                             border-radius: 4px;
-                          "
-                        />
-                        <img
-                          :src="youtubeLogo"
-                          style="
+                          " />
+                        <img :src="youtubeLogo" style="
                             position: absolute;
                             top: 49%;
                             left: 50%;
                             transform: translate(-50%, -50%);
                             height: 50px;
                             width: 50px;
-                          "
-                        />
+                          " />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div
-                  style="
+                <div style="
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     margin-top: 3rem;
-                  "
-                >
+                  ">
                   <div>
                     <h2 style="font-size: 1.1rem; font-weight: 500">
                       Edição de funil
@@ -263,82 +172,40 @@
                       dia de trabalho.
                     </p>
                   </div>
-                  <button
-                    class="btn btn-orange"
-                    style="display: flex; align-items: center; height: 30px"
-                    @click="openCriarFunil"
-                  >
+                  <button class="btn btn-orange" style="display: flex; align-items: center; height: 30px"
+                    @click="openCriarFunil">
                     <i class="align-middle" data-feather="plus"></i>
                     <span style="margin-left: 3px">Criar Funil</span>
                   </button>
                 </div>
 
                 <!-- modal de criar funil -->
-                <div
-                  class="modal fade"
-                  id="myModalClient"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                  ref="myModalCriarFunil"
-                >
-                  <div
-                    class="modal-dialog"
-                    style="max-width: 600px !important; padding-top: 40px"
-                    role="document"
-                  >
+                <div class="modal fade" id="myModalClient" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true" ref="myModalCriarFunil">
+                  <div class="modal-dialog" style="max-width: 600px !important; padding-top: 40px" role="document">
                     <div class="modal-content">
-                      <div
-                        class="modal-header"
-                        style="
+                      <div class="modal-header" style="
                           display: flex;
                           flex-direction: column;
                           width: 100%;
                           align-items: flex-start;
-                        "
-                      >
-                        <div
-                          v-if="msgFunilSuccess"
-                          class="alert alert-success"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        ">
+                        <div v-if="msgFunilSuccess" class="alert alert-success" role="alert" style="width: 100%">
                           Funil Criado com sucesso
                         </div>
-                        <div
-                          v-if="msgFunilError"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgFunilError" class="alert alert-danger" role="alert" style="width: 100%">
                           Falha ao criar o funil
                         </div>
-                        <div
-                          v-if="msgFunilErrorSemCampos"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgFunilErrorSemCampos" class="alert alert-danger" role="alert" style="width: 100%">
                           Preencha os campos obrigatórios!
                         </div>
-                        <div
-                          v-if="msgFunilEtapaCampos"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgFunilEtapaCampos" class="alert alert-danger" role="alert" style="width: 100%">
                           Preencha os campos das Etapas!
                         </div>
                         <h5 class="modal-title" id="exampleModalLabel">
                           Criar Funil
                         </h5>
-                        <button
-                          type="button"
-                          class="close custom-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                        <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -347,49 +214,23 @@
                         <div class="row">
                           <div class="row" style="">
                             <div class="form-group col-7">
-                              <label
-                                for="nome"
-                                style="font-size: 14px; font-weight: 600"
-                                >Nome</label
-                              ><strong class="text-danger">*</strong>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="nome"
-                                v-model="nome"
-                                placeholder="Digite..."
-                                style="height: 40px"
-                              />
+                              <label for="nome" style="font-size: 14px; font-weight: 600">Nome</label><strong
+                                class="text-danger">*</strong>
+                              <input type="text" class="form-control" id="nome" v-model="nome" placeholder="Digite..."
+                                style="height: 40px" />
                             </div>
 
                             <div class="form-group col-5">
-                              <label
-                                for="limpezaEm"
-                                style="font-size: 14px; font-weight: 600"
-                                >Limpeza em</label
-                              >
-                              <img
-                                :src="InterrSvg"
-                                class="ms-2"
-                                style="width: 12px; height: 12px"
-                              />
-                              <div
-                                style="
+                              <label for="limpezaEm" style="font-size: 14px; font-weight: 600">Limpeza em</label>
+                              <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
+                              <div style="
                                   display: flex;
                                   justify-content: center;
                                   align-items: center;
-                                "
-                              >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="limpezaEm"
-                                  v-model="limpezaEm"
-                                  placeholder="120"
-                                  style="height: 40px; width: 80%"
-                                />
-                                <span
-                                  style="
+                                ">
+                                <input type="text" class="form-control" id="limpezaEm" v-model="limpezaEm"
+                                  placeholder="120" style="height: 40px; width: 80%" />
+                                <span style="
                                     font-weight: 600;
                                     height: 40px;
                                     width: 20%;
@@ -399,83 +240,39 @@
                                     border: 1px solid #d3dceb;
                                     border-top-right-radius: 5px;
                                     border-bottom-right-radius: 5px;
-                                  "
-                                  >Dias</span
-                                >
+                                  ">Dias</span>
                               </div>
                             </div>
 
                             <div class="form-group mt-3">
-                              <label
-                                for="descricao"
-                                style="font-size: 14px; font-weight: 600"
-                                >Descricao</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="descricao"
-                                v-model="descricao"
-                                placeholder="Digite a descrição do funil"
-                                style="height: 40px"
-                              />
+                              <label for="descricao" style="font-size: 14px; font-weight: 600">Descricao</label>
+                              <input type="text" class="form-control" id="descricao" v-model="descricao"
+                                placeholder="Digite a descrição do funil" style="height: 40px" />
                             </div>
 
                             <div class="form-group mt-3">
-                              <label
-                                for="etapas"
-                                style="font-size: 14px; font-weight: 600"
-                                >Quais etapas irão compor este funil?</label
-                              >
+                              <label for="etapas" style="font-size: 14px; font-weight: 600">Quais etapas irão compor
+                                este funil?</label>
 
-                              <div
-                                v-for="(etapa, index) in etapas"
-                                :key="index"
-                                class="row"
-                              >
+                              <div v-for="(etapa, index) in etapas" :key="index" class="row">
                                 <div class="form-group mt-3 col-4">
-                                  <label
-                                    :for="'nomeEtapa' + index"
-                                    style="font-size: 13px; font-weight: 600"
-                                    >Nome da etapa</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    :id="'nomeEtapa' + index"
-                                    v-model="etapa.nome_etapa"
-                                    placeholder="Digite..."
-                                    style="height: 40px"
-                                  />
+                                  <label :for="'nomeEtapa' + index" style="font-size: 13px; font-weight: 600">Nome da
+                                    etapa</label>
+                                  <input type="text" class="form-control" :id="'nomeEtapa' + index"
+                                    v-model="etapa.nome_etapa" placeholder="Digite..." style="height: 40px" />
                                 </div>
                                 <div class="form-group mt-3 col-4">
-                                  <label
-                                    :for="'estagnarEm' + index"
-                                    style="font-size: 13px; font-weight: 600"
-                                    >Estagnar em</label
-                                  >
-                                  <img
-                                    :src="InterrSvg"
-                                    class="ms-2"
-                                    style="width: 12px; height: 12px"
-                                  />
-                                  <div
-                                    style="
+                                  <label :for="'estagnarEm' + index" style="font-size: 13px; font-weight: 600">Estagnar
+                                    em</label>
+                                  <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
+                                  <div style="
                                       display: flex;
                                       justify-content: center;
                                       align-items: center;
-                                    "
-                                  >
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      :id="'estagnarEm' + index"
-                                      v-model="etapa.dias_etapa"
-                                      placeholder="3"
-                                      style="height: 40px; width: 70%"
-                                    />
-                                    <span
-                                      style="
+                                    ">
+                                    <input type="text" class="form-control" :id="'estagnarEm' + index"
+                                      v-model="etapa.dias_limpeza" placeholder="3" style="height: 40px; width: 70%" />
+                                    <span style="
                                         font-weight: 600;
                                         height: 40px;
                                         width: 30%;
@@ -485,69 +282,41 @@
                                         border: 1px solid #d3dceb;
                                         border-top-right-radius: 5px;
                                         border-bottom-right-radius: 5px;
-                                      "
-                                      >Dias</span
-                                    >
+                                      ">Dias</span>
                                   </div>
                                 </div>
-                                <div
-                                  class="form-group mt-3"
-                                  style="display: flex"
-                                  :class="index == 0 ? 'col-4' : 'col-4'"
-                                >
+                                <div class="form-group mt-3" style="display: flex"
+                                  :class="index == 0 ? 'col-4' : 'col-4'">
                                   <div>
-                                    <label
-                                      :for="'descricaoEtapa' + index"
-                                      style="font-size: 13px; font-weight: 600"
-                                      >Descrição da etapa</label
-                                    >
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      :id="'descricaoEtapa' + index"
-                                      v-model="etapa.descricao_etapa"
-                                      placeholder="Digite..."
-                                      style="height: 40px"
-                                      :style="
-                                        index == 0
+                                    <label :for="'descricaoEtapa' + index"
+                                      style="font-size: 13px; font-weight: 600">Descrição da etapa</label>
+                                    <input type="text" class="form-control" :id="'descricaoEtapa' + index"
+                                      v-model="etapa.descricao_etapa" placeholder="Digite..." style="height: 40px"
+                                      :style="index == 0
                                           ? 'width: 100%'
                                           : 'width: 90%'
-                                      "
-                                    />
+                                        " />
                                   </div>
-                                  <div
-                                    class="form-group mt-3"
-                                    style="
+                                  <div class="form-group mt-3" style="
                                       display: flex;
                                       align-items: center;
                                       justify-content: center;
-                                    "
-                                    v-if="index >= etapasIniciais"
-                                  >
-                                    <img
-                                      :src="trashIcon"
-                                      style="
+                                    " v-if="index >= etapasIniciais">
+                                    <img :src="trashIcon" style="
                                         width: 14px;
                                         height: 14px;
                                         cursor: pointer;
-                                      "
-                                      @click="removerEtapa(index)"
-                                    />
+                                      " @click="removerEtapa(index)" />
                                   </div>
                                 </div>
                                 <!-- Ícone de lixeira para remover a etapa -->
                               </div>
                               <div class="mt-3" style="text-align: left">
-                                <button
-                                  type="button"
-                                  class="btn"
-                                  style="
+                                <button type="button" class="btn" style="
                                     background-color: #595bd3;
                                     color: #fff;
                                     padding: 10px 20px;
-                                  "
-                                  @click="adicionarEtapa"
-                                >
+                                  " @click="adicionarEtapa">
                                   Adicionar etapa
                                 </button>
                               </div>
@@ -556,14 +325,8 @@
                         </div>
                       </div>
 
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: space-between"
-                      >
-                        <button
-                          type="button"
-                          class="btn btnModal"
-                          style="
+                      <div class="modal-footer" style="display: flex; justify-content: space-between">
+                        <button type="button" class="btn btnModal" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             background-color: #fff;
@@ -572,15 +335,10 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          data-bs-dismiss="modal"
-                        >
+                          " data-bs-dismiss="modal">
                           Cancelar
                         </button>
-                        <button
-                          type="button"
-                          class="btn btnModal2"
-                          style="
+                        <button type="button" class="btn btnModal2" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             color: #fff;
@@ -590,9 +348,7 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          @click="cadastraFunil"
-                        >
+                          " @click="cadastraFunil">
                           {{ textAddFunil }}
                         </button>
                       </div>
@@ -601,78 +357,41 @@
                 </div>
 
                 <!-- modal de remover Funil -->
-                <div
-                  class="modal fade modalTelefone"
-                  id="modalRemoverFunil"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="modalRemoverFunil"
-                  aria-hidden="true"
-                  ref="modalRemoverFunil"
-                >
-                  <div
-                    class="modal-dialog"
-                    style="padding-top: 80px"
-                    role="document"
-                  >
+                <div class="modal fade modalTelefone" id="modalRemoverFunil" tabindex="-1" role="dialog"
+                  aria-labelledby="modalRemoverFunil" aria-hidden="true" ref="modalRemoverFunil">
+                  <div class="modal-dialog" style="padding-top: 80px" role="document">
                     <div class="modal-content">
-                      <div
-                        class="modal-header"
-                        style="
+                      <div class="modal-header" style="
                           display: flex;
                           flex-direction: column;
                           width: 100%;
                           align-items: flex-start;
-                        "
-                      >
-                        <div
-                          v-if="msgFunilRemoveSuccess"
-                          class="alert alert-success"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        ">
+                        <div v-if="msgFunilRemoveSuccess" class="alert alert-success" role="alert" style="width: 100%">
                           Funil Removido com sucesso
                         </div>
-                        <div
-                          v-if="msgFunilRemoveError"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgFunilRemoveError" class="alert alert-danger" role="alert" style="width: 100%">
                           Falha ao remover o funil
                         </div>
                         <h5 class="modal-title" id="exampleModalLabel">
                           Remover funil
                         </h5>
-                        <button
-                          type="button"
-                          class="close custom-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                        <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h2
-                          style="
+                        <h2 style="
                             font-size: 16px;
                             font-weight: 600;
                             text-align: center;
                             padding: 20px 0;
-                          "
-                        >
+                          ">
                           Tem certeza que deseja remover esse funil?
                         </h2>
                       </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: space-between"
-                      >
-                        <button
-                          type="button"
-                          class="btn btnModal"
-                          style="
+                      <div class="modal-footer" style="display: flex; justify-content: space-between">
+                        <button type="button" class="btn btnModal" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             background-color: #fff;
@@ -681,17 +400,11 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          data-bs-dismiss="modal"
-                        >
+                          " data-bs-dismiss="modal">
                           Cancelar
                         </button>
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          style="padding: 10px 15px"
-                          @click="removerFunilYes"
-                        >
+                        <button type="button" class="btn btn-danger" style="padding: 10px 15px"
+                          @click="removerFunilYes">
                           {{ textRemoverFunil }}
                         </button>
                       </div>
@@ -699,10 +412,7 @@
                   </div>
                 </div>
 
-                <div
-                  class="card mt-4"
-                  style="border: 1px solid rgb(211, 220, 235)"
-                >
+                <div class="card mt-4" style="border: 1px solid rgb(211, 220, 235)">
                   <div class="card-body">
                     <table class="table">
                       <thead>
@@ -710,58 +420,32 @@
                           <th class="text-start">Nome do funil</th>
                           <th class="text-center">
                             Limpeza em
-                            <img
-                              :src="InterrSvg"
-                              class="ms-2"
-                              style="width: 12px; height: 12px"
-                            />
+                            <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
                           </th>
                           <th class="text-center">Opções</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          class="tr-hover"
-                          v-for="funil in funis"
-                          v-if="funis.length > 0"
-                        >
+                        <tr class="tr-hover" v-for="funil in funis" v-if="funis.length > 0">
                           <td class="text-start">
-                            <div
-                              class="d-flex flex-column"
-                              style="font-size: 14px; font-weight: 500"
-                            >
+                            <div class="d-flex flex-column" style="font-size: 14px; font-weight: 500">
                               {{ funil.nome_funil }}
-                              <span
-                                v-if="
-                                  funil.descricao != '' &&
-                                  funil.descricao != null
-                                "
-                                class="text-muted"
-                                style="
+                              <span v-if="
+                                funil.descricao != '' &&
+                                funil.descricao != null
+                              " class="text-muted" style="
                                   font-size: 12px;
                                   color: rgb(117, 117, 117);
-                                "
-                                >{{ funil.descricao }}</span
-                              >
+                                ">{{ funil.descricao }}</span>
                             </div>
                           </td>
-                          <td
-                            class="text-center"
-                            style="font-size: 14px; font-weight: 500"
-                          >
+                          <td class="text-center" style="font-size: 14px; font-weight: 500">
                             {{ funil.dias_limpeza }} Dias
                           </td>
                           <td class="text-end">
                             <div class="">
-                              <a
-                                @click="handleSalvarIdFunil(funil.id_funil)"
-                                class="btn btn-white me-2"
-                                >Editar</a
-                              >
-                              <button
-                                class="btn btn-red"
-                                @click="handleRemoverFunil(funil.id_funil)"
-                              >
+                              <a @click="handleSalvarIdFunil(funil.id_funil)" class="btn btn-white me-2">Editar</a>
+                              <button class="btn btn-red" @click="handleRemoverFunil(funil.id_funil)">
                                 Remover
                               </button>
                             </div>
@@ -772,14 +456,12 @@
                   </div>
                 </div>
 
-                <div
-                  style="
+                <div style="
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     margin-top: 3rem;
-                  "
-                >
+                  ">
                   <div>
                     <h2 style="font-size: 1.1rem; font-weight: 500">
                       Distribuição padrão de funil por negócio
@@ -792,10 +474,7 @@
                   </div>
                 </div>
 
-                <div
-                  class="card mt-4"
-                  style="border: 1px solid rgb(211, 220, 235)"
-                >
+                <div class="card mt-4" style="border: 1px solid rgb(211, 220, 235)">
                   <div class="card-body">
                     <table class="table">
                       <thead>
@@ -808,10 +487,7 @@
                       <tbody>
                         <tr class="tr-hover">
                           <td>
-                            <div
-                              class="d-flex flex-column"
-                              style="font-size: 14px"
-                            >
+                            <div class="d-flex flex-column" style="font-size: 14px">
                               <strong>Venda</strong>
                             </div>
                           </td>
@@ -820,27 +496,15 @@
                           </td>
                           <td>
                             <div style="display: flex; align-items: center">
-                              <select
-                                class="form-select"
-                                v-model="selectedValue"
-                                @change="updateSelectedValue"
-                                style="height: 30px; font-size: 13px"
-                              >
+                              <select class="form-select" v-model="selectedValue" @change="updateSelectedValue"
+                                style="height: 30px; font-size: 13px">
                                 <option disabled value="">
                                   Selecione uma opção
                                 </option>
-                                <optgroup
-                                  v-for="group in options"
-                                  :key="group.label"
-                                  :label="group.label"
-                                  class="optgroup-label"
-                                >
-                                  <option
-                                    v-for="option in group.options"
-                                    :key="option.value"
-                                    :value="option.label"
-                                    class="backOption"
-                                  >
+                                <optgroup v-for="group in options" :key="group.label" :label="group.label"
+                                  class="optgroup-label">
+                                  <option v-for="option in group.options" :key="option.value" :value="option.label"
+                                    class="backOption">
                                     {{ option.label }}
                                   </option>
                                 </optgroup>
@@ -858,27 +522,15 @@
                           </td>
                           <td>
                             <div style="display: flex; align-items: center">
-                              <select
-                                class="form-select"
-                                v-model="selectedValue2"
-                                @change="updateSelectedValue2"
-                                style="height: 30px; font-size: 13px"
-                              >
+                              <select class="form-select" v-model="selectedValue2" @change="updateSelectedValue2"
+                                style="height: 30px; font-size: 13px">
                                 <option disabled value="">
                                   Selecione uma opção
                                 </option>
-                                <optgroup
-                                  v-for="group in options"
-                                  :key="group.label"
-                                  :label="group.label"
-                                  class="optgroup-label"
-                                >
-                                  <option
-                                    v-for="option in group.options"
-                                    :key="option.value"
-                                    :value="option.label"
-                                    class="backOption"
-                                  >
+                                <optgroup v-for="group in options" :key="group.label" :label="group.label"
+                                  class="optgroup-label">
+                                  <option v-for="option in group.options" :key="option.value" :value="option.label"
+                                    class="backOption">
                                     {{ option.label }}
                                   </option>
                                 </optgroup>
@@ -979,7 +631,7 @@ export default {
 
       textAddFunil: "Criar funil",
 
-      etapas: [{ nome_etapa: "", dias_etapa: "", descricao_etapa: "" }],
+      etapas: [{ nome_etapa: "", dias_limpeza: "", descricao_etapa: "" }],
       etapasIniciais: 1,
 
       funis: [],
@@ -1067,7 +719,7 @@ export default {
     },
 
     adicionarEtapa() {
-      this.etapas.push({ nome_etapa: "", dias_etapa: "", descricao_etapa: "" });
+      this.etapas.push({ nome_etapa: "", dias_limpeza: "", descricao_etapa: "" });
     },
     removerEtapa(index) {
       this.etapas.splice(index, 1);
@@ -1081,7 +733,7 @@ export default {
 
       this.textAddFunil = "Adicionando...";
       let todosPreenchidos = this.etapas.every((etapa) => {
-        return etapa.nome_etapa && etapa.dias_etapa && etapa.descricao_etapa;
+        return etapa.nome_etapa && etapa.dias_limpeza && etapa.descricao_etapa;
       });
       if (nome != "" && limpezaEm != "") {
         if (todosPreenchidos) {
@@ -1098,7 +750,7 @@ export default {
                   this.limpezaEm = "";
                   this.descricao = "";
                   (this.etapas = [
-                    { nome_etapa: "", dias_etapa: "", descricao_etapa: "" },
+                    { nome_etapa: "", dias_limpeza: "", descricao_etapa: "" },
                   ]),
                     this.fetchFunil();
                   modalFunil.hide();
@@ -1168,6 +820,7 @@ export default {
   justify-content: center;
   color: #000;
 }
+
 .optgroup-label {
   background-color: #f0f2f5;
   font-size: 13px;

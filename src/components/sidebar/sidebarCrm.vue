@@ -19,9 +19,6 @@
           <option value="imobi">Imobiliária</option>
         </select>
       </li>
-      {{
-        console.log(tab)
-      }}
       <li class="nav-item">
         <a
           class="nav-link custom-nav-link d-flex align-items-center"

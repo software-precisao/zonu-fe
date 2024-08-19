@@ -20,9 +20,11 @@
               Visão geral
             </h4>
             <div style="display: flex; align-items: center">
-              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect" style="height: 30px; font-size: 13px; font-weight: 600">
-                <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis" v-if="funis.length > 0">
-                  {{funil.nome_funil}} ({{qtdNegoicos}} negócios)
+              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
+                style="height: 30px; font-size: 13px; font-weight: 600">
+                <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
+                  v-if="funis.length > 0">
+                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} negócios)
                 </option>
               </select>
 
@@ -348,9 +350,9 @@
                     ">
                     <div class="">
                       <input id="start_date" type="text" class="formControl" placeholder="DD/MM/AAAA" name="start_date"
-                        value="01/01/2024" style="
+                        v-model="formattedStartDate" @input="onInput" maxlength="10" style="
                           height: 45px;
-                          width: 120px;
+                          width: 130px;
                           padding-left: 8px;
                           border: solid #d3d3d3 1px;
                           border-radius: 5px;
@@ -364,10 +366,10 @@
                         height: 1px;
                       "></div>
                     <div class="">
-                      <input id="end_date" type="text" class="formControl" placeholder="DD/MM/AAAA" name="end_date"
-                        value="13/08/2024" style="
+                      <input id="end_date" type="tex" class="formControl" v-model="formattedEndDate"
+                        @input="onEndDateInput" maxlength="10" placeholder="DD/MM/AAAA" name="end_date" style="
                           height: 45px;
-                          width: 120px;
+                          width: 130px;
                           padding-left: 8px;
                           border: solid #d3d3d3 1px;
                           border-radius: 5px;
@@ -669,8 +671,8 @@
                                 margin-left: 2px;
                               " />
                           </span>
-                          <span class="">(99) 99999-9999</span>
-                          <!-- <span class="">{{ client.telefone }}</span> -->
+                          <!-- <span class="">(99) 99999-9999</span> -->
+                          <span class="">{{ client.telefone_1 }}</span>
                         </div>
                       </li>
                     </ul>
@@ -1077,7 +1079,7 @@
 
         <!-- Modal para ligar pessoas -->
         <div class="modal fade modalTelefone" id="modalLigarPessoa" tabindex="-1" role="dialog"
-          aria-labelledby="modalLigarPessoa" aria-hidden="true">
+          aria-labelledby="modalLigarPessoa" aria-hidden="true" ref="modalLigarPessoa">
           <div class="modal-dialog modal-sm" style="padding-top: 150px; margin-right: 12%" role="document">
             <div class="modal-content">
               <!-- <div class="modal-header"> -->
@@ -1086,15 +1088,17 @@
               </button>
               <!-- </div> -->
               <div class="modal-body">
+                <div v-if="msgErrorLigarPessoaSemCampos" class="alert alert-danger" role="alert" style="width: 100%">
+                  Preencha todos os campos!
+                </div>
                 <!-- Conteúdo do modal de ligar pessoas -->
-
                 <div class="form-group mt-3">
                   <label for="client" style="font-weight: 600">Cliente</label>
                   <div class="custom-select" ref="selectContainerPessoa">
                     <div class="select-box" @click="toggleDropdownPessoa" :aria-expanded="isOpenPessoa.toString()"
                       role="button" tabindex="0">
                       <span v-if="selectedOptionPessoa">{{
-                        selectedOptionPessoa.name
+                        selectedOptionPessoa.nome
                       }}</span>
                       <span v-else>Selecione um cliente</span>
                       <i class="align-middle" data-feather="chevron-down"></i>
@@ -1110,9 +1114,10 @@
                           <img :src="plusCircle" style="width: 12px; height: 12px; margin-right: 6px" />Adicionar
                         </button>
                       </li>
-                      <li v-for="client in clients" :key="client.value" @click="selectOptionPessoa(client)">
+                      <!-- {{console.log(allClientes)}} -->
+                      <li v-for="client in allClientes" :key="client.id_cliente" @click="selectOptionPessoa(client)">
                         <div style="display: flex; flex-direction: column">
-                          <span>{{ client.name }}
+                          <span>{{ client.nome }}
                             <img :src="userIcon" style="
                                 width: 12px;
                                 height: 12px;
@@ -1120,7 +1125,7 @@
                                 margin-left: 2px;
                               " />
                           </span>
-                          <span class="">{{ client.phone }}</span>
+                          <span class="">{{ client.telefone_1 }}</span>
                         </div>
                       </li>
                     </ul>
@@ -1129,7 +1134,8 @@
 
                 <div class="form-group mt-3">
                   <span style="font-size: 13px; font-weight: 600">Descrição</span>
-                  <input type="text" placeholder="Ex: Conjuge" class="form-control" style="height: 40px" />
+                  <input type="text" placeholder="Ex: Conjuge" class="form-control" v-model="descricaoPessoaLigada"
+                    style="height: 40px" />
                 </div>
               </div>
               <div class="form-group" style="
@@ -1139,7 +1145,8 @@
                   align-items: center;
                   justify-content: center;
                 ">
-                <button type="button" class="btn btn-greenHover" style="width: 100%; padding: 15px 0 !important">
+                <button type="button" @click="handleAddLigarPessoa" class="btn btn-greenHover"
+                  style="width: 100%; padding: 15px 0 !important">
                   Adicionar
                 </button>
               </div>
@@ -1299,24 +1306,31 @@
                       <div class="form-group col-2 mt-3">
                         <label for="profissao" style="font-size: 13px; font-weight: 600">CEP</label>
                         <input type="text" class="form-control" id="cep" v-model="cep" placeholder="Digite..."
-                          style="height: 40px" />
+                          style="height: 40px" @input="aplicaMascaraCEP" />
                       </div>
 
                       <div class="form-group col-2 mt-3">
                         <label for="pais" style="font-size: 13px; font-weight: 600">País</label>
-                        <select class="form-floating" id="pais" v-model="pais" style="
+                        <input type="text" class="form-control" id="pais" disabled v-model="pais"
+                          placeholder="Digite..." style="height: 40px" />
+                        <!-- <select class="form-floating" id="pais" disabled v-model="pais" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
                             padding-left: 8px;
                           ">
-                          <option value="Brasil">Brasil</option>
-                        </select>
+                          <option value="" disabled selected hidden>
+                            Selecione
+                          </option> -->
+                        <!-- <option value="brasil">Brasil</option> -->
+                        <!-- </select> -->
                       </div>
 
                       <div class="form-group col-2 mt-3">
                         <label for="uf" style="font-size: 13px; font-weight: 600">UF</label>
-                        <select class="form-floating" id="uf" v-model="uf" style="
+                        <input type="text" class="form-control" id="uf" disabled v-model="uf" placeholder="Digite..."
+                          style="height: 40px" />
+                        <!-- <select class="form-floating" id="uf" disabled v-model="uf" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
@@ -1325,14 +1339,18 @@
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option value="brasil">Brasil</option>
-                        </select>
+                          <option v-for="estado in brasil.estadosMap" :key="estado.sigla" :value="estado.sigla">
+                            {{ estado.nome }}
+                          </option>
+                        </select> -->
                       </div>
 
                       <div class="form-group col-3 mt-3">
                         <label for="cidade" style="font-size: 13px; font-weight: 600">Cidade
-                          <span style="color: #0084f4">(Cadastrar nova)</span></label>
-                        <select class="form-floating" id="cidade" v-model="cidade" style="
+                        </label>
+                        <input type="text" class="form-control" id="cidade" disabled v-model="cidade"
+                          placeholder="Digite..." style="height: 40px" />
+                        <!-- <select class="form-floating" id="cidade" disabled v-model="cidade" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
@@ -1341,14 +1359,18 @@
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option value="brasilia">Brasilia</option>
-                        </select>
+                          <option v-for="cidade in cidades" :key="cidade" :value="cidade">
+                            {{ cidade }}
+                          </option>
+                        </select> -->
                       </div>
 
                       <div class="form-group col-3 mt-3">
                         <label for="bairro" style="font-size: 13px; font-weight: 600">Bairro
-                          <span style="color: #0084f4">(Cadastrar novo)</span></label>
-                        <select class="form-floating" id="bairro" v-model="bairro" style="
+                        </label>
+                        <input type="text" class="form-control" id="bairro" disabled v-model="bairro"
+                          placeholder="Digite..." style="height: 40px" />
+                        <!-- <select class="form-floating" id="bairro" disabled v-model="bairro" style="
                             height: 40px;
                             border: 1px solid #dee2e6;
                             width: 100%;
@@ -1357,13 +1379,15 @@
                           <option value="" disabled selected hidden>
                             Selecione
                           </option>
-                          <option value="taguatinga">Taguatinga</option>
-                        </select>
+                          <option v-for="bairro in bairros" :key="bairro.name" :value="bairro.name">
+                            {{ bairro.name }}
+                          </option>
+                        </select> -->
                       </div>
 
                       <div class="form-group col-4 mt-3">
                         <label for="logradouro" style="font-size: 13px; font-weight: 600">Logradouro</label>
-                        <input type="text" class="form-control" id="logradouro" v-model="logradouro"
+                        <input type="text" class="form-control" id="logradouro" disabled v-model="logradouro"
                           placeholder="Digite..." style="height: 40px" />
                       </div>
 
@@ -1478,13 +1502,30 @@
                       <h5 style="font-size: 14px; font-weight: 600">
                         Pessoas Ligadas
                       </h5>
-                      <p class="text-muted" style="
+                      <p class="text-muted" v-if="allPessoasLigadas.length == 0" style="
                           font-size: 12px;
                           font-weight: 500;
                           margin-bottom: 5px;
                         ">
                         Você ainda não ligou nenhuma pessoa a esse cliente.
                       </p>
+
+                      <!-- {{console.log(selectedOptionPessoa)}} -->
+
+                      <div v-if="allPessoasLigadas.length > 0" v-for="(item, index) in allPessoasLigadas" style="display: flex; 
+                        justify-content: space-between; 
+                        align-items: center;
+                        padding: 0 10px; 
+                        margin-bottom: 1rem; 
+                        margin-top: 1rem;">
+                        <h2 style="font-size: 13px; font-weight: 500">
+                          <!-- {{ console.log(item) }} -->
+                          {{ item.clienteLigado.nome }} ({{ item.descricao }})
+                        </h2>
+                        <img style="width: 14px; height: 14px; margin-bottom: 10px; cursor: pointer"
+                          @click="handleDeletePessoaLigada(index)" :src="trashIcon"></img>
+                      </div>
+
                       <button type="button " class="btn btnModal" @click="openLigarPessoaModal" style="
                           padding: 5px 15px;
                           border: 1px solid #d3dceb;
@@ -1525,6 +1566,8 @@ import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import Editor from "@tinymce/tinymce-vue";
 import api from "../../../../service/api/index";
 import { jwtDecode } from "jwt-decode";
+import _ from "lodash";
+import axios from "axios";
 
 export default {
   name: "CrmView",
@@ -1588,7 +1631,7 @@ export default {
       rg: "",
       cep: "",
       profissao: "",
-      pais: "Brasil",
+      pais: "",
       uf: "",
       cidade: "",
       bairro: "",
@@ -1598,6 +1641,40 @@ export default {
       termos: "", // Contém o conteúdo do editor
       textContent: "", // Contém o texto puro
       corretorResponsavel: "",
+
+      brasil: {
+        estadosMap: [
+          { sigla: "AC", nome: "Acre" },
+          { sigla: "AL", nome: "Alagoas" },
+          { sigla: "AP", nome: "Amapá" },
+          { sigla: "AM", nome: "Amazonas" },
+          { sigla: "BA", nome: "Bahia" },
+          { sigla: "CE", nome: "Ceará" },
+          { sigla: "DF", nome: "Distrito Federal" },
+          { sigla: "ES", nome: "Espírito Santo" },
+          { sigla: "GO", nome: "Goiás" },
+          { sigla: "MA", nome: "Maranhão" },
+          { sigla: "MT", nome: "Mato Grosso" },
+          { sigla: "MS", nome: "Mato Grosso do Sul" },
+          { sigla: "MG", nome: "Minas Gerais" },
+          { sigla: "PA", nome: "Pará" },
+          { sigla: "PB", nome: "Paraíba" },
+          { sigla: "PR", nome: "Paraná" },
+          { sigla: "PE", nome: "Pernambuco" },
+          { sigla: "PI", nome: "Piauí" },
+          { sigla: "RJ", nome: "Rio de Janeiro" },
+          { sigla: "RN", nome: "Rio Grande do Norte" },
+          { sigla: "RS", nome: "Rio Grande do Sul" },
+          { sigla: "RO", nome: "Rondônia" },
+          { sigla: "RR", nome: "Roraima" },
+          { sigla: "SC", nome: "Santa Catarina" },
+          { sigla: "SP", nome: "São Paulo" },
+          { sigla: "SE", nome: "Sergipe" },
+          { sigla: "TO", nome: "Tocantins" },
+        ],
+      },
+      cidades: [],
+      bairros: [],
 
       isOpenPessoa: false,
       selectedOptionPessoa: null,
@@ -1613,21 +1690,151 @@ export default {
       msgClienteErrorSemCampos: false,
       msgClienteError: false,
       textAddCliente: "Cadastrar",
+      msgErrorLigarPessoaSemCampos: false,
 
       whatsappYes: "Sim",
       principalYes: "Sim",
       breveDescricao: "",
       alltelefones: [],
+      allPessoasLigadas: [],
+      descricaoPessoaLigada: "",
 
       funis: [],
       funilporId: [],
       funilName: "",
-      qtdNegoicos: 0
+      qtdNegoicos: 0,
+
+      startDate: "01/01/2024",
+      endDate: "19/08/2024",
     };
   },
+  watch: {
+    // uf(newUF) {
+    //   this.buscarCidadesPorUF();
+    // },
+    // cidade(newCidade) {
+    //   this.fetchBairros();
+    // },
+    cep(newVal, oldVal) {
+      if (newVal.length === 9 && newVal !== oldVal) {
+        this.debouncedCheckCEP();
+      }
+    },
+  },
+  created() {
+    this.debouncedCheckCEP = _.debounce(this.consultarCEP, 100);
+  },
+
+  computed: {
+    formattedStartDate: {
+      get() {
+        return this.formatDate(this.startDate);
+      },
+      set(value) {
+        this.startDate = this.parseDate(value);
+      }
+    },
+    formattedEndDate: {
+      get() {
+        return this.formatDate(this.endDate);
+      },
+      set(value) {
+        this.endDate = this.parseDate(value);
+      }
+    },
+  },
+
   methods: {
+    formatDate(date) {
+      if (!date) return '';
+      // Remove caracteres não numéricos
+      const cleanDate = date.replace(/\D/g, '');
+      if (cleanDate.length <= 2) {
+        return cleanDate;
+      } else if (cleanDate.length <= 4) {
+        return `${cleanDate.slice(0, 2)}/${cleanDate.slice(2)}`;
+      } else if (cleanDate.length <= 8) {
+        return `${cleanDate.slice(0, 2)}/${cleanDate.slice(2, 4)}/${cleanDate.slice(4)}`;
+      } else {
+        return `${cleanDate.slice(0, 2)}/${cleanDate.slice(2, 4)}/${cleanDate.slice(4, 8)}`;
+      }
+    },
+    parseDate(date) {
+      // Remove caracteres não numéricos
+      const cleanDate = date.replace(/\D/g, '');
+      if (cleanDate.length === 8) {
+        return `${cleanDate.slice(0, 2)}/${cleanDate.slice(2, 4)}/${cleanDate.slice(4)}`;
+      } else {
+        return date;
+      }
+    },
+    onInput(event) {
+      // Atualiza o valor da data no formato correto
+      this.formattedStartDate = this.formatDate(event.target.value);
+    },
+    onEndDateInput(event) {
+      // Obtém o valor de entrada e limita a quantidade de caracteres
+      let value = event.target.value.replace(/\D/g, '');
+      if (value.length > 8) {
+        value = value.slice(0, 8);
+      }
+      // Atualiza o valor da data no formato correto
+      this.formattedEndDate = this.formatDate(value);
+    },
+
+    async consultarCEP() {
+      if (this.cep.length === 9) {
+        const cep = this.cep.replace(/\D/g, "");
+
+        try {
+          const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+          // Correção nas propriedades de acordo com a resposta da API
+          // console.log(res.data)
+          let rua = res.data.logradouro;
+          let bairro = res.data.bairro;
+          let cidade = res.data.localidade;
+          let estado = res.data.uf;
+
+          // if (estado !== "PB") {
+          //   this.autenticando = true;
+          //   this.textoBotao = "Ainda não chegamos no seu estado 😔";
+          //   this.msgEstado = true;
+          // } else {
+          //   this.autenticando = false;
+          //   this.msgEstado = false;
+          //   this.textoBotao = "Salvar";
+          // }
+
+          this.pais = "Brasil"
+          this.logradouro = rua;
+          this.bairro = bairro;
+          this.cidade = cidade;
+          this.uf = estado;
+        } catch (error) {
+          console.error("Erro ao consultar CEP: ", error);
+        }
+      }
+    },
+
+    aplicaMascaraCEP() {
+      let v = this.cep;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 8) {
+        v = v.substring(0, 8);
+      }
+
+      v = v.replace(/^(\d{5})(\d)/, "$1-$2");
+
+      this.cep = v;
+    },
+
     handleDelete(index) {
       this.alltelefones.splice(index, 1);
+    },
+    handleDeletePessoaLigada(index) {
+      this.allPessoasLigadas.splice(index, 1);
     },
     handleAddTelefone() {
       this.alltelefones.push({
@@ -1656,6 +1863,33 @@ export default {
     handlePrincipal(event) {
       this.principalYes = event;
     },
+
+    handleAddLigarPessoa() {
+      if (this.descricaoPessoaLigada != "" && this.selectedOptionPessoa != null) {
+        this.allPessoasLigadas.push({
+          clienteLigado: this.selectedOptionPessoa,
+          descricao: this.descricaoPessoaLigada,
+        })
+
+        const modalLigarPessoa = bootstrap.Modal.getInstance(
+          this.$refs.modalLigarPessoa
+        );
+
+        if (modalLigarPessoa) {
+          modalLigarPessoa.hide();
+        }
+
+        this.selectedOptionPessoa = null
+        this.descricaoPessoaLigada = ""
+      } else {
+        this.msgErrorLigarPessoaSemCampos = true
+
+        setTimeout(() => {
+          this.msgErrorLigarPessoaSemCampos = false
+        }, 3000);
+      }
+    },
+
     handleAddOrigemCaptacao() {
       console.log("Clique");
     },
@@ -1771,7 +2005,7 @@ export default {
       }
     },
 
-    fetchPosicao() { 
+    fetchPosicao() {
       api.getFunilporId(this.funilSelect).then((res) => {
         // console.log("Aqui ta as posições ====> ", res);
         if (res.status === 200) {
@@ -1788,7 +2022,7 @@ export default {
         }
       });
     },
-    
+
     fetchOrigemCaptacao() {
       api.getOrigemCaptacao().then((res) => {
         // console.log("Aqui estão as origens de capitação ====> ", res);
@@ -1852,6 +2086,7 @@ export default {
       let telefone1 = "";
       let telefone2 = "";
       let idUser = this.id_user;
+      let pessoa = this.allPessoasLigadas
 
       idCaptacao = this.allOrigensCapitacao.find(
         (origem) => origem.origem_captacao === this.origemCaptacao
@@ -1985,6 +2220,11 @@ export default {
               this.textAddNegocio = "Adicionar Negócio";
               if (modalNegocio) {
                 // setTimeout(() => {
+                this.filtrarEtapasFunil()
+                this.posicao = ""
+                this.nivelInteresse = 1
+                this.selectedOption = null
+                this.selectedOptionImovel = null
                 modalNegocio.hide(); // Fecha o modal atual
                 // }, 1000);
               }
@@ -2012,31 +2252,49 @@ export default {
 
     fetchFunil() {
       api.getAllFunil().then((res) => {
-        console.log(res)
-        if(res.status === 200) {
+        // console.log(res.data)
+        if (res.status === 200) {
           this.funis = res.data
         }
       })
     },
 
-    filtrarEtapasFunil() {
-      console.log(this.funilSelect  )
-      localStorage.setItem("fs", this.funilSelect)
-      this.qtdNegoicos = 0
-      api.getFunilporId(this.funilSelect).then((res) => {
-        if(res.status === 200) {
-          this.funilporId = res.data
-          this.etapas = res.data.etapas
-          this.funilName = res.data.nome_funil
-          this.fetchPosicao()
-          this.fetchNegocios()
-        }
-      })
-    },
+    // filtrarEtapasFunil(mountedOn) {
+    //   if (mountedOn === true || !this.funilSelect) {
+    //     this.qtdNegoicos = 0;
+    //     api.getFunilporId(this.funilSelect).then((res) => {
+    //       if (res.status === 200) {
+    //         this.funilporId = res.data;
+    //         this.etapas = res.data.etapas;
+    //         this.funilName = res.data;
+    //         this.fetchPosicao();
+    //         this.fetchNegocios(); // Atualiza a contagem de negócios
+    //       }
+    //     }).catch((error) => {
+    //       console.error('Erro ao buscar funil:', error);
+    //     });
+    //   } else {
+    //     console.log(this.funilSelect);
+    //     localStorage.setItem("fs", this.funilSelect);
+
+    //     this.qtdNegoicos = 0;
+    //     api.getFunilporId(this.funilSelect).then((res) => {
+    //       if (res.status === 200) {
+    //         this.funilporId = res.data;
+    //         this.etapas = res.data.etapas;
+    //         this.funilName = res.data;
+    //         this.fetchPosicao();
+    //         this.fetchNegocios(); // Atualiza a contagem de negócios
+    //       }
+    //     }).catch((error) => {
+    //       console.error('Erro ao buscar funil:', error);
+    //     });
+    //   }
+    // },
 
     fetchFirstEtapas() {
       api.getFunilporId(this.funilSelect).then((res) => {
-        if(res.status === 200) {
+        if (res.status === 200) {
           this.funilporId = res.data
           this.etapas = res.data.etapas
         }
@@ -2044,22 +2302,69 @@ export default {
     },
 
     fetchNegocios() {
-      // let qNegocio = 0
       api.getNegocios().then((res) => {
-        console.log("Aqui estao os negocios ==>", res)
-        if(res.status === 200) {
-          res.data.map((e) => {
-            if(e.Posicao.tipo_posicao == this.funilName) {
-              console.log(e)
-              this.qtdNegoicos = this.qtdNegoicos + 1
-            }  else {
-              console.log("Nao tem negocios")
-            }
-          })
+        if (res.status === 200) {
+          const negocios = res.data;
+
+          // Limpa a contagem atual
+          this.funis.forEach((funil) => {
+            funil.qtdNegoicos = 0; // Adiciona o campo qtdNegoicos se ainda não existir
+          });
+
+          // Conta os negócios por etapa e funil
+          negocios.forEach((negocio) => {
+            const idEtapa = negocio.Etapa.id_etapa;
+            this.funis.forEach((funil) => {
+              funil.etapas.forEach((etapa) => {
+                if (etapa.id_etapa === idEtapa) {
+                  funil.qtdNegoicos = (funil.qtdNegoicos || 0) + 1;
+                }
+              });
+            });
+          });
+
+          // Atualiza a qtdNegoicos para o funil selecionado
+          const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
+          this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
         }
-      })
+      }).catch((error) => {
+        console.error('Erro ao buscar negócios:', error);
+      });
     },
-    
+
+    filtrarEtapasFunil(mountedOn) {
+      if (mountedOn === true || !this.funilSelect) {
+        this.qtdNegoicos = 0;
+        api.getFunilporId(this.funilSelect).then((res) => {
+          if (res.status === 200) {
+            this.funilporId = res.data;
+            this.etapas = res.data.etapas;
+            this.funilName = res.data;
+            this.fetchPosicao();
+            this.fetchNegocios(); // Atualiza a contagem de negócios
+          }
+        }).catch((error) => {
+          console.error('Erro ao buscar funil:', error);
+        });
+      } else {
+        console.log(this.funilSelect);
+        localStorage.setItem("fs", this.funilSelect);
+
+        this.qtdNegoicos = 0;
+        api.getFunilporId(this.funilSelect).then((res) => {
+          if (res.status === 200) {
+            this.funilporId = res.data;
+            this.etapas = res.data.etapas;
+            this.funilName = res.data;
+            this.fetchPosicao();
+            this.fetchNegocios(); // Atualiza a contagem de negócios
+          }
+        }).catch((error) => {
+          console.error('Erro ao buscar funil:', error);
+        });
+      }
+    },
+
 
     aplicaMascaraDinheiroPrecoImovel(preco) {
       let v = preco;
@@ -2107,6 +2412,7 @@ export default {
     this.fetchFunil()
     this.fetchFirstEtapas()
     this.fetchNegocios()
+    this.filtrarEtapasFunil(true)
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);

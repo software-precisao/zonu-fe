@@ -1356,7 +1356,7 @@ export default {
       const response = await http.post(
         "/negocios/cadastrar",
         {
-          id_posicao: id_posicao,
+          id_etapa: id_posicao,
           id_nivel_interesse: id_nivel_interesse,
           id_cliente: id_cliente,
           id_imovel: id_imovel,
@@ -1552,6 +1552,29 @@ export default {
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
         },
       });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  postLigarPessoa: async (idCliente, descricao) => {
+    try {
+      const response = await http.post(
+        `/pessoasLigadas/cadastrar`,
+        {
+          id_cliente: idCliente,
+          breve_descricao: descricao,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
 
       return response;
     } catch (error) {

@@ -10,57 +10,34 @@
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
-                <div
-                  v-if="msgSalvarAlteracoesSuccess"
-                  class="alert alert-success"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgSalvarAlteracoesSuccess" class="alert alert-success" role="alert" style="width: 100%">
                   Alterações salvas com sucesso
                 </div>
-                <div
-                  v-if="msgSalvarAlteracoesError"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgSalvarAlteracoesError" class="alert alert-danger" role="alert" style="width: 100%">
                   Falha ao salvar as alterações
                 </div>
-                <div
-                  v-if="msgSalvarAlteracoesErrorSemEtapa"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgSalvarAlteracoesErrorSemEtapa" class="alert alert-danger" role="alert"
+                  style="width: 100%">
                   Adicione pelo menos uma etapa
                 </div>
-                <div
-                  v-if="msgSalvarAlteracoesErrorSemCampo"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="width: 100%"
-                >
+                <div v-if="msgSalvarAlteracoesErrorSemCampo" class="alert alert-danger" role="alert"
+                  style="width: 100%">
                   Preencha os campos corretamente
                 </div>
-                <div
-                  style="
+                <div style="
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     margin-top: 3rem;
-                  "
-                >
+                  ">
                   <div>
                     <h2 style="font-size: 1.1rem; font-weight: 500">
                       Configuração de funil
                     </h2>
                     <p>Lista de funis existentes</p>
                   </div>
-                  <button
-                    class="btn btn-orange"
-                    style="display: flex; align-items: center; height: 30px"
-                    @click="openNovaEtapa"
-                  >
+                  <button class="btn btn-orange" style="display: flex; align-items: center; height: 30px"
+                    @click="openNovaEtapa">
                     <i class="align-middle" data-feather="plus"></i>
                     <span style="margin-left: 3px">Nova etapa</span>
                   </button>
@@ -68,63 +45,26 @@
 
                 <div class="row">
                   <div class="form-group col-4">
-                    <label
-                      for="nomeFunil"
-                      style="font-size: 14px; font-weight: 600"
-                      >Nome do funil</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nomeFunil"
-                      v-model="nomeFunil"
-                      placeholder="Digite..."
-                      style="height: 40px"
-                    />
+                    <label for="nomeFunil" style="font-size: 14px; font-weight: 600">Nome do funil</label>
+                    <input type="text" class="form-control" id="nomeFunil" v-model="nomeFunil" placeholder="Digite..."
+                      style="height: 40px" />
                   </div>
 
                   <div class="form-group col-4">
-                    <label
-                      for="descricaoFunil"
-                      style="font-size: 14px; font-weight: 600"
-                      >Descrição do funil</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="descricaoFunil"
-                      v-model="descricaoFunil"
-                      placeholder="Digite a descrição do funil"
-                      style="height: 40px"
-                    />
+                    <label for="descricaoFunil" style="font-size: 14px; font-weight: 600">Descrição do funil</label>
+                    <input type="text" class="form-control" id="descricaoFunil" v-model="descricaoFunil"
+                      placeholder="Digite a descrição do funil" style="height: 40px" />
                   </div>
 
                   <div class="form-group col-4">
-                    <label
-                      for="diasLimpezaFunil"
-                      style="font-size: 14px; font-weight: 600"
-                      >Limpeza em</label
-                    >
-                    <img
-                      :src="InterrSvg"
-                      class="ms-2"
-                      style="width: 12px; height: 12px"
-                    />
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="diasLimpezaFunil"
-                      v-model="diasLimpezaFunil"
-                      placeholder="120"
-                      style="height: 40px"
-                    />
+                    <label for="diasLimpezaFunil" style="font-size: 14px; font-weight: 600">Limpeza em</label>
+                    <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
+                    <input type="text" class="form-control" id="diasLimpezaFunil" v-model="diasLimpezaFunil"
+                      placeholder="120" style="height: 40px" />
                   </div>
                 </div>
 
-                <div
-                  class="card mt-4"
-                  style="border: 1px solid rgb(211, 220, 235)"
-                >
+                <div class="card mt-4" style="border: 1px solid rgb(211, 220, 235)">
                   <div class="card-body">
                     <table class="table">
                       <thead>
@@ -132,19 +72,11 @@
                           <th>Nome da etapa</th>
                           <th>
                             Estagnar em
-                            <img
-                              :src="InterrSvg"
-                              class="ms-2"
-                              style="width: 12px; height: 12px"
-                            />
+                            <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
                           </th>
                           <th>
                             Qtd Negócios
-                            <img
-                              :src="InterrSvg"
-                              class="ms-2"
-                              style="width: 12px; height: 12px"
-                            />
+                            <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
                           </th>
                           <th class="text-center">Opções</th>
                         </tr>
@@ -152,29 +84,20 @@
                       <tbody>
                         <tr class="tr-hover" v-for="item in etapa">
                           <td>
-                            <div
-                              class="d-flex flex-column"
-                              style="font-size: 14px; font-weight: 500"
-                            >
+                            <div class="d-flex flex-column" style="font-size: 14px; font-weight: 500">
                               {{ item.nome_etapa }}
                             </div>
                           </td>
                           <td style="font-size: 14px; font-weight: 500">
-                            {{ item.dias_etapa }} Dias
+                            {{ item.dias_limpeza }} Dias
                           </td>
                           <td style="font-size: 14px; font-weight: 500">
                             {{ 0 == "0" ? "-" : "0" }}
                           </td>
                           <td class="text-end">
                             <div class="d-flex justify-content-end">
-                              <a
-                                class="me-2"
-                                @click="openEditarEtapa(item.nome_etapa)"
-                                >Editar etapa</a
-                              >
-                              <a class="" @click="removerEtapa(item.nome_etapa)"
-                                >Remover</a
-                              >
+                              <a class="me-2" @click="openEditarEtapa(item.nome_etapa)">Editar etapa</a>
+                              <a class="" @click="removerEtapa(item.nome_etapa)">Remover</a>
                             </div>
                           </td>
                         </tr>
@@ -183,87 +106,42 @@
                   </div>
                 </div>
 
-                <div
-                  class="mt-6"
-                  style="display: flex; justify-content: space-around"
-                >
-                  <a
-                    type="button"
-                    class="btn btn-white"
-                    style="padding: 10px 20px"
-                    href="/seu-crmconfig"
-                  >
+                <div class="mt-6" style="display: flex; justify-content: space-around">
+                  <a type="button" class="btn btn-white" style="padding: 10px 20px" href="/seu-crmconfig">
                     Voltar
                   </a>
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    style="padding: 10px 20px"
-                    @click="handleSalvarAlteracoes"
-                  >
+                  <button type="button" class="btn btn-success" style="padding: 10px 20px"
+                    @click="handleSalvarAlteracoes">
                     {{ textSalvarAlteacoes }}
                   </button>
                 </div>
 
                 <!-- modal de adicionar etapa -->
-                <div
-                  class="modal fade modalTelefone"
-                  id="modalNovaEtapa"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="modalNovaEtapa"
-                  aria-hidden="true"
-                  ref="modalNovaEtapa"
-                >
-                  <div
-                    class="modal-dialog"
-                    style="padding-top: 80px"
-                    role="document"
-                  >
+                <div class="modal fade modalTelefone" id="modalNovaEtapa" tabindex="-1" role="dialog"
+                  aria-labelledby="modalNovaEtapa" aria-hidden="true" ref="modalNovaEtapa">
+                  <div class="modal-dialog" style="padding-top: 80px" role="document">
                     <div class="modal-content">
                       <!-- <div class="modal-header"> -->
-                      <div
-                        class="modal-header"
-                        style="
+                      <div class="modal-header" style="
                           display: flex;
                           flex-direction: column;
                           width: 100%;
                           align-items: flex-start;
-                        "
-                      >
-                        <div
-                          v-if="msgAddEtapaSuccess"
-                          class="alert alert-success"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        ">
+                        <div v-if="msgAddEtapaSuccess" class="alert alert-success" role="alert" style="width: 100%">
                           Etapa adicionada com sucesso
                         </div>
-                        <div
-                          v-if="msgAddEtapaError"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgAddEtapaError" class="alert alert-danger" role="alert" style="width: 100%">
                           Falha ao adicionar a etapa
                         </div>
-                        <div
-                          v-if="msgAddEtapaErrorSemCampos"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgAddEtapaErrorSemCampos" class="alert alert-danger" role="alert"
+                          style="width: 100%">
                           Preencha os campos obrigatórios!
                         </div>
                         <h5 class="modal-title" id="exampleModalLabel">
                           Nova etapa
                         </h5>
-                        <button
-                          type="button"
-                          class="close custom-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                        <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -272,51 +150,24 @@
                         <!-- Conteúdo do modal de adicionar telefones -->
                         <div class="row">
                           <div class="form-group col-7">
-                            <label
-                              for="nomeEtapa"
-                              style="font-size: 14px; font-weight: 600"
-                              >Nome da etapa</label
-                            >
+                            <label for="nomeEtapa" style="font-size: 14px; font-weight: 600">Nome da etapa</label>
                             <div class="input-group">
                               <div class="input-group-prepend"></div>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="nomeEtapa"
-                                v-model="nomeEtapa"
-                                placeholder="Digite..."
-                                style="height: 40px"
-                              />
+                              <input type="text" class="form-control" id="nomeEtapa" v-model="nomeEtapa"
+                                placeholder="Digite..." style="height: 40px" />
                             </div>
                           </div>
                           <div class="form-group col-5">
-                            <label
-                              for="estagnarEm"
-                              style="font-size: 14px; font-weight: 600"
-                              >Estagnar em</label
-                            >
-                            <img
-                              :src="InterrSvg"
-                              class="ms-2"
-                              style="width: 12px; height: 12px"
-                            />
-                            <div
-                              style="
+                            <label for="estagnarEm" style="font-size: 14px; font-weight: 600">Estagnar em</label>
+                            <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
+                            <div style="
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                              "
-                            >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="estagnarEm"
-                                v-model="estagnarEm"
-                                placeholder="3"
-                                style="height: 40px; width: 70%"
-                              />
-                              <span
-                                style="
+                              ">
+                              <input type="text" class="form-control" id="estagnarEm" v-model="estagnarEm"
+                                placeholder="3" style="height: 40px; width: 70%" />
+                              <span style="
                                   font-weight: 600;
                                   height: 40px;
                                   width: 30%;
@@ -326,37 +177,19 @@
                                   border: 1px solid #d3dceb;
                                   border-top-right-radius: 5px;
                                   border-bottom-right-radius: 5px;
-                                "
-                                >Dias</span
-                              >
+                                ">Dias</span>
                             </div>
                           </div>
 
                           <div class="form-group mt-3 col-12">
-                            <label
-                              for="descricao"
-                              style="font-size: 13px; font-weight: 600"
-                              >Descrição</label
-                            >
-                            <input
-                              id="descricao"
-                              type="text"
-                              placeholder="Digite a descição da etapa"
-                              class="form-control"
-                              style="height: 40px"
-                              v-model="descricao"
-                            />
+                            <label for="descricao" style="font-size: 13px; font-weight: 600">Descrição</label>
+                            <input id="descricao" type="text" placeholder="Digite a descição da etapa"
+                              class="form-control" style="height: 40px" v-model="descricao" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: space-between"
-                      >
-                        <button
-                          type="button"
-                          class="btn btnModal"
-                          style="
+                      <div class="modal-footer" style="display: flex; justify-content: space-between">
+                        <button type="button" class="btn btnModal" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             background-color: #fff;
@@ -365,15 +198,10 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          data-bs-dismiss="modal"
-                        >
+                          " data-bs-dismiss="modal">
                           Cancelar
                         </button>
-                        <button
-                          type="button"
-                          class="btn btnModal2"
-                          style="
+                        <button type="button" class="btn btnModal2" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             color: #fff;
@@ -383,9 +211,7 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          @click="addEtapa"
-                        >
+                          " @click="addEtapa">
                           {{ textAddEtapa }}
                         </button>
                       </div>
@@ -394,114 +220,54 @@
                 </div>
 
                 <!-- modal de editar etapa -->
-                <div
-                  class="modal fade modalTelefone"
-                  id="modalEditarEtapa"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="modalEditarEtapa"
-                  aria-hidden="true"
-                  ref="modalEditarEtapa"
-                >
-                  <div
-                    class="modal-dialog"
-                    style="padding-top: 80px"
-                    role="document"
-                  >
+                <div class="modal fade modalTelefone" id="modalEditarEtapa" tabindex="-1" role="dialog"
+                  aria-labelledby="modalEditarEtapa" aria-hidden="true" ref="modalEditarEtapa">
+                  <div class="modal-dialog" style="padding-top: 80px" role="document">
                     <div class="modal-content">
-                      <div
-                        class="modal-header"
-                        style="
+                      <div class="modal-header" style="
                           display: flex;
                           flex-direction: column;
                           width: 100%;
                           align-items: flex-start;
-                        "
-                      >
-                        <div
-                          v-if="msgeditEtapaSuccess"
-                          class="alert alert-success"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        ">
+                        <div v-if="msgeditEtapaSuccess" class="alert alert-success" role="alert" style="width: 100%">
                           Etapa Editada com sucesso
                         </div>
-                        <div
-                          v-if="msgeditEtapaError"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgeditEtapaError" class="alert alert-danger" role="alert" style="width: 100%">
                           Falha ao editar a etapa
                         </div>
-                        <div
-                          v-if="msgeditEtapaErrorSemCampos"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgeditEtapaErrorSemCampos" class="alert alert-danger" role="alert"
+                          style="width: 100%">
                           Preencha os campos obrigatórios!
                         </div>
                         <h5 class="modal-title" id="exampleModalLabel">
                           Editar etapa
                         </h5>
-                        <button
-                          type="button"
-                          class="close custom-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                        <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
                         <div class="row">
                           <div class="form-group col-7">
-                            <label
-                              for="editarNomeEtapa"
-                              style="font-size: 14px; font-weight: 600"
-                              >Nome da etapa</label
-                            >
+                            <label for="editarNomeEtapa" style="font-size: 14px; font-weight: 600">Nome da etapa</label>
                             <div class="input-group">
                               <div class="input-group-prepend"></div>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="editarNomeEtapa"
-                                v-model="editarNomeEtapa"
-                                placeholder="Digite..."
-                                style="height: 40px"
-                              />
+                              <input type="text" class="form-control" id="editarNomeEtapa" v-model="editarNomeEtapa"
+                                placeholder="Digite..." style="height: 40px" />
                             </div>
                           </div>
                           <div class="form-group col-5">
-                            <label
-                              for="editarEstagnarEm"
-                              style="font-size: 14px; font-weight: 600"
-                              >Estagnar em</label
-                            >
-                            <img
-                              :src="InterrSvg"
-                              class="ms-2"
-                              style="width: 12px; height: 12px"
-                            />
-                            <div
-                              style="
+                            <label for="editarEstagnarEm" style="font-size: 14px; font-weight: 600">Estagnar em</label>
+                            <img :src="InterrSvg" class="ms-2" style="width: 12px; height: 12px" />
+                            <div style="
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                              "
-                            >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="editarEstagnarEm"
-                                v-model="editarEstagnarEm"
-                                placeholder="3"
-                                style="height: 40px; width: 70%"
-                              />
-                              <span
-                                style="
+                              ">
+                              <input type="text" class="form-control" id="editarEstagnarEm" v-model="editarEstagnarEm"
+                                placeholder="3" style="height: 40px; width: 70%" />
+                              <span style="
                                   font-weight: 600;
                                   height: 40px;
                                   width: 30%;
@@ -511,37 +277,19 @@
                                   border: 1px solid #d3dceb;
                                   border-top-right-radius: 5px;
                                   border-bottom-right-radius: 5px;
-                                "
-                                >Dias</span
-                              >
+                                ">Dias</span>
                             </div>
                           </div>
 
                           <div class="form-group mt-3 col-12">
-                            <label
-                              for="editarDescricao"
-                              style="font-size: 13px; font-weight: 600"
-                              >Descrição</label
-                            >
-                            <input
-                              id="editarDescricao"
-                              type="text"
-                              placeholder="Digite a descição da etapa"
-                              class="form-control"
-                              style="height: 40px"
-                              v-model="editarDescricao"
-                            />
+                            <label for="editarDescricao" style="font-size: 13px; font-weight: 600">Descrição</label>
+                            <input id="editarDescricao" type="text" placeholder="Digite a descição da etapa"
+                              class="form-control" style="height: 40px" v-model="editarDescricao" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: space-between"
-                      >
-                        <button
-                          type="button"
-                          class="btn btnModal"
-                          style="
+                      <div class="modal-footer" style="display: flex; justify-content: space-between">
+                        <button type="button" class="btn btnModal" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             background-color: #fff;
@@ -550,15 +298,10 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          data-bs-dismiss="modal"
-                        >
+                          " data-bs-dismiss="modal">
                           Cancelar
                         </button>
-                        <button
-                          type="button"
-                          class="btn btnModal2"
-                          style="
+                        <button type="button" class="btn btnModal2" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             color: #fff;
@@ -568,9 +311,7 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          @click="editEtapa"
-                        >
+                          " @click="editEtapa">
                           {{ textEditarEtapa }}
                         </button>
                       </div>
@@ -579,78 +320,41 @@
                 </div>
 
                 <!-- modal de remover etapa -->
-                <div
-                  class="modal fade modalTelefone"
-                  id="modalRemoverEtapa"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-labelledby="modalRemoverEtapa"
-                  aria-hidden="true"
-                  ref="modalRemoverEtapa"
-                >
-                  <div
-                    class="modal-dialog"
-                    style="padding-top: 80px"
-                    role="document"
-                  >
+                <div class="modal fade modalTelefone" id="modalRemoverEtapa" tabindex="-1" role="dialog"
+                  aria-labelledby="modalRemoverEtapa" aria-hidden="true" ref="modalRemoverEtapa">
+                  <div class="modal-dialog" style="padding-top: 80px" role="document">
                     <div class="modal-content">
-                      <div
-                        class="modal-header"
-                        style="
+                      <div class="modal-header" style="
                           display: flex;
                           flex-direction: column;
                           width: 100%;
                           align-items: flex-start;
-                        "
-                      >
-                        <div
-                          v-if="msgEtapaRemoveSuccess"
-                          class="alert alert-success"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        ">
+                        <div v-if="msgEtapaRemoveSuccess" class="alert alert-success" role="alert" style="width: 100%">
                           Etapa Removida com sucesso
                         </div>
-                        <div
-                          v-if="msgEtapaRemoveError"
-                          class="alert alert-danger"
-                          role="alert"
-                          style="width: 100%"
-                        >
+                        <div v-if="msgEtapaRemoveError" class="alert alert-danger" role="alert" style="width: 100%">
                           Falha ao remover a etapa
                         </div>
                         <h5 class="modal-title" id="exampleModalLabel">
                           Remover etapa
                         </h5>
-                        <button
-                          type="button"
-                          class="close custom-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                        <button type="button" class="close custom-close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h2
-                          style="
+                        <h2 style="
                             font-size: 16px;
                             font-weight: 600;
                             text-align: center;
                             padding: 20px 0;
-                          "
-                        >
+                          ">
                           Tem certeza que deseja remover essa etapa?
                         </h2>
                       </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: space-between"
-                      >
-                        <button
-                          type="button"
-                          class="btn btnModal"
-                          style="
+                      <div class="modal-footer" style="display: flex; justify-content: space-between">
+                        <button type="button" class="btn btnModal" style="
                             padding: 10px 15px;
                             border: 1px solid #d3dceb;
                             background-color: #fff;
@@ -659,17 +363,11 @@
                             font-size: 1em;
                             font-weight: 600;
                             cursor: pointer;
-                          "
-                          data-bs-dismiss="modal"
-                        >
+                          " data-bs-dismiss="modal">
                           Cancelar
                         </button>
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          style="padding: 10px 15px"
-                          @click="removerEtapaYes"
-                        >
+                        <button type="button" class="btn btn-danger" style="padding: 10px 15px"
+                          @click="removerEtapaYes">
                           {{ textRemoverEtapa }}
                         </button>
                       </div>
@@ -780,7 +478,7 @@ export default {
       this.etapa.map((e) => {
         if (e.nome_etapa == this.etapaIdEdit) {
           this.editarNomeEtapa = e.nome_etapa;
-          this.editarEstagnarEm = e.dias_etapa;
+          this.editarEstagnarEm = e.dias_limpeza;
           this.editarDescricao = e.descricao_etapa;
         }
       });
@@ -802,7 +500,7 @@ export default {
         );
         this.etapa.push({
           nome_etapa: nome,
-          dias_etapa: estagnar,
+          dias_limpeza: estagnar,
           descricao_etapa: descricao,
         });
         setTimeout(() => {
@@ -839,7 +537,7 @@ export default {
         this.etapa.map((e) => {
           if (e.nome_etapa == this.etapaIdEdit) {
             e.nome_etapa = nome;
-            e.dias_etapa = estagnar;
+            e.dias_limpeza = estagnar;
             e.descricao_etapa = descricao;
           }
         });
