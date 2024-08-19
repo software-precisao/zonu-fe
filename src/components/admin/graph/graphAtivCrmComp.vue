@@ -1,6 +1,7 @@
 <template>
   <div class="flex-fill w-100">
     <div class="card-body py-3">
+      {{ console.log(idFunil) }}
       <div class="chart chart-sm">
         <canvas id="myChartRedesSociais"></canvas>
       </div>
@@ -10,9 +11,16 @@
 
 <script>
 import "https://cdn.jsdelivr.net/npm/chart.js";
+import api from '../../../../service/api/index'
 
 export default {
   name: "SocialMediaChart",
+  props: {
+    idFunil: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       myChart: null,
@@ -33,6 +41,8 @@ export default {
   },
   mounted() {
     this.renderChart();
+    // this.fetchClientes()
+    // this.fetchNegocios()
   },
   methods: {
     renderChart() {
@@ -92,6 +102,18 @@ export default {
         },
       });
     },
+
+    fetchClientes() {
+      api.getCliente().then((res) => {
+        console.log(res)
+      })
+    },
+
+    // fetchNegocios() {
+    //   api.getNegocios().then((res) => {
+    //     console.log(res)
+    //   })
+    // },
   },
   beforeDestroy() {
     if (this.myChart) {

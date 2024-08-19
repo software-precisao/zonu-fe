@@ -219,7 +219,8 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-6 mb-4">
-                        <div class="mb-2" v-for="(etapa, index) in etapas" :key="etapa.nome_etapa">
+                        <!-- {{ console.log(funis) }} -->
+                        <div class="mb-2" v-for="(etapa, index) in etapasDoFunil" :key="etapa.nome_etapa">
                           <div class="card-body d-flex justify-content-between align-items-center" :style="{
                             width: `${100 - index * 2}%`,
                             backgroundColor: calculateBarColor(index),
@@ -233,14 +234,9 @@
                               </h6>
                             </div>
                             <div class="text-end">
-                              <h5 style="color: #fff">3</h5>
+                              <h5 style="color: #fff">{{ etapa.qtdNegoicos || 0 }}</h5>
                               <p class="mb-0">
-                                R$ 2.000,00
-                                <!-- {{
-                                  etapa.valor.toLocaleString("pt-BR", {
-                                    minimumFractionDigits: 2,
-                                  })
-                                }} -->
+                                R$ {{ calcularSomaPrecoImoveis(etapa) }}
                               </p>
                             </div>
                           </div>
@@ -266,7 +262,7 @@
                                 font-weight: bold;
                                 text-align: right;
                               ">
-                              54
+                              {{ funilSelecionado ? funilSelecionado.qtdNegoicos : 0 }}
                             </p>
                           </div>
                           <div class="col-4" style="
@@ -285,7 +281,7 @@
                                 font-weight: bold;
                                 text-align: right;
                               ">
-                              52
+                              0
                             </p>
                           </div>
                           <div class="col-4" style="
@@ -303,7 +299,7 @@
                                 font-weight: bold;
                                 text-align: right;
                               ">
-                              1
+                              {{ imoveisUnicos }}
                             </p>
                           </div>
                         </div>
@@ -324,7 +320,7 @@
                             Distribuição por canal
                           </p>
                           <div class="w-52">
-                            <graphAtivCrmComp />
+                            <graphAtivCrmComp :idFunil="funilSelecionado" />
                           </div>
                         </div>
                       </div>
@@ -1565,6 +1561,7 @@ import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import Editor from "@tinymce/tinymce-vue";
 import api from "../../../../service/api/index";
+import apiImovel from "../../../../service/api/imoveis/index";
 import { jwtDecode } from "jwt-decode";
 import _ from "lodash";
 import axios from "axios";
@@ -1703,6 +1700,7 @@ export default {
       funilporId: [],
       funilName: "",
       qtdNegoicos: 0,
+      imoveisUnicos: 0,
 
       startDate: "01/01/2024",
       endDate: "19/08/2024",
@@ -1742,6 +1740,15 @@ export default {
         this.endDate = this.parseDate(value);
       }
     },
+    etapasDoFunil() {
+      // Verifica se funilporId está definido e se há etapas associadas
+      const funilSelecionado = this.funis.find(f => f.id_funil == Number(this.funilSelect));
+      return funilSelecionado ? funilSelecionado.etapas : [];
+    },
+    funilSelecionado() {
+      // console.log()
+      return this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+    }
   },
 
   methods: {
@@ -2306,26 +2313,77 @@ export default {
         if (res.status === 200) {
           const negocios = res.data;
 
-          // Limpa a contagem atual
+          // Limpa a contagem e arrays de negócios atuais
           this.funis.forEach((funil) => {
-            funil.qtdNegoicos = 0; // Adiciona o campo qtdNegoicos se ainda não existir
-          });
-
-          // Conta os negócios por etapa e funil
-          negocios.forEach((negocio) => {
-            const idEtapa = negocio.Etapa.id_etapa;
-            this.funis.forEach((funil) => {
-              funil.etapas.forEach((etapa) => {
-                if (etapa.id_etapa === idEtapa) {
-                  funil.qtdNegoicos = (funil.qtdNegoicos || 0) + 1;
-                }
-              });
+            funil.qtdNegoicos = 0;
+            funil.negocios = [];
+            funil.etapas.forEach((etapa) => {
+              etapa.qtdNegoicos = 0;
+              etapa.negocios = [];
             });
           });
 
-          // Atualiza a qtdNegoicos para o funil selecionado
-          const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
-          this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+          // Função para buscar o preco_imovel por id_imovel
+          const fetchPrecoImovel = async (id_imovel) => {
+            return apiImovel.obterImovel(id_imovel)
+              .then((res) => {
+                if (res.status === 200) {
+                  return res.data.preco.preco_imovel;
+                }
+                return null;
+              })
+              .catch((error) => {
+                console.error(`Erro ao buscar preço do imóvel ${id_imovel}:`, error);
+                return null;
+              });
+          };
+
+          const imoveisUnicosSet = new Set();
+
+          // Processa negócios
+          const processNegocios = async () => {
+            for (const negocio of negocios) {
+              const idEtapa = negocio.Etapa.id_etapa;
+              const idImovel = negocio.NovoImovel.id_imovel;
+
+              const funilCorrespondente = this.funis.find((funil) =>
+                funil.etapas.some((etapa) => etapa.id_etapa === idEtapa)
+              );
+
+              if (funilCorrespondente && funilCorrespondente.id_funil == Number(this.funilSelect)) {
+                // Adiciona o id_imovel ao Set de imóveis únicos
+                imoveisUnicosSet.add(idImovel);
+              }
+
+
+              // Busca o preço do imóvel
+              const precoImovel = await fetchPrecoImovel(idImovel);
+              negocio.NovoImovel.preco_imovel = precoImovel;
+
+              // Encontra o funil e a etapa correspondentes e adiciona o negócio
+              this.funis.forEach((funil) => {
+                funil.etapas.forEach((etapa) => {
+                  if (etapa.id_etapa === idEtapa) {
+                    // Verifica se o negócio já foi adicionado usando o id_negocio
+                    const negocioJaAdicionado = etapa.negocios.some(n => n.id_negocio === negocio.id_negocio);
+                    if (!negocioJaAdicionado) {
+                      etapa.negocios.push(negocio);
+                      funil.negocios.push(negocio);
+                      funil.qtdNegoicos += 1;
+                      etapa.qtdNegoicos += 1;
+                    }
+                  }
+                });
+              });
+            }
+
+            this.imoveisUnicos = imoveisUnicosSet.size;
+          };
+
+          processNegocios().then(() => {
+            const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
+            this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+          });
         }
       }).catch((error) => {
         console.error('Erro ao buscar negócios:', error);
@@ -2364,6 +2422,34 @@ export default {
         });
       }
     },
+
+    calcularSomaPrecoImoveis(etapa) {
+      // Verifica se etapa.negocios é um array válido
+      if (!Array.isArray(etapa.negocios)) {
+        return "R$ 0,00"; // Retorna 0 se negocios não for um array
+      }
+
+      // Calcula a soma dos preços dos imóveis
+      let soma = etapa.negocios.reduce((total, negocio) => {
+        // Verifica se NovoImovel e preco_imovel existem e são válidos
+        if (negocio.NovoImovel && typeof negocio.NovoImovel.preco_imovel === 'string') {
+          // Remove caracteres não numéricos e converte para float
+          const precoImovel = parseFloat(negocio.NovoImovel.preco_imovel.replace(/\D/g, "")) || 0;
+          return total + precoImovel;
+        }
+        return total;
+      }, 0);
+
+      // Divide o valor total por 100 para simular as casas decimais
+      soma = soma / 100;
+
+      // Retorna o valor formatado como moeda
+      return soma.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    }
+    ,
 
 
     aplicaMascaraDinheiroPrecoImovel(preco) {
