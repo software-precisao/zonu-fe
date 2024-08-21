@@ -345,7 +345,7 @@ export default {
     this.fetchImoveis();
     this.fetchFunil()
     // this.fetchFirstEtapas()
-    this.fetchNegocios()
+    // this.fetchNegocios()
     this.filtrarEtapasFunil(true)
     this.fetchClientePorID()
   },
@@ -524,85 +524,87 @@ export default {
     },
 
     fetchNegocios() {
-      api.getNegocios().then((res) => {
-        if (res.status === 200) {
-          const negocios = res.data;
+      api.getNegocios()
+        .then((res) => {
+          if (res.status === 200) {
+            const negocios = res.data;
 
-          // Limpa a contagem e arrays de negócios atuais
-          this.funis.forEach((funil) => {
-            funil.qtdNegoicos = 0;
-            funil.negocios = [];
-            funil.etapas.forEach((etapa) => {
-              etapa.qtdNegoicos = 0;
-              etapa.negocios = [];
-            });
-          });
-
-          // Função para buscar o preco_imovel por id_imovel
-          const fetchPrecoImovel = async (id_imovel) => {
-            return apiImovel.obterImovel(id_imovel)
-              .then((res) => {
-                if (res.status === 200) {
-                  return res.data.preco.preco_imovel;
-                }
-                return null;
-              })
-              .catch((error) => {
-                console.error(`Erro ao buscar preço do imóvel ${id_imovel}:`, error);
-                return null;
+            // Limpa a contagem e arrays de negócios atuais
+            this.funis.forEach((funil) => {
+              funil.qtdNegoicos = 0;
+              funil.negocios = [];
+              funil.imoveisUnicos = new Set(); // Cria um Set para imóveis únicos
+              funil.etapas.forEach((etapa) => {
+                etapa.qtdNegoicos = 0;
+                etapa.negocios = [];
               });
-          };
+            });
 
-          const imoveisUnicosSet = new Set();
+            const etapaMap = new Map();
 
-          // Processa negócios
-          const processNegocios = async () => {
-            for (const negocio of negocios) {
+            // Agrupa os negócios por id_etapa
+            negocios.forEach((negocio) => {
               const idEtapa = negocio.Etapa.id_etapa;
               const idImovel = negocio.NovoImovel.id_imovel;
 
-              const funilCorrespondente = this.funis.find((funil) =>
-                funil.etapas.some((etapa) => etapa.id_etapa === idEtapa)
-              );
-
-              if (funilCorrespondente && funilCorrespondente.id_funil == Number(this.funilSelect)) {
-                // Adiciona o id_imovel ao Set de imóveis únicos
-                imoveisUnicosSet.add(idImovel);
+              // Mapeia o negócio para a etapa correspondente
+              if (!etapaMap.has(idEtapa)) {
+                etapaMap.set(idEtapa, []);
               }
+              etapaMap.get(idEtapa).push(negocio);
+            });
 
+            // Busca o preço do imóvel e atualiza os negócios em paralelo
+            const promises = Array.from(etapaMap.entries()).map(([idEtapa, negocios]) => {
+              return Promise.all(negocios.map((negocio) => {
+                const idImovel = negocio.NovoImovel.id_imovel;
 
-              // Busca o preço do imóvel
-              const precoImovel = await fetchPrecoImovel(idImovel);
-              negocio.NovoImovel.preco_imovel = precoImovel;
-
-              // Encontra o funil e a etapa correspondentes e adiciona o negócio
-              this.funis.forEach((funil) => {
-                funil.etapas.forEach((etapa) => {
-                  if (etapa.id_etapa === idEtapa) {
-                    // Verifica se o negócio já foi adicionado usando o id_negocio
-                    const negocioJaAdicionado = etapa.negocios.some(n => n.id_negocio === negocio.id_negocio);
-                    if (!negocioJaAdicionado) {
-                      etapa.negocios.push(negocio);
-                      funil.negocios.push(negocio);
-                      funil.qtdNegoicos += 1;
-                      etapa.qtdNegoicos += 1;
+                return apiImovel.obterImovel(idImovel)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      negocio.NovoImovel.preco_imovel = res.data.preco.preco_imovel;
                     }
-                  }
+                  });
+              })).then(() => {
+                // Encontra a etapa e funil correspondentes e adiciona os negócios de uma vez
+                this.funis.forEach((funil) => {
+                  funil.etapas.forEach((etapa) => {
+                    if (etapa.id_etapa === idEtapa) {
+                      etapa.negocios.push(...negocios);
+                      etapa.qtdNegoicos += negocios.length;
+                      funil.negocios.push(...negocios);
+
+                      // Adiciona imóveis únicos ao Set do funil
+                      negocios.forEach((negocio) => {
+                        funil.imoveisUnicos.add(negocio.NovoImovel.id_imovel);
+                      });
+
+                      funil.qtdNegoicos += negocios.length;
+                    }
+                  });
                 });
               });
-            }
+            });
 
-            this.imoveisUnicos = imoveisUnicosSet.size;
-          };
+            Promise.all(promises).then(() => {
+              // Atualiza a quantidade de imóveis únicos para cada funil
+              this.funis.forEach(funil => {
+                funil.imoveisUnicos = funil.imoveisUnicos.size;
+              });
 
-          processNegocios().then(() => {
-            const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
-            this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
-          });
-        }
-      }).catch((error) => {
-        console.error('Erro ao buscar negócios:', error);
-      });
+              const funilSelecionado = this.funis.find(f => f.id_funil === Number(this.funilSelect));
+              this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+              this.imoveisUnicos = funilSelecionado ? funilSelecionado.imoveisUnicos : 0;
+
+              this.$nextTick(() => {
+                // Atualize a interface se necessário
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar negócios:', error);
+        });
     },
 
     fetchPosicao() {
