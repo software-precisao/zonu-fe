@@ -1250,7 +1250,8 @@ export default {
     anotacao,
     telefone1,
     telefone2,
-    idUser
+    idUser,
+    pessoasLigadas
   ) => {
     try {
       const response = await http.post(
@@ -1276,6 +1277,7 @@ export default {
           telefone_1: telefone1,
           telefone_2: telefone2,
           id_user: idUser,
+          pessoas_ligadas: pessoasLigadas,
         },
         {
           headers: {
@@ -1581,6 +1583,7 @@ export default {
       return error.response || error.message || error;
     }
   },
+
   getClientPorId: async (idCliente) => {
     try {
       const response = await http.get(`/clientes/${idCliente}`, {

@@ -823,8 +823,8 @@
 
                     <div class="form-group mt-3">
                       <label for="dataNascimento" style="font-size: 14px; font-weight: 600">Data de Nascimento</label>
-                      <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
-                        placeholder="Digite..." style="height: 40px" />
+                      <input type="text" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                        placeholder="Digite..." style="height: 40px" @input="validateDate" />
                     </div>
 
                     <div class="form-group mt-3">
@@ -1011,7 +1011,7 @@
                       </ul>
                     </div>
                     <input type="text" class="form-control" id="telefone" v-model="telefone"
-                      placeholder="(99) 99999-9999" style="height: 40px" />
+                      placeholder="(99) 99999-9999" style="height: 40px" @input="aplicaMascaraTelefone" />
                   </div>
                 </div>
 
@@ -1100,7 +1100,7 @@
                       <i class="align-middle" data-feather="chevron-down"></i>
                     </div>
                     <ul v-if="isOpenPessoa" class="options-list">
-                      <li @click="addClient" style="background-color: #f1f4f9">
+                      <!-- <li @click="addClient" style="background-color: #f1f4f9">
                         <button class="btn" style="
                             color: #026da6;
                             display: flex;
@@ -1109,7 +1109,7 @@
                           ">
                           <img :src="plusCircle" style="width: 12px; height: 12px; margin-right: 6px" />Adicionar
                         </button>
-                      </li>
+                      </li> -->
                       <!-- {{console.log(allClientes)}} -->
                       <li v-for="client in allClientes" :key="client.id_cliente" @click="selectOptionPessoa(client)">
                         <div style="display: flex; flex-direction: column">
@@ -1264,13 +1264,13 @@
 
                       <div class="form-group col-2">
                         <label for="cpf" style="font-size: 13px; font-weight: 600">CPF</label>
-                        <input type="number" class="form-control" id="cpf" v-model="cpf" placeholder="Digite..."
-                          style="height: 40px" />
+                        <input type="text" class="form-control" id="cpf" v-model="cpf" placeholder="Digite..."
+                          style="height: 40px" @input="aplicaMascaraCPF" />
                       </div>
 
                       <div class="form-group col-2">
-                        <label for="cpf" style="font-size: 13px; font-weight: 600">RG</label>
-                        <input type="number" class="form-control" id="rg" v-model="rg" placeholder="Digite..."
+                        <label for="rg" style="font-size: 13px; font-weight: 600">RG</label>
+                        <input type="text" class="form-control" id="rg" v-model="rg" placeholder="Digite..."
                           style="height: 40px" />
                       </div>
 
@@ -1289,8 +1289,8 @@
 
                       <div class="form-group col-3 mt-3">
                         <label for="dataNascimento" style="font-size: 13px; font-weight: 600">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
-                          placeholder="Digite..." style="height: 40px" />
+                        <input type="text" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                          placeholder="Digite..." style="height: 40px" @input="validateDate" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
@@ -1878,6 +1878,8 @@ export default {
           descricao: this.descricaoPessoaLigada,
         })
 
+        console.log(this.allPessoasLigadas)
+
         const modalLigarPessoa = bootstrap.Modal.getInstance(
           this.$refs.modalLigarPessoa
         );
@@ -2045,7 +2047,7 @@ export default {
           // console.log(res.data);
           this.allTiposClientes = res.data;
           res.data.map((tipo) => {
-            if (tipo.tipo_cliente == "Pessoa Física") {
+            if (tipo.tipo_cliente == "Física") {
               // console.log(tipo);
               this.tipoCliente = tipo.tipo_cliente;
             }
@@ -2088,12 +2090,13 @@ export default {
       let bairro = this.bairro;
       let logradouro = this.logradouro;
       let numero = Number(this.numero);
-      let complemento = this.numero;
+      let complemento = this.complemento;
       let anotacao = this.termos.replace(/<\/?p[^>]*>/gi, "");
       let telefone1 = "";
       let telefone2 = "";
       let idUser = this.id_user;
-      let pessoa = this.allPessoasLigadas
+      let pessoasLigadas = []
+      // console.log(pessoas)
 
       idCaptacao = this.allOrigensCapitacao.find(
         (origem) => origem.origem_captacao === this.origemCaptacao
@@ -2111,6 +2114,16 @@ export default {
         // console.log(this.alltelefones[1].NumTelefone)
         telefone2 = this.alltelefones[1].NumTelefone; // Segundo telefone
       }
+
+      if (this.allPessoasLigadas.length > 0) {
+        pessoasLigadas = this.allPessoasLigadas.map(item => {
+          return {
+            id_pessoa_ligada: item.clienteLigado.id_cliente,
+            breve_descricao: item.descricao
+          };
+        });
+      }
+
 
       // console.log(this.allOrigensCapitacao);
       // console.log(idCaptacao, idCategoriaCliente);
@@ -2144,7 +2157,8 @@ export default {
             anotacao,
             telefone1,
             telefone2,
-            idUser
+            idUser,
+            pessoasLigadas
           )
           .then((res) => {
             this.textAddCliente = "Adicionando...";
@@ -2153,6 +2167,24 @@ export default {
               this.msgClienteSuccess = true;
 
               setTimeout(() => {
+                this.categoria = ""
+                this.origemCaptacao = ""
+                this.nome = ""
+                this.rg = ""
+                this.cpf = ""
+                this.email = ""
+                this.dataNascimento = ""
+                this.profissao = ""
+                this.cep = ""
+                this.pais = ""
+                this.uf = ""
+                this.cidade = ""
+                this.bairro = ""
+                this.logradouro = ""
+                this.numero = ""
+                this.complemento = ""
+                this.termos = ""
+
                 const modalCliente = bootstrap.Modal.getInstance(
                   this.$refs.myModalComplete
                 );
@@ -2448,9 +2480,20 @@ export default {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-    }
-    ,
+    },
 
+    aplicaMascaraTelefone() {
+      let v = this.telefone;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 11) {
+        v = v.substring(0, 11);
+      }
+      v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+      v = v.replace(/(\d{5})(\d)/, "$1-$2");
+
+      this.telefone = v;
+    },
 
     aplicaMascaraDinheiroPrecoImovel(preco) {
       let v = preco;
@@ -2467,6 +2510,58 @@ export default {
         maximumFractionDigits: 2,
       });
       // console.log(this.currentImovel)
+    },
+
+    aplicaMascaraCPF() {
+      let v = this.cpf;
+
+      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      if (v.length > 11) {
+        v = v.substring(0, 11); // Limita o tamanho a 11 dígitos
+      }
+
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+      this.cpf = v;
+    },
+
+    aplicaMascaraRG() {
+      let v = this.rg;
+
+      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      if (v.length > 9) {
+        v = v.substring(0, 9); // Limita o tamanho a 9 dígitos
+      }
+
+      v = v.replace(/(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d{1})$/, "$1-$2");
+
+      this.rg = v;
+    },
+
+    validateDate(event) {
+      let date = event.target.value;
+
+      // Remove qualquer caractere que não seja número
+      date = date.replace(/[^0-9]/g, '');
+
+      // Formata automaticamente para dd/mm/yyyy enquanto o usuário digita
+      if (date.length > 2 && date.length <= 4) {
+        date = date.slice(0, 2) + '/' + date.slice(2);
+      } else if (date.length > 4) {
+        date = date.slice(0, 2) + '/' + date.slice(2, 4) + '/' + date.slice(4);
+      }
+
+      // Limita a entrada a 10 caracteres no formato dd/mm/yyyy
+      if (date.length > 10) {
+        date = date.slice(0, 10);
+      }
+
+      // Atualiza o valor do input e do modelo Vue
+      event.target.value = this.dataNascimento = date;
     },
   },
 

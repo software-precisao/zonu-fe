@@ -1,7 +1,7 @@
 <template>
   <div class="flex-fill w-100">
     <div class="card-body py-3">
-      {{ console.log(idFunil) }}
+      <!-- {{ console.log(idFunil) }} -->
       <div class="chart chart-sm">
         <canvas id="myChartRedesSociais"></canvas>
       </div>
@@ -105,7 +105,7 @@ export default {
 
     fetchClientes() {
       api.getCliente().then((res) => {
-        console.log(res)
+        console.log("aqui estao os clientes ===> ", res)
       })
     },
 
