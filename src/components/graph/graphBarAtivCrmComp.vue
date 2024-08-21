@@ -7,40 +7,33 @@
 <script>
 export default {
   name: "GraphBarAtivCrmComp",
-  mounted() {
-    this.renderChart();
+  props: {
+    idFunil: {
+      type: Object,
+      required: true
+    }
+  },
+  watch: {
+    idFunil: {
+      handler(newVal) {
+        if (newVal && newVal.etapas) {
+          this.renderChart();
+        }
+      },
+      deep: true // Observa mudanças profundas, caso o idFunil seja alterado
+    }
   },
   methods: {
     renderChart() {
       const ctx = document.getElementById("myBarChart").getContext("2d");
 
+      const labels = this.idFunil.etapas.map(etapa => etapa.nome_etapa);
+      // console.log(this.idFunil)
+
       new Chart(ctx, {
         type: "bar",
         data: {
-          labels: [
-            "Contato",
-            "Atendimento",
-            "Procurando Imóvel",
-            "Efetuar ligação",
-            "WhatsApp (Dia 1)",
-            "WhatsApp (Dia 2)",
-            "WhatsApp (Dia 3)",
-            "Aquecimento 01",
-            "Aquecimento 02",
-            "Aquecimento 03",
-            "Aquecimento 04",
-            "Aquecimento 05",
-            "Agendado Compromisso",
-            "Agendamento Longo",
-            "Agendado Visita",
-            "Visita Realizada",
-            "Proposta",
-            "Documentação",
-            "Assinatura",
-            "Sem Interação",
-            "Descartado",
-            "Ganho",
-          ],
+          labels: labels,
           datasets: [
             {
               label: "Exemplo de Dados",

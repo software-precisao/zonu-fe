@@ -262,7 +262,7 @@
                                 font-weight: bold;
                                 text-align: right;
                               ">
-                              {{ funilSelecionado ? funilSelecionado.qtdNegoicos : 0 }}
+                              {{ contarClientesUnicos.length }}
                             </p>
                           </div>
                           <div class="col-4" style="
@@ -320,7 +320,7 @@
                             Distribuição por canal
                           </p>
                           <div class="w-52">
-                            <graphAtivCrmComp :idFunil="funilSelecionado" />
+                            <graphAtivCrmComp :idFunil="contarClientesUnicos" />
                           </div>
                         </div>
                       </div>
@@ -539,7 +539,7 @@
                     ">
                     Negócios Perdidos por Etapa
                   </h2>
-                  <p class="mb-6" style="
+                  <p class="mb-0" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
@@ -548,7 +548,7 @@
                     Análise de percentual de perdas em cada etapa
                   </p>
 
-                  <graphBarAtivCrmComp />
+                  <!-- <graphBarAtivCrmComp :idFunil="funilSelecionado" /> -->
                 </div>
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
@@ -558,7 +558,7 @@
                     ">
                     Principais motivos de perda
                   </h2>
-                  <p class="mb-2" style="
+                  <p class="mb-0" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
@@ -567,7 +567,7 @@
                     Contabilizado por motivo
                   </p>
 
-                  <graphBarLaterCrmComp />
+                  <!-- <graphBarLaterCrmComp :idFunil="funilSelecionado" /> -->
                 </div>
               </div>
             </div>
@@ -1414,6 +1414,7 @@
                           menubar: false,
                           branding: false,
                           entity_encoding: 'raw',
+                          readonly: false
                         }" v-model="termos" @editorChange="handleEditorChange" />
                       </div>
                     </div>
@@ -1707,12 +1708,6 @@ export default {
     };
   },
   watch: {
-    // uf(newUF) {
-    //   this.buscarCidadesPorUF();
-    // },
-    // cidade(newCidade) {
-    //   this.fetchBairros();
-    // },
     cep(newVal, oldVal) {
       if (newVal.length === 9 && newVal !== oldVal) {
         this.debouncedCheckCEP();
@@ -1746,8 +1741,30 @@ export default {
       return funilSelecionado ? funilSelecionado.etapas : [];
     },
     funilSelecionado() {
-      // console.log()
-      return this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+      const teste = this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+      // console.log(teste)
+      return teste
+    },
+
+    contarClientesUnicos() {
+      const funil = this.funilSelecionado;
+
+      // Cria um objeto para armazenar IDs de clientes únicos
+      const clienteIdsUnicos = {};
+
+      // Verifica se o funil e a lista de negócios existem
+      if (funil && funil.negocios && Array.isArray(funil.negocios)) {
+        // Itera sobre todos os negócios e adiciona os IDs de clientes ao objeto
+        funil.negocios.forEach(negocio => {
+          if (negocio.Cliente && negocio.Cliente.id_cliente) {
+            // Usa o ID do cliente como chave no objeto
+            clienteIdsUnicos[negocio.Cliente.id_cliente] = true;
+          }
+        });
+      }
+
+      // Retorna a quantidade de clientes únicos
+      return Object.keys(clienteIdsUnicos);
     }
   },
 
@@ -1796,22 +1813,10 @@ export default {
         try {
           const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
 
-          // Correção nas propriedades de acordo com a resposta da API
-          // console.log(res.data)
           let rua = res.data.logradouro;
           let bairro = res.data.bairro;
           let cidade = res.data.localidade;
           let estado = res.data.uf;
-
-          // if (estado !== "PB") {
-          //   this.autenticando = true;
-          //   this.textoBotao = "Ainda não chegamos no seu estado 😔";
-          //   this.msgEstado = true;
-          // } else {
-          //   this.autenticando = false;
-          //   this.msgEstado = false;
-          //   this.textoBotao = "Salvar";
-          // }
 
           this.pais = "Brasil"
           this.logradouro = rua;
@@ -1845,7 +1850,7 @@ export default {
     },
     handleAddTelefone() {
       this.alltelefones.push({
-        NumTelefone: this.telefone,
+        NumTelefone: `${this.selectedCode} ${this.telefone}`,
         TemWhatsapp: this.whatsappYes,
         EPrincipal: this.principalYes,
         Descricao: this.breveDescricao,
@@ -2079,6 +2084,7 @@ export default {
       let idCategoriaCliente = "";
       let nome = this.nome;
       let rg = this.rg;
+      let idTipoCliente = "";
       let cpf = this.cpf;
       let email = this.email == "" ? null : this.email;
       let dataDeNascimento = this.dataNascimento;
@@ -2124,6 +2130,13 @@ export default {
         });
       }
 
+      const clienteEncontrado = this.allTiposClientes.find(cliente => cliente.tipo_cliente === this.tipoCliente);
+
+      if (clienteEncontrado) {
+        idTipoCliente = clienteEncontrado.id_tipo_cliente;
+      }
+
+      // console.log(idTipoCliente)
 
       // console.log(this.allOrigensCapitacao);
       // console.log(idCaptacao, idCategoriaCliente);
@@ -2141,6 +2154,7 @@ export default {
             idCaptacao,
             idCategoriaCliente,
             nome,
+            idTipoCliente,
             cpf,
             rg,
             email,
@@ -2184,6 +2198,8 @@ export default {
                 this.numero = ""
                 this.complemento = ""
                 this.termos = ""
+                this.alltelefones = []
+                this.allPessoasLigadas = []
 
                 const modalCliente = bootstrap.Modal.getInstance(
                   this.$refs.myModalComplete
@@ -2290,6 +2306,7 @@ export default {
     },
 
     fetchFunil() {
+      // console.log('aqui')
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
@@ -2341,119 +2358,117 @@ export default {
     },
 
     fetchNegocios() {
-      api.getNegocios().then((res) => {
-        if (res.status === 200) {
-          const negocios = res.data;
+      api.getNegocios()
+        .then((res) => {
+          if (res.status === 200) {
+            const negocios = res.data;
 
-          // Limpa a contagem e arrays de negócios atuais
-          this.funis.forEach((funil) => {
-            funil.qtdNegoicos = 0;
-            funil.negocios = [];
-            funil.etapas.forEach((etapa) => {
-              etapa.qtdNegoicos = 0;
-              etapa.negocios = [];
-            });
-          });
-
-          // Função para buscar o preco_imovel por id_imovel
-          const fetchPrecoImovel = async (id_imovel) => {
-            return apiImovel.obterImovel(id_imovel)
-              .then((res) => {
-                if (res.status === 200) {
-                  return res.data.preco.preco_imovel;
-                }
-                return null;
-              })
-              .catch((error) => {
-                console.error(`Erro ao buscar preço do imóvel ${id_imovel}:`, error);
-                return null;
+            // Limpa a contagem e arrays de negócios atuais
+            this.funis.forEach((funil) => {
+              funil.qtdNegoicos = 0;
+              funil.negocios = [];
+              funil.imoveisUnicos = new Set(); // Cria um Set para imóveis únicos
+              funil.etapas.forEach((etapa) => {
+                etapa.qtdNegoicos = 0;
+                etapa.negocios = [];
               });
-          };
+            });
 
-          const imoveisUnicosSet = new Set();
+            const etapaMap = new Map();
 
-          // Processa negócios
-          const processNegocios = async () => {
-            for (const negocio of negocios) {
+            // Agrupa os negócios por id_etapa
+            negocios.forEach((negocio) => {
               const idEtapa = negocio.Etapa.id_etapa;
               const idImovel = negocio.NovoImovel.id_imovel;
 
-              const funilCorrespondente = this.funis.find((funil) =>
-                funil.etapas.some((etapa) => etapa.id_etapa === idEtapa)
-              );
-
-              if (funilCorrespondente && funilCorrespondente.id_funil == Number(this.funilSelect)) {
-                // Adiciona o id_imovel ao Set de imóveis únicos
-                imoveisUnicosSet.add(idImovel);
+              // Mapeia o negócio para a etapa correspondente
+              if (!etapaMap.has(idEtapa)) {
+                etapaMap.set(idEtapa, []);
               }
+              etapaMap.get(idEtapa).push(negocio);
+            });
 
+            // Busca o preço do imóvel e atualiza os negócios em paralelo
+            const promises = Array.from(etapaMap.entries()).map(([idEtapa, negocios]) => {
+              return Promise.all(negocios.map((negocio) => {
+                const idImovel = negocio.NovoImovel.id_imovel;
 
-              // Busca o preço do imóvel
-              const precoImovel = await fetchPrecoImovel(idImovel);
-              negocio.NovoImovel.preco_imovel = precoImovel;
-
-              // Encontra o funil e a etapa correspondentes e adiciona o negócio
-              this.funis.forEach((funil) => {
-                funil.etapas.forEach((etapa) => {
-                  if (etapa.id_etapa === idEtapa) {
-                    // Verifica se o negócio já foi adicionado usando o id_negocio
-                    const negocioJaAdicionado = etapa.negocios.some(n => n.id_negocio === negocio.id_negocio);
-                    if (!negocioJaAdicionado) {
-                      etapa.negocios.push(negocio);
-                      funil.negocios.push(negocio);
-                      funil.qtdNegoicos += 1;
-                      etapa.qtdNegoicos += 1;
+                return apiImovel.obterImovel(idImovel)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      negocio.NovoImovel.preco_imovel = res.data.preco.preco_imovel;
                     }
-                  }
+                  });
+              })).then(() => {
+                // Encontra a etapa e funil correspondentes e adiciona os negócios de uma vez
+                this.funis.forEach((funil) => {
+                  funil.etapas.forEach((etapa) => {
+                    if (etapa.id_etapa === idEtapa) {
+                      etapa.negocios.push(...negocios);
+                      etapa.qtdNegoicos += negocios.length;
+                      funil.negocios.push(...negocios);
+
+                      // Adiciona imóveis únicos ao Set do funil
+                      negocios.forEach((negocio) => {
+                        funil.imoveisUnicos.add(negocio.NovoImovel.id_imovel);
+                      });
+
+                      funil.qtdNegoicos += negocios.length;
+                    }
+                  });
                 });
               });
-            }
+            });
 
-            this.imoveisUnicos = imoveisUnicosSet.size;
-          };
+            Promise.all(promises).then(() => {
+              // Atualiza a quantidade de imóveis únicos para cada funil
+              this.funis.forEach(funil => {
+                funil.imoveisUnicos = funil.imoveisUnicos.size;
+              });
 
-          processNegocios().then(() => {
-            const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
-            this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
-          });
-        }
-      }).catch((error) => {
-        console.error('Erro ao buscar negócios:', error);
-      });
+              const funilSelecionado = this.funis.find(f => f.id_funil === Number(this.funilSelect));
+              this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+              this.imoveisUnicos = funilSelecionado ? funilSelecionado.imoveisUnicos : 0;
+
+              this.$nextTick(() => {
+                // Atualize a interface se necessário
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar negócios:', error);
+        });
     },
 
     filtrarEtapasFunil(mountedOn) {
-      if (mountedOn === true || !this.funilSelect) {
-        this.qtdNegoicos = 0;
-        api.getFunilporId(this.funilSelect).then((res) => {
-          if (res.status === 200) {
-            this.funilporId = res.data;
-            this.etapas = res.data.etapas;
-            this.funilName = res.data;
-            this.fetchPosicao();
-            this.fetchNegocios(); // Atualiza a contagem de negócios
-          }
-        }).catch((error) => {
-          console.error('Erro ao buscar funil:', error);
-        });
-      } else {
-        console.log(this.funilSelect);
-        localStorage.setItem("fs", this.funilSelect);
+      const fetchFunil = () => {
+        return api.getFunilporId(this.funilSelect)
+          .then((res) => {
+            if (res.status === 200) {
+              this.funilporId = res.data;
+              this.etapas = res.data.etapas;
+              this.funilName = res.data;
+              this.fetchPosicao();
+              this.fetchNegocios(); // Atualiza a contagem de negócios
+            }
+          })
+          .catch((error) => {
+            console.error('Erro ao buscar funil:', error);
+          });
+      };
 
-        this.qtdNegoicos = 0;
-        api.getFunilporId(this.funilSelect).then((res) => {
-          if (res.status === 200) {
-            this.funilporId = res.data;
-            this.etapas = res.data.etapas;
-            this.funilName = res.data;
-            this.fetchPosicao();
-            this.fetchNegocios(); // Atualiza a contagem de negócios
-          }
-        }).catch((error) => {
-          console.error('Erro ao buscar funil:', error);
-        });
+      if (mountedOn === true || !this.funilSelect) {
+        // this.qtdNegoicos = 0;
+        fetchFunil();
+      } else {
+        // console.log(this.funilSelect);
+        localStorage.setItem("fs", this.funilSelect);
+        // this.qtdNegoicos = 0;
+        fetchFunil();
       }
-    },
+    }
+    ,
 
     calcularSomaPrecoImoveis(etapa) {
       // Verifica se etapa.negocios é um array válido
@@ -2592,7 +2607,7 @@ export default {
     this.fetchImoveis();
     this.fetchFunil()
     this.fetchFirstEtapas()
-    this.fetchNegocios()
+    // this.fetchNegocios()
     this.filtrarEtapasFunil(true)
   },
   beforeDestroy() {
