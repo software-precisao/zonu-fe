@@ -26,7 +26,8 @@
                 style="height: 30px; font-size: 13px; font-weight: 600">
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
                   v-if="funis.length > 0">
-                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} negócios)
+                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} {{ funil.qtdNegoicos == 1 ? "negócio" :
+                  "negócios" }})
                 </option>
               </select>
             </div>
@@ -53,7 +54,7 @@
                             <i class="align-middle" data-feather="arrow-down"></i>
                           </th>
                           <th class="text-center">Imóveis no Funil</th>
-                          <th class="text-center">No radar</th>
+                          <!-- <th class="text-center">No radar</th> -->
                           <th class="text-center">Enviados</th>
                           <th class="text-center">Descartados</th>
                         </tr>
@@ -67,14 +68,16 @@
                           <td class="text-center">
                             <a style="text-decoration: underline; color: blue">{{ item.quantidadeImoveis }}</a>
                           </td>
-                          <td class="text-center">
+                          <!-- <td class="text-center">
                             <a style="text-decoration: underline; color: blue">{{ item.noRadar }}</a>
-                          </td>
+                          </td> -->
                           <td class="text-center">
-                            <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a>
+                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a> -->
+                            <a style="text-decoration: underline; color: blue">0</a>
                           </td>
                           <td class="text-center" xxx>
-                            <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a>
+                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a> -->
+                            <a style="text-decoration: underline; color: blue">0</a>
                           </td>
                         </tr>
                       </tbody>

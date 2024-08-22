@@ -17,15 +17,17 @@
               justify-content: space-between;
             ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
-              Negócios em andamento | Visão em etapas | {{ imoveisUnicos }} imóvel | {{ funilSelecionado ?
-                funilSelecionado.qtdNegoicos : 0 }} clientes
+              Negócios em andamento | Visão em etapas | {{ imoveisUnicos }} {{ imoveisUnicos == 1 ? "imóvel" : "imóveis"
+              }} | {{ funilSelecionado ?
+                funilSelecionado.qtdNegoicos : 0 }} {{ funilSelecionado.qtdNegoicos == 1 ? "cliente" : "clientes" }}
             </h4>
             <div style="display: flex; align-items: center">
               <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
                 style="height: 30px; font-size: 13px; font-weight: 600">
-                <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
+                <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funils"
                   v-if="funis.length > 0">
-                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} negócios)
+                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} {{ funil.qtdNegoicos == 1 ? "negócio" :
+                    "negócios" }})
                 </option>
               </select>
 
@@ -247,6 +249,39 @@
           </div>
 
 
+          <div class="container-fluid">
+            <div class="overflow-auto">
+              <div class="row flex-nowrap" style="background-color: #fff; padding: 10px;">
+                <div class="col-3" v-for="(etapa, index) in etapas" :key="index">
+                  <div class="card" style="height: 100vh; background-color: rgb(245, 245, 246);">
+                    <div class="card-body">
+                      <h2 class="card-title text-left" style="font-size: 15px; font-weight: 600; color: #000;">
+                        {{ etapa.nome_etapa }}
+                      </h2>
+                      <h4 style="font-size: 12px; font-weight: 400; color: #000;">
+                        {{ clientesPorEtapa[index].clientes }} cliente{{ clientesPorEtapa[index].clientes !== 1 ? 's' :
+                          '' }} |
+                        {{ clientesPorEtapa[index].totalValor.toLocaleString('pt-BR', {
+                          style: 'currency', currency:
+                            'BRL'
+                        }) }}
+                      </h4>
+                      <hr />
+                      <!-- {{ console.log(etapa) }} -->
+                      <div :id="'etapa-' + index" class="etapa" style="max-height: 600px; overflow: auto">
+                        <div v-for="(negocio, idx) in getFilteredNegocios(etapa.id_etapa)" :key="negocio.id_negocio"
+                          class="etapa-item" :data-id="negocio.id_negocio">
+                          <CardNegocioComp :negocio="negocio"
+                            :imovel="getFilteredImovel(negocio.NovoImovel.id_imovel)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>
@@ -267,6 +302,8 @@ import userIcon from "../../../../assets/images/icons/userIconBlue.svg";
 import plusCircle from "../../../../assets/images/icons/plusCircle.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import trashIcon from "../../../../assets/images/icons/trash-2.svg";
+import Sortable from "sortablejs";
+import CardNegocioComp from "@/components/client/cards/cardNegocioComp.vue";
 
 export default {
   name: "CrmVisaoEtapasView",
@@ -274,6 +311,7 @@ export default {
     navbarImobiliaria,
     footer,
     sidebarCrm,
+    CardNegocioComp
   },
   data() {
     return {
@@ -315,6 +353,8 @@ export default {
       imovel: [],
       etapas: [],
       funilporId: [],
+      allNegocios: [],
+      funils: [],
     };
   },
 
@@ -345,12 +385,89 @@ export default {
     this.fetchImoveis();
     this.fetchFunil()
     // this.fetchFirstEtapas()
-    // this.fetchNegocios()
+    this.fetchNegocio()
     this.filtrarEtapasFunil(true)
-    this.fetchClientePorID()
+    // this.fetchClientePorID()
+  },
+  watch: {
+    etapas(newVal) {
+      if (newVal.length > 0) {
+        this.$nextTick(() => {
+          this.initializeSortable();
+        });
+      }
+    }
   },
 
   methods: {
+    // syncScroll() {
+    //   const itemContainer = document.getElementById('itemContainer');
+    //   const scrollbarContainer = document.getElementById('scrollbarContainer');
+    //   const scrollbar = document.querySelector('.scrollbar');
+
+    //   scrollbarContainer.addEventListener('scroll', function () {
+    //     itemContainer.scrollLeft = scrollbarContainer.scrollLeft;
+    //   });
+
+    //   itemContainer.addEventListener('scroll', function () {
+    //     scrollbarContainer.scrollLeft = itemContainer.scrollLeft;
+    //   });
+    // },
+
+    initializeSortable() {
+      this.etapas.forEach((etapa, index) => {
+        const element = document.getElementById("etapa-" + index);
+        // console.log('Initializing Sortable for:', element);
+        if (element) {
+          try {
+            new Sortable(element, {
+              group: {
+                name: "negocios",
+              },
+              onEnd: this.onEnd.bind(this), // Garantindo que `this` seja o contexto correto
+            });
+            // console.log('Sortable initialized successfully for:', element);
+          } catch (error) {
+            console.error('Error initializing Sortable:', error);
+          }
+        } else {
+          console.error('Element not found for ID:', "etapa-" + index);
+        }
+      });
+    },
+    onEnd(evt) {
+      const itemEl = evt.item;
+      const newStatusIndex = evt.to.id.split("-")[1];
+      const negocioId = itemEl.getAttribute("data-id");
+
+      // Verifica se o índice da etapa existe na lista de etapas
+      if (newStatusIndex >= 0 && newStatusIndex < this.etapas.length) {
+        // Obtém o nome da etapa diretamente do array de etapas
+        const newStatus = this.etapas[newStatusIndex];
+
+        // Atualize o status do pedido e faça a requisição para o servidor, se necessário
+        console.log(`Atualizando o status do Negócio ${negocioId} para ${newStatus.nome_etapa} - ${newStatus.id_etapa}`);
+      } else {
+        console.error("Status desconhecido ou índice fora do intervalo:", newStatusIndex);
+      }
+    },
+
+    getFilteredNegocios(idEtapa) {
+      // Filtra os negócios com base no id_da_etapa
+      return this.allNegocios.filter(negocio => negocio.Etapa.id_etapa === idEtapa);
+    },
+    getFilteredImovel(idImovel) {
+      // Filtra os imóveis com base no id_imovel
+      return this.imovel.find(imovel => imovel.id_imovel === idImovel);
+    },
+    fetchNegocio() {
+      api.getNegocios().then((res) => {
+        if (res.status === 200) {
+          this.allNegocios = res.data
+        }
+      })
+    },
+
     openModal() {
       const modal = new bootstrap.Modal(this.$refs.myModal);
       modal.show();
@@ -598,6 +715,7 @@ export default {
 
               this.$nextTick(() => {
                 // Atualize a interface se necessário
+                this.funils = this.funis
               });
             });
           }
@@ -625,25 +743,71 @@ export default {
       });
     },
 
-    fetchClientePorID() {
-      api.getClientPorId(30).then((res) => {
-        // console.log("Aqui esta o cliente ====> ", res);
-        if (res.status === 200) {
-          console.log(res)
-        }
-      });
-    },
+    // fetchClientePorID() {
+    //   api.getClientPorId(30).then((res) => {
+    //     // console.log("Aqui esta o cliente ====> ", res);
+    //     if (res.status === 200) {
+    //       console.log(res)
+    //     }
+    //   });
+    // },
   },
 
   computed: {
     funilSelecionado() {
       // console.log()
       return this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+    },
+    clientesPorEtapa() {
+      return this.etapas.map(etapa => {
+        const negocios = this.getFilteredNegocios(etapa.id_etapa);
+        const totalValor = negocios.reduce((total, negocio) => {
+          const imovel = this.getFilteredImovel(negocio.NovoImovel.id_imovel);
+          return total + (parseFloat(imovel.preco.preco_imovel) || 0);
+        }, 0);
+
+        return {
+          id_etapa: etapa.id_etapa,
+          clientes: negocios.length,
+          totalValor: totalValor
+        };
+      });
     }
   },
 };
 </script>
 <style scoped>
+.overflow-auto {
+  overflow-x: auto;
+}
+
+/* Garante que os itens da row não quebrem linha */
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+/* Garante que o fundo branco cubra toda a área */
+.container-fluid {
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+  width: 100%;
+}
+
+.container-fluid {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Adiciona largura mínima às colunas internas para garantir rolagem horizontal */
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .modal-backdrop {
   z-index: 100 !important;
 }

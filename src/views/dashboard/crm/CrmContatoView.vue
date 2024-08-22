@@ -150,13 +150,15 @@
                       <tbody>
                         <tr v-if="filteredClientes.length > 0" v-for="item in filteredClientes" :key="item.id"
                           class="tdHover" style="cursor: pointer">
+                          {{ console.log(item) }}
                           <td>{{ formatUpdatedDate(item.createdAt) }}</td>
                           <td>{{ item.nome }}</td>
                           <td>{{ item.Captacao.origem_captacao }}</td>
                           <td>{{ corretorResponsavel }}</td>
-                          <td>{{ item.etapas == undefined || item.etapas == null ? "-" : item.etapas.length > 1 ?
-                            "2 posições" :
-                            item.etapas[0].nome_etapa }}</td>
+                          <td>{{ item.etapas == undefined || item.etapas == null || item.etapas.length == 0 ? "-" :
+                            item.etapas.length > 1 ?
+                              "2 posições" :
+                              item.etapas[0].nome_etapa }}</td>
                           <td>{{ formatUpdatedDate(item.updatedAt) }}</td>
                         </tr>
 

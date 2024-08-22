@@ -1601,4 +1601,20 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  getEtapa: async () => {
+    try {
+      const response = await http.get("/etapa/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };
