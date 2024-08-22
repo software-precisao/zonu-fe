@@ -1,6 +1,10 @@
 <template>
   <div class="container mt-5">
-    <canvas id="myBarChart"></canvas>
+    <div class="card-body py-3">
+      <div class="chart chart-sm">
+        <canvas id="myBarChart"></canvas>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -9,7 +13,7 @@ export default {
   name: "GraphBarAtivCrmComp",
   props: {
     idFunil: {
-      type: Object,
+      type: Array,
       required: true
     }
   },
@@ -28,6 +32,7 @@ export default {
       const ctx = document.getElementById("myBarChart").getContext("2d");
 
       const labels = this.idFunil.etapas.map(etapa => etapa.nome_etapa);
+      const data = labels.lenght;
       // console.log(this.idFunil)
 
       new Chart(ctx, {
@@ -37,9 +42,7 @@ export default {
           datasets: [
             {
               label: "Exemplo de Dados",
-              data: Array(21)
-                .fill()
-                .map(() => Math.floor(Math.random() * 5)), // Dados aleatórios entre 0 e 4
+              data: data, // Dados aleatórios entre 0 e 4
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,

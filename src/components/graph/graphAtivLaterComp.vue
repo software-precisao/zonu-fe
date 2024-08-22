@@ -3,6 +3,7 @@
     <div class="card-body py-3">
       <div class="chart chart-sm">
         <canvas id="myChartRedesSociais"></canvas>
+        <!-- {{ console.log("Aqui estao os clientes ===>", clientes) }} -->
       </div>
     </div>
   </div>
@@ -13,6 +14,12 @@ import "https://cdn.jsdelivr.net/npm/chart.js";
 
 export default {
   name: "SocialMediaChart",
+  props: {
+    clientes: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       myChart: null,
@@ -30,8 +37,20 @@ export default {
       },
     };
   },
-  mounted() {
-    this.renderChart();
+  // mounted() {
+  //   if (this.clientes) {
+  //     this.renderChart();
+  //   }
+  // },
+  watch: {
+    clientes: {
+      handler(newVal) {
+        if (newVal) {
+          this.renderChart();
+        }
+      },
+      deep: true // Observa mudanças profundas, caso o idFunil seja alterado
+    }
   },
   methods: {
     renderChart() {
@@ -39,13 +58,18 @@ export default {
         .getElementById("myChartRedesSociais")
         .getContext("2d");
 
-      if (this.myChart) {
-        this.myChart.destroy();
-      }
+      // if (this.myChart) {
+      //   this.myChart.destroy();
+      // }
+
+      // console.log(this.clientes)
 
       // Preparar dados para o gráfico
-      const labels = Object.keys(this.redesSociais);
-      const data = Object.values(this.redesSociais);
+      const labels = [...new Set(this.clientes.map(cliente => cliente.Captacao.origem_captacao))];
+
+      const data = labels.map(label =>
+        this.clientes.filter(cliente => cliente.Captacao.origem_captacao === label).length
+      );
 
       // Gerar o gráfico
       this.myChart = new Chart(ctx, {
@@ -87,7 +111,7 @@ export default {
                 boxWidth: 40, // Tamanho do quadrado colorido na legenda
                 padding: 20, // Espaçamento entre as labels
               },
-              onClick: function () {},
+              onClick: function () { },
             },
             tooltip: {
               callbacks: {
@@ -113,7 +137,9 @@ export default {
 
 <style>
 #myChartRedesSociais {
-  width: 70% !important; /* Ou um valor específico em pixels */
-  height: 200px !important; /* Ajuste a altura conforme necessário */
+  width: 70% !important;
+  /* Ou um valor específico em pixels */
+  height: 200px !important;
+  /* Ajuste a altura conforme necessário */
 }
 </style>

@@ -104,7 +104,7 @@
                         margin-bottom: -40px;
                         padding: 0;
                       ">
-                      05
+                      {{ formatNumberWithLeadingZero(filteredClientes.length) }}
                     </p>
                   </div>
                   <div class="card p-3" style="width: 67%; border-left: 5px solid rgb(0, 99, 192)">
@@ -117,8 +117,8 @@
                       Origens por canal
                     </h3>
                     <div style="display: flex; align-items: center">
-                      <graphAtivLaterComp />
-                      <p class="mb-5" style="margin-right: 40px">5</p>
+                      <graphAtivLaterComp :clientes="filteredClientes" />
+                      <p class="mb-5" style="margin-right: 40px">{{ filteredClientes.length }}</p>
                     </div>
                   </div>
                 </div>
@@ -265,11 +265,21 @@ export default {
         );
       }
 
+      // Filtrar por datas
+      if (this.formattedStartDate || this.formattedEndDate) {
+        clientesFiltrados = clientesFiltrados.filter(cliente =>
+          this.isDateInRange(cliente.createdAt, this.formattedStartDate, this.formattedEndDate)
+        );
+      }
+
       return clientesFiltrados;
     }
   },
 
   methods: {
+    formatNumberWithLeadingZero(number) {
+      return number < 10 ? `0${number}` : number.toString();
+    },
     formatUpdatedDate(dateString) {
       const date = new Date(dateString);
 
@@ -324,6 +334,20 @@ export default {
       }
       // Atualiza o valor da data no formato correto
       this.formattedEndDate = this.formatDate(value);
+    },
+    isDateInRange(dateStr, start, end) {
+      const date = new Date(dateStr.split('/').reverse().join('-')); // Converte para o formato ISO
+      const startDate = start ? new Date(start.split('/').reverse().join('-')) : null;
+      const endDate = end ? new Date(end.split('/').reverse().join('-')) : null;
+
+      if (startDate && endDate) {
+        return date >= startDate && date <= endDate;
+      } else if (startDate) {
+        return date >= startDate;
+      } else if (endDate) {
+        return date <= endDate;
+      }
+      return true;
     },
     fetchCliente() {
       api.getCliente()
