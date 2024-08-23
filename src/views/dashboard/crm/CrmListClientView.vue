@@ -17,7 +17,7 @@
               justify-content: space-between;
             ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
-              Negócios em andamento | Lista de clientes | {{ imoveisUnicos }} {{ imoveisUnicos > 1 ? "imóveis" :
+              Negócios em andamento | Lista de clientes | {{ imoveisUnicos || 0 }} {{ imoveisUnicos > 1 ? "imóveis" :
                 "imóvel" }} | {{ contarClientesUnicos.length }}
               {{ contarClientesUnicos.length > 1 ? "clientes" : "cliente" }}
             </h4>
@@ -27,7 +27,7 @@
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
                   v-if="funis.length > 0">
                   {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} {{ funil.qtdNegoicos == 1 ? "negócio" :
-                  "negócios" }})
+                    "negócios" }})
                 </option>
               </select>
             </div>
@@ -229,7 +229,7 @@ export default {
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
-          this.funis = res.data
+          this.funis = res.data.filter(funil => funil.id_user === this.id_user)
         }
       })
     },
@@ -271,7 +271,7 @@ export default {
       api.getNegocios()
         .then((res) => {
           if (res.status === 200) {
-            const negocios = res.data;
+            const negocios = res.data.filter(negocio => negocio.Usuario.id_user === this.id_user);
 
             // Limpa a contagem e arrays de negócios atuais
             this.funis.forEach((funil) => {

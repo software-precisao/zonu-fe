@@ -548,7 +548,7 @@
                     Análise de percentual de perdas em cada etapa
                   </p>
 
-                  <!-- <graphBarAtivCrmComp :idFunil="funilSelecionado" /> -->
+                  <graphBarAtivCrmComp :idFunil="funilSelecionado" />
                 </div>
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
@@ -567,7 +567,7 @@
                     Contabilizado por motivo
                   </p>
 
-                  <!-- <graphBarLaterCrmComp :idFunil="funilSelecionado" /> -->
+                  <graphBarLaterCrmComp :idFunil="funilSelecionado" />
                 </div>
               </div>
             </div>
@@ -2063,9 +2063,9 @@ export default {
 
     fetchCliente() {
       api.getCliente().then((res) => {
-        // console.log("Aqui esta o cliente ====> ", res);
+        console.log("Aqui esta o cliente ====> ", res);
         if (res.status === 200) {
-          this.allClientes = res.data;
+          this.allClientes = res.data.filter(cliente => cliente.id_user === this.id_user);
         }
       });
     },
@@ -2242,6 +2242,7 @@ export default {
       let idNivel = "";
       let idCliente = "";
       let idImovel = "";
+      let idUser = this.id_user
       this.posicoes.map((posi) => {
         // console.log(posi, this.posicao)
         if (posi.nome_etapa == this.posicao) {
@@ -2261,7 +2262,7 @@ export default {
         idCliente != "" &&
         idImovel != ""
       ) {
-        api.postNegocio(idPosicao, idNivel, idCliente, idImovel).then((res) => {
+        api.postNegocio(idPosicao, idNivel, idCliente, idImovel, idUser).then((res) => {
           this.textAddNegocio = "Adicionando...";
           // console.log("Res do postNegocio ===>", res);
           if (res.status === 201) {
@@ -2310,7 +2311,7 @@ export default {
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
-          this.funis = res.data
+          this.funis = res.data.filter((funil) => funil.id_user === this.id_user);
         }
       })
     },
@@ -2361,7 +2362,8 @@ export default {
       api.getNegocios()
         .then((res) => {
           if (res.status === 200) {
-            const negocios = res.data;
+            const negocios = res.data.filter((negocio) => negocio.Usuario.id_user === this.id_user);;
+            console.log(negocios)
 
             // Limpa a contagem e arrays de negócios atuais
             this.funis.forEach((funil) => {

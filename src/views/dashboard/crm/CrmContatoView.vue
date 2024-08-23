@@ -355,7 +355,7 @@ export default {
       api.getCliente()
         .then((res) => {
           if (res.status === 200) {
-            this.allClientes = res.data;
+            this.allClientes = res.data.filter(cliente => cliente.id_user === this.id_user);
           }
         });
       this.fetchNegocios()

@@ -1354,7 +1354,8 @@ export default {
     id_posicao,
     id_nivel_interesse,
     id_cliente,
-    id_imovel
+    id_imovel,
+    id_user
   ) => {
     try {
       const response = await http.post(
@@ -1364,6 +1365,7 @@ export default {
           id_nivel_interesse: id_nivel_interesse,
           id_cliente: id_cliente,
           id_imovel: id_imovel,
+          id_user: id_user,
         },
         {
           headers: {
@@ -1465,7 +1467,7 @@ export default {
     }
   },
 
-  postFunil: async (nomeFunil, diasLimpeza, descricao, etapas) => {
+  postFunil: async (nomeFunil, diasLimpeza, descricao, etapas, idUser) => {
     try {
       const response = await http.post(
         "/funil/cadastrar",
@@ -1474,6 +1476,7 @@ export default {
           dias_limpeza: diasLimpeza,
           descricao: descricao,
           etapas: etapas,
+          id_user: idUser,
         },
         {
           headers: {

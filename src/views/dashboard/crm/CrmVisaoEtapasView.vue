@@ -268,7 +268,8 @@
                       </h4>
                       <hr />
                       <!-- {{ console.log(etapa) }} -->
-                      <div :id="'etapa-' + index" class="etapa" style="max-height: 600px; overflow: auto">
+                      <div :id="'etapa-' + index" class="etapa" style="max-height: 600px; overflow: auto"
+                        v-if="imovel.length > 0">
                         <div v-for="(negocio, idx) in getFilteredNegocios(etapa.id_etapa)" :key="negocio.id_negocio"
                           class="etapa-item" :data-id="negocio.id_negocio">
                           <CardNegocioComp :negocio="negocio"
@@ -463,7 +464,7 @@ export default {
     fetchNegocio() {
       api.getNegocios().then((res) => {
         if (res.status === 200) {
-          this.allNegocios = res.data
+          this.allNegocios = res.data.filter(negocio => negocio.Usuario.id_user === this.id_user)
         }
       })
     },
@@ -517,6 +518,7 @@ export default {
       let idNivel = "";
       let idCliente = "";
       let idImovel = "";
+      let idUser = this.id_user
       this.posicoes.map((posi) => {
         // console.log(posi, this.posicao)
         if (posi.nome_etapa == this.posicao) {
@@ -536,7 +538,7 @@ export default {
         idCliente != "" &&
         idImovel != ""
       ) {
-        api.postNegocio(idPosicao, idNivel, idCliente, idImovel).then((res) => {
+        api.postNegocio(idPosicao, idNivel, idCliente, idImovel, idUser).then((res) => {
           this.textAddNegocio = "Adicionando...";
           // console.log("Res do postNegocio ===>", res);
           if (res.status === 201) {
@@ -584,7 +586,7 @@ export default {
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
-          this.funis = res.data
+          this.funis = res.data.filter(funil => funil.id_user === this.id_user)
         }
       })
     },
@@ -644,7 +646,7 @@ export default {
       api.getNegocios()
         .then((res) => {
           if (res.status === 200) {
-            const negocios = res.data;
+            const negocios = res.data.filter(negocio => negocio.Usuario.id_user === this.id_user);
 
             // Limpa a contagem e arrays de negócios atuais
             this.funis.forEach((funil) => {
@@ -738,7 +740,7 @@ export default {
       api.getCliente().then((res) => {
         // console.log("Aqui esta o cliente ====> ", res);
         if (res.status === 200) {
-          this.allClientes = res.data;
+          this.allClientes = res.data.filter(cliente => cliente.id_user === this.id_user);
         }
       });
     },

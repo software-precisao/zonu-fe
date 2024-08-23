@@ -291,10 +291,9 @@
                                     <label :for="'descricaoEtapa' + index"
                                       style="font-size: 13px; font-weight: 600">Descrição da etapa</label>
                                     <input type="text" class="form-control" :id="'descricaoEtapa' + index"
-                                      v-model="etapa.descricao_etapa" placeholder="Digite..." style="height: 40px"
-                                      :style="index == 0
-                                          ? 'width: 100%'
-                                          : 'width: 90%'
+                                      v-model="etapa.descricao" placeholder="Digite..." style="height: 40px" :style="index == 0
+                                        ? 'width: 100%'
+                                        : 'width: 90%'
                                         " />
                                   </div>
                                   <div class="form-group mt-3" style="
@@ -559,6 +558,7 @@ import youtubeLogo from "../../../../assets/images/icons/youtubeLogo.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import api from "../../../../service/api/index";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   name: "CrmConfig",
@@ -569,6 +569,13 @@ export default {
   },
   data() {
     return {
+      token: localStorage.getItem("token"),
+      id_user: "",
+      userName: "",
+      userSobrenome: "",
+      id_user: "",
+      corretorResponsavel: "",
+
       youtubeLogo,
       InterrSvg,
       trashIcon,
@@ -631,7 +638,7 @@ export default {
 
       textAddFunil: "Criar funil",
 
-      etapas: [{ nome_etapa: "", dias_limpeza: "", descricao_etapa: "" }],
+      etapas: [{ nome_etapa: "", dias_limpeza: "", descricao: "" }],
       etapasIniciais: 1,
 
       funis: [],
@@ -719,7 +726,7 @@ export default {
     },
 
     adicionarEtapa() {
-      this.etapas.push({ nome_etapa: "", dias_limpeza: "", descricao_etapa: "" });
+      this.etapas.push({ nome_etapa: "", dias_limpeza: "", descricao: "" });
     },
     removerEtapa(index) {
       this.etapas.splice(index, 1);
@@ -730,14 +737,15 @@ export default {
       let limpezaEm = this.limpezaEm;
       let descricao = this.descricao;
       let etapas = this.etapas;
+      let idUser = this.id_user
 
       this.textAddFunil = "Adicionando...";
       let todosPreenchidos = this.etapas.every((etapa) => {
-        return etapa.nome_etapa && etapa.dias_limpeza && etapa.descricao_etapa;
+        return etapa.nome_etapa && etapa.dias_limpeza && etapa.descricao;
       });
       if (nome != "" && limpezaEm != "") {
         if (todosPreenchidos) {
-          api.postFunil(nome, limpezaEm, descricao, etapas).then((res) => {
+          api.postFunil(nome, limpezaEm, descricao, etapas, idUser).then((res) => {
             if (res.status == 201) {
               this.msgFunilSuccess = true;
 
@@ -750,7 +758,7 @@ export default {
                   this.limpezaEm = "";
                   this.descricao = "";
                   (this.etapas = [
-                    { nome_etapa: "", dias_limpeza: "", descricao_etapa: "" },
+                    { nome_etapa: "", dias_limpeza: "", descricao: "" },
                   ]),
                     this.fetchFunil();
                   modalFunil.hide();
@@ -790,14 +798,24 @@ export default {
 
     fetchFunil() {
       api.getAllFunil().then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
-          this.funis = res.data;
+          this.funis = res.data.filter((funil) => funil.id_user === this.id_user);
         }
       });
     },
   },
   mounted() {
+    let token = this.token;
+    let decode = jwtDecode(token);
+    let id_user = decode.id_user;
+    this.userName = decode.nome;
+    this.userSobrenome = decode.sobrenome;
+
+    this.id_user = id_user;
+
+    this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
+
     this.fetchFunil();
   },
 };

@@ -391,6 +391,7 @@ import youtubeLogo from "../../../../assets/images/icons/youtubeLogo.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import api from "../../../../service/api/index";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   name: "CrmEditFunil",
@@ -401,6 +402,13 @@ export default {
   },
   data() {
     return {
+      token: localStorage.getItem("token"),
+      id_user: "",
+      userName: "",
+      userSobrenome: "",
+      id_user: "",
+      corretorResponsavel: "",
+
       idFunil: "",
       funil: null,
       nomeFunil: "",
@@ -479,7 +487,7 @@ export default {
         if (e.nome_etapa == this.etapaIdEdit) {
           this.editarNomeEtapa = e.nome_etapa;
           this.editarEstagnarEm = e.dias_limpeza;
-          this.editarDescricao = e.descricao_etapa;
+          this.editarDescricao = e.descricao;
         }
       });
       const modal = new bootstrap.Modal(this.$refs.modalEditarEtapa);
@@ -501,7 +509,7 @@ export default {
         this.etapa.push({
           nome_etapa: nome,
           dias_limpeza: estagnar,
-          descricao_etapa: descricao,
+          descricao: descricao,
         });
         setTimeout(() => {
           if (modalEtapa) {
@@ -538,7 +546,7 @@ export default {
           if (e.nome_etapa == this.etapaIdEdit) {
             e.nome_etapa = nome;
             e.dias_limpeza = estagnar;
-            e.descricao_etapa = descricao;
+            e.descricao = descricao;
           }
         });
 
@@ -657,11 +665,11 @@ export default {
     fetchFunil() {
       api.getAllFunil().then((res) => {
         if (res.status === 200) {
-          this.funis = res.data;
+          this.funis = res.data.filter((funil) => funil.id_user === this.id_user);
           res.data.map((funil) => {
             if (funil.id_funil == this.idFunil) {
               this.funil = funil;
-              console.log(funil);
+              // console.log(funil);
               this.nomeFunil = funil.nome_funil;
               this.descricaoFunil = funil.descricao;
               this.diasLimpezaFunil = funil.dias_limpeza;
@@ -674,6 +682,16 @@ export default {
   },
 
   mounted() {
+    let token = this.token;
+    let decode = jwtDecode(token);
+    let id_user = decode.id_user;
+    this.userName = decode.nome;
+    this.userSobrenome = decode.sobrenome;
+
+    this.id_user = id_user;
+
+    this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
+
     this.idFunil = localStorage.getItem("ff");
 
     this.fetchFunil();
