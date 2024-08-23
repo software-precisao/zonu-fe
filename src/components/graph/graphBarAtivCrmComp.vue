@@ -14,8 +14,13 @@ export default {
   props: {
     idFunil: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
+  },
+  data() {
+    return {
+      chart: null, // Armazena a instância do gráfico
+    };
   },
   watch: {
     idFunil: {
@@ -24,25 +29,41 @@ export default {
           this.renderChart();
         }
       },
-      deep: true // Observa mudanças profundas, caso o idFunil seja alterado
-    }
+      deep: true, // Observa mudanças profundas no idFunil
+    },
   },
   methods: {
     renderChart() {
       const ctx = document.getElementById("myBarChart").getContext("2d");
 
-      const labels = this.idFunil.etapas.map(etapa => etapa.nome_etapa);
-      const data = labels.lenght;
-      // console.log(this.idFunil)
+      const labels = this.idFunil.etapas.map((etapa) => etapa.nome_etapa);
+      const data = labels.map(() => 0);
 
-      new Chart(ctx, {
+      if (this.idFunil !== undefined && this.idFunil.negocios) {
+        if (this.chart) {
+          this.chart == null
+        }
+        this.idFunil.negocios.forEach((negocio) => {
+          const etapaNome = negocio.Etapa.nome_etapa;
+          const index = labels.indexOf(etapaNome);
+          if (index !== -1) {
+            data[index] += 1;
+          }
+        });
+      }
+
+      // Destrói o gráfico anterior se ele existir
+
+
+      // Cria um novo gráfico
+      this.chart = new Chart(ctx, {
         type: "bar",
         data: {
           labels: labels,
           datasets: [
             {
-              label: "Exemplo de Dados",
-              data: data, // Dados aleatórios entre 0 e 4
+              label: "Número de Negócios por Etapa",
+              data: data,
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
@@ -58,8 +79,6 @@ export default {
           scales: {
             y: {
               beginAtZero: true,
-              min: 0,
-              max: 4,
               ticks: {
                 stepSize: 1, // Define o intervalo entre os ticks no eixo Y
               },

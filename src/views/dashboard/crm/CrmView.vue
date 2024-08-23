@@ -2363,7 +2363,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             const negocios = res.data.filter((negocio) => negocio.Usuario.id_user === this.id_user);;
-            console.log(negocios)
+            // console.log(negocios)
 
             // Limpa a contagem e arrays de negócios atuais
             this.funis.forEach((funil) => {
