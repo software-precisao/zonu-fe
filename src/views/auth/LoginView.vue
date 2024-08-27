@@ -1,16 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div
-        class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5"
-      >
+      <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
         <div v-if="mostrarSkeleton" class="mb-5 skeleton-logo"></div>
-        <img
-          v-if="!mostrarSkeleton"
-          src="../../../assets/images/logo.svg"
-          class="mb-2"
-          alt=""
-        />
+        <img v-if="!mostrarSkeleton" src="../../../assets/images/logo.svg" class="mb-2" alt="" />
 
         <div class="area-login px-4">
           <div v-if="mostrarSkeleton" class="skeleton-title"></div>
@@ -37,60 +30,31 @@
             <div class="mb-3">
               <div v-if="mostrarSkeleton" class="skeleton-label"></div>
               <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-              <label
-                v-if="!mostrarSkeleton"
-                for="exampleInputEmail1"
-                class="form-label"
-                >E-mail
+              <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">E-mail
               </label>
-              <input
-                type="email"
-                v-if="!mostrarSkeleton"
-                class="form-control"
-                v-model="email"
-                :class="{
-                  'is-invalid': emailValid === false || emailVazio === false,
-                }"
-                placeholder="Digite aqui o seu e-mail"
-              />
+              <input type="email" v-if="!mostrarSkeleton" class="form-control" v-model="email" :class="{
+                'is-invalid': emailValid === false || emailVazio === false,
+              }" placeholder="Digite aqui o seu e-mail" />
               <div v-if="emailVazio === false" class="invalid-feedback">
                 <strong>Oops...</strong> o e-mail não pode ser em branco.
               </div>
-              <div
-                v-if="emailValid === false && emailVazio !== false"
-                class="invalid-feedback"
-              >
+              <div v-if="emailValid === false && emailVazio !== false" class="invalid-feedback">
                 Por favor, forneça um e-mail válido.
               </div>
             </div>
             <div class="mb-3">
               <div v-if="mostrarSkeleton" class="skeleton-label"></div>
               <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-              <label
-                v-if="!mostrarSkeleton"
-                for="exampleInputPassword1"
-                class="form-label"
-                >Senha</label
-              >
-              <input
-                v-model="senha"
-                :class="{
-                  'is-invalid': senhaValid === false || senhaVazio === false,
-                }"
-                placeholder="Digite aqui o sua senha"
-                v-if="!mostrarSkeleton"
-                type="password"
-                class="form-control"
-                name="senha"
-              />
+              <label v-if="!mostrarSkeleton" for="exampleInputPassword1" class="form-label">Senha</label>
+              <input v-model="senha" :class="{
+                'is-invalid': senhaValid === false || senhaVazio === false,
+              }" placeholder="Digite aqui o sua senha" v-if="!mostrarSkeleton" type="password" class="form-control"
+                name="senha" />
               <div v-if="senhaVazio === false" class="invalid-feedback">
                 <strong>Eei...</strong> a senha não pode ser em branco.
               </div>
 
-              <div
-                v-if="senhaValid === false && senhaVazio !== false"
-                class="invalid-feedback"
-              >
+              <div v-if="senhaValid === false && senhaVazio !== false" class="invalid-feedback">
                 Por favor, forneça uma senha válida.
               </div>
             </div>
@@ -98,37 +62,18 @@
             <div class="row mt-2">
               <div class="col-8">
                 <div v-if="mostrarSkeleton" class="skeleton-esqueci"></div>
-                <a
-                  v-if="!mostrarSkeleton"
-                  href="/recovery"
-                  style="text-decoration: none"
-                  >Esqueci a senha |
+                <a v-if="!mostrarSkeleton" href="/recovery" style="text-decoration: none">Esqueci a senha |
                 </a>
-                <a
-                  v-if="!mostrarSkeleton"
-                  href="/select"
-                  style="color: #c66976; text-decoration: none"
-                  >Ainda não tenho cadastro</a
-                >
+                <a v-if="!mostrarSkeleton" href="/select" style="color: #c66976; text-decoration: none">Ainda não tenho
+                  cadastro</a>
               </div>
             </div>
             <div v-if="mostrarSkeleton" class="skeleton-button mt-4"></div>
-            <button
-              @click="handleAuth()"
-              :disabled="autenticando"
-              v-if="!mostrarSkeleton"
-              type="submit"
-              class="btn btn-dark bot mt-4"
-            >
+            <button @click="handleAuth()" :disabled="autenticando" v-if="!mostrarSkeleton" type="submit"
+              class="btn btn-dark bot mt-4">
               {{ textoBotao }}
-              <span
-                v-if="autenticando"
-                class="spinner-border spinner-border-sm"
-                aria-hidden="true"
-              ></span>
-              <span v-if="autenticando" class="visually-hidden"
-                >Aguarde...</span
-              >
+              <span v-if="autenticando" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
             </button>
 
             <div v-if="mostrarSkeleton" class="skeleton-text-line mt-3"></div>
@@ -136,42 +81,20 @@
 
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col-md-2">
-                <div
-                  v-if="mostrarSkeleton"
-                  class="skeleton-button-social mt-3"
-                ></div>
-                <button
-                  @click="loginWithGoogle()"
-                  v-if="!mostrarSkeleton"
-                  type="button"
-                  class="btn btn-google bot"
-                >
+                <div v-if="mostrarSkeleton" class="skeleton-button-social mt-3"></div>
+                <button @click="loginWithGoogle()" v-if="!mostrarSkeleton" type="button" class="btn btn-google bot">
                   <i class="fa fa-google fa-2x" aria-hidden="true"></i>
                 </button>
               </div>
               <div class="col-md-2">
-                <div
-                  v-if="mostrarSkeleton"
-                  class="skeleton-button-social mt-3"
-                ></div>
-                <button
-                  v-if="!mostrarSkeleton"
-                  type="button"
-                  class="btn btn-instagram bot"
-                >
+                <div v-if="mostrarSkeleton" class="skeleton-button-social mt-3"></div>
+                <button v-if="!mostrarSkeleton" type="button" class="btn btn-instagram bot">
                   <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
                 </button>
               </div>
               <div class="col-md-2">
-                <div
-                  v-if="mostrarSkeleton"
-                  class="skeleton-button-social mt-3"
-                ></div>
-                <button
-                  v-if="!mostrarSkeleton"
-                  type="button"
-                  class="btn btn-facebook bot"
-                >
+                <div v-if="mostrarSkeleton" class="skeleton-button-social mt-3"></div>
+                <button v-if="!mostrarSkeleton" type="button" class="btn btn-facebook bot">
                   <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
                 </button>
               </div>
@@ -182,12 +105,7 @@
 
       <div class="col-lg-6 p-0 d-none d-lg-block">
         <div v-if="mostrarSkeleton" class="skeleton-imagem"></div>
-        <img
-          v-if="!mostrarSkeleton"
-          src="../../../assets/images/bg-login.svg"
-          class="bg-login"
-          alt=""
-        />
+        <img v-if="!mostrarSkeleton" src="../../../assets/images/bg-login.svg" class="bg-login" alt="" />
       </div>
     </div>
   </div>
@@ -228,12 +146,13 @@ export default {
       let status = decode.id_status;
       let initial = decode.initial;
 
+      console.log(decode)
       if (nivel == 1) {
         this.autenticando = false;
         window.location.href = "/dashboard-admin";
       } else if (nivel == 2 && status == 1) {
         this.autenticando = false;
-        window.location.href = "/suporte-zonu";
+        window.location.href = "/dashboard-admin";
       } else if (nivel == 2 && status == 2) {
         this.msgNotActivate = true;
         setTimeout(() => {
@@ -359,7 +278,7 @@ export default {
                 window.location.href = "/dashboard-admin";
               } else if (nivel == 2 && status == 1) {
                 this.autenticando = false;
-                window.location.href = "/suporte-zonu";
+                window.location.href = "/dashboard-admin";
               } else if (nivel == 2 && status == 2) {
                 this.msgNotActivate = true;
                 setTimeout(() => {
