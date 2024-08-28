@@ -39,7 +39,7 @@
 
           <div v-if="mostrarSkeleton" class="skeleton-title-subtitle"></div>
           <p v-if="!mostrarSkeleton">
-            Antes de tudo, vamos precisar validar alguns dados.
+            Antes de tudo, vamos precisar validar alguns dados...
           </p>
 
           <div class="mt-4">
