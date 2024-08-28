@@ -31,47 +31,26 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div
-              class="card col-3 m-2"
-              style="width: 23.5%; max-height: 800px; overflow-y: auto"
-            >
+            <div class="card col-3 m-2" style="width: 23.5%; max-height: 800px; overflow-y: auto">
               <div class="card-body">
                 <div class="row">
                   <div class="container-fluid p-0 mt-3 mb-3">
                     <h1 class="h3 text-dark">
                       <strong>Aplique aqui o seu filtro</strong>
                     </h1>
-                    <h6
-                      class="h3 text-dark"
-                      style="font-size: 13px; font-weight: 100"
-                    >
+                    <h6 class="h3 text-dark" style="font-size: 13px; font-weight: 100">
                       <span>Aluguel - casas e apartamentos</span>
                     </h6>
 
                     <div class="form-group col-md-12 mt-4">
-                      <label for="nomImovel"
-                        ><small><strong>Nome do Imóvel</strong></small></label
-                      >
-                      <input
-                        type="text"
-                        v-model="nomeImovel"
-                        style="height: 55px"
-                        class="form-control"
-                        placeholder="Nome do imóvel"
-                        @input="atualizarFiltros"
-                      />
+                      <label for="nomImovel"><small><strong>Nome do Imóvel</strong></small></label>
+                      <input type="text" v-model="nomeImovel" style="height: 55px" class="form-control"
+                        placeholder="Nome do imóvel" @input="atualizarFiltros" />
                     </div>
                     <div class="form-group col-md-12 mt-3">
-                      <label for="tipoNegocio"
-                        ><small><strong>Tipo de negócio</strong></small></label
-                      >
+                      <label for="tipoNegocio"><small><strong>Tipo de negócio</strong></small></label>
                       <!-- continuar a fazer os filtros se inspirando na olx -->
-                      <select
-                        class="form-select"
-                        v-model="tipoNegocio"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <select class="form-select" v-model="tipoNegocio" @change="atualizarFiltros" style="height: 55px">
                         <option value="all">Todos os tipos</option>
                         <option value="Aluguel">Aluguel</option>
                         <option value="Venda">Venda</option>
@@ -79,15 +58,8 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="condominio"
-                        ><small><strong>Condomínio</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="condominio"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="condominio"><small><strong>Condomínio</strong></small></label>
+                      <select class="form-select" v-model="condominio" @change="atualizarFiltros" style="height: 55px">
                         <option value="all">Todos</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
@@ -95,11 +67,7 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="valor"
-                        ><small
-                          ><strong>Preço do ímovel (R$)</strong></small
-                        ></label
-                      >
+                      <label for="valor"><small><strong>Preço do ímovel (R$)</strong></small></label>
                       <!-- <div> -->
                       <!-- <div class="d-flex justify-content-evenly mt-2">
                           <span>R$ {{ valorMin.toLocaleString() }}</span>
@@ -107,101 +75,41 @@
                           <span>R$ {{ valorMax.toLocaleString() }}</span>
                         </div> -->
                       <div class="d-flex justify-content-around mt-2">
-                        <input
-                          type="number"
-                          v-model.number="valorMin"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Mínimo"
-                          min="0"
-                        />
-                        <input
-                          type="number"
-                          v-model.number="valorMax"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Máximo"
-                          min="0"
-                        />
+                        <input type="number" v-model.number="valorMin" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Mínimo" min="0" />
+                        <input type="number" v-model.number="valorMax" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Máximo" min="0" />
                       </div>
                       <!-- </div> -->
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="valor"
-                        ><small
-                          ><strong>Preço do condomínio (R$)</strong></small
-                        ></label
-                      >
+                      <label for="valor"><small><strong>Preço do condomínio (R$)</strong></small></label>
                       <div class="d-flex justify-content-around mt-2">
-                        <input
-                          type="number"
-                          v-model.number="condMin"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Mínimo"
-                          min="0"
-                        />
-                        <input
-                          type="number"
-                          v-model.number="condMax"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Máximo"
-                          min="0"
-                        />
+                        <input type="number" v-model.number="condMin" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Mínimo" min="0" />
+                        <input type="number" v-model.number="condMax" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Máximo" min="0" />
                       </div>
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="valor"
-                        ><small
-                          ><strong>Preço do IPTU (R$)</strong></small
-                        ></label
-                      >
+                      <label for="valor"><small><strong>Preço do IPTU (R$)</strong></small></label>
                       <div class="d-flex justify-content-around mt-2">
-                        <input
-                          type="number"
-                          v-model.number="iptuMin"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Mínimo"
-                          min="0"
-                        />
-                        <input
-                          type="number"
-                          v-model.number="iptuMax"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Valor Máximo"
-                          min="0"
-                        />
+                        <input type="number" v-model.number="iptuMin" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Mínimo" min="0" />
+                        <input type="number" v-model.number="iptuMax" @input="atualizarFiltros" class="form-control"
+                          placeholder="Valor Máximo" min="0" />
                       </div>
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="area"
-                        ><small
-                          ><strong>Intervalo de Área (m²)</strong></small
-                        ></label
-                      >
+                      <label for="area"><small><strong>Intervalo de Área (m²)</strong></small></label>
                       <div class="d-flex justify-content-around mt-2">
-                        <input
-                          type="number"
-                          v-model.number="areaMin"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Área Mínima"
-                          min="0"
-                        />
-                        <input
-                          type="number"
-                          v-model.number="areaMax"
-                          @input="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Área Máxima"
-                          min="0"
-                        />
+                        <input type="number" v-model.number="areaMin" @input="atualizarFiltros" class="form-control"
+                          placeholder="Área Mínima" min="0" />
+                        <input type="number" v-model.number="areaMax" @input="atualizarFiltros" class="form-control"
+                          placeholder="Área Máxima" min="0" />
                       </div>
                     </div>
 
@@ -232,15 +140,8 @@
                     </div> -->
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="tipoImovel"
-                        ><small><strong>Tipo de Imóvel</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="tipoImovel"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="tipoImovel"><small><strong>Tipo de Imóvel</strong></small></label>
+                      <select class="form-select" v-model="tipoImovel" @change="atualizarFiltros" style="height: 55px">
                         <option value="all">Todos</option>
                         <option value="Casa">Casa</option>
                         <option value="Apartamento">Apartamento</option>
@@ -256,15 +157,9 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="perfilImovel"
-                        ><small><strong>Perfil de Imóvel</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="perfilImovel"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="perfilImovel"><small><strong>Perfil de Imóvel</strong></small></label>
+                      <select class="form-select" v-model="perfilImovel" @change="atualizarFiltros"
+                        style="height: 55px">
                         <option value="all">Todos</option>
                         <option value="Residêncial">Residêncial</option>
                         <option value="Comercial">Comercial</option>
@@ -275,15 +170,9 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="posicaoSolar"
-                        ><small><strong>Posição Solar</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="posicaoSolar"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="posicaoSolar"><small><strong>Posição Solar</strong></small></label>
+                      <select class="form-select" v-model="posicaoSolar" @change="atualizarFiltros"
+                        style="height: 55px">
                         <option value="all">Todos</option>
                         <option value="Norte">Norte</option>
                         <option value="Sul">Sul</option>
@@ -297,17 +186,9 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="situacaoImovel"
-                        ><small
-                          ><strong>Situação do Imóvel</strong></small
-                        ></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="situacaoImovel"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="situacaoImovel"><small><strong>Situação do Imóvel</strong></small></label>
+                      <select class="form-select" v-model="situacaoImovel" @change="atualizarFiltros"
+                        style="height: 55px">
                         <option value="all">Todos</option>
                         <option value="Pronto pra morar">
                           Pronto pra morar
@@ -320,127 +201,78 @@
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="temGaragem"
-                        ><small><strong>Tem Garagem</strong></small></label
-                      >
-                      <input
-                        type="number"
-                        v-model.number="temGaragem"
-                        @input="atualizarFiltros"
-                        class="form-control"
-                        placeholder="Número de vagas na garagem"
-                        min="0"
-                      />
+                      <label for="temGaragem"><small><strong>Tem Garagem</strong></small></label>
+                      <input type="number" v-model.number="temGaragem" @input="atualizarFiltros" class="form-control"
+                        placeholder="Número de vagas na garagem" min="0" />
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="estado"
-                        ><small><strong>Estado</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="estadoSelecionado"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="estado"><small><strong>Estado</strong></small></label>
+                      <select class="form-select" v-model="estadoSelecionado" @change="atualizarFiltros"
+                        style="height: 55px">
                         <option value="all">Todos os estados</option>
-                        <option
-                          v-for="estado in estados"
-                          :key="estado.sigla"
-                          :value="estado.sigla"
-                        >
+                        <option v-for="estado in estados" :key="estado.sigla" :value="estado.sigla">
                           {{ estado.nome }}
                         </option>
                       </select>
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
-                      <label for="cidade"
-                        ><small><strong>Cidade</strong></small></label
-                      >
-                      <select
-                        class="form-select"
-                        v-model="cidadeSelecionada"
-                        @change="atualizarFiltros"
-                        style="height: 55px"
-                      >
+                      <label for="cidade"><small><strong>Cidade</strong></small></label>
+                      <select class="form-select" v-model="cidadeSelecionada" @change="atualizarFiltros"
+                        style="height: 55px">
                         <option value="all">Todas as cidades</option>
-                        <option
-                          v-for="cidade in cidadesFiltradas"
-                          :key="cidade"
-                          :value="cidade"
-                        >
+                        <option v-for="cidade in cidadesFiltradas" :key="cidade" :value="cidade">
                           {{ cidade }}
                         </option>
                       </select>
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
+                      <label for="cidade"><small><strong>Bairro</strong></small></label>
+                      <select class="form-select" v-model="bairroSelecionado" @change="atualizarFiltros"
+                        style="height: 55px">
+                        <option value="all">Todos os Bairros</option>
+                        <option v-for="bairro in bairrosFiltrados" :key="bairro" :value="bairro">
+                          {{ bairro }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-12 mt-3">
                       <label for="dormitorios">Dormitórios</label>
-                      <input
-                        type="number"
-                        v-model.number="dormitorios"
-                        @input="atualizarFiltros"
-                        class="form-control"
-                        placeholder="Número de Dormitórios"
-                        min="0"
-                      />
+                      <input type="number" v-model.number="dormitorios" @input="atualizarFiltros" class="form-control"
+                        placeholder="Número de Dormitórios" min="0" />
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
                       <label for="banheiro">Banheiro</label>
-                      <input
-                        type="number"
-                        v-model.number="banheiro"
-                        @input="atualizarFiltros"
-                        class="form-control"
-                        placeholder="Número de Banheiros"
-                        min="0"
-                      />
+                      <input type="number" v-model.number="banheiro" @input="atualizarFiltros" class="form-control"
+                        placeholder="Número de Banheiros" min="0" />
                     </div>
 
                     <div class="form-group col-md-12 mt-3">
                       <label for="cozinha">Cozinha</label>
-                      <input
-                        type="number"
-                        v-model.number="cozinha"
-                        @input="atualizarFiltros"
-                        class="form-control"
-                        placeholder="Número de Cozinhas"
-                        min="0"
-                      />
+                      <input type="number" v-model.number="cozinha" @input="atualizarFiltros" class="form-control"
+                        placeholder="Número de Cozinhas" min="0" />
                     </div>
 
                     <div class="form-group col-md-11 mt-3" style="width: 100%">
-                      <label
-                        ><small><strong>Características</strong></small></label
-                      >
-                      <div
-                        class=""
-                        style="
+                      <label><small><strong>Características</strong></small></label>
+                      <div class="" style="
                           display: flex;
                           justify-content: left;
                           width: 100%;
                           flex-wrap: wrap;
-                        "
-                      >
+                        ">
                         <div class="">
                           <div class="" style="">
-                            <div
-                              v-for="(
+                            <div v-for="(
                                 caracteristica, index
-                              ) in todasCaracteristicas"
-                              :key="caracteristica"
-                              class="form-check"
-                              style="margin-right: 8px"
-                            >
-                              <input
-                                class="form-check-input"
-                                type="checkbox"
-                                :value="caracteristica"
-                                v-model="caracteristicasSelecionadas"
-                                @change="atualizarFiltros"
-                              />
+                              ) in todasCaracteristicas" :key="caracteristica" class="form-check"
+                              style="margin-right: 8px">
+                              <input class="form-check-input" type="checkbox" :value="caracteristica"
+                                v-model="caracteristicasSelecionadas" @change="atualizarFiltros" />
                               <label class="form-check-label">{{
                                 caracteristica
                               }}</label>
@@ -470,15 +302,9 @@
                       </div>
 
                       <div class="form-group col-md-12 mt-3">
-                        <label for="ordenarPor"
-                          ><small><strong>Ordenar por</strong></small></label
-                        >
-                        <select
-                          v-model="ordenarPor"
-                          @change="atualizarFiltros"
-                          class="form-control"
-                          placeholder="Ordenar por"
-                        >
+                        <label for="ordenarPor"><small><strong>Ordenar por</strong></small></label>
+                        <select v-model="ordenarPor" @change="atualizarFiltros" class="form-control"
+                          placeholder="Ordenar por">
                           <option value="">Ordenar por</option>
                           <option value="relevantes">Mais Relevantes</option>
                           <option value="recentes">Mais Recentes</option>
@@ -495,10 +321,7 @@
             <div class="card col-8 m-2" style="width: 72%">
               <div class="card-body">
                 <div class="row">
-                  <div
-                    class="container-fluid p-0 mt-5"
-                    v-if="!algumFiltroAtivo"
-                  >
+                  <div class="container-fluid p-0 mt-5" v-if="!algumFiltroAtivo">
                     <h1 class="h3 text-dark">
                       <strong>Último imóveis cadastrados</strong>
                     </h1>
@@ -509,27 +332,16 @@
                     <div class="d-flex flex-wrap justify-content-flex-start">
                       <div class="mx-2" v-for="imovel in lastImoveis">
                         <!-- {{ console.log(imovel) }} -->
-                        <a
-                          href="#"
-                          @click="storeImovelId(imovel.id_imovel)"
-                          style="color: inherit; text-decoration: none"
-                        >
+                        <a href="#" @click="storeImovelId(imovel.id_imovel)"
+                          style="color: inherit; text-decoration: none">
                           <div class="card" style="width: 15rem">
-                            <img
-                              :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`"
-                              class="card-img-top"
-                              alt="..."
-                              style="width: 240px; height: 180px"
-                            />
+                            <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
+                              style="width: 240px; height: 180px" />
                             <div class="card-body">
                               <h5>
                                 <i class="fa fa-building"></i>
-                                <a
-                                  href="#"
-                                  style="text-decoration: none; color: #000"
-                                >
-                                  <strong
-                                    >{{ " " }} {{ imovel.descricao.titulo }}
+                                <a href="#" style="text-decoration: none; color: #000">
+                                  <strong>{{ " " }} {{ imovel.descricao.titulo }}
                                   </strong>
                                 </a>
                                 <span class="badge text-bg-success">{{
@@ -539,128 +351,79 @@
                               <h5 class="text-info">
                                 <strong>{{
                                   formatCurrency(imovel.preco.preco_imovel)
-                                }}</strong
-                                ><a
-                                  style="float: inline-end"
-                                  class="text-info"
-                                ></a>
+                                }}</strong><a style="float: inline-end" class="text-info"></a>
                               </h5>
                               <h5 class="text-dark">
                                 <i class="fa fa-user"></i>
                                 <small>
                                   {{ " " }} {{ imovel.usuario.nome }}
-                                  {{ imovel.usuario.sobrenome }}</small
-                                >
+                                  {{ imovel.usuario.sobrenome }}</small>
                               </h5>
                               <h5 class="text-dark">
-                                <small
-                                  ><i class="fa fa-map-marker"></i>
+                                <small><i class="fa fa-map-marker"></i>
                                   {{ imovel.localizacao.logradouro }},
                                   {{ imovel.localizacao.numero }} |
                                   {{ imovel.localizacao.bairro }},
-                                  {{ imovel.localizacao.cidade }}</small
-                                >
+                                  {{ imovel.localizacao.cidade }}</small>
                               </h5>
                               <h5 class="text-dark">
-                                <small
-                                  ><i class="fa fa-calendar"></i> Atualizado:
-                                  {{ formatarData(imovel.updatedAt) }}</small
-                                >
+                                <small><i class="fa fa-calendar"></i> Atualizado:
+                                  {{ formatarData(imovel.updatedAt) }}</small>
                               </h5>
-                              <i
-                                v-for="star in estrelas"
-                                :key="star"
-                                class="text-warning fa fa-star"
-                              ></i>
-                              <span
-                                class="text-success"
-                                style="float: inline-end; font-weight: 900"
-                              >
-                                {{ getQualidade(imovel.id_imovel) }}</span
-                              >
+                              <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
+                              <span class="text-success" style="float: inline-end; font-weight: 900">
+                                {{ getQualidade(imovel.id_imovel) }}</span>
                             </div>
                           </div>
                         </a>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="container-fluid p-0 mt-3 mb-3"
-                    v-if="algumFiltroAtivo"
-                  >
+                  <div class="container-fluid p-0 mt-3 mb-3" v-if="algumFiltroAtivo">
                     {{ console.log(algumFiltroAtivo) }}
                     <h1 class="h3 text-dark">
                       <strong>Seu resultado da pesquisa é...</strong>
                     </h1>
-                    <h6
-                      class="h3 text-dark"
-                      style="font-size: 13px; font-weight: 100"
-                    >
+                    <h6 class="h3 text-dark" style="font-size: 13px; font-weight: 100">
                       <span>1 - 12 de {{ quantidadeImoveis }} resultados</span>
                     </h6>
                   </div>
-                  <div
-                    class=""
-                    style="
+                  <div class="" style="
                       display: flex;
                       flex-direction: row;
                       flex-wrap: wrap;
                       justify-content: flex-start;
-                    "
-                    v-if="algumFiltroAtivo"
-                  >
-                    <div
-                      class="mb-3"
-                      style="
+                    " v-if="algumFiltroAtivo">
+                    <div class="mb-3" style="
                         display: flex;
                         flex-wrap: wrap;
                         flex-direction: column;
                         margin-right: 60px;
-                      "
-                      v-for="imovel in imoveisOnCurrentPage"
-                    >
-                      <div
-                        class="mb-2"
-                        style="
+                      " v-for="imovel in imoveisOnCurrentPage">
+                      <div class="mb-2" style="
                           display: flex;
                           justify-content: right;
                           width: 15rem;
-                        "
-                      >
-                        <button
-                          class="btn btn-light rounded-circle icon-button"
-                          @click="handleCompartilhar(imovel.id_imovel)"
-                        >
+                        ">
+                        <button class="btn btn-light rounded-circle icon-button"
+                          @click="handleCompartilhar(imovel.id_imovel)">
                           <i class="fas fa-share"></i>
                         </button>
                       </div>
-                      <a
-                        href="#"
-                        @click="storeImovelId(imovel.id_imovel)"
-                        style="
+                      <a href="#" @click="storeImovelId(imovel.id_imovel)" style="
                           color: inherit;
                           text-decoration: none;
                           width: 15rem;
-                        "
-                        class="card shadow-lg"
-                      >
+                        " class="card shadow-lg">
                         {{ console.log(imovel) }}
                         <div>
-                          <img
-                            :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`"
-                            class="card-img-top"
-                            alt="..."
-                            style="width: 240px; height: 180px"
-                          />
+                          <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
+                            style="width: 240px; height: 180px" />
                           <div class="card-body">
                             <h5>
                               <i class="fa fa-building"></i>
-                              <a
-                                href="#"
-                                style="text-decoration: none; color: #000"
-                              >
-                                <strong
-                                  >{{ " " }} {{ imovel.descricao.titulo }}
+                              <a href="#" style="text-decoration: none; color: #000">
+                                <strong>{{ " " }} {{ imovel.descricao.titulo }}
                                 </strong>
                               </a>
                               <span class="badge text-bg-success">{{
@@ -674,60 +437,36 @@
                             </h5>
                             <h5 class="text-dark">
                               <i class="fa fa-user"></i>
-                              <small
-                                >{{ " " }} {{ imovel.usuario.nome }}
-                                {{ imovel.usuario.sobrenome }}</small
-                              >
+                              <small>{{ " " }} {{ imovel.usuario.nome }}
+                                {{ imovel.usuario.sobrenome }}</small>
                             </h5>
                             <h5 class="text-dark">
-                              <small
-                                ><i class="fa fa-map-marker"></i>
+                              <small><i class="fa fa-map-marker"></i>
                                 {{ imovel.localizacao.logradouro }},
                                 {{ imovel.localizacao.numero }} |
                                 {{ imovel.localizacao.bairro }},
-                                {{ imovel.localizacao.cidade }}</small
-                              >
+                                {{ imovel.localizacao.cidade }}</small>
                             </h5>
                             <h5 class="text-dark">
-                              <small
-                                ><i class="fa fa-calendar"></i> Atualizado:
-                                {{ formatarData(imovel.updatedAt) }}</small
-                              >
+                              <small><i class="fa fa-calendar"></i> Atualizado:
+                                {{ formatarData(imovel.updatedAt) }}</small>
                             </h5>
-                            <i
-                              v-for="star in estrelas"
-                              :key="star"
-                              class="text-warning fa fa-star"
-                            ></i>
-                            <span
-                              class="text-success"
-                              style="float: inline-end; font-weight: 900"
-                            >
-                              {{ getQualidade(imovel.id_imovel) }}</span
-                            >
+                            <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
+                            <span class="text-success" style="float: inline-end; font-weight: 900">
+                              {{ getQualidade(imovel.id_imovel) }}</span>
                           </div>
                         </div>
                       </a>
                     </div>
                   </div>
 
-                  <div
-                    class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end"
-                    v-if="algumFiltroAtivo"
-                  >
-                    <button
-                      class="btn btn-dark btn-sm"
-                      @click="previousPageImovel()"
-                      :disabled="currentPageImovel <= 1"
-                    >
+                  <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end" v-if="algumFiltroAtivo">
+                    <button class="btn btn-dark btn-sm" @click="previousPageImovel()"
+                      :disabled="currentPageImovel <= 1">
                       Anterior
                     </button>
-                    <button
-                      class="btn btn-dark btn-sm"
-                      style="margin-right: 3% !important"
-                      @click="nextPageImovel()"
-                      :disabled="currentPageImovel >= totalPagesImoveis"
-                    >
+                    <button class="btn btn-dark btn-sm" style="margin-right: 3% !important" @click="nextPageImovel()"
+                      :disabled="currentPageImovel >= totalPagesImoveis">
                       Proximo
                     </button>
                   </div>
@@ -824,12 +563,15 @@ export default {
       areaMax: 0,
       ordenarPor: "",
       nomeImovel: "",
+      bairroSelecionado: "all", // Inicialmente selecionado como "todos os bairros"
+      bairrosDisponiveis: [],
 
       caracteristicasSelecionadas: [], // Armazenar características selecionadas
       todasCaracteristicas: [], // Armazenar todas as características disponíveis
 
       cidades: [],
       estados: [],
+      bairros: [],
 
       estadosMap: [
         { sigla: "AC", nome: "Acre" },
@@ -960,7 +702,8 @@ export default {
         this.areaMax > 0 ||
         this.caracteristicasSelecionadas.length > 0 ||
         this.ordenarPor !== "" ||
-        this.nomeImovel !== ""
+        this.nomeImovel !== "" ||
+        this.bairroSelecionado !== "all"
       );
     },
     primeiraColuna() {
@@ -1003,6 +746,21 @@ export default {
       return this.cidades.filter((cidade) => {
         const imovel = this.todosImoveis.find(
           (imovel) => imovel.localizacao.cidade === cidade
+        );
+        return imovel && imovel.localizacao.estado === this.estadoSelecionado;
+      });
+    },
+    bairrosFiltrados() {
+      // Se a cidade não estiver selecionada, retorna todos os bairros disponíveis
+      if (this.cidadeSelecionada === "") {
+        return this.bairros;
+      }
+      // Filtra os bairros com base na cidade e estado selecionados
+      return this.bairros.filter((bairro) => {
+        const imovel = this.todosImoveis.find(
+          (imovel) =>
+            imovel.localizacao.bairro === bairro &&
+            imovel.localizacao.cidade === this.cidadeSelecionada
         );
         return imovel && imovel.localizacao.estado === this.estadoSelecionado;
       });
@@ -1059,9 +817,13 @@ export default {
           const estado = this.estadosMap.find((e) => e.sigla === sigla);
           return estado ? estado : { sigla: sigla, nome: sigla };
         });
+        const bairros = [
+          ...new Set(imoveis.map((imovel) => imovel.localizacao.bairro)),
+        ];
 
         this.cidades = cidades;
         this.estados = estados;
+        this.bairros = bairros
       } catch (error) {
         console.error("Erro ao buscar cidades:", error);
       }
@@ -1109,6 +871,7 @@ export default {
         banheiro: this.banheiro,
         cozinha: this.cozinha,
         ordenarPor: this.ordenarPor,
+        bairro: this.bairroSelecionado,
       });
 
       this.filtrarImoveis();
@@ -1220,6 +983,9 @@ export default {
         const filtroCidade =
           this.cidadeSelecionada === "all" ||
           imovel.localizacao.cidade === this.cidadeSelecionada;
+        const filtroBairro =
+          this.bairroSelecionado === "all" ||
+          imovel.localizacao.bairro === this.bairroSelecionado;
         const filtroDormitorios =
           this.dormitorios === 0 ||
           this.dormitorios === "" ||
@@ -1267,6 +1033,7 @@ export default {
           filtroGaragem &&
           filtroEstado &&
           filtroCidade &&
+          filtroBairro &&
           filtroDormitorios &&
           filtroBanheiros &&
           filtroCozinhas &&
