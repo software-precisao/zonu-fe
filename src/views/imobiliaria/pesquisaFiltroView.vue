@@ -230,7 +230,8 @@
 
                     <div class="form-group col-md-12 mt-3">
                       <label for="cidade"><small><strong>Bairro</strong></small></label>
-                      <select class="form-select" v-model="bairroSelecionado" @change="atualizarFiltros"
+                      <select class="form-select" v-model="bairroSelecionado"
+                        :disabled="cidadeSelecionada == 'all' || estadoSelecionado == 'all'" @change="atualizarFiltros"
                         style="height: 55px">
                         <option value="all">Todos os Bairros</option>
                         <option v-for="bairro in bairrosFiltrados" :key="bairro" :value="bairro">
@@ -932,7 +933,10 @@ export default {
             .replace(",", ".")
             .trim()
         );
-        const areaImovel = parseFloat(imovel.medidas.area_total);
+        let areaImovel = 0
+        if (imovel.medidas != null) {
+          areaImovel = parseFloat(imovel.medidas.area_total);
+        }
 
         const filtroTipoNegocio =
           this.tipoNegocio === "all" ||
@@ -1335,10 +1339,10 @@ export default {
         let latitude;
         let longitude;
 
-        this.map = new google.maps.Map(this.$refs.mapElement, {
-          center: { lat: this.latitude, lng: this.longitude },
-          zoom: 10,
-        });
+        // this.map = new google.maps.Map(this.$refs.mapElement, {
+        //   center: { lat: this.latitude, lng: this.longitude },
+        //   zoom: 10,
+        // });
 
         // this.mapImoveis = L.map(this.$refs.mapElement).setView([this.latitudeImoveis, this.longitudeImoveis], 10);
         // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1346,17 +1350,17 @@ export default {
         //   attribution: '© OpenStreetMap contributors'
         // }).addTo(this.mapImoveis);
 
-        res.data.map(async (imovel) => {
-          // console.log(imovel.localizacao.rua)
-          await this.buscarCoordenadas(
-            imovel.localizacao.cep,
-            imovel.localizacao.logradouro
-          ).then((res) => {
-            if (res) {
-              this.updateMap();
-            }
-          });
-        });
+        // res.data.map(async (imovel) => {
+        //   // console.log(imovel.localizacao.rua)
+        //   await this.buscarCoordenadas(
+        //     imovel.localizacao.cep,
+        //     imovel.localizacao.logradouro
+        //   ).then((res) => {
+        //     if (res) {
+        //       this.updateMap();
+        //     }
+        //   });
+        // });
 
         res.data.forEach((imovel) => {
           let cep = imovel.localizacao.cep;

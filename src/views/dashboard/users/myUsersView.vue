@@ -132,7 +132,7 @@ export default {
     fetcUsuarios() {
       console.log(this.perfil.id_user);
       apiAuth.getMyImobiliaria(this.perfil.id_user).then((res) => {
-        let usuarios = res.data;
+        let usuarios = res.data.subUsuarios
         console.log("aqui que esta o res ===> ", res);
         // Filtrar os usuários com id_nivel igual a 1
         const idsAdicionados = new Set();
@@ -141,10 +141,10 @@ export default {
         //     user.id_nivel === 6 &&
         //     index === self.findIndex((u) => u.id_user === user.id_user)
         // );
-
+        console.log(usuarios)
         let usuariosFiltrados = usuarios.filter((user) => {
-          if (user.id_nivel === 6 && !idsAdicionados.has(user.id_user)) {
-            idsAdicionados.add(user.id_user);
+          if (user.id_nivel === 6 && !idsAdicionados.has(user.id_perfil_user)) {
+            idsAdicionados.add(user.id_perfil_user);
             return true;
           }
           return false;
@@ -270,7 +270,7 @@ export default {
       );
 
       // console.log(permissionCheck);
-
+      console.log(nome, sobrenome, email, senha)
       if (!permissionCheck.allowed) {
         this.msgMaxUsers = permissionCheck.message;
         this.textoBotao = "Criar novo usuário";
@@ -289,8 +289,7 @@ export default {
             sobrenome,
             email,
             senha,
-            idUser,
-            idPlano
+            idUser
           )
           .then((res) => {
             console.log(res);
@@ -460,7 +459,7 @@ export default {
                 <div class="card-body">
                   <div class="container-fluid">
                     <div class="row">
-                      {{ console.log(listUsers) }}
+                      <!-- {{ console.log(listUsers) }} -->
                       <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
                         <i class="fa fa-check"></i> Conta criada com sucesso!
                         <span style="float: inline-end"><i class="fa fa-qrcode"></i></span>
@@ -672,7 +671,7 @@ export default {
                                 </button>
                               </div>
                               <hr class="mt-4" />
-                              <!-- <div class="card-header">
+                              <div class="card-header">
                                 <h5 class="card-title mb-0">
                                   <i class="fa fa-building"></i> Lista dos meus
                                   usuários
@@ -686,32 +685,25 @@ export default {
                                       <thead>
                                         <tr>
                                           <th scope="col">Nome</th>
-                                          <th scope="col">Link</th>
+                                          <th scope="col">E-mail</th>
                                           <th scope="col">Status</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                          <tr v-for="link in links" :key="link.id">
-                            <th>{{ nome }} {{ sobrenome }}</th>
-                            <th>
-                              <a :href="link.url">{{ link.url }}</a>
-                            </th>
-                            <th>
-                              <span
-                                v-if="link.ativo"
-                                class="badge text-bg-success"
-                                >Ativo</span
-                              >
-                              <span v-else class="badge text-bg-danger"
-                                >Inativo</span
-                              >
-                            </th>
-                          </tr>
-                        </tbody>
+                                        <tr v-for="user in listUsers" :key="user.id_user">
+                                          {{ console.log(user) }}
+                                          <th>{{ user.nome }} {{ user.sobrenome }}</th>
+                                          <th>{{ user.email }}</th>
+                                          <th v-if="user.id_status == 1"><span
+                                              class="badge text-bg-success">Ativo</span></th>
+                                          <th v-if="user.id_status == 2"><span
+                                              class="badge text-bg-danger">Invativo</span></th>
+                                        </tr>
+                                      </tbody>
                                     </table>
                                   </div>
                                 </div>
-                              </div> -->
+                              </div>
                             </div>
                           </div>
                         </div>

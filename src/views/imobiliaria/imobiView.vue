@@ -7,40 +7,22 @@
           <div class="card-body">
             <div class="row">
               <div class="col-2">
-                <select
-                  v-model="tipoNegocio"
-                  @change="onTipoNegocioChange"
-                  style="height: 55px"
-                  class="form-select"
-                >
+                <select v-model="tipoNegocio" @change="onTipoNegocioChange" style="height: 55px" class="form-select">
                   <option value="">Venda ou Aluguel</option>
                   <option value="Venda">Venda</option>
                   <option value="Aluguel">Aluguel</option>
                 </select>
               </div>
               <div class="col-2">
-                <select
-                  v-model="cidadeSelecionada"
-                  @change="onCidadeChange"
-                  style="height: 55px"
-                  class="form-select"
-                >
+                <select v-model="cidadeSelecionada" @change="onCidadeChange" style="height: 55px" class="form-select">
                   <option value="">Cidade</option>
-                  <option
-                    v-for="cidade in cidades"
-                    :key="cidade"
-                    :value="cidade"
-                  >
+                  <option v-for="cidade in cidades" :key="cidade" :value="cidade">
                     {{ cidade }}
                   </option>
                 </select>
               </div>
               <div class="col-2">
-                <select
-                  v-model="faixaPreco"
-                  style="height: 55px"
-                  class="form-select"
-                >
+                <select v-model="faixaPreco" style="height: 55px" class="form-select">
                   <option value="">Preço</option>
                   <option value="500-1000">500R$ - 1.000R$</option>
                   <option value="1000-2000">1.000R$ - 2.000R$</option>
@@ -55,49 +37,23 @@
                 </select>
               </div>
               <div class="col-3">
-                <input
-                  type="text"
-                  v-model="nomeImovel"
-                  style="height: 55px"
-                  class="form-control"
-                  placeholder="Nome do imóvel"
-                  @input="fetchImoveisFiltrados"
-                />
+                <input type="text" v-model="nomeImovel" style="height: 55px" class="form-control"
+                  placeholder="Nome do imóvel" @input="fetchImoveisFiltrados" />
               </div>
               <div class="col-3" style="margin-top: -5px">
-                <label for="area"
-                  ><small><strong>Intervalo de Área (m²)</strong></small></label
-                >
+                <label for="area"><small><strong>Intervalo de Área (m²)</strong></small></label>
                 <div class="d-flex justify-content-around">
-                  <input
-                    type="number"
-                    v-model.number="areaMin"
-                    @input="fetchImoveisFiltrados"
-                    class="form-control"
-                    style="height: 40px"
-                    placeholder="Área Mínima"
-                    min="0"
-                  />
-                  <input
-                    type="number"
-                    v-model.number="areaMax"
-                    @input="fetchImoveisFiltrados"
-                    class="form-control"
-                    style="height: 40px"
-                    placeholder="Área Máxima"
-                    min="0"
-                  />
+                  <input type="number" v-model.number="areaMin" @input="fetchImoveisFiltrados" class="form-control"
+                    style="height: 40px" placeholder="Área Mínima" min="0" />
+                  <input type="number" v-model.number="areaMax" @input="fetchImoveisFiltrados" class="form-control"
+                    style="height: 40px" placeholder="Área Máxima" min="0" />
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          class="alert alert-primary d-flex align-items-center"
-          role="alert"
-          v-if="mensagemAtivo"
-        >
+        <div class="alert alert-primary d-flex align-items-center" role="alert" v-if="mensagemAtivo">
           <i class="fa fa-exclamation-circle" style="margin-right: 10px"></i>
           <div>
             {{ mensagem }}
@@ -115,17 +71,9 @@
                         <div class="col-3"> -->
           <div class="d-flex flex-wrap justify-content-flex-start">
             <div class="mx-3">
-              <a
-                href="#"
-                @click="storeFiltro('Aluguel')"
-                style="color: inherit; text-decoration: none"
-              >
+              <a href="#" @click="storeFiltro('Aluguel')" style="color: inherit; text-decoration: none">
                 <div class="card" style="width: 18rem">
-                  <img
-                    src="../../../assets/images/venda.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
+                  <img src="../../../assets/images/venda.jpg" class="card-img-top" alt="..." />
                   <div class="card-body">
                     <p class="card-text">Imóveis para alugar</p>
                   </div>
@@ -134,17 +82,9 @@
             </div>
 
             <div class="mx-3">
-              <a
-                href="#"
-                @click="storeFiltro('Venda')"
-                style="color: inherit; text-decoration: none"
-              >
+              <a href="#" @click="storeFiltro('Venda')" style="color: inherit; text-decoration: none">
                 <div class="card" style="width: 18rem">
-                  <img
-                    src="../../../assets/images/apartamento.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
+                  <img src="../../../assets/images/apartamento.jpg" class="card-img-top" alt="..." />
                   <div class="card-body">
                     <p class="card-text">Imóveis a venda</p>
                   </div>
@@ -153,17 +93,9 @@
             </div>
 
             <div class="mx-3">
-              <a
-                href="#"
-                @click="storeFiltroVistaMar('Casa')"
-                style="color: inherit; text-decoration: none"
-              >
+              <a href="#" @click="storeFiltroVistaMar('Casa')" style="color: inherit; text-decoration: none">
                 <div class="card" style="width: 18rem">
-                  <img
-                    src="../../../assets/images/casaPraia.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
+                  <img src="../../../assets/images/casaPraia.jpg" class="card-img-top" alt="..." />
                   <div class="card-body">
                     <p class="card-text">Casas</p>
                   </div>
@@ -172,17 +104,9 @@
             </div>
 
             <div class="mx-3">
-              <a
-                href="#"
-                @click="storeFiltroGaragem('Sim')"
-                style="color: inherit; text-decoration: none"
-              >
+              <a href="#" @click="storeFiltroGaragem('Sim')" style="color: inherit; text-decoration: none">
                 <div class="card" style="width: 18rem">
-                  <img
-                    src="../../../assets/images/garagem.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
+                  <img src="../../../assets/images/garagem.jpg" class="card-img-top" alt="..." />
                   <div class="card-body">
                     <p class="card-text">Com garagem</p>
                   </div>
@@ -203,24 +127,15 @@
           <div class="d-flex flex-wrap justify-content-flex-start">
             <div class="mx-2" v-for="imovel in imoveis">
               {{ console.log(imovel) }}
-              <a
-                href="#"
-                @click="storeImovelId(imovel.id_imovel)"
-                style="color: inherit; text-decoration: none"
-              >
+              <a href="#" @click="storeImovelId(imovel.id_imovel)" style="color: inherit; text-decoration: none">
                 <div class="card" style="width: 15rem">
-                  <img
-                    :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`"
-                    class="card-img-top"
-                    alt="..."
-                    style="width: 240px; height: 180px"
-                  />
+                  <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
+                    style="width: 240px; height: 180px" />
                   <div class="card-body">
                     <h5>
                       <i class="fa fa-building"></i>
                       <a href="#" style="text-decoration: none; color: #000">
-                        <strong
-                          >{{ " " }} {{ imovel.descricao.titulo }}
+                        <strong>{{ " " }} {{ imovel.descricao.titulo }}
                         </strong>
                       </a>
                       <span class="badge text-bg-success">{{
@@ -230,42 +145,28 @@
                     <h5 class="text-info">
                       <strong>{{
                         formatCurrency(imovel.preco.preco_imovel)
-                      }}</strong
-                      ><a style="float: inline-end" class="text-info"></a>
+                      }}</strong><a style="float: inline-end" class="text-info"></a>
                     </h5>
                     <h5 class="text-dark">
                       <i class="fa fa-user"></i>
                       <small>
                         {{ " " }} {{ imovel.usuario.nome }}
-                        {{ imovel.usuario.sobrenome }}</small
-                      >
+                        {{ imovel.usuario.sobrenome }}</small>
                     </h5>
                     <h5 class="text-dark">
-                      <small
-                        ><i class="fa fa-map-marker"></i>
+                      <small><i class="fa fa-map-marker"></i>
                         {{ imovel.localizacao.logradouro }},
                         {{ imovel.localizacao.numero }} |
                         {{ imovel.localizacao.bairro }},
-                        {{ imovel.localizacao.cidade }}</small
-                      >
+                        {{ imovel.localizacao.cidade }}</small>
                     </h5>
                     <h5 class="text-dark">
-                      <small
-                        ><i class="fa fa-calendar"></i> Atualizado:
-                        {{ formatarData(imovel.updatedAt) }}</small
-                      >
+                      <small><i class="fa fa-calendar"></i> Atualizado:
+                        {{ formatarData(imovel.updatedAt) }}</small>
                     </h5>
-                    <i
-                      v-for="star in estrelas"
-                      :key="star"
-                      class="text-warning fa fa-star"
-                    ></i>
-                    <span
-                      class="text-success"
-                      style="float: inline-end; font-weight: 900"
-                    >
-                      {{ getQualidade(imovel.id_imovel) }}</span
-                    >
+                    <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i>
+                    <span class="text-success" style="float: inline-end; font-weight: 900">
+                      {{ getQualidade(imovel.id_imovel) }}</span>
                   </div>
                 </div>
               </a>
@@ -282,17 +183,13 @@
         <div class="col-xl-12 col-xxl-12 mt-3">
           <div class="card flex-fill w-100">
             <div class="card-body py-3">
-              <div
-                id="mapImoveis"
-                ref="mapElement"
-                style="
+              <div id="mapImoveis" ref="mapElement" style="
                   height: 438px;
                   width: 100%;
                   border: 0;
                   position: sticky;
                   bottom: 0;
-                "
-              ></div>
+                "></div>
             </div>
           </div>
         </div>

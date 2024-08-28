@@ -332,14 +332,7 @@ export default {
     }
   },
 
-  cadastroSubImobiliaria: async (
-    nome,
-    sobrenome,
-    email,
-    senha,
-    idUser,
-    id_plano
-  ) => {
+  cadastroSubImobiliaria: async (nome, sobrenome, email, senha, idUser) => {
     try {
       const response = await http.post(
         "/usuarios/cadastro-imobiliaria-user",
@@ -349,7 +342,6 @@ export default {
           email: email,
           senha: senha,
           id_user: idUser,
-          id_plano: id_plano,
         },
         {
           headers: {
@@ -393,7 +385,7 @@ export default {
 
   getMyImobiliaria: async (idUser) => {
     try {
-      const response = await http.get(`/usuarios/users-imobiliaria/${idUser}`, {
+      const response = await http.get(`/usuarios/subusuarios/${idUser}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

@@ -1376,7 +1376,7 @@
                                 <div class="form-check d-flex align-items-center" style="margin-bottom: 10px">
                                   <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaImovel[
                                     caracteristica.id_caracteristica
-                                    ]
+                                  ]
                                     " type="checkbox" :id="'flexCheck' +
                                       caracteristica.id_caracteristica
                                       " style="margin-right: 10px" />
@@ -1400,7 +1400,7 @@
                                   <div class="form-check">
                                     <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaAllImovel[
                                       item.id_caracteristica
-                                      ]
+                                    ]
                                       " type="checkbox" :id="'flexCheck' + item.id_caracteristica" />
                                     <label v-if="!mostrarSkeleton" class="form-check-label" :for="'flexCheck' + item.id_caracteristica
                                       ">
@@ -1981,7 +1981,7 @@
                                 <div class="form-check d-flex align-items-center" style="margin-bottom: 10px">
                                   <input v-if="!mostrarSkeleton" class="form-check-input" v-model="proximidadesImovel[
                                     proximidade.id_proximidade
-                                    ]
+                                  ]
                                     " type="checkbox" :id="'flexCheck' + proximidade.id_proximidade
                                       " style="margin-right: 10px" />
                                   <label v-if="!mostrarSkeleton" class="form-check-label" :for="'flexCheck' + proximidade.id_proximidade
@@ -3054,7 +3054,7 @@
                                                         <input v-if="
                                                           !mostrarSkeleton
                                                         " type="radio" class="btn-check" value="Não" v-model="selectGaragemCobertura
-                                                            " name="garagemCoberta" id="selectGaragemCobertura2"
+                                                          " name="garagemCoberta" id="selectGaragemCobertura2"
                                                           autocomplete="off" />
                                                         <label v-if="
                                                           !mostrarSkeleton
@@ -3083,17 +3083,15 @@
                                                             " />
                                                         <label v-if="
                                                           !mostrarSkeleton
-                                                        " class="btn btn-outline-success"
-                                                          for="boxGaragemY">Sim</label>
+                                                        " class="btn btn-outline-success" for="boxGaragemY">Sim</label>
 
                                                         <input v-if="
                                                           !mostrarSkeleton
                                                         " type="radio" class="btn-check" value="Não" v-model="selectBoxGaragem
-                                                            " name="boxGaragem" id="boxGaragemN" autocomplete="off" />
+                                                          " name="boxGaragem" id="boxGaragemN" autocomplete="off" />
                                                         <label v-if="
                                                           !mostrarSkeleton
-                                                        " class="btn btn-outline-danger"
-                                                          for="boxGaragemN">Não</label>
+                                                        " class="btn btn-outline-danger" for="boxGaragemN">Não</label>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -3303,11 +3301,11 @@
                                                         <input type="text" required v-if="
                                                           !mostrarSkeleton
                                                         " class="form-control" v-model="areaConstruida
-                                                            " placeholder="Digite aqui..." @input="
-                                                            aplicaMascaraMedida(
-                                                              'areaConstruida'
-                                                            )
-                                                            " />
+                                                          " placeholder="Digite aqui..." @input="
+                                                              aplicaMascaraMedida(
+                                                                'areaConstruida'
+                                                              )
+                                                              " />
                                                         <span v-if="
                                                           !mostrarSkeleton
                                                         " class="input-group-text">m²</span>
@@ -3327,11 +3325,11 @@
                                                         <input type="text" required v-if="
                                                           !mostrarSkeleton
                                                         " class="form-control" v-model="areaPrivativa
-                                                            " placeholder="Digite aqui..." @input="
-                                                            aplicaMascaraMedida(
-                                                              'areaPrivativa'
-                                                            )
-                                                            " />
+                                                          " placeholder="Digite aqui..." @input="
+                                                              aplicaMascaraMedida(
+                                                                'areaPrivativa'
+                                                              )
+                                                              " />
                                                         <span v-if="
                                                           !mostrarSkeleton
                                                         " class="input-group-text">m²</span>
@@ -3401,8 +3399,8 @@
                                                         <input type="text" @input="aplicaMascaraDinheiroPrecoImovel
                                                           " @blur="aplicaMascaraDinheiroPrecoImovel
                                                             " required v-if="
-                                                            !mostrarSkeleton
-                                                          " class="form-control" v-model="precoImovel"
+                                                              !mostrarSkeleton
+                                                            " class="form-control" v-model="precoImovel"
                                                           placeholder="R$ 0,00" />
                                                       </div>
                                                     </div>
@@ -3507,8 +3505,8 @@
                                                       <input type="text" required v-if="!mostrarSkeleton"
                                                         class="form-control" v-model="precoCondominio
                                                           " @input="aplicaMascaraDinheiroPrecoCondominio
-                                                          " @blur="aplicaMascaraDinheiroPrecoCondominio
-                                                          " placeholder="R$ 0,00" />
+                                                            " @blur="aplicaMascaraDinheiroPrecoCondominio
+                                                            " placeholder="R$ 0,00" />
                                                     </div>
                                                   </div>
 
@@ -3610,7 +3608,7 @@
                                                         class="form-control" v-model="taxasTotal" placeholder="R$ 0,00"
                                                         @input="aplicaMascaraDinheiroTotalTaxas
                                                           " @blur="aplicaMascaraDinheiroTotalTaxas
-                                                          " />
+                                                            " />
                                                     </div>
                                                   </div>
 
@@ -3684,7 +3682,7 @@
                                                       <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaImovel[
                                                         caracteristica
                                                           .id_caracteristica
-                                                        ]
+                                                      ]
                                                         " type="checkbox" :id="'flexCheck' +
                                                           caracteristica.id_caracteristica
                                                           " />
@@ -3710,7 +3708,7 @@
                                                       <input v-if="!mostrarSkeleton" class="form-check-input" v-model="caracteristicaAllImovel[
                                                         item
                                                           .id_caracteristica
-                                                        ]
+                                                      ]
                                                         " type="checkbox" :id="'flexCheck' +
                                                           item.id_caracteristica
                                                           " />
@@ -4276,7 +4274,7 @@
                                                       <input v-if="!mostrarSkeleton" class="form-check-input" v-model="proximidadesImovel[
                                                         proximidade
                                                           .id_proximidade
-                                                        ]
+                                                      ]
                                                         " type="checkbox" :id="'flexCheck' +
                                                           proximidade.id_proximidade
                                                           " />
@@ -4299,7 +4297,7 @@
                                                       :key="item.id_proximidade">
                                                       <input v-if="!mostrarSkeleton" class="form-check-input" v-model="proximidadesAllImovel[
                                                         item.id_proximidade
-                                                        ]
+                                                      ]
                                                         " type="checkbox" :id="'flexCheck' +
                                                           item.id_proximidade
                                                           " />
