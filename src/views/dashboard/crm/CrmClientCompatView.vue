@@ -7,9 +7,7 @@
         <sidebarCrm tab="Clientes compativeis" />
         <!-- Dashboard -->
         <div class="" style="width: 100%">
-          <header
-            class="pe-3 ps-3"
-            style="
+          <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
               width: 100%;
@@ -17,8 +15,7 @@
               display: flex;
               align-items: center;
               justify-content: space-between;
-            "
-          >
+            ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
               Radar de oportunidades | Clientes compatíveis | 4 imóveis | 272
               pessoas
@@ -33,38 +30,23 @@
               <div class="col-10 mb-3">
                 <div class="card">
                   <div class="table-responsive">
-                    <table
-                      class="table"
-                      style="
+                    <table class="table" style="
                         font-size: 14px;
                         border: 1px solid rgb(216, 216, 216);
                         border-radius: 5px;
-                      "
-                    >
+                      ">
                       <thead>
                         <tr style="background-color: rgb(244, 244, 244)">
                           <th>
-                            <i class="align-middle" data-feather="square"></i>
+                            <input class="form-check-input" type="checkbox" :id="'flexCheck'" />
                           </th>
                           <th>
-                            Cliente<i
-                              class="align-middle"
-                              data-feather="arrow-up"
-                            ></i>
-                            <i
-                              class="align-middle"
-                              data-feather="arrow-down"
-                            ></i>
+                            Cliente<i class="align-middle" data-feather="arrow-up"></i>
+                            <i class="align-middle" data-feather="arrow-down"></i>
                           </th>
                           <th class="text-center">
-                            Ultima interação<i
-                              class="align-middle"
-                              data-feather="arrow-up"
-                            ></i>
-                            <i
-                              class="align-middle"
-                              data-feather="arrow-down"
-                            ></i>
+                            Ultima interação<i class="align-middle" data-feather="arrow-up"></i>
+                            <i class="align-middle" data-feather="arrow-down"></i>
                           </th>
                           <th class="text-center">Imóveis no Funil</th>
                           <th class="text-center">No radar</th>
@@ -74,41 +56,25 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="item in usuariosOnCurrentPage"
-                          :key="item.id"
-                          style="cursor: pointer"
-                        >
+                        <tr v-for="item in usuariosOnCurrentPage" :key="item.id" style="cursor: pointer">
                           <td>
-                            <i class="align-middle" data-feather="square"></i>
+                            <input class="form-check-input" type="checkbox" :id="'flexCheck' + item.id" />
                           </td>
                           <td>{{ item.cliente }}</td>
                           <td class="text-center">
                             {{ item.ultimaInteracao }}
                           </td>
                           <td class="text-center">
-                            <a
-                              style="text-decoration: underline; color: blue"
-                              >{{ item.imovelFunil }}</a
-                            >
+                            <a style="text-decoration: underline; color: blue">{{ item.imovelFunil }}</a>
                           </td>
                           <td class="text-center">
-                            <a
-                              style="text-decoration: underline; color: blue"
-                              >{{ item.noRadar }}</a
-                            >
+                            <a style="text-decoration: underline; color: blue">{{ item.noRadar }}</a>
                           </td>
                           <td class="text-center">
-                            <a
-                              style="text-decoration: underline; color: blue"
-                              >{{ item.Enviados }}</a
-                            >
+                            <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a>
                           </td>
                           <td class="text-center" xxx>
-                            <a
-                              style="text-decoration: underline; color: blue"
-                              >{{ item.Descartados }}</a
-                            >
+                            <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a>
                           </td>
                           <td>
                             <i class="align-middle" data-feather="trash-2"></i>
@@ -119,17 +85,13 @@
                   </div>
                 </div>
 
-                <div
-                  style="
+                <div style="
                     display: flex;
                     width: 100%;
                     align-items: center;
                     justify-content: center;
-                  "
-                >
-                  <button
-                    class="btnHoverPag"
-                    style="
+                  ">
+                  <button class="btnHoverPag" style="
                       border: none;
                       color: #0084f4;
                       font-weight: 700;
@@ -137,26 +99,17 @@
                       margin-right: 50px;
                       padding: 0 0.25em;
                       border-radius: 4px;
-                    "
-                    @click="previousPageUser()"
-                    :disabled="currentPageUser <= 1"
-                  >
-                    <i class="align-middle" data-feather="chevron-left"></i
-                    >Anterior
+                    " @click="previousPageUser()" :disabled="currentPageUser <= 1">
+                    <i class="align-middle" data-feather="chevron-left"></i>Anterior
                   </button>
-                  <button
-                    class="btnHoverPag"
-                    style="
+                  <button class="btnHoverPag" style="
                       border: none;
                       color: #0084f4;
                       font-weight: 700;
                       line-height: 22px;
                       padding: 0 0.25em;
                       border-radius: 8px;
-                    "
-                    @click="nextPageUser()"
-                    :disabled="currentPageUser >= totalPagesUsuarios"
-                  >
+                    " @click="nextPageUser()" :disabled="currentPageUser >= totalPagesUsuarios">
                     Próximo
                     <i class="align-middle" data-feather="chevron-right"></i>
                   </button>
@@ -293,12 +246,16 @@ export default {
   font-size: 1em;
   font-weight: 600;
   background-color: #f61212;
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Transições suaves */
   box-shadow: 0 0 5px rgba(248, 67, 67, 0.6), inset 0 0 1px rgba(0, 0, 0, 0.6);
   padding: 10px 15px;
 }
+
 .btn-reds:hover {
-  background-color: #f61212; /* Laranja mais escuro ao passar o mouse */
-  color: #fff; /* Garantir que o texto permaneça branco */
+  background-color: #f61212;
+  /* Laranja mais escuro ao passar o mouse */
+  color: #fff;
+  /* Garantir que o texto permaneça branco */
 }
 </style>

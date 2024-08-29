@@ -16,11 +16,14 @@
               align-items: center;
               justify-content: space-between;
             ">
-            <h4 class="fw-semibold mt-2" style="font-size: 13px">
+            <div class="skeleton-title" style=" margin-bottom: 0 !important" v-if="!mostrarSkeleton"></div>
+            <h4 class="fw-semibold mt-2" v-if="mostrarSkeleton" style="font-size: 13px">
               Visão geral
             </h4>
             <div style="display: flex; align-items: center">
-              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
+              <input style="height: 30px; font-size: 13px; font-weight: 600; border: none; margin-bottom: 0 !important"
+                class="skeleton-input" v-if="!mostrarSkeleton"></input>
+              <select class="form-select" v-if="mostrarSkeleton" @change="filtrarEtapasFunil" v-model="funilSelect"
                 style="height: 30px; font-size: 13px; font-weight: 600">
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
                   v-if="funis.length > 0">
@@ -199,7 +202,8 @@
                   </div>
                 </div>
 
-                <div class="card pe-4 ps-4 pt-4" style="border: 1px solid rgb(211, 220, 235)">
+                <div class="skeleton-big-card" v-if="!mostrarSkeleton"></div>
+                <div class="card pe-4 ps-4 pt-4" v-if="mostrarSkeleton" style="border: 1px solid rgb(211, 220, 235)">
                   <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
@@ -381,7 +385,10 @@
                     flex-direction: row;
                     justify-content: space-between;
                   ">
-                  <div class="card" style="
+                  <div class="skeleton-big-card" v-if="!mostrarSkeleton"
+                    style="width: 49% !important; height: 80px !important;">
+                  </div>
+                  <div class="card" v-if="mostrarSkeleton" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -413,7 +420,7 @@
                           font-size: 22px;
                           font-weight: 600;
                         ">
-                        54
+                        {{ qtdNegoicos }}
                       </p>
                     </div>
                     <div>
@@ -455,7 +462,10 @@
                       </p>
                     </div>
                   </div>
-                  <div class="card" style="
+
+                  <div class="skeleton-big-card" v-if="!mostrarSkeleton"
+                    style="width: 49% !important; height: 80px !important;"></div>
+                  <div class="card" v-if="mostrarSkeleton" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -487,7 +497,7 @@
                           font-size: 22px;
                           font-weight: 600;
                         ">
-                        54
+                        {{ contarClientesUnicos.length }}
                       </p>
                     </div>
                     <div>
@@ -531,6 +541,7 @@
                   </div>
                 </div>
 
+                <!-- <div class="skeleton-big-card" v-if="!mostrarSkeleton"></div> -->
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
                       font-size: 14px;
@@ -547,8 +558,9 @@
                     ">
                     Análise de percentual de perdas em cada etapa
                   </p>
-
-                  <graphBarAtivCrmComp :idFunil="funilSelecionado" />
+                  <div :style="mostrarSkeleton == false ? 'visibility: hidden' : 'visibility: visible'">
+                    <graphBarAtivCrmComp :idFunil="funilSelecionado" />
+                  </div>
                 </div>
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
@@ -566,8 +578,9 @@
                     ">
                     Contabilizado por motivo
                   </p>
-
-                  <graphBarLaterCrmComp :idFunil="funilSelecionado" />
+                  <div :style="mostrarSkeleton == false ? 'visibility: hidden' : 'visibility: visible'">
+                    <graphBarLaterCrmComp :idFunil="funilSelecionado" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -729,7 +742,9 @@
                                 font-size: 14px;
                                 font-weight: 400;
                               ">
-                              {{ item.descricao.apresentacao }}
+                              {{ console.log(item) }}
+                              {{ item.localizacao.bairro }} - {{ item.localizacao.cidade }}/{{ item.localizacao.estado
+                              }}
                             </p>
                           </div>
                         </div>
@@ -1584,6 +1599,8 @@ export default {
       id_user: "",
       userName: "",
       userSobrenome: "",
+
+      mostrarSkeleton: false,
 
       funilSelect: localStorage.getItem("fs") ? localStorage.getItem("fs") : "1",
       youtubeLogo,
@@ -2610,7 +2627,15 @@ export default {
     this.fetchFunil()
     this.fetchFirstEtapas()
     // this.fetchNegocios()
+
+    // setTimeout(() => {
+
     this.filtrarEtapasFunil(true)
+    // }, 2000);
+
+    setTimeout(() => {
+      this.mostrarSkeleton = true
+    }, 3000);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);

@@ -53,7 +53,7 @@ export default {
 
     created() {
         console.log("Aqui esta os pedidos ===> ", this.negocio);
-        console.log("Aqui esta o imovel ===> ", this.imovel);
+        // console.log("Aqui esta o imovel ===> ", this.imovel);
     },
     methods: {
         aplicaMascaraDinheiroPrecoImovel(preco) {

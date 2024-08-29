@@ -1620,4 +1620,26 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  atualizaEtapaNegocio: async (idNegocio, novoIdEtapa) => {
+    try {
+      const response = await http.put(
+        `negocios/negocios/${idNegocio}/mover-etapa`,
+        {
+          id_etapa: novoIdEtapa,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };

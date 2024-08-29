@@ -157,7 +157,7 @@
                           <td>{{ corretorResponsavel }}</td>
                           <td>{{ item.etapas == undefined || item.etapas == null || item.etapas.length == 0 ? "-" :
                             item.etapas.length > 1 ?
-                              "2 posições" :
+                              item.etapas.length + "posições" :
                               item.etapas[0].nome_etapa }}</td>
                           <td>{{ formatUpdatedDate(item.updatedAt) }}</td>
                         </tr>
@@ -397,19 +397,29 @@ export default {
         const idEtapa = negocio.Etapa?.id_etapa;
 
         if (clienteEtapasMap.has(clienteId) && nomeEtapa) {
-          clienteEtapasMap.get(clienteId).etapas.push({
-            nome_etapa: nomeEtapa,
-            id_etapa: idEtapa
-          });
+          const cliente = clienteEtapasMap.get(clienteId);
+
+          // Verifica se a etapa já foi adicionada ao cliente
+          const etapaExistente = cliente.etapas.some(etapa => etapa.id_etapa === idEtapa);
+
+          // Adiciona a etapa somente se ainda não estiver presente
+          if (!etapaExistente) {
+            cliente.etapas.push({
+              nome_etapa: nomeEtapa,
+              id_etapa: idEtapa
+            });
+          }
         }
       });
 
       // Converte o mapa de volta para um array de clientes
       const resultados = Array.from(clienteEtapasMap.values());
-      this.allClientes = resultados
+      this.allClientes = resultados;
+
       // Agora você pode usar `resultados` conforme necessário
       console.log("Clientes com etapas:", resultados);
-    }
+    },
+
   },
 };
 </script>

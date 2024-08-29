@@ -16,13 +16,16 @@
               align-items: center;
               justify-content: space-between;
             ">
-            <h4 class="fw-semibold mt-2" style="font-size: 13px">
+            <div class="skeleton-title" v-if="!mostrarSkeleton" style="margin-bottom: 0 !important; "></div>
+            <h4 class="fw-semibold mt-2" v-if="mostrarSkeleton" style="font-size: 13px">
               Negócios em andamento | Visão em etapas | {{ imoveisUnicos }} {{ imoveisUnicos == 1 ? "imóvel" : "imóveis"
               }} | {{ funilSelecionado ?
                 funilSelecionado.qtdNegoicos : 0 }} {{ funilSelecionado.qtdNegoicos == 1 ? "cliente" : "clientes" }}
             </h4>
             <div style="display: flex; align-items: center">
-              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
+              <input style="height: 30px; font-size: 13px; font-weight: 600; border: none; margin-bottom: 0 !important"
+                class="skeleton-input" v-if="!mostrarSkeleton"></input>
+              <select class="form-select" v-if="mostrarSkeleton" @change="filtrarEtapasFunil" v-model="funilSelect"
                 style="height: 30px; font-size: 13px; font-weight: 600">
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funils"
                   v-if="funis.length > 0">
@@ -356,6 +359,8 @@ export default {
       funilporId: [],
       allNegocios: [],
       funils: [],
+
+      mostrarSkeleton: false
     };
   },
 
@@ -389,6 +394,10 @@ export default {
     this.fetchNegocio()
     this.filtrarEtapasFunil(true)
     // this.fetchClientePorID()
+
+    setTimeout(() => {
+      this.mostrarSkeleton = true
+    }, 3000);
   },
   watch: {
     etapas(newVal) {
@@ -441,16 +450,50 @@ export default {
       const newStatusIndex = evt.to.id.split("-")[1];
       const negocioId = itemEl.getAttribute("data-id");
 
-      // Verifica se o índice da etapa existe na lista de etapas
+      // Verifica se o índice da etapa é válido
       if (newStatusIndex >= 0 && newStatusIndex < this.etapas.length) {
-        // Obtém o nome da etapa diretamente do array de etapas
         const newStatus = this.etapas[newStatusIndex];
 
-        // Atualize o status do pedido e faça a requisição para o servidor, se necessário
-        console.log(`Atualizando o status do Negócio ${negocioId} para ${newStatus.nome_etapa} - ${newStatus.id_etapa}`);
+        // console.log(negocioId, this.allNegocios)
+        // Atualiza o id_etapa do negócio para o novo status
+        const negocio = this.allNegocios.find(n => n.id_negocio == negocioId);
+        if (negocio) {
+          negocio.Etapa.id_etapa = newStatus.id_etapa;
+
+          api.atualizaEtapaNegocio(negocio.id_negocio, newStatus.id_etapa).then((res) => {
+            console.log(res)
+          })
+
+          // Atualiza a lista de negócios com a nova etapa
+          this.allNegocios = [...this.allNegocios.filter(n => n.id_negocio !== negocio.id_negocio), negocio];
+
+          // Recalcula os clientes e valores das etapas
+          this.atualizarClientesPorEtapa();
+
+          // Opcional: Faça uma requisição ao servidor se precisar salvar a atualização
+          // this.atualizarStatusNegocioNoServidor(negocio);
+        } else {
+          console.error("Negócio não encontrado para o ID:", negocioId);
+        }
       } else {
         console.error("Status desconhecido ou índice fora do intervalo:", newStatusIndex);
       }
+    },
+    atualizarClientesPorEtapa() {
+      // Recalcula os clientes e os valores totais para cada etapa
+      this.clientesPorEtapa = this.etapas.map(etapa => {
+        const negocios = this.getFilteredNegocios(etapa.id_etapa);
+        const totalValor = negocios.reduce((total, negocio) => {
+          const imovel = this.getFilteredImovel(negocio.NovoImovel.id_imovel);
+          return total + (imovel ? parseFloat(imovel.preco.preco_imovel) || 0 : 0);
+        }, 0);
+
+        return {
+          id_etapa: etapa.id_etapa,
+          clientes: negocios.length,
+          totalValor: totalValor
+        };
+      });
     },
 
     getFilteredNegocios(idEtapa) {
@@ -765,7 +808,12 @@ export default {
         const negocios = this.getFilteredNegocios(etapa.id_etapa);
         const totalValor = negocios.reduce((total, negocio) => {
           const imovel = this.getFilteredImovel(negocio.NovoImovel.id_imovel);
-          return total + (parseFloat(imovel.preco.preco_imovel) || 0);
+          console.log(imovel)
+          if (imovel != null || imovel != undefined) {
+            return total + (parseFloat(imovel.preco.preco_imovel) || 0);
+          } else {
+            return total
+          }
         }, 0);
 
         return {
