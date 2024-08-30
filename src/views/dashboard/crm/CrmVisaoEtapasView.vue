@@ -6,7 +6,7 @@
         <!-- Sidebar com opções e ícones -->
         <sidebarCrm tab="Visão etapas" />
         <!-- Dashboard -->
-        <div class="" style="width: 100%">
+        <div class="" style="width: 81%">
           <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
@@ -257,12 +257,14 @@
             <div class="overflow-auto">
               <div class="row flex-nowrap" style="background-color: #fff; padding: 10px;">
                 <div class="col-3" v-for="(etapa, index) in etapas" :key="index">
-                  <div class="card" style="height: 100vh; background-color: rgb(245, 245, 246);">
+                  <div class="card" style="height: 100vh ;background-color: rgb(245, 245, 246);">
                     <div class="card-body">
-                      <h2 class="card-title text-left" style="font-size: 15px; font-weight: 600; color: #000;">
+                      <div class="skeleton-title" v-if="!mostrarSkeleton" style="margin-bottom: 0 !important; "></div>
+                      <h2 class="card-title text-left" v-if="mostrarSkeleton"
+                        style="font-size: 15px; font-weight: 600; color: #000;">
                         {{ etapa.nome_etapa }}
                       </h2>
-                      <h4 style="font-size: 12px; font-weight: 400; color: #000;">
+                      <h4 style="font-size: 12px; font-weight: 400; color: #000;" v-if="mostrarSkeleton">
                         {{ clientesPorEtapa[index].clientes }} cliente{{ clientesPorEtapa[index].clientes !== 1 ? 's' :
                           '' }} |
                         {{ clientesPorEtapa[index].totalValor.toLocaleString('pt-BR', {
@@ -274,7 +276,8 @@
                       <!-- {{ console.log(etapa) }} -->
                       <div :id="'etapa-' + index" class="etapa" style="max-height: 600px; overflow: auto"
                         v-if="imovel.length > 0">
-                        <div v-for="(negocio, idx) in getFilteredNegocios(etapa.id_etapa)" :key="negocio.id_negocio"
+                        <div :style="mostrarSkeleton ? 'visibility: visible' : 'visibility: hidden'"
+                          v-for="(negocio, idx) in getFilteredNegocios(etapa.id_etapa)" :key="negocio.id_negocio"
                           class="etapa-item" :data-id="negocio.id_negocio">
                           <CardNegocioComp :negocio="negocio"
                             :imovel="getFilteredImovel(negocio.NovoImovel.id_imovel)" />
@@ -404,7 +407,9 @@ export default {
     etapas(newVal) {
       if (newVal.length > 0) {
         this.$nextTick(() => {
-          this.initializeSortable();
+          setTimeout(() => {
+            this.initializeSortable();
+          }, 2000);
         });
       }
     }
