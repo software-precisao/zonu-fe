@@ -91,8 +91,10 @@
                           <td style="font-size: 14px; font-weight: 500">
                             {{ item.dias_limpeza }} Dias
                           </td>
+                          {{ console.log(item) }}
                           <td style="font-size: 14px; font-weight: 500">
-                            {{ 0 == "0" ? "-" : "0" }}
+                            {{ item.quantidadeNegocios != null || item.quantidadeNegocios != undefined ?
+                              item.quantidadeNegocios != 0 ? item.quantidadeNegocios : "-" : "-" }}
                           </td>
                           <td class="text-end">
                             <div class="d-flex justify-content-end">
@@ -676,6 +678,26 @@ export default {
               this.etapa = funil.etapas;
             }
           });
+          this.fetchNegocios();
+        }
+      });
+    },
+
+    fetchNegocios() {
+      api.getNegocios().then((res) => {
+        if (res.status === 200) {
+          const negocios = res.data;
+
+          // Mapeia etapas para adicionar a quantidade de negócios em cada etapa
+          this.etapa = this.etapa.map((etapa) => {
+            const negociosNaEtapa = negocios.filter((negocio) => negocio.Etapa.id_etapa === etapa.id_etapa);
+            return {
+              ...etapa,
+              quantidadeNegocios: negociosNaEtapa.length // Adiciona a quantidade de negócios
+            };
+          });
+
+          console.log(this.etapa); // Verifica o resultado no console
         }
       });
     },

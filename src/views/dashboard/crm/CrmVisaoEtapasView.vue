@@ -210,7 +210,8 @@
                                 font-size: 14px;
                                 font-weight: 400;
                               ">
-                                {{ item.descricao.apresentacao }}
+                                {{ item.localizacao.bairro }} - {{ item.localizacao.cidade }}/{{ item.localizacao.estado
+                                }}
                               </p>
                             </div>
                           </div>

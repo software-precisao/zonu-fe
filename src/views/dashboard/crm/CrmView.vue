@@ -742,7 +742,7 @@
                                 font-size: 14px;
                                 font-weight: 400;
                               ">
-                              {{ console.log(item) }}
+                              <!-- {{ console.log(item) }} -->
                               {{ item.localizacao.bairro }} - {{ item.localizacao.cidade }}/{{ item.localizacao.estado
                               }}
                             </p>

@@ -10,18 +10,21 @@
                             {{ negocio.Cliente.nome }}</strong>
                     </h3>
                     <!-- <hr /> -->
-                    <div class="mt-3 text-left">
-                        <h3 style="font-size: 14px; font-weight: 400;">{{ imovel.descricao.titulo }}</h3>
-                        <h4 style="font-size: 14px; font-weight: 400;">
-                            R$ {{ aplicaMascaraDinheiroPrecoImovel(imovel.preco.preco_imovel) }}
-                        </h4>
-                    </div>
-                </div>
-                <div class="text-right mb-2" style="display: flex; align-items: flex-end;">
-                    <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
-                        <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{ aplicarMascaraDia(negocio.updatedAt)
-                            }}d
-                        </h3>
+                    <h3 style="font-size: 14px; font-weight: 400; margin-top: 1rem;">{{ imovel.descricao.titulo }}</h3>
+                    <div style="display: flex; justify-content: space-between">
+                        <div class=" text-left">
+                            <h4 style="font-size: 14px; font-weight: 400;">
+                                R$ {{ aplicaMascaraDinheiroPrecoImovel(imovel.preco.preco_imovel) }}
+                            </h4>
+                        </div>
+                        <div class="text-right mb-2 me-3" style="display: flex; align-items: flex-end;">
+                            <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
+                                <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{
+                                    aplicarMascaraDia(negocio.updatedAt)
+                                    }}d
+                                </h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
