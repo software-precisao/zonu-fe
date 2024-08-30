@@ -1,52 +1,69 @@
 <template>
   <div class="container mt-5">
-    <canvas id="myBarChart"></canvas>
+    <div class="card-body py-3">
+      <div class="chart chart-sm">
+        <canvas id="myBarChart"></canvas>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "GraphBarAtivCrmComp",
-  mounted() {
-    this.renderChart();
+  props: {
+    idFunil: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      chart: null, // Armazena a instância do gráfico
+    };
+  },
+  watch: {
+    idFunil: {
+      handler(newVal) {
+        if (newVal && newVal.etapas) {
+          this.renderChart();
+        }
+      },
+      deep: true, // Observa mudanças profundas no idFunil
+    },
   },
   methods: {
     renderChart() {
       const ctx = document.getElementById("myBarChart").getContext("2d");
 
-      new Chart(ctx, {
+      const labels = this.idFunil.etapas.map((etapa) => etapa.nome_etapa);
+      const data = labels.map(() => 0);
+
+      if (this.idFunil !== undefined && this.idFunil.negocios) {
+        if (this.chart) {
+          this.chart == null
+        }
+        this.idFunil.negocios.forEach((negocio) => {
+          const etapaNome = negocio.Etapa.nome_etapa;
+          const index = labels.indexOf(etapaNome);
+          if (index !== -1) {
+            data[index] += 1;
+          }
+        });
+      }
+
+      // Destrói o gráfico anterior se ele existir
+
+
+      // Cria um novo gráfico
+      this.chart = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: [
-            "Contato",
-            "Atendimento",
-            "Procurando Imóvel",
-            "Efetuar ligação",
-            "WhatsApp (Dia 1)",
-            "WhatsApp (Dia 2)",
-            "WhatsApp (Dia 3)",
-            "Aquecimento 01",
-            "Aquecimento 02",
-            "Aquecimento 03",
-            "Aquecimento 04",
-            "Aquecimento 05",
-            "Agendado Compromisso",
-            "Agendamento Longo",
-            "Agendado Visita",
-            "Visita Realizada",
-            "Proposta",
-            "Documentação",
-            "Assinatura",
-            "Sem Interação",
-            "Descartado",
-            "Ganho",
-          ],
+          labels: labels,
           datasets: [
             {
-              label: "Exemplo de Dados",
-              data: Array(21)
-                .fill()
-                .map(() => Math.floor(Math.random() * 5)), // Dados aleatórios entre 0 e 4
+              label: "Número de Negócios por Etapa",
+              data: data,
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
@@ -62,8 +79,6 @@ export default {
           scales: {
             y: {
               beginAtZero: true,
-              min: 0,
-              max: 4,
               ticks: {
                 stepSize: 1, // Define o intervalo entre os ticks no eixo Y
               },

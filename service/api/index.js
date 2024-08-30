@@ -1234,6 +1234,7 @@ export default {
     id_captacao,
     id_categoria_cliente,
     nome,
+    idTipoCliente,
     cpf,
     rg,
     email,
@@ -1250,7 +1251,8 @@ export default {
     anotacao,
     telefone1,
     telefone2,
-    idUser
+    idUser,
+    pessoasLigadas
   ) => {
     try {
       const response = await http.post(
@@ -1259,6 +1261,7 @@ export default {
           id_captacao: id_captacao,
           id_categoria_cliente: id_categoria_cliente,
           nome: nome,
+          id_tipo_cliente: idTipoCliente,
           cpf: cpf,
           rg: rg,
           email: email,
@@ -1276,6 +1279,7 @@ export default {
           telefone_1: telefone1,
           telefone_2: telefone2,
           id_user: idUser,
+          pessoas_ligadas: pessoasLigadas,
         },
         {
           headers: {
@@ -1350,7 +1354,8 @@ export default {
     id_posicao,
     id_nivel_interesse,
     id_cliente,
-    id_imovel
+    id_imovel,
+    id_user
   ) => {
     try {
       const response = await http.post(
@@ -1360,6 +1365,7 @@ export default {
           id_nivel_interesse: id_nivel_interesse,
           id_cliente: id_cliente,
           id_imovel: id_imovel,
+          id_user: id_user,
         },
         {
           headers: {
@@ -1461,7 +1467,7 @@ export default {
     }
   },
 
-  postFunil: async (nomeFunil, diasLimpeza, descricao, etapas) => {
+  postFunil: async (nomeFunil, diasLimpeza, descricao, etapas, idUser) => {
     try {
       const response = await http.post(
         "/funil/cadastrar",
@@ -1470,6 +1476,7 @@ export default {
           dias_limpeza: diasLimpeza,
           descricao: descricao,
           etapas: etapas,
+          id_user: idUser,
         },
         {
           headers: {
@@ -1581,6 +1588,7 @@ export default {
       return error.response || error.message || error;
     }
   },
+
   getClientPorId: async (idCliente) => {
     try {
       const response = await http.get(`/clientes/${idCliente}`, {
@@ -1590,6 +1598,44 @@ export default {
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
       });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getEtapa: async () => {
+    try {
+      const response = await http.get("/etapa/", {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  atualizaEtapaNegocio: async (idNegocio, novoIdEtapa) => {
+    try {
+      const response = await http.put(
+        `negocios/negocios/${idNegocio}/mover-etapa`,
+        {
+          id_etapa: novoIdEtapa,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
 
       return response;
     } catch (error) {

@@ -3,12 +3,7 @@
     <div class="card-header">
       <h5 class="card-title mb-0">
         <i class="fa fa-ruler"></i> Média do m2
-        <button
-          style="float: inline-end"
-          type="button"
-          @click="resetFilters"
-          class="btn btn-warning btn-sm"
-        >
+        <button style="float: inline-end" type="button" @click="resetFilters" class="btn btn-warning btn-sm">
           <i class="fa fa-filter"></i> Reiniciar filtros
         </button>
       </h5>
@@ -17,14 +12,9 @@
       <div class="chart chart-sm">
         <div class="row">
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="tipoNegocio" class="form-label"
-              >Tipo de negócio <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedTipoNegocio"
-              @change="filtrarImoveis"
-            >
+            <label for="tipoNegocio" class="form-label">Tipo de negócio <small><i
+                  class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedTipoNegocio" @change="filtrarImoveis">
               <option value="">Escolha</option>
               <option v-for="tipo in tiposNegocio" :key="tipo" :value="tipo">
                 {{ tipo }}
@@ -32,27 +22,15 @@
             </select>
           </div>
           <div class="col-md-4 col-lg-4 col-xl-2 mb-3">
-            <label for="tipoNegocio" class="form-label"
-              >UF <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedUf"
-              @change="filtrarImoveis"
-            >
+            <label for="tipoNegocio" class="form-label">UF <small><i class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedUf" @change="filtrarImoveis">
               <option value="">Escolha</option>
               <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
             </select>
           </div>
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="cidade" class="form-label"
-              >Cidade <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedCidade"
-              @change="filtrarImoveis"
-            >
+            <label for="cidade" class="form-label">Cidade <small><i class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedCidade" @change="filtrarImoveis">
               <option value="">Escolha</option>
               <option v-for="cidade in cidades" :key="cidade" :value="cidade">
                 {{ cidade }}
@@ -60,14 +38,8 @@
             </select>
           </div>
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="bairro" class="form-label"
-              >Bairro <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedBairro"
-              @change="filtrarImoveis"
-            >
+            <label for="bairro" class="form-label">Bairro <small><i class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedBairro" @change="filtrarImoveis">
               <option value="">Selecione</option>
               <option v-for="bairro in bairros" :key="bairro" :value="bairro">
                 {{ bairro }}
@@ -85,14 +57,9 @@
                         </select>
                     </div> -->
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="tipoImovel" class="form-label"
-              >Tipo do imóvel <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedTipoImovel"
-              @change="filtrarImoveis"
-            >
+            <label for="tipoImovel" class="form-label">Tipo do imóvel <small><i
+                  class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedTipoImovel" @change="filtrarImoveis">
               <option value="">Selecione</option>
               <option v-for="tipo in tiposImovel" :key="tipo" :value="tipo">
                 {{ tipo }}
@@ -100,36 +67,19 @@
             </select>
           </div>
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="proximoMar" class="form-label"
-              >Proximo do Mar? <small><i class="fa fa-filter"></i></small
-            ></label>
-            <select
-              class="form-select"
-              v-model="selectedProximoMar"
-              @change="filtrarImoveis"
-            >
+            <label for="proximoMar" class="form-label">Proximo do Mar? <small><i
+                  class="fa fa-filter"></i></small></label>
+            <select class="form-select" v-model="selectedProximoMar" @change="filtrarImoveis">
               <option value="">Selecione</option>
-              <option
-                v-for="proximidade in proximidadesMar"
-                :key="proximidade"
-                :value="proximidade"
-              >
+              <option v-for="proximidade in proximidadesMar" :key="proximidade" :value="proximidade">
                 {{ proximidade }}
               </option>
             </select>
           </div>
           <div class="col-md-4 col-lg-4 col-xl-2">
-            <label for="quartos" class="form-label"
-              >Quartos <small><i class="fa fa-filter"></i></small
-            ></label>
-            <input
-              style="height: 34px"
-              type="number"
-              class="form-control"
-              v-model="selectedQuartos"
-              @input="filtrarImoveis"
-              placeholder="00"
-            />
+            <label for="quartos" class="form-label">Quartos <small><i class="fa fa-filter"></i></small></label>
+            <input style="height: 34px" type="number" class="form-control" v-model="selectedQuartos"
+              @input="filtrarImoveis" placeholder="00" />
           </div>
 
           <canvas id="myMetroQuadrado" v-if="filteredImoveis.length"></canvas>
@@ -298,9 +248,8 @@ export default {
             labels = mediasPorBairro.map((item) => item.label);
             datasets = [
               {
-                label: `Média do m² (${
-                  this.selectedTipoNegocio || "Todos"
-                }) - Bairro (R$)`,
+                label: `Média do m² (${this.selectedTipoNegocio || "Todos"
+                  }) - Bairro (R$)`,
                 data: mediasPorBairro.map((item) => item.media),
                 borderWidth: 1,
                 backgroundColor:
@@ -327,9 +276,8 @@ export default {
             labels = mediasPorCidade.map((item) => item.label);
             datasets = [
               {
-                label: `Média do m² (${
-                  this.selectedTipoNegocio || "Todos"
-                }) - Cidade (R$)`,
+                label: `Média do m² (${this.selectedTipoNegocio || "Todos"
+                  }) - Cidade (R$)`,
                 data: mediasPorCidade.map((item) => item.media),
                 borderWidth: 1,
                 backgroundColor:
@@ -424,17 +372,25 @@ export default {
       const imoveisFiltrados = imoveis.filter(
         (imovel) => imovel.preco.tipo_negocio === tipoNegocio
       );
-      const totalArea = imoveisFiltrados.reduce(
-        (sum, imovel) => sum + parseFloat(imovel.medidas.area_total || 0),
-        0
-      );
-      const totalValor = imoveisFiltrados.reduce(
-        (sum, imovel) =>
-          sum +
-          parseFloat(imovel.medidas.media_metro_quadrado || 0) *
-            parseFloat(imovel.medidas.area_total || 0),
-        0
-      );
+      const totalArea = imoveisFiltrados.reduce((sum, imovel) => {
+        // Verifica se imovel.medidas não é null antes de somar a área total
+        if (imovel.medidas !== null && imovel.medidas.area_total) {
+          return sum + parseFloat(imovel.medidas.area_total || 0);
+        }
+        return sum; // Retorna a soma atual se imovel.medidas for null
+      }, 0);
+
+      const totalValor = imoveisFiltrados.reduce((sum, imovel) => {
+        // Verifica se imovel.medidas não é null antes de multiplicar os valores
+        if (imovel.medidas !== null && imovel.medidas.media_metro_quadrado && imovel.medidas.area_total) {
+          return (
+            sum +
+            parseFloat(imovel.medidas.media_metro_quadrado || 0) *
+            parseFloat(imovel.medidas.area_total || 0)
+          );
+        }
+        return sum; // Retorna a soma atual se imovel.medidas for null ou valores não estiverem presentes
+      }, 0);
       return totalArea ? totalValor / totalArea : 0;
     },
     formatarMoeda(valor) {

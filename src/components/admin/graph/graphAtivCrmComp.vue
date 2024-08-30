@@ -1,7 +1,7 @@
 <template>
   <div class="flex-fill w-100">
     <div class="card-body py-3">
-      {{ console.log(idFunil) }}
+      <!-- {{ console.log(idFunil) }} -->
       <div class="chart chart-sm">
         <canvas id="myChartRedesSociais"></canvas>
       </div>
@@ -24,41 +24,34 @@ export default {
   data() {
     return {
       myChart: null,
-      redesSociais: {
-        MeuSite: 2,
-        Facebook: 150,
-        // Instagram: 200,
-        // Twitter: 120,
-        // LinkedIn: 80,
-        // YouTube: 90,
-        // TikTok: 170,
-        // Pinterest: 60,
-        // Snapchat: 50,
-        // WhatsApp: 220,
-        // Reddit: 40,
-      },
+      redesSociais: {}
     };
   },
-  mounted() {
-    this.renderChart();
-    // this.fetchClientes()
-    // this.fetchNegocios()
+  watch: {
+    idFunil: {
+      handler(newVal) {
+        this.fetchClientes()
+      },
+      deep: true // Observa mudanças profundas, caso o idFunil seja alterado
+    }
   },
   methods: {
-    renderChart() {
+    renderChart(reds) {
+      // console.log(reds)
       const ctx = document
         .getElementById("myChartRedesSociais")
         .getContext("2d");
 
-      if (this.myChart) {
-        this.myChart.destroy();
-      }
+      // if (this.myChart) {
+      //   this.myChart.destroy();
+      // }
 
       // Preparar dados para o gráfico
-      const labels = Object.keys(this.redesSociais);
-      const data = Object.values(this.redesSociais);
+      const labels = Object.keys(reds);
+      const data = Object.values(reds);
 
       // Gerar o gráfico
+      // console.log(ctx)
       this.myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
@@ -104,16 +97,42 @@ export default {
     },
 
     fetchClientes() {
-      api.getCliente().then((res) => {
-        console.log(res)
-      })
-    },
+      api.getCliente()
+        .then((res) => {
+          if (res.status === 200) {
+            const clientes = res.data;
+            const redes = {};
 
-    // fetchNegocios() {
-    //   api.getNegocios().then((res) => {
-    //     console.log(res)
-    //   })
-    // },
+            // Filtra clientes com base no array this.idFunil
+            const clientesFiltrados = clientes.filter(cliente =>
+              this.idFunil.includes(cliente.id_cliente.toString())
+            );
+
+            // Processa dados dos clientes filtrados para contar o número de cada rede social
+            clientesFiltrados.forEach(cliente => {
+              const origem = cliente.Captacao.origem_captacao;
+              if (origem) {
+                if (!redes[origem]) {
+                  redes[origem] = 0;
+                }
+                redes[origem] += 1;
+              }
+            });
+            // console.log(redes)
+            this.redesSociais = redes;
+            this.$nextTick(() => {
+              this.renderChart(redes); // Atualiza o gráfico com os dados mais recentes
+            });
+            // Atualiza o gráfico com os dados mais recentes
+          } else {
+            console.error('Erro ao buscar clientes:', res.status);
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar clientes:', error);
+        });
+    }
+    ,
   },
   beforeDestroy() {
     if (this.myChart) {

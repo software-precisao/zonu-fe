@@ -16,11 +16,14 @@
               align-items: center;
               justify-content: space-between;
             ">
-            <h4 class="fw-semibold mt-2" style="font-size: 13px">
+            <div class="skeleton-title" style=" margin-bottom: 0 !important" v-if="!mostrarSkeleton"></div>
+            <h4 class="fw-semibold mt-2" v-if="mostrarSkeleton" style="font-size: 13px">
               Visão geral
             </h4>
             <div style="display: flex; align-items: center">
-              <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
+              <input style="height: 30px; font-size: 13px; font-weight: 600; border: none; margin-bottom: 0 !important"
+                class="skeleton-input" v-if="!mostrarSkeleton"></input>
+              <select class="form-select" v-if="mostrarSkeleton" @change="filtrarEtapasFunil" v-model="funilSelect"
                 style="height: 30px; font-size: 13px; font-weight: 600">
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
                   v-if="funis.length > 0">
@@ -199,7 +202,8 @@
                   </div>
                 </div>
 
-                <div class="card pe-4 ps-4 pt-4" style="border: 1px solid rgb(211, 220, 235)">
+                <div class="skeleton-big-card" v-if="!mostrarSkeleton"></div>
+                <div class="card pe-4 ps-4 pt-4" v-if="mostrarSkeleton" style="border: 1px solid rgb(211, 220, 235)">
                   <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
@@ -262,7 +266,7 @@
                                 font-weight: bold;
                                 text-align: right;
                               ">
-                              {{ funilSelecionado ? funilSelecionado.qtdNegoicos : 0 }}
+                              {{ contarClientesUnicos.length }}
                             </p>
                           </div>
                           <div class="col-4" style="
@@ -320,7 +324,7 @@
                             Distribuição por canal
                           </p>
                           <div class="w-52">
-                            <graphAtivCrmComp :idFunil="funilSelecionado" />
+                            <graphAtivCrmComp :idFunil="contarClientesUnicos" />
                           </div>
                         </div>
                       </div>
@@ -381,7 +385,10 @@
                     flex-direction: row;
                     justify-content: space-between;
                   ">
-                  <div class="card" style="
+                  <div class="skeleton-big-card" v-if="!mostrarSkeleton"
+                    style="width: 49% !important; height: 80px !important;">
+                  </div>
+                  <div class="card" v-if="mostrarSkeleton" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -413,7 +420,7 @@
                           font-size: 22px;
                           font-weight: 600;
                         ">
-                        54
+                        {{ qtdNegoicos }}
                       </p>
                     </div>
                     <div>
@@ -455,7 +462,10 @@
                       </p>
                     </div>
                   </div>
-                  <div class="card" style="
+
+                  <div class="skeleton-big-card" v-if="!mostrarSkeleton"
+                    style="width: 49% !important; height: 80px !important;"></div>
+                  <div class="card" v-if="mostrarSkeleton" style="
                       width: 49%;
                       display: flex;
                       flex-direction: row;
@@ -487,7 +497,7 @@
                           font-size: 22px;
                           font-weight: 600;
                         ">
-                        54
+                        {{ contarClientesUnicos.length }}
                       </p>
                     </div>
                     <div>
@@ -531,6 +541,7 @@
                   </div>
                 </div>
 
+                <!-- <div class="skeleton-big-card" v-if="!mostrarSkeleton"></div> -->
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
                       font-size: 14px;
@@ -539,7 +550,7 @@
                     ">
                     Negócios Perdidos por Etapa
                   </h2>
-                  <p class="mb-6" style="
+                  <p class="mb-0" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
@@ -547,8 +558,9 @@
                     ">
                     Análise de percentual de perdas em cada etapa
                   </p>
-
-                  <graphBarAtivCrmComp />
+                  <div :style="mostrarSkeleton == false ? 'visibility: hidden' : 'visibility: visible'">
+                    <graphBarAtivCrmComp :idFunil="funilSelecionado" />
+                  </div>
                 </div>
                 <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
@@ -558,7 +570,7 @@
                     ">
                     Principais motivos de perda
                   </h2>
-                  <p class="mb-2" style="
+                  <p class="mb-0" style="
                       font-size: 14px;
                       line-height: 21px;
                       color: rgb(33, 35, 44);
@@ -566,8 +578,9 @@
                     ">
                     Contabilizado por motivo
                   </p>
-
-                  <graphBarLaterCrmComp />
+                  <div :style="mostrarSkeleton == false ? 'visibility: hidden' : 'visibility: visible'">
+                    <graphBarLaterCrmComp :idFunil="funilSelecionado" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -729,7 +742,9 @@
                                 font-size: 14px;
                                 font-weight: 400;
                               ">
-                              {{ item.descricao.apresentacao }}
+                              <!-- {{ console.log(item) }} -->
+                              {{ item.localizacao.bairro }} - {{ item.localizacao.cidade }}/{{ item.localizacao.estado
+                              }}
                             </p>
                           </div>
                         </div>
@@ -823,8 +838,8 @@
 
                     <div class="form-group mt-3">
                       <label for="dataNascimento" style="font-size: 14px; font-weight: 600">Data de Nascimento</label>
-                      <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
-                        placeholder="Digite..." style="height: 40px" />
+                      <input type="text" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                        placeholder="Digite..." style="height: 40px" @input="validateDate" />
                     </div>
 
                     <div class="form-group mt-3">
@@ -1011,7 +1026,7 @@
                       </ul>
                     </div>
                     <input type="text" class="form-control" id="telefone" v-model="telefone"
-                      placeholder="(99) 99999-9999" style="height: 40px" />
+                      placeholder="(99) 99999-9999" style="height: 40px" @input="aplicaMascaraTelefone" />
                   </div>
                 </div>
 
@@ -1100,7 +1115,7 @@
                       <i class="align-middle" data-feather="chevron-down"></i>
                     </div>
                     <ul v-if="isOpenPessoa" class="options-list">
-                      <li @click="addClient" style="background-color: #f1f4f9">
+                      <!-- <li @click="addClient" style="background-color: #f1f4f9">
                         <button class="btn" style="
                             color: #026da6;
                             display: flex;
@@ -1109,7 +1124,7 @@
                           ">
                           <img :src="plusCircle" style="width: 12px; height: 12px; margin-right: 6px" />Adicionar
                         </button>
-                      </li>
+                      </li> -->
                       <!-- {{console.log(allClientes)}} -->
                       <li v-for="client in allClientes" :key="client.id_cliente" @click="selectOptionPessoa(client)">
                         <div style="display: flex; flex-direction: column">
@@ -1264,13 +1279,13 @@
 
                       <div class="form-group col-2">
                         <label for="cpf" style="font-size: 13px; font-weight: 600">CPF</label>
-                        <input type="number" class="form-control" id="cpf" v-model="cpf" placeholder="Digite..."
-                          style="height: 40px" />
+                        <input type="text" class="form-control" id="cpf" v-model="cpf" placeholder="Digite..."
+                          style="height: 40px" @input="aplicaMascaraCPF" />
                       </div>
 
                       <div class="form-group col-2">
-                        <label for="cpf" style="font-size: 13px; font-weight: 600">RG</label>
-                        <input type="number" class="form-control" id="rg" v-model="rg" placeholder="Digite..."
+                        <label for="rg" style="font-size: 13px; font-weight: 600">RG</label>
+                        <input type="text" class="form-control" id="rg" v-model="rg" placeholder="Digite..."
                           style="height: 40px" />
                       </div>
 
@@ -1289,8 +1304,8 @@
 
                       <div class="form-group col-3 mt-3">
                         <label for="dataNascimento" style="font-size: 13px; font-weight: 600">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="dataNascimento" v-model="dataNascimento"
-                          placeholder="Digite..." style="height: 40px" />
+                        <input type="text" class="form-control" id="dataNascimento" v-model="dataNascimento"
+                          placeholder="Digite..." style="height: 40px" @input="validateDate" />
                       </div>
 
                       <div class="form-group col-3 mt-3">
@@ -1414,6 +1429,7 @@
                           menubar: false,
                           branding: false,
                           entity_encoding: 'raw',
+                          readonly: false
                         }" v-model="termos" @editorChange="handleEditorChange" />
                       </div>
                     </div>
@@ -1584,6 +1600,8 @@ export default {
       userName: "",
       userSobrenome: "",
 
+      mostrarSkeleton: false,
+
       funilSelect: localStorage.getItem("fs") ? localStorage.getItem("fs") : "1",
       youtubeLogo,
       userIcon,
@@ -1707,12 +1725,6 @@ export default {
     };
   },
   watch: {
-    // uf(newUF) {
-    //   this.buscarCidadesPorUF();
-    // },
-    // cidade(newCidade) {
-    //   this.fetchBairros();
-    // },
     cep(newVal, oldVal) {
       if (newVal.length === 9 && newVal !== oldVal) {
         this.debouncedCheckCEP();
@@ -1746,8 +1758,30 @@ export default {
       return funilSelecionado ? funilSelecionado.etapas : [];
     },
     funilSelecionado() {
-      // console.log()
-      return this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+      const teste = this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+      // console.log(teste)
+      return teste
+    },
+
+    contarClientesUnicos() {
+      const funil = this.funilSelecionado;
+
+      // Cria um objeto para armazenar IDs de clientes únicos
+      const clienteIdsUnicos = {};
+
+      // Verifica se o funil e a lista de negócios existem
+      if (funil && funil.negocios && Array.isArray(funil.negocios)) {
+        // Itera sobre todos os negócios e adiciona os IDs de clientes ao objeto
+        funil.negocios.forEach(negocio => {
+          if (negocio.Cliente && negocio.Cliente.id_cliente) {
+            // Usa o ID do cliente como chave no objeto
+            clienteIdsUnicos[negocio.Cliente.id_cliente] = true;
+          }
+        });
+      }
+
+      // Retorna a quantidade de clientes únicos
+      return Object.keys(clienteIdsUnicos);
     }
   },
 
@@ -1796,22 +1830,10 @@ export default {
         try {
           const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
 
-          // Correção nas propriedades de acordo com a resposta da API
-          // console.log(res.data)
           let rua = res.data.logradouro;
           let bairro = res.data.bairro;
           let cidade = res.data.localidade;
           let estado = res.data.uf;
-
-          // if (estado !== "PB") {
-          //   this.autenticando = true;
-          //   this.textoBotao = "Ainda não chegamos no seu estado 😔";
-          //   this.msgEstado = true;
-          // } else {
-          //   this.autenticando = false;
-          //   this.msgEstado = false;
-          //   this.textoBotao = "Salvar";
-          // }
 
           this.pais = "Brasil"
           this.logradouro = rua;
@@ -1845,7 +1867,7 @@ export default {
     },
     handleAddTelefone() {
       this.alltelefones.push({
-        NumTelefone: this.telefone,
+        NumTelefone: `${this.selectedCode} ${this.telefone}`,
         TemWhatsapp: this.whatsappYes,
         EPrincipal: this.principalYes,
         Descricao: this.breveDescricao,
@@ -1877,6 +1899,8 @@ export default {
           clienteLigado: this.selectedOptionPessoa,
           descricao: this.descricaoPessoaLigada,
         })
+
+        console.log(this.allPessoasLigadas)
 
         const modalLigarPessoa = bootstrap.Modal.getInstance(
           this.$refs.modalLigarPessoa
@@ -2045,7 +2069,7 @@ export default {
           // console.log(res.data);
           this.allTiposClientes = res.data;
           res.data.map((tipo) => {
-            if (tipo.tipo_cliente == "Pessoa Física") {
+            if (tipo.tipo_cliente == "Física") {
               // console.log(tipo);
               this.tipoCliente = tipo.tipo_cliente;
             }
@@ -2056,9 +2080,9 @@ export default {
 
     fetchCliente() {
       api.getCliente().then((res) => {
-        // console.log("Aqui esta o cliente ====> ", res);
+        console.log("Aqui esta o cliente ====> ", res);
         if (res.status === 200) {
-          this.allClientes = res.data;
+          this.allClientes = res.data.filter(cliente => cliente.id_user === this.id_user);
         }
       });
     },
@@ -2077,6 +2101,7 @@ export default {
       let idCategoriaCliente = "";
       let nome = this.nome;
       let rg = this.rg;
+      let idTipoCliente = "";
       let cpf = this.cpf;
       let email = this.email == "" ? null : this.email;
       let dataDeNascimento = this.dataNascimento;
@@ -2088,12 +2113,13 @@ export default {
       let bairro = this.bairro;
       let logradouro = this.logradouro;
       let numero = Number(this.numero);
-      let complemento = this.numero;
+      let complemento = this.complemento;
       let anotacao = this.termos.replace(/<\/?p[^>]*>/gi, "");
       let telefone1 = "";
       let telefone2 = "";
       let idUser = this.id_user;
-      let pessoa = this.allPessoasLigadas
+      let pessoasLigadas = []
+      // console.log(pessoas)
 
       idCaptacao = this.allOrigensCapitacao.find(
         (origem) => origem.origem_captacao === this.origemCaptacao
@@ -2112,6 +2138,23 @@ export default {
         telefone2 = this.alltelefones[1].NumTelefone; // Segundo telefone
       }
 
+      if (this.allPessoasLigadas.length > 0) {
+        pessoasLigadas = this.allPessoasLigadas.map(item => {
+          return {
+            id_pessoa_ligada: item.clienteLigado.id_cliente,
+            breve_descricao: item.descricao
+          };
+        });
+      }
+
+      const clienteEncontrado = this.allTiposClientes.find(cliente => cliente.tipo_cliente === this.tipoCliente);
+
+      if (clienteEncontrado) {
+        idTipoCliente = clienteEncontrado.id_tipo_cliente;
+      }
+
+      // console.log(idTipoCliente)
+
       // console.log(this.allOrigensCapitacao);
       // console.log(idCaptacao, idCategoriaCliente);
       // console.log(this.origemCaptacao, this.categoria);
@@ -2128,6 +2171,7 @@ export default {
             idCaptacao,
             idCategoriaCliente,
             nome,
+            idTipoCliente,
             cpf,
             rg,
             email,
@@ -2144,7 +2188,8 @@ export default {
             anotacao,
             telefone1,
             telefone2,
-            idUser
+            idUser,
+            pessoasLigadas
           )
           .then((res) => {
             this.textAddCliente = "Adicionando...";
@@ -2153,6 +2198,26 @@ export default {
               this.msgClienteSuccess = true;
 
               setTimeout(() => {
+                this.categoria = ""
+                this.origemCaptacao = ""
+                this.nome = ""
+                this.rg = ""
+                this.cpf = ""
+                this.email = ""
+                this.dataNascimento = ""
+                this.profissao = ""
+                this.cep = ""
+                this.pais = ""
+                this.uf = ""
+                this.cidade = ""
+                this.bairro = ""
+                this.logradouro = ""
+                this.numero = ""
+                this.complemento = ""
+                this.termos = ""
+                this.alltelefones = []
+                this.allPessoasLigadas = []
+
                 const modalCliente = bootstrap.Modal.getInstance(
                   this.$refs.myModalComplete
                 );
@@ -2194,6 +2259,7 @@ export default {
       let idNivel = "";
       let idCliente = "";
       let idImovel = "";
+      let idUser = this.id_user
       this.posicoes.map((posi) => {
         // console.log(posi, this.posicao)
         if (posi.nome_etapa == this.posicao) {
@@ -2213,7 +2279,7 @@ export default {
         idCliente != "" &&
         idImovel != ""
       ) {
-        api.postNegocio(idPosicao, idNivel, idCliente, idImovel).then((res) => {
+        api.postNegocio(idPosicao, idNivel, idCliente, idImovel, idUser).then((res) => {
           this.textAddNegocio = "Adicionando...";
           // console.log("Res do postNegocio ===>", res);
           if (res.status === 201) {
@@ -2258,10 +2324,11 @@ export default {
     },
 
     fetchFunil() {
+      // console.log('aqui')
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
-          this.funis = res.data
+          this.funis = res.data.filter((funil) => funil.id_user === this.id_user);
         }
       })
     },
@@ -2309,119 +2376,118 @@ export default {
     },
 
     fetchNegocios() {
-      api.getNegocios().then((res) => {
-        if (res.status === 200) {
-          const negocios = res.data;
+      api.getNegocios()
+        .then((res) => {
+          if (res.status === 200) {
+            const negocios = res.data.filter((negocio) => negocio.Usuario.id_user === this.id_user);;
+            // console.log(negocios)
 
-          // Limpa a contagem e arrays de negócios atuais
-          this.funis.forEach((funil) => {
-            funil.qtdNegoicos = 0;
-            funil.negocios = [];
-            funil.etapas.forEach((etapa) => {
-              etapa.qtdNegoicos = 0;
-              etapa.negocios = [];
-            });
-          });
-
-          // Função para buscar o preco_imovel por id_imovel
-          const fetchPrecoImovel = async (id_imovel) => {
-            return apiImovel.obterImovel(id_imovel)
-              .then((res) => {
-                if (res.status === 200) {
-                  return res.data.preco.preco_imovel;
-                }
-                return null;
-              })
-              .catch((error) => {
-                console.error(`Erro ao buscar preço do imóvel ${id_imovel}:`, error);
-                return null;
+            // Limpa a contagem e arrays de negócios atuais
+            this.funis.forEach((funil) => {
+              funil.qtdNegoicos = 0;
+              funil.negocios = [];
+              funil.imoveisUnicos = new Set(); // Cria um Set para imóveis únicos
+              funil.etapas.forEach((etapa) => {
+                etapa.qtdNegoicos = 0;
+                etapa.negocios = [];
               });
-          };
+            });
 
-          const imoveisUnicosSet = new Set();
+            const etapaMap = new Map();
 
-          // Processa negócios
-          const processNegocios = async () => {
-            for (const negocio of negocios) {
+            // Agrupa os negócios por id_etapa
+            negocios.forEach((negocio) => {
               const idEtapa = negocio.Etapa.id_etapa;
               const idImovel = negocio.NovoImovel.id_imovel;
 
-              const funilCorrespondente = this.funis.find((funil) =>
-                funil.etapas.some((etapa) => etapa.id_etapa === idEtapa)
-              );
-
-              if (funilCorrespondente && funilCorrespondente.id_funil == Number(this.funilSelect)) {
-                // Adiciona o id_imovel ao Set de imóveis únicos
-                imoveisUnicosSet.add(idImovel);
+              // Mapeia o negócio para a etapa correspondente
+              if (!etapaMap.has(idEtapa)) {
+                etapaMap.set(idEtapa, []);
               }
+              etapaMap.get(idEtapa).push(negocio);
+            });
 
+            // Busca o preço do imóvel e atualiza os negócios em paralelo
+            const promises = Array.from(etapaMap.entries()).map(([idEtapa, negocios]) => {
+              return Promise.all(negocios.map((negocio) => {
+                const idImovel = negocio.NovoImovel.id_imovel;
 
-              // Busca o preço do imóvel
-              const precoImovel = await fetchPrecoImovel(idImovel);
-              negocio.NovoImovel.preco_imovel = precoImovel;
-
-              // Encontra o funil e a etapa correspondentes e adiciona o negócio
-              this.funis.forEach((funil) => {
-                funil.etapas.forEach((etapa) => {
-                  if (etapa.id_etapa === idEtapa) {
-                    // Verifica se o negócio já foi adicionado usando o id_negocio
-                    const negocioJaAdicionado = etapa.negocios.some(n => n.id_negocio === negocio.id_negocio);
-                    if (!negocioJaAdicionado) {
-                      etapa.negocios.push(negocio);
-                      funil.negocios.push(negocio);
-                      funil.qtdNegoicos += 1;
-                      etapa.qtdNegoicos += 1;
+                return apiImovel.obterImovel(idImovel)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      negocio.NovoImovel.preco_imovel = res.data.preco.preco_imovel;
                     }
-                  }
+                  });
+              })).then(() => {
+                // Encontra a etapa e funil correspondentes e adiciona os negócios de uma vez
+                this.funis.forEach((funil) => {
+                  funil.etapas.forEach((etapa) => {
+                    if (etapa.id_etapa === idEtapa) {
+                      etapa.negocios.push(...negocios);
+                      etapa.qtdNegoicos += negocios.length;
+                      funil.negocios.push(...negocios);
+
+                      // Adiciona imóveis únicos ao Set do funil
+                      negocios.forEach((negocio) => {
+                        funil.imoveisUnicos.add(negocio.NovoImovel.id_imovel);
+                      });
+
+                      funil.qtdNegoicos += negocios.length;
+                    }
+                  });
                 });
               });
-            }
+            });
 
-            this.imoveisUnicos = imoveisUnicosSet.size;
-          };
+            Promise.all(promises).then(() => {
+              // Atualiza a quantidade de imóveis únicos para cada funil
+              this.funis.forEach(funil => {
+                funil.imoveisUnicos = funil.imoveisUnicos.size;
+              });
 
-          processNegocios().then(() => {
-            const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
-            this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
-          });
-        }
-      }).catch((error) => {
-        console.error('Erro ao buscar negócios:', error);
-      });
+              const funilSelecionado = this.funis.find(f => f.id_funil === Number(this.funilSelect));
+              this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+              this.imoveisUnicos = funilSelecionado ? funilSelecionado.imoveisUnicos : 0;
+
+              this.$nextTick(() => {
+                // Atualize a interface se necessário
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar negócios:', error);
+        });
     },
 
     filtrarEtapasFunil(mountedOn) {
-      if (mountedOn === true || !this.funilSelect) {
-        this.qtdNegoicos = 0;
-        api.getFunilporId(this.funilSelect).then((res) => {
-          if (res.status === 200) {
-            this.funilporId = res.data;
-            this.etapas = res.data.etapas;
-            this.funilName = res.data;
-            this.fetchPosicao();
-            this.fetchNegocios(); // Atualiza a contagem de negócios
-          }
-        }).catch((error) => {
-          console.error('Erro ao buscar funil:', error);
-        });
-      } else {
-        console.log(this.funilSelect);
-        localStorage.setItem("fs", this.funilSelect);
+      const fetchFunil = () => {
+        return api.getFunilporId(this.funilSelect)
+          .then((res) => {
+            if (res.status === 200) {
+              this.funilporId = res.data;
+              this.etapas = res.data.etapas;
+              this.funilName = res.data;
+              this.fetchPosicao();
+              this.fetchNegocios(); // Atualiza a contagem de negócios
+            }
+          })
+          .catch((error) => {
+            console.error('Erro ao buscar funil:', error);
+          });
+      };
 
-        this.qtdNegoicos = 0;
-        api.getFunilporId(this.funilSelect).then((res) => {
-          if (res.status === 200) {
-            this.funilporId = res.data;
-            this.etapas = res.data.etapas;
-            this.funilName = res.data;
-            this.fetchPosicao();
-            this.fetchNegocios(); // Atualiza a contagem de negócios
-          }
-        }).catch((error) => {
-          console.error('Erro ao buscar funil:', error);
-        });
+      if (mountedOn === true || !this.funilSelect) {
+        // this.qtdNegoicos = 0;
+        fetchFunil();
+      } else {
+        // console.log(this.funilSelect);
+        localStorage.setItem("fs", this.funilSelect);
+        // this.qtdNegoicos = 0;
+        fetchFunil();
       }
-    },
+    }
+    ,
 
     calcularSomaPrecoImoveis(etapa) {
       // Verifica se etapa.negocios é um array válido
@@ -2448,9 +2514,20 @@ export default {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-    }
-    ,
+    },
 
+    aplicaMascaraTelefone() {
+      let v = this.telefone;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 11) {
+        v = v.substring(0, 11);
+      }
+      v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+      v = v.replace(/(\d{5})(\d)/, "$1-$2");
+
+      this.telefone = v;
+    },
 
     aplicaMascaraDinheiroPrecoImovel(preco) {
       let v = preco;
@@ -2467,6 +2544,58 @@ export default {
         maximumFractionDigits: 2,
       });
       // console.log(this.currentImovel)
+    },
+
+    aplicaMascaraCPF() {
+      let v = this.cpf;
+
+      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      if (v.length > 11) {
+        v = v.substring(0, 11); // Limita o tamanho a 11 dígitos
+      }
+
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+      this.cpf = v;
+    },
+
+    aplicaMascaraRG() {
+      let v = this.rg;
+
+      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      if (v.length > 9) {
+        v = v.substring(0, 9); // Limita o tamanho a 9 dígitos
+      }
+
+      v = v.replace(/(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d{1})$/, "$1-$2");
+
+      this.rg = v;
+    },
+
+    validateDate(event) {
+      let date = event.target.value;
+
+      // Remove qualquer caractere que não seja número
+      date = date.replace(/[^0-9]/g, '');
+
+      // Formata automaticamente para dd/mm/yyyy enquanto o usuário digita
+      if (date.length > 2 && date.length <= 4) {
+        date = date.slice(0, 2) + '/' + date.slice(2);
+      } else if (date.length > 4) {
+        date = date.slice(0, 2) + '/' + date.slice(2, 4) + '/' + date.slice(4);
+      }
+
+      // Limita a entrada a 10 caracteres no formato dd/mm/yyyy
+      if (date.length > 10) {
+        date = date.slice(0, 10);
+      }
+
+      // Atualiza o valor do input e do modelo Vue
+      event.target.value = this.dataNascimento = date;
     },
   },
 
@@ -2497,8 +2626,16 @@ export default {
     this.fetchImoveis();
     this.fetchFunil()
     this.fetchFirstEtapas()
-    this.fetchNegocios()
+    // this.fetchNegocios()
+
+    // setTimeout(() => {
+
     this.filtrarEtapasFunil(true)
+    // }, 2000);
+
+    setTimeout(() => {
+      this.mostrarSkeleton = true
+    }, 3000);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);

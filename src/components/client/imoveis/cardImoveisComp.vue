@@ -7,113 +7,57 @@
     </div>
 
     <div class="card-body py-3">
-      <input
-        type="text"
-        placeholder="Pesquise aqui"
-        class="form-control mb-3"
-        aria-describedby="passwordHelpBlock"
-        v-model="searchImovel"
-      />
-      <div
-        class="mt-5"
-        v-for="item in imoveisOnCurrentPage"
-        :key="item.id_imovel"
-      >
+      <input type="text" placeholder="Pesquise aqui" class="form-control mb-3" aria-describedby="passwordHelpBlock"
+        v-model="searchImovel" />
+      <div class="mt-5" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
         <a class="row" style="text-decoration: none">
           <div class="col-3">
-            <img
-              class="thumbImovel"
-              :src="`https://zonu.com.br/api${item.fotos[0].foto}`"
-              alt=""
-            />
+            <img class="thumbImovel" :src="`https://zonu.com.br/api${item.fotos[0].foto}`" alt="" />
           </div>
 
           <div class="col-9" style="margin-left: -10px">
             <h5>
               <i class="fa fa-building"></i>
-              <a
-                href="#"
-                style="text-decoration: none; color: #000"
-                data-bs-toggle="modal"
-                :data-bs-target="`#modalImovel${item.id_imovel}`"
-                ><strong>{{ item.descricao.titulo }}</strong></a
-              >
+              <a href="#" style="text-decoration: none; color: #000" data-bs-toggle="modal"
+                :data-bs-target="`#modalImovel${item.id_imovel}`"><strong>{{ item.descricao.titulo }}</strong></a>
               <span class="badge text-bg-success">{{
                 item.preco.tipo_negocio
-              }}</span
-              ><a
-                data-bs-toggle="modal"
-                :data-bs-target="`#exampleModal${item.id_imovel}`"
-                style="float: inline-end"
-                class="text-danger"
-                ><i class="fa fa-trash"></i
-              ></a>
+              }}</span><a data-bs-toggle="modal" :data-bs-target="`#exampleModal${item.id_imovel}`"
+                style="float: inline-end" class="text-danger"><i class="fa fa-trash"></i></a>
             </h5>
             <h5 class="text-info">
-              <strong>{{ formatCurrency(item.preco.preco_imovel) }}</strong
-              ><a
-                data-bs-toggle="modal"
-                :data-bs-target="`#modalImovel${item.id_imovel}`"
-                style="float: inline-end"
-                class="text-info"
-                ><i class="fa fa-eye"></i
-              ></a>
+              <strong>{{ formatCurrency(item.preco.preco_imovel) }}</strong><a data-bs-toggle="modal"
+                :data-bs-target="`#modalImovel${item.id_imovel}`" style="float: inline-end" class="text-info"><i
+                  class="fa fa-eye"></i></a>
             </h5>
             <h5 class="text-dark">
-              <small
-                ><i class="fa fa-map-marker"></i>
+              <small><i class="fa fa-map-marker"></i>
                 {{ item.localizacao.logradouro }},
                 {{ item.localizacao.numero }} | {{ item.localizacao.bairro }},
-                {{ item.localizacao.cidade }}</small
-              >
-              <a
-                data-bs-toggle="modal"
-                :data-bs-target="`#modalEditImovel${item.id_imovel}`"
-                @click="openModal(item.id_imovel)"
-                style="float: inline-end"
-                class="text-warning"
-                ><i class="fa fa-edit"></i
-              ></a>
+                {{ item.localizacao.cidade }}</small>
+              <a data-bs-toggle="modal" :data-bs-target="`#modalEditImovel${item.id_imovel}`"
+                @click="openModal(item.id_imovel)" style="float: inline-end" class="text-warning"><i
+                  class="fa fa-edit"></i></a>
             </h5>
             <h5 class="text-dark">
-              <small
-                ><i class="fa fa-calendar"></i> Atualizado:
-                {{ formatarData(item.updatedAt) }}</small
-              >
-              <i
-                v-for="star in getEstrelas(item.id_imovel)"
-                :key="star"
-                class="text-warning fa fa-star"
-              ></i>
-              <span
-                class="text-success"
-                style="float: inline-end; font-weight: 900"
-              >
-                {{ getQualidade(item.id_imovel) }}</span
-              >
+              <small><i class="fa fa-calendar"></i> Atualizado:
+                {{ formatarData(item.updatedAt) }}</small>
+              <i v-for="star in getEstrelas(item.id_imovel)" :key="star" class="text-warning fa fa-star"></i>
+              <span class="text-success" style="float: inline-end; font-weight: 900">
+                {{ getQualidade(item.id_imovel) }}</span>
             </h5>
           </div>
         </a>
 
-        <div
-          class="modal fade"
-          :id="`exampleModal${item.id_imovel}`"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" :id="`exampleModal${item.id_imovel}`" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                   <i class="fa fa-trash"></i> Apagar imóvel
                 </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <h3 class="text-center">
@@ -121,18 +65,10 @@
                 </h3>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Fechar
                 </button>
-                <button
-                  @click="handledDelete(item.id_imovel)"
-                  type="button"
-                  class="btn btn-success"
-                >
+                <button @click="handledDelete(item.id_imovel)" type="button" class="btn btn-success">
                   <i class="fa fa-trash"></i> Sim, apagar
                 </button>
               </div>
@@ -142,106 +78,57 @@
 
         <hr class="mt-3" />
         <!-- Modal -->
-        <div
-          class="modal fade"
-          :id="`modalImovel${item.id_imovel}`"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" :id="`modalImovel${item.id_imovel}`" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                   <i class="fa fa-building"></i> {{ item.descricao.titulo }}
                 </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button
-                      class="nav-link active"
-                      id="nav-home-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-home"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-home"
-                      aria-selected="true"
-                    >
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                      type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                       <i class="fa fa-bell" aria-hidden="true"></i>
 
                       Informações do imóvel
                     </button>
 
-                    <button
-                      class="nav-link"
-                      id="nav-comentario-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-comentario"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-comentario"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="nav-comentario-tab" data-bs-toggle="tab"
+                      data-bs-target="#nav-comentario" type="button" role="tab" aria-controls="nav-comentario"
+                      aria-selected="false">
                       Anotações <small><i class="fa fa-file"></i></small>
                     </button>
 
-                    <button
-                      class="nav-link"
-                      id="nav-documentos-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-documentos"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-documentos"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="nav-documentos-tab" data-bs-toggle="tab"
+                      data-bs-target="#nav-documentos" type="button" role="tab" aria-controls="nav-documentos"
+                      aria-selected="false">
                       Documentos <small><i class="fa fa-folder"></i></small>
                     </button>
                   </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="nav-home"
-                    role="tabpanel"
-                    aria-labelledby="nav-home-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+                    tabindex="0">
                     <div class="container">
                       <div class="row">
-                        <div
-                          class="col-md-2 mt-4"
-                          v-for="foto in item.fotos"
-                          :key="foto.id_imagem"
-                        >
-                          <img
-                            :src="`https://zonu.com.br/api${foto.foto}`"
-                            :alt="`Foto ${foto.id_imagem} do Imóvel ${item.id_imovel}`"
-                            class="thumbnail-modal"
-                          />
+                        <div class="col-md-2 mt-4" v-for="foto in item.fotos" :key="foto.id_imagem">
+                          <img :src="`https://zonu.com.br/api${foto.foto}`"
+                            :alt="`Foto ${foto.id_imagem} do Imóvel ${item.id_imovel}`" class="thumbnail-modal" />
                         </div>
                       </div>
 
                       <div class="row mt-4">
                         <div class="col-md-2">
                           <h5>
-                            <strong
-                              ><i class="fa fa-money" aria-hidden="true"></i>
+                            <strong><i class="fa fa-money" aria-hidden="true"></i>
                               Preço
-                              <small
-                                style="font-size: 10px"
-                                class="text-secondary"
-                                >({{ item.preco.tipo_negocio }})</small
-                              ></strong
-                            >
+                              <small style="font-size: 10px" class="text-secondary">({{ item.preco.tipo_negocio
+                                }})</small></strong>
                           </h5>
                           <h4 class="text-success">
                             <strong>{{ item.preco.preco_imovel }} </strong>
@@ -249,10 +136,8 @@
                         </div>
                         <div class="col-md-2">
                           <h5>
-                            <strong
-                              ><i class="fa fa-money" aria-hidden="true"></i>
-                              Condomínio</strong
-                            >
+                            <strong><i class="fa fa-money" aria-hidden="true"></i>
+                              Condomínio</strong>
                           </h5>
                           <h4 class="text-success">
                             <strong>{{ item.preco.preco_condominio }}</strong>
@@ -260,15 +145,9 @@
                         </div>
                         <div class="col-md-2">
                           <h5>
-                            <strong
-                              ><i class="fa fa-tag" aria-hidden="true"></i>
+                            <strong><i class="fa fa-tag" aria-hidden="true"></i>
                               Taxas
-                              <small
-                                style="font-size: 10px"
-                                class="text-secondary"
-                                >(Mensal)</small
-                              ></strong
-                            >
+                              <small style="font-size: 10px" class="text-secondary">(Mensal)</small></strong>
                           </h5>
                           <h4 class="text-success">
                             <strong>{{ item.preco.total_mensal_taxas }}</strong>
@@ -280,83 +159,50 @@
                       <div class="row mt-3">
                         <div class="col-md-8">
                           <h6 style="font-size: 12px">
-                            <strong
-                              ><i
-                                class="fa fa-building-o"
-                                aria-hidden="true"
-                              ></i>
-                              Cômodos</strong
-                            >
+                            <strong><i class="fa fa-building-o" aria-hidden="true"></i>
+                              Cômodos</strong>
                           </h6>
                           <div class="row mt-3 ml-2">
                             <div class="col-md-3">
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Dormitórios:
-                                  {{ item.comodos.dormitorio }}</strong
-                                >
+                                <strong>Dormitórios:
+                                  {{ item.comodos.dormitorio }}</strong>
                               </h6>
-                              <h6
-                                v-if="item.comodos.suite !== 0"
-                                style="font-size: 12px; text-align: right"
-                              >
-                                <strong
-                                  >Sendo Suites:
-                                  {{ item.comodos.suite }}</strong
-                                >
+                              <h6 v-if="item.comodos.suite !== 0" style="font-size: 12px; text-align: right">
+                                <strong>Sendo Suites:
+                                  {{ item.comodos.suite }}</strong>
                               </h6>
-                              <h6
-                                v-if="item.comodos.suite == 0"
-                                style="font-size: 12px; text-align: right"
-                              >
+                              <h6 v-if="item.comodos.suite == 0" style="font-size: 12px; text-align: right">
                                 <strong>Sendo Suites: Não</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Banheiros:
-                                  {{ item.comodos.banheiro }}</strong
-                                >
+                                <strong>Banheiros:
+                                  {{ item.comodos.banheiro }}</strong>
                               </h6>
-                              <h6
-                                v-if="item.comodos.garagem == 0"
-                                style="font-size: 12px; text-align: right"
-                              >
+                              <h6 v-if="item.comodos.garagem == 0" style="font-size: 12px; text-align: right">
                                 <strong>Garagens: Não</strong>
                               </h6>
-                              <h6
-                                v-if="item.comodos.garagem !== 0"
-                                style="font-size: 12px; text-align: right"
-                              >
-                                <strong
-                                  >Garagens: {{ item.comodos.garagem }}</strong
-                                >
+                              <h6 v-if="item.comodos.garagem !== 0" style="font-size: 12px; text-align: right">
+                                <strong>Garagens: {{ item.comodos.garagem }}</strong>
                               </h6>
                             </div>
                             <div class="col-md-3">
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Área de Serviço:
-                                  {{ item.comodos.area_servico }}</strong
-                                >
+                                <strong>Área de Serviço:
+                                  {{ item.comodos.area_servico }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Banheiros:
-                                  {{ item.comodos.banheiro }}</strong
-                                >
+                                <strong>Banheiros:
+                                  {{ item.comodos.banheiro }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Dep. empregada:
-                                  {{ item.comodos.casa_empregada }}</strong
-                                >
+                                <strong>Dep. empregada:
+                                  {{ item.comodos.casa_empregada }}</strong>
                               </h6>
 
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Box Garagem:
-                                  {{ item.comodos.garagem_box }}</strong
-                                >
+                                <strong>Box Garagem:
+                                  {{ item.comodos.garagem_box }}</strong>
                               </h6>
                             </div>
                             <div class="col-md-2">
@@ -364,103 +210,73 @@
                                 <strong>Copa: {{ item.comodos.copa }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Cozinha: {{ item.comodos.cozinha }}</strong
-                                >
+                                <strong>Cozinha: {{ item.comodos.cozinha }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Escritório:
-                                  {{ item.comodos.escritorio }}</strong
-                                >
+                                <strong>Escritório:
+                                  {{ item.comodos.escritorio }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Garagem coberta:
-                                  {{ item.comodos.garagem_coberta }}</strong
-                                >
+                                <strong>Garagem coberta:
+                                  {{ item.comodos.garagem_coberta }}</strong>
                               </h6>
                             </div>
                             <div class="col-md-2">
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Closet: {{ item.comodos.closet }}</strong
-                                >
+                                <strong>Closet: {{ item.comodos.closet }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Lavabo: {{ item.comodos.lavabo }}</strong
-                                >
+                                <strong>Lavabo: {{ item.comodos.lavabo }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Sl de estar:
-                                  {{ item.comodos.sala_estar }}</strong
-                                >
+                                <strong>Sl de estar:
+                                  {{ item.comodos.sala_estar }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Sl de jantar:
-                                  {{ item.comodos.sala_jantar }}</strong
-                                >
+                                <strong>Sl de jantar:
+                                  {{ item.comodos.sala_jantar }}</strong>
                               </h6>
                             </div>
 
                             <div class="col-md-2">
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Sala de TV:
-                                  {{ item.comodos.sala_tv }}</strong
-                                >
+                                <strong>Sala de TV:
+                                  {{ item.comodos.sala_tv }}</strong>
                               </h6>
                               <h6 style="font-size: 12px; text-align: right">
-                                <strong
-                                  >Dormitórios com suites:
-                                  {{ item.comodos.suite }}</strong
-                                >
+                                <strong>Dormitórios com suites:
+                                  {{ item.comodos.suite }}</strong>
                               </h6>
                             </div>
                           </div>
                         </div>
                         <div class="col-md-1 mt-3">
-                          <div
-                            style="border-left: 1px solid #0001; height: 100px"
-                          ></div>
+                          <div style="border-left: 1px solid #0001; height: 100px"></div>
                         </div>
                         <div class="col-md-2">
                           <h6 style="font-size: 12px; margin-left: -70px">
-                            <strong
-                              ><i class="fa fa-ruler" aria-hidden="true"></i>
-                              Medida das áreas</strong
-                            >
+                            <strong><i class="fa fa-ruler" aria-hidden="true"></i>
+                              Medida das áreas</strong>
                           </h6>
                           <div class="row mt-3" style="margin-left: -50px">
                             <div class="col-md-12">
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Total:
-                                  {{ item.medidas.area_total }} m²</strong
-                                >
+                                <strong>Total:
+                                  {{ item.medidas.area_total }} m²</strong>
                               </h6>
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Construida:
-                                  {{ item.medidas.area_contruida }} m²</strong
-                                >
+                                <strong>Construida:
+                                  {{ item.medidas.area_contruida }} m²</strong>
                               </h6>
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Privativa:
-                                  {{ item.medidas.area_privativa }} m²</strong
-                                >
+                                <strong>Privativa:
+                                  {{ item.medidas.area_privativa }} m²</strong>
                               </h6>
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Preço m²: R$
+                                <strong>Preço m²: R$
                                   {{
                                     item.medidas.media_metro_quadrado
-                                  }}</strong
-                                >
+                                  }}</strong>
                               </h6>
                             </div>
                           </div>
@@ -470,29 +286,19 @@
 
                         <div class="col-md-7">
                           <h6 style="font-size: 12px">
-                            <strong
-                              ><i
-                                class="fa fa-check-square"
-                                aria-hidden="true"
-                              ></i>
-                              Caracteística do imóvel</strong
-                            >
+                            <strong><i class="fa fa-check-square" aria-hidden="true"></i>
+                              Caracteística do imóvel</strong>
                           </h6>
                           <div class="row mt-3">
-                            <div
-                              class="col-md-2"
-                              v-for="dado in item.caracteristicas"
-                            >
+                            <div class="col-md-2" v-for="dado in item.caracteristicas">
                               <h6>
-                                <span
-                                  ><i class="fa fa-check"></i>
+                                <span><i class="fa fa-check"></i>
                                   <small>{{
                                     dado.detalhesCaracteristica == null
                                       ? ""
                                       : dado.detalhesCaracteristica
-                                          .nome_caracteristica
-                                  }}</small></span
-                                >
+                                        .nome_caracteristica
+                                  }}</small></span>
                               </h6>
                             </div>
                           </div>
@@ -501,17 +307,12 @@
 
                         <div class="col-md-5">
                           <h6 style="font-size: 12px">
-                            <strong
-                              ><i class="fa fa-edit" aria-hidden="true"></i>
-                              Detalhes do imóvel</strong
-                            >
+                            <strong><i class="fa fa-edit" aria-hidden="true"></i>
+                              Detalhes do imóvel</strong>
                           </h6>
                           <div class="row mt-3">
                             <div class="col-md-2">
-                              <div
-                                class="avatar-null img-fluid rounded me-1"
-                                alt="Avatar"
-                              >
+                              <div class="avatar-null img-fluid rounded me-1" alt="Avatar">
                                 {{ iniciais }}
                               </div>
                             </div>
@@ -524,49 +325,32 @@
                               </h6>
                             </div>
                             <div class="col-md-1">
-                              <div
-                                style="
+                              <div style="
                                   border-left: 1px solid #0001;
                                   height: 40px;
-                                "
-                              ></div>
+                                "></div>
                             </div>
                             <div class="col-md-3" style="margin-top: -10px">
-                              <img
-                                :src="item.qrcode.qrcode"
-                                width="50"
-                                alt=""
-                              />
+                              <img :src="item.qrcode.qrcode" width="50" alt="" />
                             </div>
                           </div>
                         </div>
 
                         <div class="col-md-7" style="margin-top: 4%">
                           <h6 style="font-size: 12px">
-                            <strong
-                              ><i
-                                class="fa fa-check-square"
-                                aria-hidden="true"
-                              ></i>
-                              Proximidades</strong
-                            >
+                            <strong><i class="fa fa-check-square" aria-hidden="true"></i>
+                              Proximidades</strong>
                           </h6>
                           <div class="row mt-3">
-                            <div
-                              class="col-md-2"
-                              v-for="dado in item.proximidades"
-                            >
+                            <div class="col-md-2" v-for="dado in item.proximidades">
                               <h6>
-                                <span
-                                  ><i class="fa fa-check"></i
-                                  ><small>
+                                <span><i class="fa fa-check"></i><small>
                                     {{
                                       dado.detalhesProximidade !== null
                                         ? dado.detalhesProximidade
-                                            .nome_proximidade
+                                          .nome_proximidade
                                         : ""
-                                    }}</small
-                                  >
+                                    }}</small>
                                 </span>
                               </h6>
                             </div>
@@ -576,10 +360,8 @@
 
                         <div class="col-md-7" style="margin-top: 2%">
                           <h6 style="font-size: 12px">
-                            <strong
-                              ><i class="fa fa-edit" aria-hidden="true"></i>
-                              Descrição do Imóvel</strong
-                            >
+                            <strong><i class="fa fa-edit" aria-hidden="true"></i>
+                              Descrição do Imóvel</strong>
                           </h6>
                           <div class="row mt-3">
                             {{ item.descricao.apresentacao }}
@@ -591,9 +373,7 @@
                             <tbody>
                               <tr>
                                 <td style="background-color: #0001">
-                                  <strong
-                                    ><small>Ano da construção:</small></strong
-                                  >
+                                  <strong><small>Ano da construção:</small></strong>
                                 </td>
                                 <td style="background-color: #0001">
                                   <small>{{ item.info.ano_construcao }}</small>
@@ -609,9 +389,7 @@
                               </tr>
                               <tr>
                                 <td style="background-color: #0001">
-                                  <strong
-                                    ><small>Situação do Imóvel:</small></strong
-                                  >
+                                  <strong><small>Situação do Imóvel:</small></strong>
                                 </td>
                                 <td style="background-color: #0001">
                                   <small>{{ item.info.situacao_imovel }}</small>
@@ -627,9 +405,7 @@
                               </tr>
                               <tr>
                                 <td style="background-color: #0001">
-                                  <strong
-                                    ><small>Tem Financiamento:</small></strong
-                                  >
+                                  <strong><small>Tem Financiamento:</small></strong>
                                 </td>
                                 <td style="background-color: #0001">
                                   <small>{{ item.preco.financiado }}</small>
@@ -637,11 +413,7 @@
                               </tr>
                               <tr>
                                 <td>
-                                  <strong
-                                    ><small
-                                      >Aceita financiamento:</small
-                                    ></strong
-                                  >
+                                  <strong><small>Aceita financiamento:</small></strong>
                                 </td>
                                 <td>
                                   <small>{{
@@ -651,11 +423,7 @@
                               </tr>
                               <tr>
                                 <td style="background-color: #0001">
-                                  <strong
-                                    ><small
-                                      >Minha Casa Minha Vida:</small
-                                    ></strong
-                                  >
+                                  <strong><small>Minha Casa Minha Vida:</small></strong>
                                 </td>
                                 <td style="background-color: #0001">
                                   <small>{{
@@ -665,9 +433,7 @@
                               </tr>
                               <tr>
                                 <td>
-                                  <strong
-                                    ><small>Aceita permuta:</small></strong
-                                  >
+                                  <strong><small>Aceita permuta:</small></strong>
                                 </td>
                                 <td>
                                   <small>{{ item.preco.aceita_permuta }}</small>
@@ -680,34 +446,17 @@
 
                           <div class="mt-3">
                             <h6 style="font-size: 12px">
-                              <strong
-                                >Qualidade do anúncio
-                                <span class="badge text-bg-success"
-                                  >{{ qualidadeProgress }}%
+                              <strong>Qualidade do anúncio
+                                <span class="badge text-bg-success">{{ qualidadeProgress }}%
                                 </span>
-                                &nbsp;</strong
-                              >
+                                &nbsp;</strong>
                               <small>
                                 {{ msgQualidade }}
-                                <i
-                                  v-for="star in estrelas"
-                                  :key="star"
-                                  class="text-warning fa fa-star"
-                                ></i
-                              ></small>
+                                <i v-for="star in estrelas" :key="star" class="text-warning fa fa-star"></i></small>
                             </h6>
-                            <div
-                              class="progress"
-                              role="progressbar"
-                              aria-label="Success example"
-                              :aria-valuenow="qualidadeProgress"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            >
-                              <div
-                                class="progress-bar bg-success"
-                                :style="{ width: qualidadeProgress + '%' }"
-                              ></div>
+                            <div class="progress" role="progressbar" aria-label="Success example"
+                              :aria-valuenow="qualidadeProgress" aria-valuemin="0" aria-valuemax="100">
+                              <div class="progress-bar bg-success" :style="{ width: qualidadeProgress + '%' }"></div>
                             </div>
                           </div>
                         </div>
@@ -715,55 +464,34 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade show"
-                    id="nav-documentos"
-                    role="tabpanel"
-                    aria-labelledby="nav-documentos-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade show" id="nav-documentos" role="tabpanel"
+                    aria-labelledby="nav-documentos-tab" tabindex="0">
                     <div class="container">
                       <div class="row mt-3">
                         <div class="col-md-8">
                           <h6 style="font-size: 15px">
-                            <strong
-                              ><i class="fa fa-link" aria-hidden="true"></i>
+                            <strong><i class="fa fa-link" aria-hidden="true"></i>
                               Links
                             </strong>
                           </h6>
                           <div class="row mt-3">
                             <div class="col-md-3">
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Drive:
-                                  <a
-                                    :href="item.complemento.link_drive"
-                                    target="_blank"
-                                    >{{ item.complemento.link_drive }}</a
-                                  ></strong
-                                >
+                                <strong>Drive:
+                                  <a :href="item.complemento.link_drive" target="_blank">{{ item.complemento.link_drive
+                                    }}</a></strong>
                               </h6>
 
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >YouTube:
-                                  <a
-                                    :href="item.complemento.link_youtube"
-                                    target="_blank"
-                                    >{{ item.complemento.link_youtube }}</a
-                                  ></strong
-                                >
+                                <strong>YouTube:
+                                  <a :href="item.complemento.link_youtube" target="_blank">{{
+                                    item.complemento.link_youtube }}</a></strong>
                               </h6>
 
                               <h6 style="font-size: 12px">
-                                <strong
-                                  >Apresentação:
-                                  <a
-                                    :href="item.complemento.link_apresentacao"
-                                    target="_blank"
-                                    >{{ item.complemento.link_apresentacao }}</a
-                                  ></strong
-                                >
+                                <strong>Apresentação:
+                                  <a :href="item.complemento.link_apresentacao" target="_blank">{{
+                                    item.complemento.link_apresentacao }}</a></strong>
                               </h6>
                             </div>
                           </div>
@@ -772,44 +500,29 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade show"
-                    id="nav-comentario"
-                    role="tabpanel"
-                    aria-labelledby="nav-comentario-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade show" id="nav-comentario" role="tabpanel"
+                    aria-labelledby="nav-comentario-tab" tabindex="0">
                     <div class="container">
                       <div class="row mt-3">
                         <div class="col-md-12">
                           <h6 style="font-size: 15px">
-                            <strong
-                              ><i class="fa fa-list" aria-hidden="true"></i>
+                            <strong><i class="fa fa-list" aria-hidden="true"></i>
                               Faça aqui as anotações sobre este imóvel
                             </strong>
                           </h6>
                           <div class="row mt-3">
                             <div class="col-md-12">
                               <div class="form-floating">
-                                <textarea
-                                  class="form-control"
-                                  placeholder="Leave a comment here"
-                                  id="floatingTextarea2"
-                                  style="height: 300px"
-                                ></textarea>
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                  style="height: 300px"></textarea>
                                 <label for="floatingTextarea2"></label>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="d-grid gap-2 d-md-flex justify-content-md-end mt-3"
-                        >
-                          <button
-                            class="btn btn-success me-md-2"
-                            @click="handledComentario(item.id_imovel)"
-                            type="button"
-                          >
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                          <button class="btn btn-success me-md-2" @click="handledComentario(item.id_imovel)"
+                            type="button">
                             Salvar anotação
                           </button>
                         </div>
@@ -819,11 +532,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Fechar
                 </button>
               </div>
@@ -832,14 +541,8 @@
         </div>
 
         <!-- fazer esse modal funcionar -->
-        <div
-          class="modal fade"
-          :id="`modalEditImovel${item.id_imovel}`"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          v-if="currentImovel"
-        >
+        <div class="modal fade" :id="`modalEditImovel${item.id_imovel}`" tabindex="-1"
+          aria-labelledby="exampleModalLabel" aria-hidden="true" v-if="currentImovel">
           <!-- {{ console.log(item) }} -->
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -847,217 +550,105 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                   <i class="fa fa-file"></i> Resumo
                 </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  @click="closeModal()"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                  @click="closeModal()"></button>
               </div>
               <div class="modal-body">
-                <div
-                  v-if="msgError"
-                  class="alert alert-danger mt-4 mb-4"
-                  style="margin-top: -20px; margin-bottom: 10px"
-                  role="alert"
-                >
-                  <strong
-                    ><i class="fa fa-ban"></i> Desculpa, houve um erro para
-                    processar o seu pedido. Tente novamente mais tarde</strong
-                  >
+                <div v-if="msgError" class="alert alert-danger mt-4 mb-4" style="margin-top: -20px; margin-bottom: 10px"
+                  role="alert">
+                  <strong><i class="fa fa-ban"></i> Desculpa, houve um erro para
+                    processar o seu pedido. Tente novamente mais tarde</strong>
                 </div>
 
-                <div
-                  v-if="msgSucesso"
-                  class="alert alert-success mt-4 mb-4"
-                  style="margin-top: -20px; margin-bottom: 10px"
-                  role="alert"
-                >
-                  <strong
-                    ><i class="fa fa-check"></i> Sucesso! Imóvel cadastrado com
-                    sucesso!</strong
-                  >
+                <div v-if="msgSucesso" class="alert alert-success mt-4 mb-4"
+                  style="margin-top: -20px; margin-bottom: 10px" role="alert">
+                  <strong><i class="fa fa-check"></i> Sucesso! Imóvel cadastrado com
+                    sucesso!</strong>
                 </div>
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link active"
-                      id="home-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#info-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="info-tab-pane"
-                      aria-selected="true"
-                    >
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
+                      type="button" role="tab" aria-controls="info-tab-pane" aria-selected="true">
                       <small>Info</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="comodos-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#comodos-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="comodos-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="comodos-tab" data-bs-toggle="tab" data-bs-target="#comodos-tab-pane"
+                      type="button" role="tab" aria-controls="comodos-tab-pane" aria-selected="false">
                       <small>Cômodos</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="comodos-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#medidas-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="medidas-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="comodos-tab" data-bs-toggle="tab" data-bs-target="#medidas-tab-pane"
+                      type="button" role="tab" aria-controls="medidas-tab-pane" aria-selected="false">
                       <small>Medidas & Preço</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="caracteristica-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#caracteristica-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="caracteristica-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="caracteristica-tab" data-bs-toggle="tab"
+                      data-bs-target="#caracteristica-tab-pane" type="button" role="tab"
+                      aria-controls="caracteristica-tab-pane" aria-selected="false">
                       <small>Características</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="localizacao-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#localizacao-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="localizacao-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="localizacao-tab" data-bs-toggle="tab"
+                      data-bs-target="#localizacao-tab-pane" type="button" role="tab"
+                      aria-controls="localizacao-tab-pane" aria-selected="false">
                       <small>Localização</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="proximidades-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#proximidades-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="proximidades-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="proximidades-tab" data-bs-toggle="tab"
+                      data-bs-target="#proximidades-tab-pane" type="button" role="tab"
+                      aria-controls="proximidades-tab-pane" aria-selected="false">
                       <small>Proximidades</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="descricao-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#descricao-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="descricao-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="descricao-tab" data-bs-toggle="tab"
+                      data-bs-target="#descricao-tab-pane" type="button" role="tab" aria-controls="descricao-tab-pane"
+                      aria-selected="false">
                       <small>Descrição</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="complementos-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#complementos-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="complementos-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="complementos-tab" data-bs-toggle="tab"
+                      data-bs-target="#complementos-tab-pane" type="button" role="tab"
+                      aria-controls="complementos-tab-pane" aria-selected="false">
                       <small>Complementos</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="images-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#images-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="images-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images-tab-pane"
+                      type="button" role="tab" aria-controls="images-tab-pane" aria-selected="false">
                       <small>Imagens</small>
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="publicar-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#publicar-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="publicar-tab-pane"
-                      aria-selected="false"
-                    >
+                    <button class="nav-link" id="publicar-tab" data-bs-toggle="tab" data-bs-target="#publicar-tab-pane"
+                      type="button" role="tab" aria-controls="publicar-tab-pane" aria-selected="false">
                       <small>Publicação</small>
                     </button>
                   </li>
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="info-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="info-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab"
+                    tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Código de referência
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Código de
+                              referência
                               <small class="text-danger">*</small>
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.info.cod_referencia"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.info.cod_referencia" placeholder="Digite aqui..." />
                             <small v-if="msgNull" class="text-danger">
                               <li class="mt-2">Não deixe este campo vazio</li>
                             </small>
@@ -1066,117 +657,56 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Condomínio/empreendimento?
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
+                              class="form-label">Condomínio/empreendimento?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
                               <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> -->
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="selectCondominio"
-                                id="selectCondominio1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.tem_condominio"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                :class="{
-                                  active:
-                                    currentImovel.tem_condominio === 'Sim',
-                                }"
-                                for="selectCondominio1"
-                                >Sim</label
-                              >
+                              <input type="radio" class="btn-check" name="selectCondominio" id="selectCondominio1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.tem_condominio" />
+                              <label class="btn btn-outline-success" :class="{
+                                active:
+                                  currentImovel.tem_condominio === 'Sim',
+                              }" for="selectCondominio1">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.tem_condominio"
-                                name="selectCondominio"
-                                id="selectCondominio2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                :class="{
-                                  active:
-                                    currentImovel.tem_condominio === 'Não',
-                                }"
-                                for="selectCondominio2"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.tem_condominio"
+                                name="selectCondominio" id="selectCondominio2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" :class="{
+                                active:
+                                  currentImovel.tem_condominio === 'Não',
+                              }" for="selectCondominio2">Não</label>
                               <!-- </div> -->
                             </div>
                           </div>
                         </div>
 
                         <div class="col-6">
-                          <div
-                            class="mb-3"
-                            v-if="currentImovel.tem_condominio === 'Sim'"
-                          >
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Condomínio/empreendimento?
+                          <div class="mb-3" v-if="currentImovel.tem_condominio === 'Sim'">
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
+                              class="form-label">Condomínio/empreendimento?
                               <small class="text-danger">* </small>
-                              <a
-                                href="/novo-condominio"
-                                type="button"
-                                class="ms-2 text-success"
-                                style="
+                              <a href="/novo-condominio" type="button" class="ms-2 text-success" style="
                                   --bs-btn-padding-y: 0.25rem;
                                   --bs-btn-padding-x: 0.5rem;
                                   --bs-btn-font-size: 0.75rem;
-                                "
-                              >
+                                ">
                                 <i class="fa fa-plus"></i> Adicionar condominio
                               </a>
                             </label>
 
-                            <select
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="condominioEmpreendimento"
-                            >
+                            <select required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="condominioEmpreendimento">
                               <option selected disabled>Selecione</option>
 
-                              <option
-                                v-for="condominio in condominios"
-                                :value="condominio.id_condominio"
-                              >
+                              <option v-for="condominio in condominios" :value="condominio.id_condominio">
                                 {{ condominio.nome_condominio }}
                               </option>
                             </select>
@@ -1185,29 +715,14 @@
 
                         <div class="col-2">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Tipo/Subtipo
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Tipo/Subtipo
                               <small class="text-danger">* </small>
                             </label>
 
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.info.tipo"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.info.tipo">
                               <option selected disabled>Selecione</option>
                               <option value="Casa">Casa</option>
                               <option value="Apartamento">Apartamento</option>
@@ -1227,29 +742,14 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Perfil do imóvel
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Perfil do imóvel
                               <small class="text-danger">* </small>
                             </label>
 
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.info.perfil_imovel"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.info.perfil_imovel">
                               <option selected disabled>Selecione</option>
                               <option value="Residencial">Residencial</option>
                               <option value="Comercial">Comercial</option>
@@ -1262,29 +762,14 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Situação
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Situação
                               <small class="text-danger">* </small>
                             </label>
 
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.info.situacao_imovel"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.info.situacao_imovel">
                               <option selected disabled>Selecione</option>
                               <option value="Pronto pra morar">
                                 Pronto pra morar
@@ -1301,30 +786,14 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Ano da construção
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Ano da construção
                               <small class="text-danger">* </small>
                             </label>
 
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              placeholder="Ex.: 2015"
-                              v-model="currentImovel.info.ano_construcao"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              placeholder="Ex.: 2015" v-model="currentImovel.info.ano_construcao" />
 
                             <small v-if="msgNull" class="text-danger">
                               <li class="mt-2">Não deixe este campo vazio</li>
@@ -1334,55 +803,25 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Incorporação</label
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1"
+                              class="form-label">Incorporação</label>
                             <!-- para funcionar precisa alterar para text o type do input  -->
-                            <input
-                              type="text"
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              placeholder="Digite..."
-                              v-model="currentImovel.info.incorporacao"
-                            />
+                            <input type="text" v-if="!mostrarSkeleton" class="form-control" placeholder="Digite..."
+                              v-model="currentImovel.info.incorporacao" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Posição Solar
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Posição Solar
                               <small class="text-danger">* </small>
                             </label>
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.info.posicao_solar"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.info.posicao_solar">
                               <option selected disabled>Selecione</option>
                               <option value="Norte">Norte</option>
                               <option value="Sul">Sul</option>
@@ -1398,83 +837,33 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Terreno
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Terreno
                               <small class="text-danger">* </small>
                             </label>
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                id="btnTerreno1"
-                                autocomplete="off"
-                                value="Plano"
-                                name="selectTerreno"
-                                v-model="currentImovel.info.terreno"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                :class="{
-                                  active:
-                                    currentImovel.info.terreno === 'Plano',
-                                }"
-                                for="btnTerreno1"
-                                >Plano</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" id="btnTerreno1" autocomplete="off" value="Plano"
+                                name="selectTerreno" v-model="currentImovel.info.terreno" />
+                              <label class="btn btn-outline-success" :class="{
+                                active:
+                                  currentImovel.info.terreno === 'Plano',
+                              }" for="btnTerreno1">Plano</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                id="btnTerreno2"
-                                autocomplete="off"
-                                value="Aclive"
-                                name="selectTerreno"
-                                v-model="currentImovel.info.terreno"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                :class="{
-                                  active:
-                                    currentImovel.info.terreno === 'Aclive',
-                                }"
-                                for="btnTerreno2"
-                                >Aclive</label
-                              >
+                              <input type="radio" class="btn-check" id="btnTerreno2" autocomplete="off" value="Aclive"
+                                name="selectTerreno" v-model="currentImovel.info.terreno" />
+                              <label class="btn btn-outline-success" :class="{
+                                active:
+                                  currentImovel.info.terreno === 'Aclive',
+                              }" for="btnTerreno2">Aclive</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                id="btnTerreno3"
-                                autocomplete="off"
-                                value="Declive"
-                                name="selectTerreno"
-                                v-model="currentImovel.info.terreno"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                :class="{
-                                  active:
-                                    currentImovel.info.terreno === 'Declive',
-                                }"
-                                for="btnTerreno3"
-                                >Declive</label
-                              >
+                              <input type="radio" class="btn-check" id="btnTerreno3" autocomplete="off" value="Declive"
+                                name="selectTerreno" v-model="currentImovel.info.terreno" />
+                              <label class="btn btn-outline-success" :class="{
+                                active:
+                                  currentImovel.info.terreno === 'Declive',
+                              }" for="btnTerreno3">Declive</label>
                             </div>
                             <small v-if="msgNull" class="text-danger">
                               <li class="mt-2">Não deixe este campo vazio</li>
@@ -1484,29 +873,14 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Próximo ao mar?<small class="text-danger"
-                                >*
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Próximo ao
+                              mar?<small class="text-danger">*
                               </small>
                             </label>
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.info.proximo_mar"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.info.proximo_mar">
                               <option selected disabled>Selecione</option>
                               <option value="Vista para o mar">
                                 Vista para o mar
@@ -1527,266 +901,114 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Averbado
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Averbado
                             </label>
 
                             <br />
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="selectAverbado"
-                                id="selectAverbado1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.info.averbado"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="selectAverbado1"
-                                :class="{
-                                  active: currentImovel.info.averbado === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="selectAverbado" id="selectAverbado1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.info.averbado" />
+                              <label class="btn btn-outline-success" for="selectAverbado1" :class="{
+                                active: currentImovel.info.averbado === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.info.averbado"
-                                name="selectAverbado"
-                                id="selectAverbado2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="selectAverbado2"
-                                :class="{
-                                  active: currentImovel.info.averbado === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.info.averbado"
+                                name="selectAverbado" id="selectAverbado2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="selectAverbado2" :class="{
+                                active: currentImovel.info.averbado === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Escriturado
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Escriturado
                             </label>
 
                             <br />
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="selectEscritura"
-                                id="selectEscritura1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.info.escriturado"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="selectEscritura1"
-                                :class="{
-                                  active:
-                                    currentImovel.info.escriturado === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="selectEscritura" id="selectEscritura1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.info.escriturado" />
+                              <label class="btn btn-outline-success" for="selectEscritura1" :class="{
+                                active:
+                                  currentImovel.info.escriturado === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.info.escriturado"
-                                name="selectEscritura"
-                                id="selectEscritura2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="selectEscritura2"
-                                :class="{
-                                  active:
-                                    currentImovel.info.escriturado === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.info.escriturado"
+                                name="selectEscritura" id="selectEscritura2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="selectEscritura2" :class="{
+                                active:
+                                  currentImovel.info.escriturado === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Esquina
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Esquina
                             </label>
 
                             <br />
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="selectEsquina"
-                                id="selectEsquina1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.info.esquina"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="selectEsquina1"
-                                :class="{
-                                  active: currentImovel.info.esquina === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="selectEsquina" id="selectEsquina1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.info.esquina" />
+                              <label class="btn btn-outline-success" for="selectEsquina1" :class="{
+                                active: currentImovel.info.esquina === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.info.esquina"
-                                name="selectEsquina"
-                                id="selectEsquina2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="selectEsquina2"
-                                :class="{
-                                  active: currentImovel.info.esquina === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.info.esquina"
+                                name="selectEsquina" id="selectEsquina2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="selectEsquina2" :class="{
+                                active: currentImovel.info.esquina === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Tem mobília
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Tem mobília
                             </label>
 
                             <br />
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="selectMobilia"
-                                id="selectMobilia1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.info.mobilia"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="selectMobilia1"
-                                :class="{
-                                  active: currentImovel.info.mobilia === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="selectMobilia" id="selectMobilia1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.info.mobilia" />
+                              <label class="btn btn-outline-success" for="selectMobilia1" :class="{
+                                active: currentImovel.info.mobilia === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.info.mobilia"
-                                name="selectMobilia"
-                                id="selectMobilia2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="selectMobilia2"
-                                :class="{
-                                  active: currentImovel.info.mobilia === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.info.mobilia"
+                                name="selectMobilia" id="selectMobilia2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="selectMobilia2" :class="{
+                                active: currentImovel.info.mobilia === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
@@ -1794,739 +1016,341 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="comodos-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="comodos-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="comodos-tab-pane" role="tabpanel" aria-labelledby="comodos-tab"
+                    tabindex="0">
                     <div>
                       <!-- Insira o HTML form aqui de acordo com o TecImob -->
                       <div class="row mt-4">
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Dormitório
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.dormitorio"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.dormitorio" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Suíte
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.suite"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.suite" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Banheiro
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.banheiro"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.banheiro" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Garagem
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.garagem"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.garagem" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Garagem coberta?
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Garagem coberta?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                v-if="!mostrarSkeleton"
-                                type="radio"
-                                class="btn-check"
-                                name="garagemCoberta"
-                                id="selectGaragemCobertura1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.comodos.garagem_coberta"
-                              />
-                              <label
-                                v-if="!mostrarSkeleton"
-                                class="btn btn-outline-success"
-                                for="selectGaragemCobertura1"
-                                :class="{
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input v-if="!mostrarSkeleton" type="radio" class="btn-check" name="garagemCoberta"
+                                id="selectGaragemCobertura1" autocomplete="off" value="Sim"
+                                v-model="currentImovel.comodos.garagem_coberta" />
+                              <label v-if="!mostrarSkeleton" class="btn btn-outline-success"
+                                for="selectGaragemCobertura1" :class="{
                                   active:
                                     currentImovel.comodos.garagem_coberta ===
                                     'Sim',
-                                }"
-                                >Sim</label
-                              >
+                                }">Sim</label>
 
-                              <input
-                                v-if="!mostrarSkeleton"
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.comodos.garagem_coberta"
-                                name="garagemCoberta"
-                                id="selectGaragemCobertura2"
-                                autocomplete="off"
-                              />
-                              <label
-                                v-if="!mostrarSkeleton"
-                                class="btn btn-outline-danger"
-                                for="selectGaragemCobertura2"
-                                :class="{
+                              <input v-if="!mostrarSkeleton" type="radio" class="btn-check" value="Não"
+                                v-model="currentImovel.comodos.garagem_coberta" name="garagemCoberta"
+                                id="selectGaragemCobertura2" autocomplete="off" />
+                              <label v-if="!mostrarSkeleton" class="btn btn-outline-danger"
+                                for="selectGaragemCobertura2" :class="{
                                   active:
                                     currentImovel.comodos.garagem_coberta ===
                                     'Não',
-                                }"
-                                >Não</label
-                              >
+                                }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Possui box na garagem?
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Possui box na
+                              garagem?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                v-if="!mostrarSkeleton"
-                                type="radio"
-                                class="btn-check"
-                                name="boxGaragem"
-                                id="boxGaragemY"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.comodos.garagem_box"
-                              />
-                              <label
-                                v-if="!mostrarSkeleton"
-                                class="btn btn-outline-success"
-                                for="boxGaragemY"
-                                :class="{
-                                  active:
-                                    currentImovel.comodos.garagem_box === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input v-if="!mostrarSkeleton" type="radio" class="btn-check" name="boxGaragem"
+                                id="boxGaragemY" autocomplete="off" value="Sim"
+                                v-model="currentImovel.comodos.garagem_box" />
+                              <label v-if="!mostrarSkeleton" class="btn btn-outline-success" for="boxGaragemY" :class="{
+                                active:
+                                  currentImovel.comodos.garagem_box === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                v-if="!mostrarSkeleton"
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.comodos.garagem_box"
-                                name="boxGaragem"
-                                id="boxGaragemN"
-                                autocomplete="off"
-                              />
-                              <label
-                                v-if="!mostrarSkeleton"
-                                class="btn btn-outline-danger"
-                                for="boxGaragemN"
-                                :class="{
-                                  active:
-                                    currentImovel.comodos.garagem_box === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input v-if="!mostrarSkeleton" type="radio" class="btn-check" value="Não"
+                                v-model="currentImovel.comodos.garagem_box" name="boxGaragem" id="boxGaragemN"
+                                autocomplete="off" />
+                              <label v-if="!mostrarSkeleton" class="btn btn-outline-danger" for="boxGaragemN" :class="{
+                                active:
+                                  currentImovel.comodos.garagem_box === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Sala de TV
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.sala_tv"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.sala_tv" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Sala de jantar
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.sala_jantar"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.sala_jantar" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Sala de estar
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.sala_estar"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.sala_estar" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Lavabo
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.lavabo"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.lavabo" placeholder="Digite a quantidade" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Área de serviço
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.area_servico"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.area_servico" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Cozinha
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.cozinha"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.cozinha" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Closet
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.closet"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.closet" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Escritório
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.escritorio"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.escritorio" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Dependência para empregada
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.casa_empregada"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.casa_empregada" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Copa
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.comodos.copa"
-                              placeholder="Digite a quantidade"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.comodos.copa" placeholder="Digite a quantidade" />
                           </div>
                           <p v-if="msgNullComodos" class="text-danger">
-                            <small
-                              ><i class="fa fa-ban"></i> Não deixe este campo
-                              vazio!</small
-                            >
+                            <small><i class="fa fa-ban"></i> Não deixe este campo
+                              vazio!</small>
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="medidas-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="medidas-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="medidas-tab-pane" role="tabpanel" aria-labelledby="medidas-tab"
+                    tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="areaConstruida"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="areaConstruida" class="form-label">
                               Área Construída
                             </label>
                             <div class="input-group">
-                              <input
-                                type="text"
-                                required
-                                v-if="!mostrarSkeleton"
-                                class="form-control"
-                                v-model="areaConstruida"
-                                placeholder="Digite aqui..."
-                                @input="aplicaMascaraMedida('areaConstruida')"
-                              />
-                              <span
-                                v-if="!mostrarSkeleton"
-                                class="input-group-text"
-                                >m²</span
-                              >
+                              <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                v-model="areaConstruida" placeholder="Digite aqui..."
+                                @input="aplicaMascaraMedida('areaConstruida')" />
+                              <span v-if="!mostrarSkeleton" class="input-group-text">m²</span>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="areaPrivativa"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="areaPrivativa" class="form-label">
                               Área Privativa
                             </label>
                             <div class="input-group">
-                              <input
-                                type="text"
-                                required
-                                v-if="!mostrarSkeleton"
-                                class="form-control"
-                                v-model="areaPrivativa"
-                                placeholder="Digite aqui..."
-                                @input="aplicaMascaraMedida('areaPrivativa')"
-                              />
-                              <span
-                                v-if="!mostrarSkeleton"
-                                class="input-group-text"
-                                >m²</span
-                              >
+                              <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                v-model="areaPrivativa" placeholder="Digite aqui..."
+                                @input="aplicaMascaraMedida('areaPrivativa')" />
+                              <span v-if="!mostrarSkeleton" class="input-group-text">m²</span>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="areaTotal"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="areaTotal" class="form-label">
                               Área Total
                             </label>
                             <div class="input-group">
-                              <input
-                                type="text"
-                                required
-                                v-if="!mostrarSkeleton"
-                                class="form-control"
-                                v-model="areaTotal"
-                                disabled
-                                placeholder="Aguardando..."
-                              />
-                              <span
-                                v-if="!mostrarSkeleton"
-                                class="input-group-text"
-                                >m²</span
-                              >
+                              <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                v-model="areaTotal" disabled placeholder="Aguardando..." />
+                              <span v-if="!mostrarSkeleton" class="input-group-text">m²</span>
                             </div>
                           </div>
                         </div>
@@ -2537,29 +1361,14 @@
                       <div class="row mt-4">
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Tipo do negócio
                             </label>
 
-                            <select
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control form-select"
-                              v-model="currentImovel.preco.tipo_negocio"
-                            >
+                            <select type="text" required v-if="!mostrarSkeleton" class="form-control form-select"
+                              v-model="currentImovel.preco.tipo_negocio">
                               <option selected disabled>Selecione</option>
                               <option value="Aluguel">Aluguel</option>
                               <option value="Venda">Venda</option>
@@ -2569,1102 +1378,483 @@
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Preço Imóvel
                             </label>
                             <div class="input-group">
-                              <span
-                                v-if="!mostrarSkeleton"
-                                class="input-group-text"
-                                >R$</span
-                              >
-                              <input
-                                type="text"
-                                @input="aplicaMascaraDinheiroPrecoImovel"
-                                @blur="aplicaMascaraDinheiroPrecoImovel"
-                                required
-                                v-if="!mostrarSkeleton"
-                                class="form-control"
-                                v-model="precoImovel"
-                                placeholder="R$ 0,00"
-                              />
+                              <span v-if="!mostrarSkeleton" class="input-group-text">R$</span>
+                              <input type="text" @input="aplicaMascaraDinheiroPrecoImovel"
+                                @blur="aplicaMascaraDinheiroPrecoImovel" required v-if="!mostrarSkeleton"
+                                class="form-control" v-model="precoImovel" placeholder="R$ 0,00" />
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar preço no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="precoNoSite"
-                                id="btnradio1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.preco.mostra_preco"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="btnradio1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.mostra_preco === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="precoNoSite" id="btnradio1" autocomplete="off"
+                                value="Sim" v-model="currentImovel.preco.mostra_preco" />
+                              <label class="btn btn-outline-success" for="btnradio1" :class="{
+                                active:
+                                  currentImovel.preco.mostra_preco === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.preco.mostra_preco"
-                                name="precoNoSite"
-                                id="btnradio2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="btnradio2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.mostra_preco === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não"
+                                v-model="currentImovel.preco.mostra_preco" name="precoNoSite" id="btnradio2"
+                                autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="btnradio2" :class="{
+                                active:
+                                  currentImovel.preco.mostra_preco === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
-                        <div
-                          v-if="currentImovel.preco.mostra_preco == 'Não'"
-                          class="col-3"
-                        >
+                        <div v-if="currentImovel.preco.mostra_preco == 'Não'" class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar no lugar do preço:
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.preco.textoLugarPreco"
-                              placeholder="Texto exemplo: Consulte"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.preco.textoLugarPreco" placeholder="Texto exemplo: Consulte" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Preço do IPTU
                             </label>
-                            <input
-                              type="text"
-                              @input="aplicaMascaraDinheiroPrecoIptu"
-                              @blur="aplicaMascaraDinheiroPrecoIptu"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="precoIptu"
-                              placeholder="R$ 0,00"
-                            />
+                            <input type="text" @input="aplicaMascaraDinheiroPrecoIptu"
+                              @blur="aplicaMascaraDinheiroPrecoIptu" required v-if="!mostrarSkeleton"
+                              class="form-control" v-model="precoIptu" placeholder="R$ 0,00" />
                           </div>
                         </div>
 
-                        <div
-                          class="col-3"
-                          v-if="currentImovel.preco.tipo_negocio === 'Aluguel'"
-                        >
+                        <div class="col-3" v-if="currentImovel.preco.tipo_negocio === 'Aluguel'">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Período
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="periodo"
-                                id="periodo1"
-                                autocomplete="off"
-                                value="Anual"
-                                v-model="currentImovel.preco.periodo"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="periodo1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.periodo === 'Anual',
-                                }"
-                                >Anual</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="periodo" id="periodo1" autocomplete="off"
+                                value="Anual" v-model="currentImovel.preco.periodo" />
+                              <label class="btn btn-outline-success" for="periodo1" :class="{
+                                active:
+                                  currentImovel.preco.periodo === 'Anual',
+                              }">Anual</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Mensal"
-                                v-model="currentImovel.preco.periodo"
-                                name="periodo"
-                                id="periodo2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="periodo2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.periodo === 'Mensal',
-                                }"
-                                >Mensal</label
-                              >
+                              <input type="radio" class="btn-check" value="Mensal" v-model="currentImovel.preco.periodo"
+                                name="periodo" id="periodo2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="periodo2" :class="{
+                                active:
+                                  currentImovel.preco.periodo === 'Mensal',
+                              }">Mensal</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Preço Condomínio
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="precoCondominio"
-                              @input="aplicaMascaraDinheiroPrecoCondominio"
-                              @blur="aplicaMascaraDinheiroPrecoCondominio"
-                              placeholder="R$ 0,00"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="precoCondominio" @input="aplicaMascaraDinheiroPrecoCondominio"
+                              @blur="aplicaMascaraDinheiroPrecoCondominio" placeholder="R$ 0,00" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Está financiado?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="estaFinanciado"
-                                id="estaFinanciado1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.preco.financiado"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="estaFinanciado1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.financiado === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="estaFinanciado" id="estaFinanciado1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.preco.financiado" />
+                              <label class="btn btn-outline-success" for="estaFinanciado1" :class="{
+                                active:
+                                  currentImovel.preco.financiado === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.preco.financiado"
-                                name="estaFinanciado"
-                                id="estaFinanciado2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="estaFinanciado2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.financiado === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.preco.financiado"
+                                name="estaFinanciado" id="estaFinanciado2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="estaFinanciado2" :class="{
+                                active:
+                                  currentImovel.preco.financiado === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Aceita financiamento?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="aceitaFinanciamento"
-                                id="aceitaFinanciamento1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
-                                  currentImovel.preco.aceita_financiamento
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="aceitaFinanciamento1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.aceita_financiamento ===
-                                    'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="aceitaFinanciamento" id="aceitaFinanciamento1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.preco.aceita_financiamento
+                                  " />
+                              <label class="btn btn-outline-success" for="aceitaFinanciamento1" :class="{
+                                active:
+                                  currentImovel.preco.aceita_financiamento ===
+                                  'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
-                                  currentImovel.preco.aceita_financiamento
-                                "
-                                name="aceitaFinanciamento"
-                                id="aceitaFinanciamento2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="aceitaFinanciamento2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.aceita_financiamento ===
-                                    'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.preco.aceita_financiamento
+                                " name="aceitaFinanciamento" id="aceitaFinanciamento2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="aceitaFinanciamento2" :class="{
+                                active:
+                                  currentImovel.preco.aceita_financiamento ===
+                                  'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Minha Casa Minha Vida?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mCasaMVida"
-                                id="mCasaMVida1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
-                                  currentImovel.preco.minhacasa_minhavida
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mCasaMVida1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.minhacasa_minhavida ===
-                                    'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mCasaMVida" id="mCasaMVida1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.preco.minhacasa_minhavida
+                                  " />
+                              <label class="btn btn-outline-success" for="mCasaMVida1" :class="{
+                                active:
+                                  currentImovel.preco.minhacasa_minhavida ===
+                                  'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
-                                  currentImovel.preco.minhacasa_minhavida
-                                "
-                                name="mCasaMVida"
-                                id="mCasaMVida2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mCasaMVida2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.minhacasa_minhavida ===
-                                    'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.preco.minhacasa_minhavida
+                                " name="mCasaMVida" id="mCasaMVida2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mCasaMVida2" :class="{
+                                active:
+                                  currentImovel.preco.minhacasa_minhavida ===
+                                  'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Total mensal em taxas (se houver)
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="taxasTotal"
-                              placeholder="R$ 0,00"
-                              @input="aplicaMascaraDinheiroTotalTaxas"
-                              @blur="aplicaMascaraDinheiroTotalTaxas"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="taxasTotal" placeholder="R$ 0,00" @input="aplicaMascaraDinheiroTotalTaxas"
+                              @blur="aplicaMascaraDinheiroTotalTaxas" />
                           </div>
                         </div>
 
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Descrição das Taxas
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.preco.descricao_taxas"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.preco.descricao_taxas" placeholder="Digite aqui..." />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Aceita permuta?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              v-if="!mostrarSkeleton"
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="aceitaPermuta"
-                                id="aceitaPermuta1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="currentImovel.preco.aceita_permuta"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="aceitaPermuta1"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.aceita_permuta ===
-                                    'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div v-if="!mostrarSkeleton" class="btn-group" role="group"
+                              aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="aceitaPermuta" id="aceitaPermuta1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.preco.aceita_permuta" />
+                              <label class="btn btn-outline-success" for="aceitaPermuta1" :class="{
+                                active:
+                                  currentImovel.preco.aceita_permuta ===
+                                  'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="currentImovel.preco.aceita_permuta"
-                                name="aceitaPermuta"
-                                id="aceitaPermuta2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="aceitaPermuta2"
-                                :class="{
-                                  active:
-                                    currentImovel.preco.aceita_permuta ===
-                                    'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não"
+                                v-model="currentImovel.preco.aceita_permuta" name="aceitaPermuta" id="aceitaPermuta2"
+                                autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="aceitaPermuta2" :class="{
+                                active:
+                                  currentImovel.preco.aceita_permuta ===
+                                  'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-9">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Descrição das Permutas
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.preco.descricao_permuta"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.preco.descricao_permuta" placeholder="Digite aqui..." />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="caracteristica-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="caracteristica-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="caracteristica-tab-pane" role="tabpanel"
+                    aria-labelledby="caracteristica-tab" tabindex="0">
                     <div>
                       <div class="row mt-3">
+                        <!-- Características do Imóvel Atual -->
                         <div class="col-md-6">
-                          <div
-                            class="form-check"
-                            v-for="caracteristica in currentImovel.caracteristicas"
-                            :key="caracteristica.id_caracteristica"
-                          >
-                            <input
-                              v-if="!mostrarSkeleton"
-                              class="form-check-input"
-                              v-model="
-                                currentImovel.caracteristicas[
-                                  caracteristica.id_caracteristica
-                                ]
-                              "
-                              type="checkbox"
-                              :id="
-                                'flexCheck' + caracteristica.id_caracteristica
-                              "
-                            />
-                            <label
-                              v-if="!mostrarSkeleton"
-                              class="form-check-label"
-                              :for="
-                                'flexCheck' + caracteristica.id_caracteristica
-                              "
-                            >
+                          <div class="form-check" v-for="caracteristica in currentImovelCaracteristicas"
+                            :key="caracteristica.id_caracteristica">
+                            <input v-if="!mostrarSkeleton" class="form-check-input" type="checkbox"
+                              :id="'flexCheck' + caracteristica.id_caracteristica" checked
+                              @change="removeCaracteristica(caracteristica)" />
+                            <label v-if="!mostrarSkeleton" class="form-check-label"
+                              :for="'flexCheck' + caracteristica.id_caracteristica">
+                              <!-- {{ console.log(caracteristica) }} -->
                               {{
                                 caracteristica.detalhesCaracteristica == null
-                                  ? ""
-                                  : caracteristica.detalhesCaracteristica
-                                      .nome_caracteristica
+                                  ? caracteristica.nome_caracteristica == null ? "" : caracteristica.nome_caracteristica
+                                  : caracteristica.detalhesCaracteristica.nome_caracteristica
                               }}
                             </label>
 
-                            <a
-                              style="margin-left: 2%"
-                              href="#"
-                              @click="
-                                handleDeleteCaracacteristicas(
-                                  caracteristica.id_caracteristica
-                                )
-                              "
-                              ><small
-                                ><i class="text-danger fa fa-trash"></i></small
-                            ></a>
+                            <a style="margin-left: 2%" href="#" @click.prevent="removeCaracteristica(caracteristica)">
+                              <small>
+                                <i class="text-danger fa fa-trash"></i>
+                              </small>
+                            </a>
                           </div>
                         </div>
 
-                        <!-- dando erro aqui -->
+                        <!-- Características Gerais -->
                         <div class="col-md-6">
-                          <div
-                            class="form-check"
-                            v-for="item in listcaracteristicas"
-                            :key="item.id_caracteristica"
-                          >
-                            <input
-                              v-if="!mostrarSkeleton"
-                              class="form-check-input"
-                              v-model="
-                                caracteristicaAllImovel[item.id_caracteristica]
-                              "
-                              type="checkbox"
-                              :id="'flexCheck' + item.id_caracteristica"
-                            />
-                            <label
-                              v-if="!mostrarSkeleton"
-                              class="form-check-label"
-                              :for="'flexCheck' + item.id_caracteristica"
-                            >
+                          <div class="form-check" v-for="item in filteredListCaracteristicas"
+                            :key="item.id_caracteristica">
+                            <input v-if="!mostrarSkeleton" class="form-check-input" type="checkbox"
+                              :id="'flexCheck' + item.id_caracteristica" @change="addCaracteristica(item)" />
+                            <label v-if="!mostrarSkeleton" class="form-check-label"
+                              :for="'flexCheck' + item.id_caracteristica">
                               {{ item.nome_caracteristica }}
                             </label>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="localizacao-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="localizacao-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="localizacao-tab-pane" role="tabpanel" aria-labelledby="localizacao-tab"
+                    tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               CEP
                             </label>
                             <div class="input-group">
-                              <input
-                                type="text"
-                                @input="aplicaMascaraCEP"
-                                class="form-control"
-                                placeholder="00000-00"
-                                v-model="buscarCEP"
-                                required
-                                v-if="!mostrarSkeleton"
-                                aria-label="Example text with button addon"
-                                aria-describedby="button-addon1"
-                              />
+                              <input type="text" @input="aplicaMascaraCEP" class="form-control" placeholder="00000-00"
+                                v-model="buscarCEP" required v-if="!mostrarSkeleton"
+                                aria-label="Example text with button addon" aria-describedby="button-addon1" />
                             </div>
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >País
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">País
                             </label>
 
-                            <input
-                              type="text"
-                              placeholder="Brasil"
-                              required
-                              v-if="!mostrarSkeleton"
-                              disabled
-                              class="form-control"
-                              v-model="selectPais"
-                            />
+                            <input type="text" placeholder="Brasil" required v-if="!mostrarSkeleton" disabled
+                              class="form-control" v-model="selectPais" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Estado
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Estado
                             </label>
 
-                            <input
-                              type="text"
-                              placeholder="SP"
-                              required
-                              v-if="!mostrarSkeleton"
-                              disabled
-                              class="form-control"
-                              v-model="selectEstado"
-                            />
+                            <input type="text" placeholder="SP" required v-if="!mostrarSkeleton" disabled
+                              class="form-control" v-model="selectEstado" />
                           </div>
                         </div>
 
                         <div class="col-3">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Cidade
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Cidade
                             </label>
 
-                            <input
-                              type="text"
-                              placeholder="Ex.: Baurú"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              disabled
-                              v-model="selectCidade"
-                            />
+                            <input type="text" placeholder="Ex.: Baurú" required v-if="!mostrarSkeleton"
+                              class="form-control" disabled v-model="selectCidade" />
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Bairro
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Bairro
                             </label>
 
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="selectBairro"
-                              disabled
-                              placeholder="Ex.: Jardim Olímpia"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="selectBairro" disabled placeholder="Ex.: Jardim Olímpia" />
                           </div>
                         </div>
 
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Logradouro
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              disabled
-                              v-model="logradouro"
-                              placeholder="Ex.: Rua das flores"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control" disabled
+                              v-model="logradouro" placeholder="Ex.: Rua das flores" />
                           </div>
                         </div>
                         <div class="col-2">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Número
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.localizacao.numero"
-                              placeholder="00"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.localizacao.numero" placeholder="00" />
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Complemento
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
                               v-model="currentImovel.localizacao.complemento"
-                              placeholder="Digite aqui o complemento, se houver."
-                            />
+                              placeholder="Digite aqui o complemento, se houver." />
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Nº ou identificação da Unidade
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.localizacao.numero_unidade"
-                              placeholder="Insira aqui"
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.localizacao.numero_unidade" placeholder="Insira aqui" />
                           </div>
                         </div>
                         <div class="col-2">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Andar
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.localizacao.andar"
-                              placeholder="Insira aqui"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.localizacao.andar" placeholder="Insira aqui" />
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Unidades por andar
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="
-                                currentImovel.localizacao.unidade_por_andar
-                              "
-                              placeholder="Informe a quantidade..."
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control" v-model="currentImovel.localizacao.unidade_por_andar
+                              " placeholder="Informe a quantidade..." />
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Total de andares
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.localizacao.total_andar"
-                              placeholder="Insira o total"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.localizacao.total_andar" placeholder="Insira o total" />
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Total de torres
                             </label>
-                            <input
-                              type="number"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.localizacao.total_torres"
-                              placeholder="Se houver, insira aqui"
-                            />
+                            <input type="number" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.localizacao.total_torres" placeholder="Se houver, insira aqui" />
                           </div>
                         </div>
 
@@ -3672,648 +1862,282 @@
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar andar do apartamento
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarAndar"
-                                id="mostrarAndar1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_andar_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarAndar1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_andar_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarAndar" id="mostrarAndar1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao.mostrar_andar_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarAndar1" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_andar_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_andar_site
-                                "
-                                name="mostrarAndar"
-                                id="mostrarAndar2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarAndar2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_andar_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao.mostrar_andar_site
+                                " name="mostrarAndar" id="mostrarAndar2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarAndar2" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_andar_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar o número da unidade
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarNUnidade"
-                                id="mostrarNUnidade1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarNUnidade" id="mostrarNUnidade1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao
+                                  .mostrar_numero_unidade_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarNUnidade1" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_numero_unidade_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarNUnidade1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_numero_unidade_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                                    .mostrar_numero_unidade_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao
+                                .mostrar_numero_unidade_site
+                                " name="mostrarNUnidade" id="mostrarNUnidade2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarNUnidade2" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_numero_unidade_site
-                                "
-                                name="mostrarNUnidade"
-                                id="mostrarNUnidade2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarNUnidade2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_numero_unidade_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                                    .mostrar_numero_unidade_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar Logradouro no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarLogradouro"
-                                id="mostrarLogradouro1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarLogradouro" id="mostrarLogradouro1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao
+                                  .mostrar_logradouro_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarLogradouro1" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_logradouro_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarLogradouro1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_logradouro_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                                    .mostrar_logradouro_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao
+                                .mostrar_logradouro_site
+                                " name="mostrarLogradouro" id="mostrarLogradouro2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarLogradouro2" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_logradouro_site
-                                "
-                                name="mostrarLogradouro"
-                                id="mostrarLogradouro2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarLogradouro2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_logradouro_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                                    .mostrar_logradouro_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar Bairro no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarBairro"
-                                id="mostrarBairro1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_bairro_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarBairro1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_bairro_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarBairro" id="mostrarBairro1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao.mostrar_bairro_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarBairro1" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_bairro_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_bairro_site
-                                "
-                                name="mostrarBairro"
-                                id="mostrarBairro2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarBairro2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_bairro_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao.mostrar_bairro_site
+                                " name="mostrarBairro" id="mostrarBairro2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarBairro2" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_bairro_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar complemento no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarComplemento"
-                                id="mostrarComplemento1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarComplemento" id="mostrarComplemento1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao
+                                  .mostrar_complemento_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarComplemento1" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_complemento_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarComplemento1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_complemento_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                                    .mostrar_complemento_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao
+                                .mostrar_complemento_site
+                                " name="mostrarComplemento" id="mostrarComplemento2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarComplemento2" :class="{
+                                active:
                                   currentImovel.localizacao
-                                    .mostrar_complemento_site
-                                "
-                                name="mostrarComplemento"
-                                id="mostrarComplemento2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarComplemento2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_complemento_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                                    .mostrar_complemento_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar número no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarNumero"
-                                id="mostrarNumero1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_numero_site
-                                "
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarNumero1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_numero_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarNumero" id="mostrarNumero1"
+                                autocomplete="off" value="Sim" v-model="currentImovel.localizacao.mostrar_numero_site
+                                  " />
+                              <label class="btn btn-outline-success" for="mostrarNumero1" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_numero_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="
-                                  currentImovel.localizacao.mostrar_numero_site
-                                "
-                                name="mostrarNumero"
-                                id="mostrarNumero2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarNumero2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_numero_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="currentImovel.localizacao.mostrar_numero_site
+                                " name="mostrarNumero" id="mostrarNumero2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarNumero2" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_numero_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Mostrar nome no site?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mostrarNCondo"
-                                id="mostrarNCondo1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="mostrarNCondo"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mostrarNCondo1"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_nome_condominio_site === 'Sim',
-                                }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mostrarNCondo" id="mostrarNCondo1"
+                                autocomplete="off" value="Sim" v-model="mostrarNCondo" />
+                              <label class="btn btn-outline-success" for="mostrarNCondo1" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_nome_condominio_site === 'Sim',
+                              }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="mostrarNCondo"
-                                name="mostrarNCondo"
-                                id="mostrarNCondo2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mostrarNCondo2"
-                                :class="{
-                                  active:
-                                    currentImovel.localizacao
-                                      .mostrar_nome_condominio_site === 'Não',
-                                }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="mostrarNCondo"
+                                name="mostrarNCondo" id="mostrarNCondo2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mostrarNCondo2" :class="{
+                                active:
+                                  currentImovel.localizacao
+                                    .mostrar_nome_condominio_site === 'Não',
+                              }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Localizar imóvel no mapa?
                             </label>
 
                             <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                            <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic radio toggle button group"
-                            >
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                name="mapaCondo"
-                                id="mapaCondo1"
-                                autocomplete="off"
-                                value="Sim"
-                                v-model="mapaCondo"
-                              />
-                              <label
-                                class="btn btn-outline-success"
-                                for="mapaCondo1"
-                                :class="{ active: mapaCondo === 'Sim' }"
-                                >Sim</label
-                              >
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                              <input type="radio" class="btn-check" name="mapaCondo" id="mapaCondo1" autocomplete="off"
+                                value="Sim" v-model="mapaCondo" />
+                              <label class="btn btn-outline-success" for="mapaCondo1"
+                                :class="{ active: mapaCondo === 'Sim' }">Sim</label>
 
-                              <input
-                                type="radio"
-                                class="btn-check"
-                                value="Não"
-                                v-model="mapaCondo"
-                                name="mapaCondo"
-                                id="mapaCondo2"
-                                autocomplete="off"
-                              />
-                              <label
-                                class="btn btn-outline-danger"
-                                for="mapaCondo2"
-                                :class="{ active: mapaCondo === 'Não' }"
-                                >Não</label
-                              >
+                              <input type="radio" class="btn-check" value="Não" v-model="mapaCondo" name="mapaCondo"
+                                id="mapaCondo2" autocomplete="off" />
+                              <label class="btn btn-outline-danger" for="mapaCondo2"
+                                :class="{ active: mapaCondo === 'Não' }">Não</label>
                             </div>
                           </div>
                         </div>
 
                         <hr />
 
-                        <div
-                          class="col-12"
-                          style="position: relative"
-                          v-if="mostrarMapa"
-                        >
-                          <div
-                            id="map"
-                            ref="mapElement"
-                            style="
+                        <div class="col-12" style="position: relative" v-if="mostrarMapa">
+                          <div id="map" ref="mapElement" style="
                               height: 350px;
                               width: 100%;
                               border: 0;
                               position: sticky;
                               bottom: 0;
-                            "
-                          ></div>
+                            "></div>
 
                           <div class="row">
                             <div class="col-4">
                               <div class="mb-3">
-                                <div
-                                  v-if="mostrarSkeleton"
-                                  class="skeleton-label"
-                                ></div>
-                                <div
-                                  v-if="mostrarSkeleton"
-                                  class="skeleton-input"
-                                ></div>
-                                <label
-                                  v-if="!mostrarSkeleton"
-                                  for="exampleInputEmail1"
-                                  class="form-label"
-                                >
+                                <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                                <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                                <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                                   Mostrar mapa no site?
                                 </label>
 
                                 <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                                <div
-                                  class="btn-group"
-                                  role="group"
-                                  aria-label="Basic radio toggle button group"
-                                >
-                                  <input
-                                    type="radio"
-                                    class="btn-check"
-                                    name="selectMapSite"
-                                    id="selectMapSite1"
-                                    autocomplete="off"
-                                    value="Sim"
-                                    v-model="selectMapSite"
-                                  />
-                                  <label
-                                    class="btn btn-outline-success"
-                                    for="selectMapSite1"
-                                    :class="{
-                                      active:
-                                        currentImovel.localizacao
-                                          .mostrar_mapa_site === 'Sim',
-                                    }"
-                                    >Sim</label
-                                  >
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                  <input type="radio" class="btn-check" name="selectMapSite" id="selectMapSite1"
+                                    autocomplete="off" value="Sim" v-model="selectMapSite" />
+                                  <label class="btn btn-outline-success" for="selectMapSite1" :class="{
+                                    active:
+                                      currentImovel.localizacao
+                                        .mostrar_mapa_site === 'Sim',
+                                  }">Sim</label>
 
-                                  <input
-                                    type="radio"
-                                    class="btn-check"
-                                    value="Não"
-                                    v-model="selectMapSite"
-                                    name="selectMapSite"
-                                    id="selectMapSite2"
-                                    autocomplete="off"
-                                  />
-                                  <label
-                                    class="btn btn-outline-danger"
-                                    for="selectMapSite2"
-                                    :class="{
-                                      active:
-                                        currentImovel.localizacao
-                                          .mostrar_mapa_site === 'Não',
-                                    }"
-                                    >Não</label
-                                  >
+                                  <input type="radio" class="btn-check" value="Não" v-model="selectMapSite"
+                                    name="selectMapSite" id="selectMapSite2" autocomplete="off" />
+                                  <label class="btn btn-outline-danger" for="selectMapSite2" :class="{
+                                    active:
+                                      currentImovel.localizacao
+                                        .mostrar_mapa_site === 'Não',
+                                  }">Não</label>
                                 </div>
                               </div>
                             </div>
@@ -4323,77 +2147,41 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="proximidades-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="proximidades-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="proximidades-tab-pane" role="tabpanel"
+                    aria-labelledby="proximidades-tab" tabindex="0">
                     <div>
-                      <div class="row">
+                      <div class="row mt-3">
+                        <!-- Proximidades do Imóvel Atual -->
                         <div class="col-md-6">
-                          <div
-                            class="form-check"
-                            v-for="proximidade in currentImovel.proximidades"
-                            :key="proximidade.id_proximidade"
-                          >
-                            <input
-                              v-if="!mostrarSkeleton"
-                              class="form-check-input"
-                              v-model="
-                                currentImovel.proximidades[
-                                  proximidade.id_proximidade
-                                ]
-                              "
-                              type="checkbox"
-                              :id="'flexCheck' + proximidade.id_proximidade"
-                            />
-                            <label
-                              v-if="!mostrarSkeleton"
-                              class="form-check-label"
-                              :for="'flexCheck' + proximidade.id_proximidade"
-                            >
+                          <div class="form-check" v-for="proximidade in currentImovelProximidades"
+                            :key="proximidade.id_proximidade">
+                            <input v-if="!mostrarSkeleton" class="form-check-input" type="checkbox"
+                              :id="'flexCheck' + proximidade.id_proximidade" checked
+                              @change="removeProximidade(proximidade)" />
+                            <label v-if="!mostrarSkeleton" class="form-check-label"
+                              :for="'flexCheck' + proximidade.id_proximidade">
                               {{
-                                proximidade.detalhesProximidade
-                                  ? proximidade.detalhesProximidade
-                                      .nome_proximidade
-                                  : ""
+                                proximidade.detalhesProximidade == null
+                                  ? proximidade.nome_proximidade == null ? "" : proximidade.nome_proximidade
+                                  : proximidade.detalhesProximidade.nome_proximidade
                               }}
                             </label>
-                            <a
-                              style="margin-left: 2%"
-                              href="#"
-                              @click="
-                                handleDeleteProximidades(
-                                  proximidade.id_proximidade
-                                )
-                              "
-                              ><small
-                                ><i class="text-danger fa fa-trash"></i></small
-                            ></a>
+
+                            <a style="margin-left: 2%" href="#" @click.prevent="removeProximidade(proximidade)">
+                              <small>
+                                <i class="text-danger fa fa-trash"></i>
+                              </small>
+                            </a>
                           </div>
                         </div>
+
+                        <!-- Proximidades Gerais -->
                         <div class="col-md-6">
-                          <div
-                            class="form-check"
-                            v-for="item in listProximidades"
-                            :key="item.id_proximidade"
-                          >
-                            <input
-                              v-if="!mostrarSkeleton"
-                              class="form-check-input"
-                              v-model="
-                                proximidadesAllImovel[item.id_proximidade]
-                              "
-                              type="checkbox"
-                              :id="'flexCheck' + item.id_proximidade"
-                            />
-                            <label
-                              v-if="!mostrarSkeleton"
-                              class="form-check-label"
-                              :for="'flexCheck' + item.id_proximidade"
-                            >
+                          <div class="form-check" v-for="item in filteredListProximidades" :key="item.id_proximidade">
+                            <input v-if="!mostrarSkeleton" class="form-check-input" type="checkbox"
+                              :id="'flexCheck' + item.id_proximidade" @change="addProximidade(item)" />
+                            <label v-if="!mostrarSkeleton" class="form-check-label"
+                              :for="'flexCheck' + item.id_proximidade">
                               {{ item.nome_proximidade }}
                             </label>
                           </div>
@@ -4402,203 +2190,100 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="descricao-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="decricao-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="descricao-tab-pane" role="tabpanel" aria-labelledby="decricao-tab"
+                    tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <div class="col-12">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Titulo da página de detalhamento do imóvel
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.descricao.titulo"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.descricao.titulo" placeholder="Digite aqui..." />
                           </div>
                         </div>
 
                         <div class="col-12">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Texto de apresentação do imóvel
                             </label>
 
-                            <textarea
-                              class="form-control"
-                              v-if="!mostrarSkeleton"
-                              v-model="currentImovel.descricao.apresentacao"
-                              style="height: 100px"
-                              placeholder="Digite aqui..."
-                            ></textarea>
+                            <textarea class="form-control" v-if="!mostrarSkeleton"
+                              v-model="currentImovel.descricao.apresentacao" style="height: 100px"
+                              placeholder="Digite aqui..."></textarea>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="complementos-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="complementos-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="complementos-tab-pane" role="tabpanel"
+                    aria-labelledby="complementos-tab" tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <div class="col-12">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Vídeo do Imóvel: Insira a URL do seu vídeo no
                               Youtube
-                              <button
-                                type="button"
-                                class="btn btn-danger ms-2"
-                                style="
+                              <button type="button" class="btn btn-danger ms-2" style="
                                   --bs-btn-padding-y: 0.25rem;
                                   --bs-btn-padding-x: 0.5rem;
                                   --bs-btn-font-size: 0.75rem;
-                                "
-                              >
+                                ">
                                 <i class="fa fa-trash me-2"></i> Remover Vídeo
                               </button>
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.complemento.link_youtube"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.complemento.link_youtube" placeholder="Digite aqui..." />
                           </div>
                         </div>
 
                         <div class="col-12">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Apresentação 360°: Insira a URL 360° do seu imóvel
-                              <button
-                                type="button"
-                                class="btn btn-danger ms-2"
-                                style="
+                              <button type="button" class="btn btn-danger ms-2" style="
                                   --bs-btn-padding-y: 0.25rem;
                                   --bs-btn-padding-x: 0.5rem;
                                   --bs-btn-font-size: 0.75rem;
-                                "
-                              >
+                                ">
                                 <i class="fa fa-trash me-2"></i> Remover 360°
                               </button>
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="
-                                currentImovel.complemento.link_apresentacao
-                              "
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="currentImovel.complemento.link_apresentacao
+                              " placeholder="Digite aqui..." />
                           </div>
                         </div>
 
                         <div class="col-12">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                            >
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                               Insira o link do Google Drive, Dropbox, Onedrive
                               ou outro
                             </label>
-                            <input
-                              type="text"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="currentImovel.complemento.link_drive"
-                              placeholder="Digite aqui..."
-                            />
+                            <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="currentImovel.complemento.link_drive" placeholder="Digite aqui..." />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="images-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="images-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="images-tab-pane" role="tabpanel" aria-labelledby="images-tab"
+                    tabindex="0">
                     <div>
                       <div class="row mt-4">
                         <li class="text-danger">
@@ -4610,8 +2295,7 @@
                         <li class="text-danger">
                           <small>
                             Tamanho máx. permitido é de até 3 mb por
-                            imagem.</small
-                          >
+                            imagem.</small>
                         </li>
                         <li class="text-danger">
                           <small> A resolução ideal de w: 1342 h:768.</small>
@@ -4620,32 +2304,17 @@
                         <div class="row g-3">
                           <div class="col-12">
                             <div class="row row-cols-1 row-cols-md-5 g-4">
-                              <div
-                                class="col"
-                                v-for="(image, index) in images"
-                                :key="index"
-                              >
+                              <div class="col" v-for="(image, index) in images" :key="index">
                                 <div class="card bg-transparent border-0">
-                                  <div
-                                    class="preview-photo-prato area-photo-prato"
-                                  >
-                                    <img
-                                      :src="getImageUrl(image.foto)"
-                                      class="img-photo-prato"
-                                    />
+                                  <div class="preview-photo-prato area-photo-prato">
+                                    <img :src="getImageUrl(image.foto)" class="img-photo-prato" />
                                     <!-- {{ console.log(image.foto) }} -->
                                     <!-- Barra de Progresso -->
                                     <div class="progress">
-                                      <div
-                                        class="progress-bar"
-                                        :style="{ width: image.progress + '%' }"
-                                      ></div>
+                                      <div class="progress-bar" :style="{ width: image.progress + '%' }"></div>
                                     </div>
 
-                                    <button
-                                      @click="removerImagem(index)"
-                                      class="btn btn-danger btn-remover"
-                                    >
+                                    <button @click="removerImagem(index)" class="btn btn-danger btn-remover">
                                       <i class="fa fa-minus"></i>
                                     </button>
                                   </div>
@@ -4655,25 +2324,13 @@
                               <!-- Botão para adicionar mais imagens -->
                               <div class="col" v-if="images.length < maxImages">
                                 <div class="card bg-transparent border-0">
-                                  <div
-                                    class="preview-photo-prato area-photo-prato"
-                                  >
-                                    <label
-                                      for="inputGroupFile03"
-                                      class="btn btn-primary btn-photo my-4 rounded-2 py-2"
-                                    >
+                                  <div class="preview-photo-prato area-photo-prato">
+                                    <label for="inputGroupFile03" class="btn btn-primary btn-photo my-4 rounded-2 py-2">
                                       <i class="fa fa-plus"></i>
                                     </label>
-                                    <input
-                                      hidden
-                                      type="file"
-                                      class="form-control"
-                                      id="inputGroupFile03"
-                                      @change="previewImage"
-                                      aria-describedby="inputGroupFileAddon03"
-                                      aria-label="Upload"
-                                      multiple
-                                    />
+                                    <input hidden type="file" class="form-control" id="inputGroupFile03"
+                                      @change="previewImage" aria-describedby="inputGroupFileAddon03"
+                                      aria-label="Upload" multiple />
 
                                     <div v-if="success">
                                       <i class="fa fa-check"></i>
@@ -4688,84 +2345,39 @@
                     </div>
                   </div>
 
-                  <div
-                    class="tab-pane fade"
-                    id="publicar-tab-pane"
-                    role="tabpanel"
-                    aria-labelledby="publicar-tab"
-                    tabindex="0"
-                  >
+                  <div class="tab-pane fade" id="publicar-tab-pane" role="tabpanel" aria-labelledby="publicar-tab"
+                    tabindex="0">
                     <div class="row mt-4">
                       <div class="col-3">
                         <div class="mb-3">
-                          <div
-                            v-if="mostrarSkeleton"
-                            class="skeleton-label"
-                          ></div>
-                          <div
-                            v-if="mostrarSkeleton"
-                            class="skeleton-input"
-                          ></div>
-                          <label
-                            v-if="!mostrarSkeleton"
-                            for="exampleInputEmail1"
-                            class="form-label"
-                          >
+                          <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                          <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                          <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                             Mostrar imóvel no site?
                             <p>
-                              <small
-                                >Determine se o imóvel será publicado em seu
-                                site.</small
-                              >
+                              <small>Determine se o imóvel será publicado em seu
+                                site.</small>
                             </p>
                           </label>
 
                           <!-- O CSS DESSE BUTTON ESTÁ NO STYLE.CSS -->
 
-                          <div
-                            class="btn-group"
-                            role="group"
-                            aria-label="Basic radio toggle button group"
-                          >
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="selectImovelSite"
-                              id="selectImovelSite1"
-                              autocomplete="off"
-                              value="Sim"
-                              v-model="selectImovelSite"
-                            />
-                            <label
-                              class="btn btn-outline-success"
-                              for="selectImovelSite1"
-                              :class="{
-                                active:
-                                  currentImovel.publicacao
-                                    .mostrar_imovel_publi === 'Sim',
-                              }"
-                              >Sim</label
-                            >
+                          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="selectImovelSite" id="selectImovelSite1"
+                              autocomplete="off" value="Sim" v-model="selectImovelSite" />
+                            <label class="btn btn-outline-success" for="selectImovelSite1" :class="{
+                              active:
+                                currentImovel.publicacao
+                                  .mostrar_imovel_publi === 'Sim',
+                            }">Sim</label>
 
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              value="Não"
-                              v-model="selectImovelSite"
-                              name="selectImovelSite"
-                              id="selectImovelSite2"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-danger"
-                              for="selectImovelSite2"
-                              :class="{
-                                active:
-                                  currentImovel.publicacao
-                                    .mostrar_imovel_publi === 'Não',
-                              }"
-                              >Não</label
-                            >
+                            <input type="radio" class="btn-check" value="Não" v-model="selectImovelSite"
+                              name="selectImovelSite" id="selectImovelSite2" autocomplete="off" />
+                            <label class="btn btn-outline-danger" for="selectImovelSite2" :class="{
+                              active:
+                                currentImovel.publicacao
+                                  .mostrar_imovel_publi === 'Não',
+                            }">Não</label>
                           </div>
                         </div>
                       </div>
@@ -4773,70 +2385,32 @@
                       <div class="col-6">
                         <label class="form-label mb-3" for="btnradio2">
                           Tarja do imóvel para o site <br />
-                          <small
-                            >Escolha a cor e a frase que aparecerão na miniatura
+                          <small>Escolha a cor e a frase que aparecerão na miniatura
                             do imóvel.
                           </small>
                         </label>
                         <div class="row">
                           <div class="col-8">
                             <div class="mb-3">
-                              <div
-                                v-if="mostrarSkeleton"
-                                class="skeleton-label"
-                              ></div>
-                              <div
-                                v-if="mostrarSkeleton"
-                                class="skeleton-input"
-                              ></div>
-                              <label
-                                v-if="!mostrarSkeleton"
-                                for="exampleInputEmail1"
-                                class="form-label"
-                              >
+                              <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                              <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                              <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                                 Texto da tarja
                               </label>
-                              <input
-                                type="text"
-                                required
-                                v-if="!mostrarSkeleton"
-                                class="form-control"
-                                v-model="
-                                  currentImovel.publicacao
-                                    .tarja_imovel_site_publi
-                                "
-                                placeholder="Em construção"
-                              />
+                              <input type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="currentImovel.publicacao
+                                .tarja_imovel_site_publi
+                                " placeholder="Em construção" />
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="mb-3">
-                              <div
-                                v-if="mostrarSkeleton"
-                                class="skeleton-label"
-                              ></div>
-                              <div
-                                v-if="mostrarSkeleton"
-                                class="skeleton-input"
-                              ></div>
-                              <label
-                                v-if="!mostrarSkeleton"
-                                for="exampleInputEmail1"
-                                class="form-label"
-                              >
+                              <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                              <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                              <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">
                                 Cor da tarja
                               </label>
-                              <input
-                                type="color"
-                                v-if="!mostrarSkeleton"
-                                v-model="
-                                  currentImovel.publicacao.cor_tarja_publi
-                                "
-                                class="form-control"
-                                id="exampleColorInput"
-                                value="#563d7c"
-                                title="Escolha a cor"
-                              />
+                              <input type="color" v-if="!mostrarSkeleton" v-model="currentImovel.publicacao.cor_tarja_publi
+                                " class="form-control" id="exampleColorInput" value="#563d7c" title="Escolha a cor" />
                             </div>
                           </div>
                         </div>
@@ -4846,45 +2420,24 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  @click="closeModal()"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal()">
                   Fechar
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-warning"
-                  :disabled="autenticando"
-                  @click="handleFinishEdit(item.id_imovel)"
-                >
-                  Salvar alterações &nbsp;<i
-                    class="fa fa-arrow-right"
-                    aria-hidden="true"
-                  ></i>
+                <button type="button" class="btn btn-warning" :disabled="autenticando"
+                  @click="handleFinishEdit(item.id_imovel)">
+                  Salvar alterações &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
-        <button
-          class="btn btn-dark btn-sm"
-          @click="previousPageImovel()"
-          :disabled="currentPageImovel <= 1"
-        >
+        <button class="btn btn-dark btn-sm" @click="previousPageImovel()" :disabled="currentPageImovel <= 1">
           Anterior
         </button>
-        <button
-          class="btn btn-dark btn-sm"
-          style="margin-right: 3% !important"
-          @click="nextPageImovel()"
-          :disabled="currentPageImovel >= totalPagesImoveis"
-        >
+        <button class="btn btn-dark btn-sm" style="margin-right: 3% !important" @click="nextPageImovel()"
+          :disabled="currentPageImovel >= totalPagesImoveis">
           Proximo
         </button>
       </div>
@@ -4953,6 +2506,11 @@ export default {
       selectEstado: "",
       selectCidade: "",
       selectBairro: "",
+
+      listcaracteristicas: [],
+      currentImovelCaracteristicas: [],
+      currentImovelProximidades: [],
+      listProximidades: [],
     };
   },
   mounted() {
@@ -4968,6 +2526,8 @@ export default {
     this.id_user = id_user;
     // console.log(decode);
     this.fetchAllImoveis();
+    this.fetchAllCaracteristicas()
+    this.fetchAllProximidades()
   },
 
   watch: {
@@ -5000,6 +2560,49 @@ export default {
   },
 
   methods: {
+    addProximidade(item) {
+      // Adiciona a proximidade ao array currentImovelProximidades e remove da lista geral
+      this.currentImovelProximidades.push(item);
+    },
+    removeProximidade(proximidade) {
+      // Remove a proximidade do array currentImovelProximidades e a coloca de volta na lista geral
+      this.currentImovelProximidades = this.currentImovelProximidades.filter(
+        (item) =>
+          item.id_proximidade !== (proximidade.id_proximidade || proximidade.id_proximidades) &&
+          item.id_proximidades !== (proximidade.id_proximidade || proximidade.id_proximidades)
+      );
+
+      // Opcionalmente, adicione a proximidade de volta à lista geral, se necessário
+      this.listProximidades.push(proximidade);
+    },
+
+    addCaracteristica(item) {
+      // Adiciona a característica ao array currentImovelCaracteristicas e remove da lista geral
+      this.currentImovelCaracteristicas.push(item);
+    },
+    removeCaracteristica(caracteristica) {
+      // Remove a característica do array currentImovelCaracteristicas e a coloca de volta na lista geral
+      this.currentImovelCaracteristicas = this.currentImovelCaracteristicas.filter(
+        (item) => item.id_caracteristica !== caracteristica.id_caracteristica
+      );
+    },
+    fetchAllCaracteristicas() {
+      api.listcaracteristica().then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          this.listcaracteristicas = res.data.response
+        }
+      })
+    },
+    fetchAllProximidades() {
+      api.listproximidade().then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          this.listProximidades = res.data.response
+        }
+      })
+    },
+
     initMap() {
       this.map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: this.latitude, lng: this.longitude },
@@ -5187,6 +2790,8 @@ export default {
         this.currentImovel = JSON.parse(
           JSON.stringify(this.allImoveis[this.originalImovelIndex])
         );
+        this.currentImovelCaracteristicas = this.currentImovel.caracteristicas
+        this.currentImovelProximidades = this.currentImovel.proximidades
         this.$nextTick(() => {
           const modalElement = document.getElementById(
             `modalEditImovel${this.currentImovel.id_imovel}`
@@ -5478,6 +3083,18 @@ export default {
 
       return combinedIDss;
     },
+    getSelectedCaracteristicasIDs() {
+      console.log(this.currentImovelCaracteristicas);
+      return this.currentImovelCaracteristicas.map(caracteristica => caracteristica.id_caracteristica);
+    },
+    getSelectedProximidadesIDs() {
+      const proximidadeIDs = this.currentImovelProximidades.map(proximidade => {
+        return proximidade.id_proximidade || proximidade.id_proximidades;
+      });
+
+      console.log(proximidadeIDs, this.currentImovelProximidades);
+      return proximidadeIDs;
+    },
     getSelectedMinhasProximidadesIDs() {
       return Object.keys(this.currentImovel.proximidades)
         .filter((id) => this.currentImovel.proximidades[id])
@@ -5609,8 +3226,8 @@ export default {
       let url360 = this.currentImovel.complemento.link_apresentacao;
       let link_drive = this.currentImovel.complemento.link_drive;
 
-      let caracteristicas = this.getCombinedSelectedCaracteristicasIDs();
-      let proximidades = this.getCombinedSelectedProximidadesIDs();
+      let caracteristicas = this.getSelectedCaracteristicasIDs();
+      let proximidades = this.getSelectedProximidadesIDs();
 
       let selectImovelSite = this.currentImovel.publicacao.mostrar_imovel_publi;
       let textoTarja = this.currentImovel.publicacao.tarja_imovel_site_publi;
@@ -5772,8 +3389,9 @@ export default {
             this.msgSucesso = true;
             setTimeout(() => {
               this.msgSucesso = false;
-              window.location.href = "/dashboard";
-              this.$router.push({ name: "dashboard" });
+              this.closeModal()
+              // window.location.href = "/dashboard";
+              // this.$router.push({ name: "dashboard" });
             }, 3000);
           } else {
             this.msgError = true;
@@ -5814,6 +3432,26 @@ export default {
             .toLowerCase()
             .includes(this.searchImovel.toLowerCase());
         }).length / this.perPageImovel
+      );
+    },
+    filteredListCaracteristicas() {
+      // Filtra para mostrar apenas as características que não estão no imóvel atual
+      return this.listcaracteristicas.filter(
+        (item) =>
+          !this.currentImovelCaracteristicas.some(
+            (caracteristica) =>
+              caracteristica.id_caracteristica === item.id_caracteristica
+          )
+      );
+    },
+    filteredListProximidades() {
+      // Filtra para mostrar apenas as proximidades que não estão no imóvel atual
+      return this.listProximidades.filter(
+        (item) =>
+          !this.currentImovelProximidades.some(
+            (proximidade) =>
+              proximidade.id_proximidade === item.id_proximidade
+          )
       );
     },
   },

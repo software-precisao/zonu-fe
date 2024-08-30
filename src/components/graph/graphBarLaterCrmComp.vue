@@ -7,6 +7,12 @@
 <script>
 export default {
   name: "graphBarLaterCrmComp.vue",
+  props: {
+    idFunil: {
+      type: Object,
+      required: true
+    }
+  },
   mounted() {
     this.renderChart();
   },
@@ -20,10 +26,10 @@ export default {
         type: "bar", // Tipo de gráfico de barras
         data: {
           labels: [
-            "Contato",
-            "Atendimento",
-            "Procurando Imóvel",
-            "Efetuar ligação",
+            "Trote",
+            "Apenas descartar",
+            "Comprou de outro corretor",
+            "Não se interessou pelo imóvel",
           ],
           datasets: [
             {

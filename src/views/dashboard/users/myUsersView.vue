@@ -132,7 +132,7 @@ export default {
     fetcUsuarios() {
       console.log(this.perfil.id_user);
       apiAuth.getMyImobiliaria(this.perfil.id_user).then((res) => {
-        let usuarios = res.data;
+        let usuarios = res.data.subUsuarios
         console.log("aqui que esta o res ===> ", res);
         // Filtrar os usuários com id_nivel igual a 1
         const idsAdicionados = new Set();
@@ -141,10 +141,10 @@ export default {
         //     user.id_nivel === 6 &&
         //     index === self.findIndex((u) => u.id_user === user.id_user)
         // );
-
+        console.log(usuarios)
         let usuariosFiltrados = usuarios.filter((user) => {
-          if (user.id_nivel === 6 && !idsAdicionados.has(user.id_user)) {
-            idsAdicionados.add(user.id_user);
+          if (user.id_nivel === 6 && !idsAdicionados.has(user.id_perfil_user)) {
+            idsAdicionados.add(user.id_perfil_user);
             return true;
           }
           return false;
@@ -270,7 +270,7 @@ export default {
       );
 
       // console.log(permissionCheck);
-
+      console.log(nome, sobrenome, email, senha)
       if (!permissionCheck.allowed) {
         this.msgMaxUsers = permissionCheck.message;
         this.textoBotao = "Criar novo usuário";
@@ -289,8 +289,7 @@ export default {
             sobrenome,
             email,
             senha,
-            idUser,
-            idPlano
+            idUser
           )
           .then((res) => {
             console.log(res);
@@ -460,39 +459,22 @@ export default {
                 <div class="card-body">
                   <div class="container-fluid">
                     <div class="row">
-                      {{ console.log(listUsers) }}
-                      <div
-                        v-if="msgSuccess"
-                        class="alert alert-success mt-3"
-                        role="alert"
-                      >
+                      <!-- {{ console.log(listUsers) }} -->
+                      <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
                         <i class="fa fa-check"></i> Conta criada com sucesso!
-                        <span style="float: inline-end"
-                          ><i class="fa fa-qrcode"></i
-                        ></span>
+                        <span style="float: inline-end"><i class="fa fa-qrcode"></i></span>
                       </div>
-                      <div
-                        v-if="msgErrorNull"
-                        class="alert alert-danger mt-3"
-                        role="alert"
-                      >
+                      <div v-if="msgErrorNull" class="alert alert-danger mt-3" role="alert">
                         <i class="fa fa-ban"></i> Por favor, não deixe nenhum
                         campo vazio!
                       </div>
                       <div>
                         <div class="tab-content" id="myTabContent">
-                          <div
-                            class="tab-pane fade show active"
-                            id="home-tab-pane"
-                            role="tabpanel"
-                            aria-labelledby="home-tab"
-                            tabindex="0"
-                          >
+                          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                            aria-labelledby="home-tab" tabindex="0">
                             <div class="row mt-4">
                               <div v-if="iniciais" class="col-md-7">
-                                <div
-                                  class="avatar-null rounded me-1 mb-4"
-                                  style="
+                                <div class="avatar-null rounded me-1 mb-4" style="
                                     width: 128px;
                                     height: 128px;
                                     font-size: 40px;
@@ -502,81 +484,38 @@ export default {
                                     justify-content: center;
                                     text-align: center;
                                     padding-top: 30px;
-                                  "
-                                >
+                                  ">
                                   {{ iniciais }}
                                 </div>
                               </div>
 
-                              <label for="nome" class="mb-4"
-                                ><small
-                                  ><strong
-                                    ><i class="fa fa-user"></i> Dados sobre o
-                                    colaborador Zonu</strong
-                                  ></small
-                                ></label
-                              >
+                              <label for="nome" class="mb-4"><small><strong><i class="fa fa-user"></i> Dados sobre o
+                                    colaborador Zonu</strong></small></label>
 
                               <div class="form-group col-md-6">
-                                <label for="nome"
-                                  ><small><strong>Nome</strong></small></label
-                                >
-                                <input
-                                  type="text"
-                                  v-model="nome"
-                                  class="form-control mt-2"
-                                  id="nome"
-                                  placeholder="Digite o nome"
-                                />
+                                <label for="nome"><small><strong>Nome</strong></small></label>
+                                <input type="text" v-model="nome" class="form-control mt-2" id="nome"
+                                  placeholder="Digite o nome" />
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="nome"
-                                  ><small
-                                    ><strong>Sobrenome</strong></small
-                                  ></label
-                                >
-                                <input
-                                  type="text"
-                                  v-model="sobrenome"
-                                  class="form-control mt-2"
-                                  id="nome"
-                                  placeholder="Digite o sobrenome"
-                                />
+                                <label for="nome"><small><strong>Sobrenome</strong></small></label>
+                                <input type="text" v-model="sobrenome" class="form-control mt-2" id="nome"
+                                  placeholder="Digite o sobrenome" />
                               </div>
                               <div class="form-group col-md-12 mt-3">
-                                <label for="nome"
-                                  ><small><strong>E-mail</strong></small></label
-                                >
-                                <input
-                                  type="email"
-                                  v-model="email"
-                                  class="form-control mt-2"
-                                  id="nome"
-                                  placeholder="Insira um e-mail válido"
-                                />
+                                <label for="nome"><small><strong>E-mail</strong></small></label>
+                                <input type="email" v-model="email" class="form-control mt-2" id="nome"
+                                  placeholder="Insira um e-mail válido" />
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"
-                                  ><small><strong>Senha</strong></small></label
-                                >
-                                <input
-                                  type="password"
-                                  required
-                                  v-if="!mostrarSkeleton"
-                                  class="form-control"
-                                  v-model="senha"
-                                  :class="{
+                                <label for="nome"><small><strong>Senha</strong></small></label>
+                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
+                                  v-model="senha" :class="{
                                     'is-invalid':
                                       !senhaValida && senha.length > 0,
-                                  }"
-                                  @input="validarSenha"
-                                  placeholder="Digite sua senha"
-                                />
+                                  }" @input="validarSenha" placeholder="Digite sua senha" />
 
-                                <p
-                                  class="text-warning mt-2"
-                                  v-if="!senhaValida && senha.length > 0"
-                                >
+                                <p class="text-warning mt-2" v-if="!senhaValida && senha.length > 0">
                                   <small>
                                     <i class="fa fa-bell"></i> Sua senha deve
                                     ter no mínimo 8 caracteres, número e uma
@@ -585,32 +524,16 @@ export default {
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"
-                                  ><small
-                                    ><strong>Confirme a senha</strong></small
-                                  ></label
-                                >
+                                <label for="nome"><small><strong>Confirme a senha</strong></small></label>
 
-                                <input
-                                  type="password"
-                                  required
-                                  v-if="!mostrarSkeleton"
-                                  class="form-control"
-                                  v-model="confimSenha"
-                                  placeholder="Digite a senha novamente"
-                                />
+                                <input type="password" required v-if="!mostrarSkeleton" class="form-control"
+                                  v-model="confimSenha" placeholder="Digite a senha novamente" />
 
-                                <p
-                                  class="text-danger mt-2"
-                                  v-if="confimSenha && !passwordsMatch"
-                                >
+                                <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
                                   <i class="fa fa-ban"></i> As senhas não
                                   conferem!
                                 </p>
-                                <p
-                                  class="text-success mt-2"
-                                  v-if="confimSenha && passwordsMatch"
-                                >
+                                <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
                                   <i class="fa fa-check"></i> As senhas conferem
                                 </p>
                               </div>
@@ -738,30 +661,17 @@ export default {
                                 />
                               </div> -->
 
-                              <div
-                                class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end"
-                              >
-                                <button
-                                  :disabled="autenticando"
-                                  @click="handleSalvarUserZonu()"
-                                  class="btn btn-success"
-                                  type="button"
-                                >
+                              <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button :disabled="autenticando" @click="handleSalvarUserZonu()" class="btn btn-success"
+                                  type="button">
                                   {{ textoBotao }}
-                                  <span
-                                    v-if="autenticando"
-                                    class="spinner-border spinner-border-sm"
-                                    aria-hidden="true"
-                                  ></span>
-                                  <span
-                                    v-if="autenticando"
-                                    class="visually-hidden"
-                                    >Aguarde...</span
-                                  >
+                                  <span v-if="autenticando" class="spinner-border spinner-border-sm"
+                                    aria-hidden="true"></span>
+                                  <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
                                 </button>
                               </div>
                               <hr class="mt-4" />
-                              <!-- <div class="card-header">
+                              <div class="card-header">
                                 <h5 class="card-title mb-0">
                                   <i class="fa fa-building"></i> Lista dos meus
                                   usuários
@@ -775,32 +685,25 @@ export default {
                                       <thead>
                                         <tr>
                                           <th scope="col">Nome</th>
-                                          <th scope="col">Link</th>
+                                          <th scope="col">E-mail</th>
                                           <th scope="col">Status</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                          <tr v-for="link in links" :key="link.id">
-                            <th>{{ nome }} {{ sobrenome }}</th>
-                            <th>
-                              <a :href="link.url">{{ link.url }}</a>
-                            </th>
-                            <th>
-                              <span
-                                v-if="link.ativo"
-                                class="badge text-bg-success"
-                                >Ativo</span
-                              >
-                              <span v-else class="badge text-bg-danger"
-                                >Inativo</span
-                              >
-                            </th>
-                          </tr>
-                        </tbody>
+                                        <tr v-for="user in listUsers" :key="user.id_user">
+                                          {{ console.log(user) }}
+                                          <th>{{ user.nome }} {{ user.sobrenome }}</th>
+                                          <th>{{ user.email }}</th>
+                                          <th v-if="user.id_status == 1"><span
+                                              class="badge text-bg-success">Ativo</span></th>
+                                          <th v-if="user.id_status == 2"><span
+                                              class="badge text-bg-danger">Invativo</span></th>
+                                        </tr>
+                                      </tbody>
                                     </table>
                                   </div>
                                 </div>
-                              </div> -->
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -1,19 +1,9 @@
 <template>
   <div class="body" v-if="link">
-    <nav
-      class="navbar navbar-expand-lg bg-body-tertiary py-2"
-      data-bs-theme="light"
-    >
+    <nav class="navbar navbar-expand-lg bg-body-tertiary py-2" data-bs-theme="light">
       <div class="container py-1">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -31,19 +21,13 @@
               <a class="nav-link text-uppercase" href="#preco">PREÇO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#caracteristicas"
-                >CARACTERÍSTICAS</a
-              >
+              <a class="nav-link text-uppercase" href="#caracteristicas">CARACTERÍSTICAS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#localizacao"
-                >LOCALIZAÇÃO</a
-              >
+              <a class="nav-link text-uppercase" href="#localizacao">LOCALIZAÇÃO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#proximidades"
-                >PROXIMIDADES</a
-              >
+              <a class="nav-link text-uppercase" href="#proximidades">PROXIMIDADES</a>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link text-uppercase" href="#complemento"
@@ -57,21 +41,15 @@
 
     <div class="orange-range">
       <h2 class="text-title-h2-contact text-center text-light">
-        <strong
-          >EMPREENDIMENTO
-          {{ imovel.publicacao.tarja_imovel_site_publi }}</strong
-        >
+        <strong>EMPREENDIMENTO
+          {{ imovel.publicacao.tarja_imovel_site_publi }}</strong>
       </h2>
     </div>
 
     <div class="capa">
       <div class="gradient-page-imovel">
         <div class="logo-area">
-          <img
-            class="logo-page"
-            src="../../../../assets/images/logoEmpresa.jpg"
-            alt=""
-          />
+          <img class="logo-page" src="../../../../assets/images/logoEmpresa.jpg" alt="" />
         </div>
       </div>
     </div>
@@ -101,41 +79,24 @@
             <!-- Imagem Principal -->
             <div class="col-6">
               <div class="main-image-container" @click="openModal(0)">
-                <img
-                  :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`"
-                  :alt="`Foto Principal`"
-                  class="img-fluid main-image"
-                />
+                <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" :alt="`Foto Principal`"
+                  class="img-fluid main-image" />
               </div>
             </div>
 
             <!-- Outras Imagens -->
             <div class="col-4">
               <div class="row">
-                <div
-                  v-for="(foto, index) in imovel.fotos.slice(1, 5)"
-                  :key="foto.id_imagem"
-                  class="col-6"
-                >
-                  <div
-                    class="thumbnail-container"
-                    @click="openModal(index + 1)"
-                  >
-                    <img
-                      :src="`https://zonu.com.br/api${foto.foto}`"
-                      :alt="`Foto${foto.id_imagem}`"
-                      class="img-fluid thumbnail"
-                    />
+                <div v-for="(foto, index) in imovel.fotos.slice(1, 5)" :key="foto.id_imagem" class="col-6">
+                  <div class="thumbnail-container" @click="openModal(index + 1)">
+                    <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
+                      class="img-fluid thumbnail" />
                     <!-- Sobreposição na Quinta Imagem -->
-                    <div
-                      v-if="index === 3"
-                      class="overlay"
-                      style="
+                    <div v-if="index === 3" class="overlay" style="
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                      "
-                    >
+                      ">
                       <p style="color: #fff; font-size: 20px">
                         +{{ imovel.fotos.length - 4 }}
                       </p>
@@ -155,17 +116,9 @@
                   <img :src="currentImage" alt="Zoom" class="modal-image" />
                 </div>
                 <div class="modal-thumbnails">
-                  <div
-                    v-for="(foto, index) in imovel.fotos"
-                    :key="foto.id_imagem"
-                    class="modal-thumbnail-container"
-                  >
-                    <img
-                      :src="`https://zonu.com.br/api${foto.foto}`"
-                      :alt="`Foto${foto.id_imagem}`"
-                      class="img-fluid modal-thumbnail"
-                      @click="changeImage(index)"
-                    />
+                  <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="modal-thumbnail-container">
+                    <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
+                      class="img-fluid modal-thumbnail" @click="changeImage(index)" />
                   </div>
                 </div>
               </div>
@@ -182,10 +135,7 @@
         <!-- Informações do Imóvel -->
         <div class="row" id="info">
           <h2 class="title mt-5">Informações do imóvel</h2>
-          <div
-            class="col container-box"
-            style="display: flex; flex-direction: column"
-          >
+          <div class="col container-box" style="display: flex; flex-direction: column">
             <!-- <p class="text-title-subtitle mt-2">
               Abaixo, você encontrará uma visão geral detalhada deste imóvel.
               Essas informações são projetadas para fornecer uma compreensão
@@ -647,18 +597,15 @@
 
             <!-- Contêiner para características -->
             <div class="features-container">
-              <div
-                class="feature-box"
-                v-for="caracteristica in imovel.caracteristicas"
-                :key="caracteristica.id_caracteristica"
-              >
+              <div class="feature-box" v-for="caracteristica in imovel.caracteristicas"
+                :key="caracteristica.id_caracteristica">
                 <div class="feature-item">
                   <i class="fas fa-check feature-icon"></i>
                   <h4 class="feature-text">
                     {{
                       caracteristica.detalhesCaracteristica
                         ? caracteristica.detalhesCaracteristica
-                            .nome_caracteristica
+                          .nome_caracteristica
                         : "Não disponível"
                     }}
                   </h4>
@@ -806,32 +753,19 @@
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
               ></iframe> -->
-              <div
-                id="map"
-                ref="mapElement"
-                style="width: 100%; height: 330px; position: sticky"
-              ></div>
+              <div id="map" ref="mapElement" style="width: 100%; height: 330px; position: sticky"></div>
             </div>
 
             <div class="col-12">
-              <iframe
-                :src="streetViewUrl"
-                class="map"
-                style="border: 0; padding: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              <iframe :src="streetViewUrl" class="map" style="border: 0; padding: 0" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>
 
         <!-- Proximidades -->
         <div class="row" id="proximidades">
-          <div
-            class="col container-box"
-            style="display: flex; flex-direction: column"
-          >
+          <div class="col container-box" style="display: flex; flex-direction: column">
             <h2 class="title mt-5">Proximidades</h2>
             <!-- <p class="text-title-subtitle mt-2">
               Descubra as vantagens de viver próximo a uma variedade de serviços
@@ -840,11 +774,7 @@
             </p> -->
 
             <div class="features-container">
-              <div
-                class="feature-box"
-                v-for="proximidade in imovel.proximidades"
-                :key="proximidade.id_proximidade"
-              >
+              <div class="feature-box" v-for="proximidade in imovel.proximidades" :key="proximidade.id_proximidade">
                 <div class="feature-item">
                   <i class="fas fa-check feature-icon"></i>
                   <h4 class="feature-text">
@@ -888,11 +818,7 @@
               </div>
               <div class="px-2 mt-3">
                 <div class="px-1">
-                  <button
-                    type="submit"
-                    class="btn col-12"
-                    style="background-color: #f24e1e"
-                  >
+                  <button type="submit" class="btn col-12" style="background-color: #f24e1e">
                     <h3 class="mt-2 text-light"><strong>ENVIAR</strong></h3>
                   </button>
                 </div>
@@ -905,9 +831,7 @@
   </div>
   <div class="body" style="height: 100vh" v-if="link == false">
     <div class="d-flex justify-content-center align-items-center h-100">
-      <div
-        class="col-12 col-md-6 col-lg-4 card shadow-md p-4 text-center rounded"
-      >
+      <div class="col-12 col-md-6 col-lg-4 card shadow-md p-4 text-center rounded">
         <h2 class="text-title-h2 mb-4">
           <strong>Esse link já expirou</strong>
         </h2>
@@ -960,7 +884,7 @@ export default {
 
   mounted() {
     //Cola as funçoes aqui
-    function myFunction() {}
+    function myFunction() { }
     // scripts.js
     const thumbnails = document.querySelectorAll(".thumbnail");
     const lightbox = document.querySelector(".lightbox");
@@ -1201,7 +1125,8 @@ export default {
 .main-image-container {
   position: relative;
   overflow: hidden;
-  border-radius: 0.5rem; /* Cantos arredondados */
+  border-radius: 0.5rem;
+  /* Cantos arredondados */
   cursor: pointer;
 }
 
@@ -1209,22 +1134,27 @@ export default {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 0.5rem; /* Cantos arredondados */
+  border-radius: 0.5rem;
+  /* Cantos arredondados */
 }
 
 /* Container das Miniaturas */
 .thumbnail-container {
   position: relative;
   overflow: hidden;
-  border-radius: 0.5rem; /* Cantos arredondados */
+  border-radius: 0.5rem;
+  /* Cantos arredondados */
 }
 
 .thumbnail {
   width: 100%;
   height: auto;
-  object-fit: cover; /* Ajusta a imagem para cobrir o contêiner */
-  border-radius: 0.5rem; /* Cantos arredondados */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+  object-fit: cover;
+  /* Ajusta a imagem para cobrir o contêiner */
+  border-radius: 0.5rem;
+  /* Cantos arredondados */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Transição suave */
 }
 
 /* Sobreposição da Quinta Imagem */
@@ -1234,14 +1164,17 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Sobreposição preta com opacidade */
+  background: rgba(0, 0, 0, 0.4);
+  /* Sobreposição preta com opacidade */
   z-index: 1;
 }
 
 /* Efeito ao Passar o Mouse nas Miniaturas */
 .thumbnail:hover {
-  transform: scale(1.1); /* Aumenta a imagem ao passar o mouse */
-  z-index: 2; /* Garante que a imagem em zoom fique acima da sobreposição */
+  transform: scale(1.1);
+  /* Aumenta a imagem ao passar o mouse */
+  z-index: 2;
+  /* Garante que a imagem em zoom fique acima da sobreposição */
 }
 
 /* Modal para Zoom */
@@ -1252,7 +1185,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Fundo preto com opacidade */
+  background: rgba(0, 0, 0, 0.6);
+  /* Fundo preto com opacidade */
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -1350,7 +1284,8 @@ export default {
 }
 
 .feature-icon {
-  color: #28a745; /* Cor do ícone de verificação */
+  color: #28a745;
+  /* Cor do ícone de verificação */
   font-size: 20px;
 }
 

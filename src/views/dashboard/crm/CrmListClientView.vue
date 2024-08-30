@@ -17,15 +17,17 @@
               justify-content: space-between;
             ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
-              Negócios em andamento | Lista de clientes | {{ imoveisUnicos }} imóvel | {{ funilSelecionado ?
-                funilSelecionado.qtdNegoicos : 0 }} clientes
+              Negócios em andamento | Lista de clientes | {{ imoveisUnicos || 0 }} {{ imoveisUnicos > 1 ? "imóveis" :
+                "imóvel" }} | {{ contarClientesUnicos.length }}
+              {{ contarClientesUnicos.length > 1 ? "clientes" : "cliente" }}
             </h4>
             <div style="display: flex; align-items: center">
               <select class="form-select" @change="filtrarEtapasFunil" v-model="funilSelect"
                 style="height: 30px; font-size: 13px; font-weight: 600">
                 <option :value="`${funil.id_funil}`" style="font-weight: 600" v-for="funil in funis"
                   v-if="funis.length > 0">
-                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} negócios)
+                  {{ funil.nome_funil }} ({{ funil.qtdNegoicos || 0 }} {{ funil.qtdNegoicos == 1 ? "negócio" :
+                    "negócios" }})
                 </option>
               </select>
             </div>
@@ -52,28 +54,30 @@
                             <i class="align-middle" data-feather="arrow-down"></i>
                           </th>
                           <th class="text-center">Imóveis no Funil</th>
-                          <th class="text-center">No radar</th>
+                          <!-- <th class="text-center">No radar</th> -->
                           <th class="text-center">Enviados</th>
                           <th class="text-center">Descartados</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="item in usuariosOnCurrentPage" :key="item.id" style="cursor: pointer">
-                          <td>{{ item.cliente }}</td>
+                          <td>{{ item.nome }}</td>
                           <td class="text-center">
-                            {{ item.ultimaInteracao }}
+                            {{ formatUpdatedDate(item.updatedAt) }}
                           </td>
                           <td class="text-center">
-                            <a style="text-decoration: underline; color: blue">{{ item.imovelFunil }}</a>
+                            <a style="text-decoration: underline; color: blue">{{ item.quantidadeImoveis }}</a>
                           </td>
-                          <td class="text-center">
+                          <!-- <td class="text-center">
                             <a style="text-decoration: underline; color: blue">{{ item.noRadar }}</a>
-                          </td>
+                          </td> -->
                           <td class="text-center">
-                            <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a>
+                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a> -->
+                            <a style="text-decoration: underline; color: blue">0</a>
                           </td>
                           <td class="text-center" xxx>
-                            <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a>
+                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a> -->
+                            <a style="text-decoration: underline; color: blue">0</a>
                           </td>
                         </tr>
                       </tbody>
@@ -154,54 +158,8 @@ export default {
       dataInicio: "",
       dataFinal: "",
 
-      items: [
-        {
-          id: 1,
-          ultimaInteracao: "01/08/24",
-          cliente: "Marcello Agostini",
-          imovelFunil: "1",
-          noRadar: "0",
-          Enviados: "0",
-          Descartados: "0",
-        },
-        {
-          id: 2,
-          ultimaInteracao: "01/08/24",
-          cliente: "Sil Souza",
-          imovelFunil: "1",
-          noRadar: "0",
-          Enviados: "0",
-          Descartados: "0",
-        },
-        {
-          id: 3,
-          ultimaInteracao: "30/07/24",
-          cliente: "Violetta Cardoso",
-          imovelFunil: "1",
-          noRadar: "0",
-          Enviados: "0",
-          Descartados: "0",
-        },
-        {
-          id: 4,
-          ultimaInteracao: "29/07/24",
-          cliente: "Bruno Sena",
-          imovelFunil: "1",
-          noRadar: "0",
-          Enviados: "0",
-          Descartados: "0",
-        },
-        {
-          id: 5,
-          ultimaInteracao: "29/07/24",
-          cliente: "Josiene Nunes",
-          imovelFunil: "1",
-          noRadar: "0",
-          Enviados: "0",
-          Descartados: "0",
-        },
-      ],
 
+      allClientes: [],
       currentPageUser: 1,
       perPageUser: 10,
       searchUsuario: "",
@@ -235,12 +193,12 @@ export default {
     // this.fetchCategorias();
     // this.fetchOrigemCaptacao();
     // this.fetchTipoCliente();
-    // this.fetchCliente();
     // this.fetchImoveis();
     this.fetchFunil()
     // this.fetchFirstEtapas()
-    this.fetchNegocios()
+    // this.fetchNegocios()
     this.filtrarEtapasFunil(true)
+    // this.fetchCliente();
   },
 
   methods: {
@@ -255,19 +213,30 @@ export default {
       }
     },
 
+    formatUpdatedDate(dateString) {
+      const date = new Date(dateString);
+
+      // Extrair partes da data
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa do zero
+      const year = date.getFullYear();
+
+      // Formatar a data
+      return `${day}/${month}/${year}`;
+    },
 
     fetchFunil() {
       api.getAllFunil().then((res) => {
         // console.log(res.data)
         if (res.status === 200) {
-          this.funis = res.data
+          this.funis = res.data.filter(funil => funil.id_user === this.id_user)
         }
       })
     },
 
     filtrarEtapasFunil(mountedOn) {
       if (mountedOn === true || !this.funilSelect) {
-        this.qtdNegoicos = 0;
+        // this.qtdNegoicos = 0;
         api.getFunilporId(this.funilSelect).then((res) => {
           if (res.status === 200) {
             this.funilporId = res.data;
@@ -283,7 +252,7 @@ export default {
         console.log(this.funilSelect);
         localStorage.setItem("fs", this.funilSelect);
 
-        this.qtdNegoicos = 0;
+        // this.qtdNegoicos = 0;
         api.getFunilporId(this.funilSelect).then((res) => {
           if (res.status === 200) {
             this.funilporId = res.data;
@@ -299,85 +268,88 @@ export default {
     },
 
     fetchNegocios() {
-      api.getNegocios().then((res) => {
-        if (res.status === 200) {
-          const negocios = res.data;
+      api.getNegocios()
+        .then((res) => {
+          if (res.status === 200) {
+            const negocios = res.data.filter(negocio => negocio.Usuario.id_user === this.id_user);
 
-          // Limpa a contagem e arrays de negócios atuais
-          this.funis.forEach((funil) => {
-            funil.qtdNegoicos = 0;
-            funil.negocios = [];
-            funil.etapas.forEach((etapa) => {
-              etapa.qtdNegoicos = 0;
-              etapa.negocios = [];
-            });
-          });
-
-          // Função para buscar o preco_imovel por id_imovel
-          const fetchPrecoImovel = async (id_imovel) => {
-            return apiImovel.obterImovel(id_imovel)
-              .then((res) => {
-                if (res.status === 200) {
-                  return res.data.preco.preco_imovel;
-                }
-                return null;
-              })
-              .catch((error) => {
-                console.error(`Erro ao buscar preço do imóvel ${id_imovel}:`, error);
-                return null;
+            // Limpa a contagem e arrays de negócios atuais
+            this.funis.forEach((funil) => {
+              funil.qtdNegoicos = 0;
+              funil.negocios = [];
+              funil.imoveisUnicos = new Set(); // Cria um Set para imóveis únicos
+              funil.etapas.forEach((etapa) => {
+                etapa.qtdNegoicos = 0;
+                etapa.negocios = [];
               });
-          };
+            });
 
-          const imoveisUnicosSet = new Set();
+            const etapaMap = new Map();
 
-          // Processa negócios
-          const processNegocios = async () => {
-            for (const negocio of negocios) {
+            // Agrupa os negócios por id_etapa
+            negocios.forEach((negocio) => {
               const idEtapa = negocio.Etapa.id_etapa;
               const idImovel = negocio.NovoImovel.id_imovel;
 
-              const funilCorrespondente = this.funis.find((funil) =>
-                funil.etapas.some((etapa) => etapa.id_etapa === idEtapa)
-              );
-
-              if (funilCorrespondente && funilCorrespondente.id_funil == Number(this.funilSelect)) {
-                // Adiciona o id_imovel ao Set de imóveis únicos
-                imoveisUnicosSet.add(idImovel);
+              // Mapeia o negócio para a etapa correspondente
+              if (!etapaMap.has(idEtapa)) {
+                etapaMap.set(idEtapa, []);
               }
+              etapaMap.get(idEtapa).push(negocio);
+            });
 
+            // Busca o preço do imóvel e atualiza os negócios em paralelo
+            const promises = Array.from(etapaMap.entries()).map(([idEtapa, negocios]) => {
+              return Promise.all(negocios.map((negocio) => {
+                const idImovel = negocio.NovoImovel.id_imovel;
 
-              // Busca o preço do imóvel
-              const precoImovel = await fetchPrecoImovel(idImovel);
-              negocio.NovoImovel.preco_imovel = precoImovel;
-
-              // Encontra o funil e a etapa correspondentes e adiciona o negócio
-              this.funis.forEach((funil) => {
-                funil.etapas.forEach((etapa) => {
-                  if (etapa.id_etapa === idEtapa) {
-                    // Verifica se o negócio já foi adicionado usando o id_negocio
-                    const negocioJaAdicionado = etapa.negocios.some(n => n.id_negocio === negocio.id_negocio);
-                    if (!negocioJaAdicionado) {
-                      etapa.negocios.push(negocio);
-                      funil.negocios.push(negocio);
-                      funil.qtdNegoicos += 1;
-                      etapa.qtdNegoicos += 1;
+                return apiImovel.obterImovel(idImovel)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      negocio.NovoImovel.preco_imovel = res.data.preco.preco_imovel;
                     }
-                  }
+                  });
+              })).then(() => {
+                // Encontra a etapa e funil correspondentes e adiciona os negócios de uma vez
+                this.funis.forEach((funil) => {
+                  funil.etapas.forEach((etapa) => {
+                    if (etapa.id_etapa === idEtapa) {
+                      etapa.negocios.push(...negocios);
+                      etapa.qtdNegoicos += negocios.length;
+                      funil.negocios.push(...negocios);
+
+                      // Adiciona imóveis únicos ao Set do funil
+                      negocios.forEach((negocio) => {
+                        funil.imoveisUnicos.add(negocio.NovoImovel.id_imovel);
+                      });
+
+                      funil.qtdNegoicos += negocios.length;
+                    }
+                  });
                 });
               });
-            }
+            });
 
-            this.imoveisUnicos = imoveisUnicosSet.size;
-          };
+            Promise.all(promises).then(() => {
+              // Atualiza a quantidade de imóveis únicos para cada funil
+              this.funis.forEach(funil => {
+                funil.imoveisUnicos = funil.imoveisUnicos.size;
+              });
 
-          processNegocios().then(() => {
-            const funilSelecionado = this.funis.find(f => f.id_funil === this.funilSelect);
-            this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
-          });
-        }
-      }).catch((error) => {
-        console.error('Erro ao buscar negócios:', error);
-      });
+              const funilSelecionado = this.funis.find(f => f.id_funil === Number(this.funilSelect));
+              this.qtdNegoicos = funilSelecionado ? funilSelecionado.qtdNegoicos : 0;
+              this.imoveisUnicos = funilSelecionado ? funilSelecionado.imoveisUnicos : 0;
+
+              this.$nextTick(() => {
+                // Atualize a interface se necessário
+                this.fetchCliente()
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar negócios:', error);
+        });
     },
 
     fetchPosicao() {
@@ -389,17 +361,70 @@ export default {
       });
     },
 
-    // fetchClientes() {
+    fetchCliente() {
+      api.getCliente()
+        .then((res) => {
+          console.log("Aqui está o cliente ====> ", res);
+          console.log("Aqui estão os negócios ====> ", this.funilSelecionado);
 
-    // },
+          if (res.status === 200) {
+            // Verificar se this.funilSelecionado e this.funilSelecionado.negocios são definidos e se negócios é um array
+            console.log(this.funilSelecionado.negocios);
+            if (this.funilSelecionado && Array.isArray(this.funilSelecionado.negocios)) {
+              // Extrair os IDs dos clientes de this.funilSelecionado
+              const idsClientesFunil = new Set(
+                this.funilSelecionado.negocios.map(negocio => negocio.Cliente.id_cliente)
+              );
+
+              // Filtrar os clientes retornados pela API com base nos IDs extraídos
+              const clientesFiltrados = res.data.filter(cliente =>
+                idsClientesFunil.has(cliente.id_cliente)
+              );
+
+              // Contabilizar a quantidade de imóveis para cada cliente
+              const quantidadeImoveisPorCliente = {};
+
+              // Iterar sobre os negócios para contar os imóveis de cada cliente
+              this.funilSelecionado.negocios.forEach(negocio => {
+                const clienteId = negocio.Cliente.id_cliente;
+                const imovelId = negocio.NovoImovel.id_imovel;
+
+                if (clienteId && imovelId) {
+                  if (!quantidadeImoveisPorCliente[clienteId]) {
+                    quantidadeImoveisPorCliente[clienteId] = 0;
+                  }
+                  quantidadeImoveisPorCliente[clienteId] += 1;
+                }
+              });
+
+              // Adicionar a quantidade de imóveis aos clientes filtrados
+              this.allClientes = clientesFiltrados.map(cliente => {
+                return {
+                  ...cliente,
+                  quantidadeImoveis: quantidadeImoveisPorCliente[cliente.id_cliente] || 0
+                };
+              });
+
+              console.log("Clientes filtrados com quantidade de imóveis ====> ", this.allClientes);
+            } else {
+              console.error("Funil selecionado ou negócios não estão disponíveis ou não são um array.");
+              this.allClientes = []; // Definir this.allClientes como um array vazio ou algum valor padrão
+            }
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar clientes:', error);
+        });
+    }
+    ,
   },
   computed: {
     usuariosOnCurrentPage() {
       const startIndex = (this.currentPageUser - 1) * this.perPageUser;
       const endIndex = startIndex + this.perPageUser;
-      return this.items
+      return this.allClientes
         .filter((usuario) => {
-          return usuario.cliente
+          return usuario.nome
             .toLowerCase()
             .includes(this.searchUsuario.toLowerCase());
         })
@@ -407,9 +432,9 @@ export default {
     },
     totalPagesUsuarios() {
       return Math.ceil(
-        this.items.filter((usuario) => {
+        this.allClientes.filter((usuario) => {
           this.currentPageConcept = 1;
-          return usuario.cliente
+          return usuario.nome
             .toLowerCase()
             .includes(this.searchUsuario.toLowerCase());
         }).length / this.perPageUser
@@ -418,6 +443,26 @@ export default {
     funilSelecionado() {
       // console.log()
       return this.funis.find(funil => funil.id_funil == Number(this.funilSelect)) || {};
+    },
+    contarClientesUnicos() {
+      const funil = this.funilSelecionado;
+
+      // Cria um objeto para armazenar IDs de clientes únicos
+      const clienteIdsUnicos = {};
+
+      // Verifica se o funil e a lista de negócios existem
+      if (funil && funil.negocios && Array.isArray(funil.negocios)) {
+        // Itera sobre todos os negócios e adiciona os IDs de clientes ao objeto
+        funil.negocios.forEach(negocio => {
+          if (negocio.Cliente && negocio.Cliente.id_cliente) {
+            // Usa o ID do cliente como chave no objeto
+            clienteIdsUnicos[negocio.Cliente.id_cliente] = true;
+          }
+        });
+      }
+
+      // Retorna a quantidade de clientes únicos
+      return Object.keys(clienteIdsUnicos);
     }
   },
 };

@@ -1,41 +1,29 @@
 <template>
-  <div
-    class="pt-2 ps-4 pe-4"
-    style="background-color: #fff; width: 23%; border-right: 1px solid #d3d3d3"
-  >
+  <div class="pt-2 ps-4 pe-4" style="background-color: #fff; width: 23%; border-right: 1px solid #d3d3d3">
     <!-- Conteúdo da Sidebar -->
     <ul class="nav flex-column">
       <h4 class="mt-3 mb-2 fw-bold fs-5">
         <strong>Gestão do relacionamento</strong>
       </h4>
       <li class="nav-item mb-4">
-        <select
-          class="form-select fs-8"
-          v-model="person"
-          style="height: 55px; width: 90%"
-        >
-          <option value="">Escolha</option>
-          <option value="corretor">Corretor</option>
-          <option value="imobi">Imobiliária</option>
+        <select class="form-select fs-8" v-model="corretorResponsavel" style="height: 55px; width: 90%">
+          <option value="" disabled hidden>Escolha</option>
+          <option :value="`${userName} ${userSobrenome}`">
+            {{ userName }} {{ userSobrenome }}
+          </option>
         </select>
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link custom-nav-link d-flex align-items-center"
-          href="/seu-crm"
-          :style="{ fontWeight: tab === 'Visão geral' ? 600 : 400 }"
-        >
+        <a class="nav-link custom-nav-link d-flex align-items-center" href="/seu-crm"
+          :style="{ fontWeight: tab === 'Visão geral' ? 600 : 400 }">
           <i class="align-middle me-2" data-feather="home"></i>
           <!-- Ícone para Visão Geral -->
           Visão Geral
         </a>
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-          href="/seu-crmcontato"
-          :style="{ fontWeight: tab === 'Contato recebidos' ? 600 : 400 }"
-        >
+        <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmcontato"
+          :style="{ fontWeight: tab === 'Contato recebidos' ? 600 : 400 }">
           <i class="align-middle me-2" data-feather="users"></i>
           <!-- Ícone para Contatos Recebidos -->
           Contatos Recebidos
@@ -45,33 +33,24 @@
         <h6 class="fw-bold fs-6">Negócios em Andamento</h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmvisaoetapas"
-              :style="{ fontWeight: tab === 'Visão etapas' ? 600 : 400 }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmvisaoetapas"
+              :style="{ fontWeight: tab === 'Visão etapas' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="list"></i>
               <!-- Ícone para Visão em Etapas -->
               Visão em Etapas (330)
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmlistacliente"
-              :style="{ fontWeight: tab === 'Lista clientes' ? 600 : 400 }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmlistacliente"
+              :style="{ fontWeight: tab === 'Lista clientes' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="clipboard"></i>
               <!-- Ícone para Lista de Clientes -->
               Lista de Clientes (330)
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmimoveisreser"
-              :style="{ fontWeight: tab === 'Imóveis reservados' ? 600 : 400 }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmimoveisreser"
+              :style="{ fontWeight: tab === 'Imóveis reservados' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="home"></i>
               <!-- Ícone para Imóveis Reservados -->
               Imóveis Reservados (0)
@@ -83,24 +62,17 @@
         <h6 class="fw-bold fs-8">Radar de Oportunidades</h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmclientcompat"
-              :style="{
-                fontWeight: tab === 'Clientes compativeis' ? 600 : 400,
-              }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmclientcompat" :style="{
+              fontWeight: tab === 'Clientes compativeis' ? 600 : 400,
+            }">
               <i class="align-middle me-2" data-feather="users"></i>
               <!-- Ícone para Clientes Compatíveis -->
               Clientes Compatíveis (272)
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmimovcompat"
-              :style="{ fontWeight: tab === 'Imóveis compativeis' ? 600 : 400 }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmimovcompat"
+              :style="{ fontWeight: tab === 'Imóveis compativeis' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="home"></i>
               <!-- Ícone para Imóveis Compatíveis -->
               Imóveis Compatíveis (4)
@@ -112,24 +84,17 @@
         <h6 class="fw-bold fs-8">Relatórios</h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmnegoencer"
-              :style="{ fontWeight: tab === 'Negócios encerrados' ? 600 : 400 }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmnegoencer"
+              :style="{ fontWeight: tab === 'Negócios encerrados' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="bar-chart"></i>
               <!-- Ícone para Negócios Encerrados -->
               Negócios Encerrados
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link custom-nav-link fw-regular d-flex align-items-center"
-              href="/seu-crmshareimov"
-              :style="{
-                fontWeight: tab === 'Imóveis compartilhados' ? 600 : 400,
-              }"
-            >
+            <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmshareimov" :style="{
+              fontWeight: tab === 'Imóveis compartilhados' ? 600 : 400,
+            }">
               <i class="align-middle me-2" data-feather="share"></i>
               <!-- Ícone para Imóveis Compartilhados -->
               Imóveis Compartilhados
@@ -141,6 +106,8 @@
   </div>
 </template>
 <script>
+import { jwtDecode } from 'jwt-decode';
+
 export default {
   name: "SideBarCrm",
   props: {
@@ -151,8 +118,24 @@ export default {
   },
   data() {
     return {
-      person: "",
+      token: localStorage.getItem("token"),
+      id_user: "",
+      userName: "",
+      userSobrenome: "",
+      corretorResponsavel: ""
     };
   },
+
+  mounted() {
+    let token = this.token;
+    let decode = jwtDecode(token);
+    let id_user = decode.id_user;
+    this.userName = decode.nome;
+    this.userSobrenome = decode.sobrenome;
+
+    this.id_user = id_user;
+
+    this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
+  }
 };
 </script>
