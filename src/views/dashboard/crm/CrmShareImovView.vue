@@ -6,10 +6,8 @@
         <!-- Sidebar com opções e ícones -->
         <sidebarCrm tab="Imóveis compartilhados" />
         <!-- Dashboard -->
-        <div class="" style="width: 100%">
-          <header
-            class="pe-3 ps-3"
-            style="
+        <div class="" style="width: 81%">
+          <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
               width: 100%;
@@ -17,51 +15,38 @@
               display: flex;
               align-items: center;
               justify-content: space-between;
-            "
-          >
+            ">
             <h4 class="fw-semibold mt-2" style="font-size: 13px">
               Imóveis compartilhados
             </h4>
             <div style="display: flex; align-items: center">
-              <select
-                class="form-select"
-                v-model="contatos"
-                style="
+              <select class="form-select" v-model="contatos" style="
                   height: 30px;
                   font-size: 13px;
                   font-weight: 600;
                   margin-left: 10px;
                   width: 200px;
-                "
-              >
+                ">
                 <option value="" style="font-weight: 600">
                   Todos os contatos
                 </option>
               </select>
-              <select
-                class="form-select"
-                v-model="dataInicio"
-                style="
+              <select class="form-select" v-model="dataInicio" style="
                   height: 30px;
                   font-size: 13px;
                   font-weight: 600;
                   margin-left: 10px;
                   width: 150px;
-                "
-              >
+                ">
                 <option value="" style="font-weight: 600">15/05/2024</option>
               </select>
-              <select
-                class="form-select"
-                v-model="dataFinal"
-                style="
+              <select class="form-select" v-model="dataFinal" style="
                   height: 30px;
                   font-size: 13px;
                   font-weight: 600;
                   margin-left: 10px;
                   width: 150px;
-                "
-              >
+                ">
                 <option value="" style="font-weight: 600">13/08/2024</option>
               </select>
             </div>
@@ -70,19 +55,14 @@
           <div class="" style="margin-top: 8rem" v-if="semImovel">
             <div class="row justify-content-center">
               <div class="col-10 mb-3">
-                <div
-                  style="
+                <div style="
                     width: 100%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                  "
-                >
-                  <img
-                    :src="homeIcon"
-                    style="width: 80px; height: 80px; margin-bottom: 1rem"
-                  />
+                  ">
+                  <img :src="homeIcon" style="width: 80px; height: 80px; margin-bottom: 1rem" />
                   <h2 style="font-size: 1.14286em; font-weight: 600">
                     Nenhuma informação disponível para o filtro selecionado.
                   </h2>
@@ -101,11 +81,7 @@
               </h5>
             </div>
             <div class="card-body">
-              <div
-                v-if="msgSuccess"
-                class="alert alert-success mt-3"
-                role="alert"
-              >
+              <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
                 <i class="fa fa-check"></i> {{ msgSuccess }}
               </div>
 
@@ -136,12 +112,8 @@
                           {{ formatarHora(link.dataExpiracao) }}
                         </th>
                         <th>
-                          <span v-if="link.ativo" class="badge text-bg-success"
-                            >Ativo</span
-                          >
-                          <span v-else class="badge text-bg-danger"
-                            >Inativo</span
-                          >
+                          <span v-if="link.ativo" class="badge text-bg-success">Ativo</span>
+                          <span v-else class="badge text-bg-danger">Inativo</span>
                         </th>
                       </tr>
                     </tbody>

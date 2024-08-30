@@ -6,7 +6,7 @@
         <!-- Sidebar com opções e ícones -->
         <sidebarCrm tab="Contato recebidos" />
         <!-- Dashboard -->
-        <div class="" style="width: 100%">
+        <div class="" style="width: 81%">
           <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
@@ -155,6 +155,7 @@
                           <td>{{ item.nome }}</td>
                           <td>{{ item.Captacao.origem_captacao }}</td>
                           <td>{{ corretorResponsavel }}</td>
+                          {{ console.log("aqui estao as etapas ====> ", item.etapas) }}
                           <td>{{ item.etapas == undefined || item.etapas == null || item.etapas.length == 0 ? "-" :
                             item.etapas.length > 1 ?
                               item.etapas.length + "posições" :
@@ -367,7 +368,9 @@ export default {
           if (res.status === 200) {
             this.negocios = res.data;
             // console.log("aqui estao os negocios ===>", res.data)
-            this.processarNegocios(); // Processar negócios após buscar os dados
+            setTimeout(() => {
+              this.processarNegocios(); // Processar negócios após buscar os dados
+            }, 1000);
           }
         });
       // this.fetchCliente(); // Buscar clientes

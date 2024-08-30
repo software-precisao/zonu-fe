@@ -1495,6 +1495,7 @@ export default {
 
   putFunil: async (id, nomeFunil, diasLimpeza, descricao, etapas) => {
     try {
+      console.log(etapas);
       const response = await http.put(
         `/funil/editar/${id}`,
         {

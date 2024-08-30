@@ -6,7 +6,7 @@
         <!-- Sidebar com opções e ícones -->
         <sidebarCrm tab="Imóveis compativeis" />
         <!-- Dashboard -->
-        <div class="" style="width: 100%">
+        <div class="" style="width: 81%">
           <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;
@@ -45,7 +45,7 @@
                           </th>
                           <th>Imóvel</th>
                           <th class="text-center">Detalhes</th>
-                          <th class="text-center">No Radar</th>
+                          <!-- <th class="text-center">No Radar</th> -->
                           <th class="text-center">Compartilhar</th>
                           <th class="text-center"></th>
                         </tr>
@@ -103,9 +103,9 @@
                               R${{ aplicaMascaraDinheiroPrecoImovel(item.preco.preco_imovel) }}
                             </span>
                           </td>
-                          <td class="text-center" style="color: #000">
+                          <!-- <td class="text-center" style="color: #000">
                             30
-                          </td>
+                          </td> -->
                           <td class="text-center">
                             <a style="text-decoration: underline; color: blue">compartilhar</a>
                           </td>

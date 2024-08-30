@@ -6,7 +6,7 @@
         <!-- Sidebar com opções e ícones -->
         <sidebarCrm tab="Visão geral" />
         <!-- Dashboard -->
-        <div class="" style="width: 100%">
+        <div class="" style="width: 81%">
           <header class="pe-3 ps-3" style="
               background-color: #fff;
               height: 60px;

@@ -5,7 +5,7 @@
       <div class="" style="display: flex; flex-direction: row">
         <SidebarCrm tab="config" />
 
-        <div class="" style="width: 100%">
+        <div class="" style="width: 81%">
           <div class="mt-4">
             <div class="row justify-content-center">
               <!-- Card 1 -->

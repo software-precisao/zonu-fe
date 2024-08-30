@@ -17,7 +17,7 @@
                                 R$ {{ aplicaMascaraDinheiroPrecoImovel(imovel.preco.preco_imovel) }}
                             </h4>
                         </div>
-                        <div class="text-right mb-2 me-3" style="display: flex; align-items: flex-end;">
+                        <div class="text-right mb-2 me-4" style="display: flex; align-items: flex-end;">
                             <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
                                 <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{
                                     aplicarMascaraDia(negocio.updatedAt)
