@@ -45,7 +45,7 @@
               :style="{ fontWeight: tab === 'Lista clientes' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="clipboard"></i>
               <!-- Ícone para Lista de Clientes -->
-              Lista de Clientes ({{ mostrarSkeleton ? allClientes.length : 0 }})
+              Lista de Clientes ({{ mostrarSkeleton ? qtdClientesUnicos : 0 }})
             </a>
           </li>
           <li class="nav-item">
