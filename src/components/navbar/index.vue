@@ -7,21 +7,13 @@
     <div class="navbar-collapse collapse">
       <ul class="navbar-nav navbar-align">
         <li class="nav-item dropdown">
-          <a
-            class="nav-icon dropdown-toggle"
-            href="#"
-            id="alertsDropdown"
-            data-bs-toggle="dropdown"
-          >
+          <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
             <div class="position-relative">
               <i class="align-middle" data-feather="bell"></i>
               <span class="indicator">{{ totalTickets }}</span>
             </div>
           </a>
-          <div
-            class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-            aria-labelledby="alertsDropdown"
-          >
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
             <div class="dropdown-menu-header">
               {{ totalTickets }} Novas Notificações
             </div>
@@ -29,10 +21,7 @@
               <a href="#" class="list-group-item">
                 <div class="row g-0 align-items-center">
                   <div class="col-2">
-                    <div
-                      class="avatar-null img-fluid rounded me-1"
-                      alt="Avatar"
-                    >
+                    <div class="avatar-null img-fluid rounded me-1" alt="Avatar">
                       {{ iniciaisUser }}
                     </div>
                   </div>
@@ -60,20 +49,12 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a
-            class="nav-icon dropdown-toggle"
-            href="#"
-            id="messagesDropdown"
-            data-bs-toggle="dropdown"
-          >
+          <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
             <div class="position-relative">
               <i class="align-middle" data-feather="message-square"></i>
             </div>
           </a>
-          <div
-            class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-            aria-labelledby="messagesDropdown"
-          >
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
             <div class="dropdown-menu-header">
               <div class="position-relative">0 Novas mensagens</div>
             </div>
@@ -99,63 +80,36 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a
-            class="nav-icon dropdown-toggle d-inline-block d-sm-none"
-            href="#"
-            data-bs-toggle="dropdown"
-          >
+          <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
             <i class="align-middle" data-feather="settings"></i>
           </a>
 
-          <a
-            v-if="image == !null"
-            class="nav-link dropdown-toggle d-none d-sm-inline-block"
-            href="#"
-            data-bs-toggle="dropdown"
-          >
-            <img
-              :src="`https://www.zonu.com.br/api/public${image}`"
-              class="avatar img-fluid rounded me-1"
-              alt="Imagem de perfil"
-            />
+          <a v-if="image == !null" class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+            data-bs-toggle="dropdown">
+            <img :src="`https://www.zonu.com.br/api/public${image}`" class="avatar img-fluid rounded me-1"
+              alt="Imagem de perfil" />
             <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
           </a>
-          <a
-            v-if="image == null || image == '/avatar/default-avatar.png'"
-            class="nav-link dropdown-toggle d-flex align-items-center"
-            href="#"
-            data-bs-toggle="dropdown"
-          >
+          <a v-if="image == null || image == '/avatar/default-avatar.png'"
+            class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
             <div class="avatar-null img-fluid rounded me-1" alt="Avatar">
               {{ iniciais }}
             </div>
             <span class="text-dark">{{ nome }} {{ sobrenome }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="/seu-perfil"
-              ><i class="align-middle me-1" data-feather="user"></i> Perfil</a
-            >
+            <a class="dropdown-item" href="/seu-perfil"><i class="align-middle me-1" data-feather="user"></i> Perfil</a>
 
             <div class="dropdown-divider"></div>
-            <a
-              class="dropdown-item"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#termosModal"
-              ><i class="align-middle me-1" data-feather="file"></i> Termos &
-              Condições</a
-            >
-            <a
-              class="dropdown-item"
-              target="_blank"
-              href="https://wa.me/5583998587672?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"
-              ><i class="align-middle me-1" data-feather="help-circle"></i> Help
-              Center</a
-            >
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#termosModal"><i
+                class="align-middle me-1" data-feather="file"></i> Termos &
+              Condições</a>
+            <a class="dropdown-item" target="_blank"
+              href="https://wa.me/5583998587672?text=Ol%C3%A1%2C%20preciso%20de%20um%20suporte%20na%20plataforma%20Zonu%20%3A)"><i
+                class="align-middle me-1" data-feather="help-circle"></i> Help
+              Center</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" @click="handleLogout" href="#"
-              ><i class="fa fa-power-off"></i> Sair</a
-            >
+            <a class="dropdown-item" @click="handleLogout" href="#"><i class="fa fa-power-off"></i> Sair</a>
           </div>
         </li>
       </ul>
@@ -169,36 +123,21 @@
     </h6>
   </div>
 
-  <div
-    style="position: absolute !important"
-    class="modal fade"
-    id="termosModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div style="position: absolute !important" class="modal fade" id="termosModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">
             Termos e Condições
           </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div v-html="termos"></div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Fechar
           </button>
         </div>
@@ -206,34 +145,19 @@
     </div>
   </div>
 
-  <div
-    style="position: absolute !important"
-    class="modal fade"
-    id="privacidadeModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div style="position: absolute !important" class="modal fade" id="privacidadeModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Privacidade</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div v-html="privacidade"></div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Fechar
           </button>
         </div>

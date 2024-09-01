@@ -2511,6 +2511,8 @@ export default {
       currentImovelCaracteristicas: [],
       currentImovelProximidades: [],
       listProximidades: [],
+      msgSucesso: false,
+      msgError: false,
     };
   },
   mounted() {
@@ -3390,7 +3392,7 @@ export default {
             setTimeout(() => {
               this.msgSucesso = false;
               this.closeModal()
-              // window.location.href = "/dashboard";
+              window.location.href = "/dashboard";
               // this.$router.push({ name: "dashboard" });
             }, 3000);
           } else {

@@ -102,7 +102,7 @@ export default {
 
         if (id_nivel == 4) {
             this.viewCreci = true;
-        } if (id_nivel == 5) {
+        } else if (id_nivel == 5) {
             this.viewCreci = true;
             this.viewCNPJ = true;
         } else {

@@ -48,6 +48,9 @@ export default {
       msgSuccessEdit: false,
       msgSuccessDelete: false,
 
+      msgMaxUsers: false,
+
+
       searchCliente: "",
 
       senhaValida: true,
@@ -215,12 +218,12 @@ export default {
         case 5:
           // Imobiliaria pode cadastrar de acordo com o plano
           // console.log("plano ====> ", this.perfil.id_plano, currentUserCount);
-          if (this.perfil.id_plano === 1 && currentUserCount >= 5) {
+          if (this.perfil.id_plano === 1 && currentUserCount >= 4) {
             return {
               allowed: false,
               message: "Plano imobiliária 1 permite cadastrar até 5 usuários.",
             }; //plano 1 da imobiliaria que permite cadastrar apenas 5 usuarios
-          } else if (this.perfil.id_plano === 2 && currentUserCount >= 10) {
+          } else if (this.perfil.id_plano === 2 && currentUserCount >= 9) {
             return {
               allowed: false,
               message: "Plano imobiliária 2 permite cadastrar até 10 usuários.",
@@ -275,6 +278,10 @@ export default {
         this.msgMaxUsers = permissionCheck.message;
         this.textoBotao = "Criar novo usuário";
         this.autenticando = false;
+
+        setTimeout(() => {
+          this.msgMaxUsers = false
+        }, 3000);
         return;
       } else if (
         nome !== "" &&
@@ -467,6 +474,9 @@ export default {
                       <div v-if="msgErrorNull" class="alert alert-danger mt-3" role="alert">
                         <i class="fa fa-ban"></i> Por favor, não deixe nenhum
                         campo vazio!
+                      </div>
+                      <div v-if="msgMaxUsers" class="alert alert-danger mt-3" role="alert">
+                        <i class="fa fa-ban"></i> Máximo de usuários já cadastrados
                       </div>
                       <div>
                         <div class="tab-content" id="myTabContent">

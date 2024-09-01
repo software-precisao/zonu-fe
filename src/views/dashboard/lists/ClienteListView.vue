@@ -140,23 +140,14 @@ export default {
                   </h5>
                 </div>
                 <div class="card-body">
-                  <div
-                    v-if="msgSuccess"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> {{ msgSuccess }}
                   </div>
 
                   <div class="container">
                     <div class="row">
-                      <input
-                        type="text"
-                        placeholder="Pesquise aqui"
-                        class="form-control mb-3"
-                        aria-describedby="passwordHelpBlock"
-                        v-model="searchCliente"
-                      />
+                      <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
+                        aria-describedby="passwordHelpBlock" v-model="searchCliente" />
                       <table class="table">
                         <thead>
                           <tr>
@@ -171,30 +162,17 @@ export default {
                           </tr>
                         </thead>
                         <tbody>
-                          <TableRow
-                            v-for="item in clientesOnCurrentPage"
-                            :key="item.id_user"
-                            :item="item"
-                          />
+                          <TableRow v-for="item in clientesOnCurrentPage" :key="item.id_user" :item="item" />
                         </tbody>
                       </table>
 
-                      <div
-                        class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end"
-                      >
-                        <button
-                          class="btn btn-dark btn-sm"
-                          @click="previousPageCliente()"
-                          :disabled="currentPageCliente <= 1"
-                        >
+                      <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-dark btn-sm" @click="previousPageCliente()"
+                          :disabled="currentPageCliente <= 1">
                           Anterior
                         </button>
-                        <button
-                          class="btn btn-dark btn-sm"
-                          style="margin-right: 3% !important"
-                          @click="nextPageCliente()"
-                          :disabled="currentPageCliente >= totalPagesClientes"
-                        >
+                        <button class="btn btn-dark btn-sm" style="margin-right: 3% !important"
+                          @click="nextPageCliente()" :disabled="currentPageCliente >= totalPagesClientes">
                           Proximo
                         </button>
                       </div>

@@ -215,6 +215,17 @@
                             </div>
 
                             <div class="row mt-4">
+                              <div class="form-group col-md-6 mt-3 mb-3">
+                                <span><small><strong>Escolha o tipo do cliente</strong></small></span>
+                                <select v-model="selectNivelCliente" type="text" class="form-control mt-2" id="nome">
+                                  <option value="" selected disabled hidden>Escolha</option>
+                                  <option value="Imobiliaria">Imobiliária</option>
+                                  <option value="Corretor">Corretor</option>
+                                  <option value="PessoaFisica">Pessoa Fisíca</option>
+                                </select>
+                              </div>
+
+
                               <label for="nome" class="mb-4"><small><strong><i class="fa fa-user"></i> Dados sobre o
                                     operador da conta</strong></small></label>
 
@@ -605,6 +616,7 @@ export default {
       senhaValidaCon: true,
 
       selectNivelCon: "",
+      selectNivelCliente: "",
     };
   },
   components: {
@@ -767,6 +779,7 @@ export default {
       let email = this.email;
       let senha = this.senha;
       let selectNivel = this.selectNivel;
+      console.log(selectNivel)
       // let selectPlano = this.selectPlano;
 
       // Verificar a quantidade máxima de usuários permitidos
@@ -839,6 +852,170 @@ export default {
         }, 3000);
       }
     },
+
+    handleSalvarClienteZonu() {
+      let selectNivel = this.selectNivelCliente;
+
+      if (selectNivel !== "") {
+        if (selectNivel == "Corretor") {
+          this.textoBotaoCon = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCon;
+          let sobrenome = this.sobrenomeCon;
+          let email = this.emailCon;
+          let senha = this.senhaCon;
+          let cpf = this.cpfCon
+          let idPlano = 3
+          let telefone = this.telefoneCon
+          let cep = this.buscarCEPCon
+          let endereco = this.logradouroCon
+          let complemento = this.complementoCon
+          let numero = this.numeroCon
+          let cidade = this.cidadeCon
+          let estado = this.estadoCon
+          let bairro = this.bairroCon
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cpf !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth
+              .cadastroCorretor(nome, sobrenome, email, senha, cpf, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .then((res) => {
+                if (res.status == 202) {
+                  this.selectNivel = "";
+                  this.nomeCon = "";
+                  this.sobrenomeCon = "";
+                  this.emailCon = "";
+                  this.senhaCon = "";
+                  this.confimSenhaCon = "";
+                  this.cpfCon = "";
+                  this.telefoneCon = "";
+                  this.buscarCEPCon = "";
+                  this.logradouroCon = "";
+                  this.numeroCon = "";
+                  this.cidadeCon = "";
+                  this.estadoCon = "";
+                  this.bairroCon = "";
+
+                  this.msgSuccess = true;
+                  this.autenticando = false;
+
+                  setTimeout(() => {
+                    this.msgSuccess = false;
+                    this.textoBotaoCon = "Criar convidado";
+                  }, 3000);
+
+                  this.fetchUsuarios();
+                } else {
+                  this.msgErrorCon = true
+                  this.autenticando = false;
+                  this.textoBotaoCon = "Criar convidado";
+
+                  setTimeout(() => {
+                    this.msgErrorCon = false;
+                  }, 3000);
+                }
+              });
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCon = "Criar convidado";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+        } else if (selectNivel == "Imobiliaria") {
+          this.textoBotaoCon = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCon;
+          let sobrenome = this.sobrenomeCon;
+          let email = this.emailCon;
+          let senha = this.senhaCon;
+          let razaoSocial = this.razao_socialCon
+          let cnpj = this.cnpjCon
+          let idPlano = 2
+          let telefone = this.telefoneCon
+          let cep = this.buscarCEPCon
+          let endereco = this.logradouroCon
+          let complemento = this.complementoCon
+          let numero = this.numeroCon
+          let cidade = this.cidadeCon
+          let estado = this.estadoCon
+          let bairro = this.bairroCon
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cnpj !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth
+              .cadastroImobiliaria(nome, sobrenome, email, senha, razaoSocial, cnpj, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .then((res) => {
+                if (res.status == 202) {
+                  this.selectNivel = "";
+                  this.nomeCon = "";
+                  this.sobrenomeCon = "";
+                  this.emailCon = "";
+                  this.senhaCon = "";
+                  this.confimSenhaCon = "";
+                  this.razao_socialCon = "";
+                  this.cnpjCon = "";
+                  this.telefoneCon = "";
+                  this.buscarCEPCon = "";
+                  this.logradouroCon = "";
+                  this.numeroCon = "";
+                  this.cidadeCon = "";
+                  this.estadoCon = "";
+                  this.bairroCon = "";
+
+                  this.msgSuccess = true;
+                  this.autenticando = false;
+
+                  setTimeout(() => {
+                    this.msgSuccess = false;
+                    this.textoBotaoCon = "Criar convidado";
+                  }, 3000);
+
+                  this.fetchUsuarios();
+                } else {
+                  this.msgErrorCon = true
+                  this.autenticando = false;
+                  this.textoBotaoCon = "Criar convidado";
+
+                  setTimeout(() => {
+                    this.msgErrorCon = false;
+                  }, 3000);
+                }
+              });
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCon = "Criar convidado";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+        }
+      } else {
+        this.msgErrorSelectNull = true
+        setTimeout(() => {
+          this.msgErrorSelectNull = false
+        }, 3000)
+      }
+    },
+
     handleSalvarUserConvidadosZonu() {
       // let nome = this.nomeCon;
       // let sobrenome = this.sobrenomeCon;

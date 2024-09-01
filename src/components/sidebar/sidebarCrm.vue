@@ -1,7 +1,7 @@
 <template>
   <div class="pt-2 ps-3 pe-3" style="background-color: #fff; min-width: 19%; border-right: 1px solid #d3d3d3">
     <!-- Conteúdo da Sidebar -->
-    <ul class="nav flex-column">
+    <ul class="nav flex-column mb-2">
       <h4 class="mt-3 mb-2 fw-bold fs-5">
         <strong>Gestão do relacionamento</strong>
       </h4>
@@ -48,14 +48,14 @@
               Lista de Clientes ({{ mostrarSkeleton ? qtdClientesUnicos : 0 }})
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmimoveisreser"
               :style="{ fontWeight: tab === 'Imóveis reservados' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="home"></i>
-              <!-- Ícone para Imóveis Reservados -->
+              
               Imóveis Reservados ({{ mostrarSkeleton ? imoveisReserv.length : 0 }})
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li class="nav-item mt-4">
@@ -70,14 +70,13 @@
               Clientes Compatíveis ({{ mostrarSkeleton ? qtdClientesCompat : 0 }})
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmimovcompat"
               :style="{ fontWeight: tab === 'Imóveis compativeis' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="home"></i>
-              <!-- Ícone para Imóveis Compatíveis -->
               Imóveis Compatíveis ({{ mostrarSkeleton ? imoveisCompativ == null ? 0 : imoveisCompativ : 0 }})
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li class="nav-item mt-4">
@@ -91,15 +90,14 @@
               Negócios Encerrados
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmshareimov" :style="{
               fontWeight: tab === 'Imóveis compartilhados' ? 600 : 400,
             }">
               <i class="align-middle me-2" data-feather="share"></i>
-              <!-- Ícone para Imóveis Compartilhados -->
               Imóveis Compartilhados
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
     </ul>
