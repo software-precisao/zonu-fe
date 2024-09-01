@@ -36,62 +36,42 @@
 
     <td class="row mt-3">
       <div class="col-4">
-        <button
-          v-if="item.id_status == 2"
-          @click="handleEditStatusAtivate(item.id_user)"
-          type="button"
-          class="btn btn-success"
-          style="
+        <button v-if="item.id_status == 2" @click="handleEditStatusAtivate(item.id_user)" type="button"
+          class="btn btn-success" style="
             --bs-btn-padding-y: 0.25rem;
             --bs-btn-padding-x: 0.5rem;
             --bs-btn-font-size: 0.75rem;
             margin-right: 6px !important;
-          "
-        >
+          ">
           <i class="fa fa-check"></i>
         </button>
-        <button
-          v-if="item.id_status == 1"
-          @click="handleEditStatusBlock(item.id_user)"
-          type="button"
-          class="btn btn-info"
-          style="
+        <button v-if="item.id_status == 1" @click="handleEditStatusBlock(item.id_user)" type="button"
+          class="btn btn-info" style="
             --bs-btn-padding-y: 0.25rem;
             --bs-btn-padding-x: 0.5rem;
             --bs-btn-font-size: 0.75rem;
             margin-right: 6px !important;
-          "
-        >
+          ">
           <i class="fa fa-ban"></i>
         </button>
       </div>
       <div class="col-4">
-        <button
-          @click="openEditModal(item)"
-          type="button"
-          class="btn btn-warning"
-          style="
+        <button @click="openEditModal(item)" type="button" class="btn btn-warning" style="
             --bs-btn-padding-y: 0.25rem;
             --bs-btn-padding-x: 0.5rem;
             --bs-btn-font-size: 0.75rem;
             margin-right: 6px !important;
-          "
-        >
+          ">
           <i class="fa fa-edit"></i>
         </button>
       </div>
       <div class="col-4">
-        <button
-          @click="handleDeleteUser(item.id_user)"
-          type="button"
-          class="btn btn-danger"
-          style="
+        <button @click="handleDeleteUser(item.id_user)" type="button" class="btn btn-danger" style="
             --bs-btn-padding-y: 0.25rem;
             --bs-btn-padding-x: 0.5rem;
             --bs-btn-font-size: 0.75rem;
             margin-right: 6px;
-          "
-        >
+          ">
           <i class="fa fa-trash"></i>
         </button>
       </div>
@@ -125,7 +105,7 @@ export default {
     },
 
     handleEditUsuario(updatedUser) {
-      console.log(updatedUser);
+      // console.log(updatedUser);
       // Atualiza o usuário usando a API
       api.editUser(updatedUser).then((res) => {
         if (res.status == 201) {

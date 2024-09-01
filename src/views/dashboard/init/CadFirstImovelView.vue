@@ -2216,7 +2216,8 @@
                               <div class="row g-3">
                                 <div class="col-12">
                                   <div class="row row-cols-1 row-cols-md-5 g-4">
-                                    <div class="col" v-for="(image, index) in images" :key="index">
+                                    <div class="col" v-for="(image, index) in images" :key="index"
+                                      style="margin-right: 40px;">
                                       <div class="card bg-transparent border-0">
                                         <div class="preview-photo-prato area-photo-prato">
                                           <img :src="image.src" class="img-photo-prato" />
@@ -3302,10 +3303,10 @@
                                                           !mostrarSkeleton
                                                         " class="form-control" v-model="areaConstruida
                                                           " placeholder="Digite aqui..." @input="
-                                                              aplicaMascaraMedida(
-                                                                'areaConstruida'
-                                                              )
-                                                              " />
+                                                            aplicaMascaraMedida(
+                                                              'areaConstruida'
+                                                            )
+                                                            " />
                                                         <span v-if="
                                                           !mostrarSkeleton
                                                         " class="input-group-text">m²</span>
@@ -3326,10 +3327,10 @@
                                                           !mostrarSkeleton
                                                         " class="form-control" v-model="areaPrivativa
                                                           " placeholder="Digite aqui..." @input="
-                                                              aplicaMascaraMedida(
-                                                                'areaPrivativa'
-                                                              )
-                                                              " />
+                                                            aplicaMascaraMedida(
+                                                              'areaPrivativa'
+                                                            )
+                                                            " />
                                                         <span v-if="
                                                           !mostrarSkeleton
                                                         " class="input-group-text">m²</span>
@@ -3506,7 +3507,7 @@
                                                         class="form-control" v-model="precoCondominio
                                                           " @input="aplicaMascaraDinheiroPrecoCondominio
                                                             " @blur="aplicaMascaraDinheiroPrecoCondominio
-                                                            " placeholder="R$ 0,00" />
+                                                              " placeholder="R$ 0,00" />
                                                     </div>
                                                   </div>
 

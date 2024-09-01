@@ -55,7 +55,7 @@
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
-                <div class="card" style="
+                <div class="card" v-if="disableAjuda" style="
                     position: relative;
                     border: 1px solid rgb(211, 220, 235);
                   ">
@@ -1722,6 +1722,8 @@ export default {
 
       startDate: "01/01/2024",
       endDate: "19/08/2024",
+
+      disableAjuda: false,
     };
   },
   watch: {

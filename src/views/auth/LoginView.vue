@@ -378,6 +378,45 @@ export default {
                 this.autenticando = false;
                 this.textoBotao = "Acessar sua conta";
               }, 2000);
+            } else if (res.status == 203) {
+              const token = res.data.token;
+              localStorage.setItem("token", token);
+              const status = res.data.id_status;
+              const initial = res.data.initial;
+              const nivel = res.data.id_nivel;
+
+              console.log("aqui")
+
+              // construtora
+              if (nivel == 3 && status == 1 && initial == 1) {
+                this.autenticando = false;
+                window.location.href = "/pagamento-zonu";
+              } else if (nivel == 3 && status == 2) {
+                this.msgNotActivate = true;
+                setTimeout(() => {
+                  this.msgNotActivate = true;
+                  this.autenticando = false;
+                  this.textoBotao = "Tentar novamente...";
+                }, 3000);
+              }
+
+              // resto dos logins
+              if (status == 1) {
+                this.autenticando = false;
+                window.location.href = "/pagamento-zonu";
+              } else if (status == 2) {
+                this.msgNotActivate = true;
+                setTimeout(() => {
+                  this.msgNotActivate = true;
+                  this.autenticando = false;
+                  this.textoBotao = "Tentar novamente...";
+                }, 3000);
+              }
+
+              setTimeout(() => {
+                this.autenticando = false;
+                this.textoBotao = "Acessar sua conta";
+              }, 2000);
             }
           })
           .catch(() => {

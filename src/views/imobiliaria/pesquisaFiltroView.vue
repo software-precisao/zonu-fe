@@ -333,6 +333,16 @@
                     <div class="d-flex flex-wrap justify-content-flex-start">
                       <div class="mx-2" v-for="imovel in lastImoveis">
                         <!-- {{ console.log(imovel) }} -->
+                        <div class="mb-2" style="
+                          display: flex;
+                          justify-content: right;
+                          width: 15rem;
+                        ">
+                          <button class="btn btn-light rounded-circle icon-button"
+                            @click="handleCompartilhar(imovel.id_imovel)">
+                            <i class="fas fa-share"></i>
+                          </button>
+                        </div>
                         <a href="#" @click="storeImovelId(imovel.id_imovel)"
                           style="color: inherit; text-decoration: none">
                           <div class="card" style="width: 15rem">
@@ -345,7 +355,7 @@
                                   <strong>{{ " " }} {{ imovel.descricao.titulo }}
                                   </strong>
                                 </a>
-                                <span class="badge text-bg-success">{{
+                                <span class="badge text-bg-success ms-2">{{
                                   imovel.preco.tipo_negocio
                                 }}</span>
                               </h5>
@@ -427,7 +437,7 @@
                                 <strong>{{ " " }} {{ imovel.descricao.titulo }}
                                 </strong>
                               </a>
-                              <span class="badge text-bg-success">{{
+                              <span class="badge text-bg-success ms-2">{{
                                 imovel.preco.tipo_negocio
                               }}</span>
                             </h5>
