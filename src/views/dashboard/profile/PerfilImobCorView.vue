@@ -13,14 +13,8 @@
                   <h5 class="card-title mb-0">
                     <i class="fa fa-user"></i> Detalhes do perfil
                     <span style="float: inline-end">
-                      <a
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        class="btn btn-info btn-sm"
-                        style="margin-right: 3px"
-                        href="#"
-                        ><i class="fa fa-refresh"></i> Trocar senha</a
-                      >
+                      <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info btn-sm"
+                        style="margin-right: 3px" href="#"><i class="fa fa-refresh"></i> Trocar senha</a>
                     </span>
                   </h5>
                 </div>
@@ -28,50 +22,51 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-4">
-                        <div
-                          v-if="
-                            image == null ||
-                            image == '/avatar/default-avatar.png'
-                          "
-                          class="avatar-null rounded me-1 mb-4"
-                          style="
+                        <div v-if="
+                          image == null ||
+                          image == '/avatar/default-avatar.png'
+                        " class="avatar-null rounded me-1 mb-4" style="
                             width: 128px;
                             height: 128px;
                             font-size: 40px;
                             justify-content: center;
                             align-items: center;
                             display: flex;
-                          "
-                        >
+                          ">
                           {{ iniciais }}
                         </div>
                       </div>
 
                       <div class="col-md-8 text-left">
-                        <label for=""
-                          ><small
-                            ><strong>Nome de usuário</strong></small
-                          ></label
-                        >
+                        <label for=""><small><strong>Nome de usuário</strong></small></label>
                         <h5 class="text-muted mb-0">
                           {{ nome }} {{ sobrenome }}
                         </h5>
 
-                        <label for="" class="mt-2"
-                          ><small><strong>E-mail</strong></small></label
-                        >
+                        <label for="" class="mt-2"><small><strong>E-mail</strong></small></label>
                         <h5 class="text-muted mb-0">{{ email }}</h5>
 
-                        <label for="" class="mt-2"
-                          ><small><strong>Nivel</strong></small></label
-                        >
+                        <label for="" class="mt-2"><small><strong>Nivel</strong></small></label>
                         <h5 v-if="nivel == 1" class="text-muted mb-0">
-                          <span class="badge text-bg-primary"
-                            >Administrador</span
-                          >
+                          <span class="badge text-bg-primary">Administrador</span>
                         </h5>
                         <h5 v-if="nivel == 2" class="text-muted mb-0">
+                          <span class="badge text-bg-primary">Suporte</span>
+                        </h5>
+                        <h5 v-if="nivel == 3" class="text-muted mb-0">
                           <span class="badge text-bg-primary">Construtora</span>
+                        </h5>
+                        <h5 v-if="nivel == 4" class="text-muted mb-0">
+                          <span class="badge text-bg-primary">Corretor</span>
+                        </h5>
+                        <h5 v-if="nivel == 5" class="text-muted mb-0">
+                          <span class="badge text-bg-primary">Imobiliária</span>
+                        </h5>
+                        <h5 v-if="nivel == 6" class="text-muted mb-0">
+                          <span class="badge text-bg-primary">Imobiliária - Usuário</span>
+                        </h5>
+                        <h5 v-if="nivel == 7" class="text-muted mb-0">
+                          <span class="badge text-bg-primary">Pessoa Fisíca</span>
                         </h5>
                       </div>
                     </div>
@@ -91,10 +86,8 @@
                     <i class="fa fa-bar-chart" aria-hidden="true"></i>
                     Financeiro
                   </h5>
-                  <label for=""
-                    ><small><strong>Seu plano:</strong></small></label
-                  >
-                  <h5 class="text-muted mb-0">Zonu PRO</h5>
+                  <label for=""><small><strong>Seu plano:</strong></small></label>
+                  <h5 class="text-muted mb-0">{{ nomePlano }}</h5>
                 </div>
               </div>
             </div>
@@ -111,50 +104,34 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-3">
-                        <div
-                          v-if="
-                            image == null ||
-                            image == '/avatar/default-avatar.png'
-                          "
-                          class="avatar-null rounded me-1 mb-4"
-                          style="
+                        <div v-if="
+                          image == null ||
+                          image == '/avatar/default-avatar.png'
+                        " class="avatar-null rounded me-1 mb-4" style="
                             width: 128px;
                             height: 128px;
                             font-size: 40px;
                             justify-content: center;
                             align-items: center;
                             display: flex;
-                          "
-                        >
+                          ">
                           <i class="fa fa-building fa-2x"></i>
                         </div>
                       </div>
 
                       <div class="col-md-8 text-left">
-                        <label for=""
-                          ><small><strong>Razão Social</strong></small></label
-                        >
-                        <h5 class="text-muted mb-0">{{ razaoSocial }}</h5>
+                        <label for="" v-if="nivel != 4"><small><strong>Razão Social</strong></small></label>
+                        <h5 class="text-muted mb-0" v-if="nivel != 4">{{ razaoSocial }}</h5>
 
-                        <label for="" class="mt-2"
-                          ><small><strong>CNPJ</strong></small></label
-                        >
-                        <h5 class="text-muted mb-0">{{ cnpj }}</h5>
+                        <label for="" class="mt-2" v-if="nivel != 4"><small><strong>CNPJ</strong></small></label>
+                        <h5 class="text-muted mb-0" v-if="nivel != 4">{{ cnpj }}</h5>
 
-                        <label for="" class="mt-2"
-                          ><small><strong>Endereço</strong></small></label
-                        >
+                        <label for="" class="mt-2"><small><strong>Endereço</strong></small></label>
                         <h5 class="text-muted mb-0">{{ endereco }}</h5>
                       </div>
 
                       <div class="col-md-12 text-left">
-                        <label for=""
-                          ><small
-                            ><strong
-                              ><i class="fa fa-link"></i> Token único</strong
-                            ></small
-                          ></label
-                        >
+                        <label for=""><small><strong><i class="fa fa-link"></i> Token único</strong></small></label>
                         <h5 class="text-muted mb-0">{{ myToken }}</h5>
                       </div>
                     </div>
@@ -174,91 +151,42 @@
             </div>
 
             <!-- Modal -->
-            <div
-              class="modal fade"
-              id="exampleModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                       <i class="fa fa-edit"></i> Edite sua senha
                     </h1>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="container">
                       <div class="row">
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Crie uma senha
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Crie uma senha
                             </label>
-                            <input
-                              type="password"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="senha"
-                              :class="{ 'is-invalid': isEmailInvalid }"
-                              placeholder="Digite sua senha"
-                            />
+                            <input type="password" required v-if="!mostrarSkeleton" class="form-control" v-model="senha"
+                              :class="{ 'is-invalid': isEmailInvalid }" placeholder="Digite sua senha" />
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="mb-3">
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-label"
-                            ></div>
-                            <div
-                              v-if="mostrarSkeleton"
-                              class="skeleton-input"
-                            ></div>
-                            <label
-                              v-if="!mostrarSkeleton"
-                              for="exampleInputEmail1"
-                              class="form-label"
-                              >Confirme a senha
+                            <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                            <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                            <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Confirme a senha
                             </label>
-                            <input
-                              type="password"
-                              required
-                              v-if="!mostrarSkeleton"
-                              class="form-control"
-                              v-model="confimSenha"
-                              placeholder="Digite a senha novamente"
-                            />
+                            <input type="password" required v-if="!mostrarSkeleton" class="form-control"
+                              v-model="confimSenha" placeholder="Digite a senha novamente" />
 
-                            <p
-                              class="text-danger mt-2"
-                              v-if="confimSenha && !passwordsMatch"
-                            >
+                            <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
                               <i class="fa fa-ban"></i> As senhas não conferem!
                             </p>
-                            <p
-                              class="text-success mt-2"
-                              v-if="confimSenha && passwordsMatch"
-                            >
+                            <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
                               <i class="fa fa-check"></i> As senhas conferem
                             </p>
                           </div>
@@ -267,28 +195,13 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                       Cancelar
                     </button>
-                    <button
-                      type="button"
-                      :disabled="autenticando"
-                      @click="handledEdit()"
-                      class="btn btn-success"
-                    >
+                    <button type="button" :disabled="autenticando" @click="handledEdit()" class="btn btn-success">
                       {{ textoBotao }}
-                      <span
-                        v-if="autenticando"
-                        class="spinner-border spinner-border-sm"
-                        aria-hidden="true"
-                      ></span>
-                      <span v-if="autenticando" class="visually-hidden"
-                        >Aguarde...</span
-                      >
+                      <span v-if="autenticando" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
                     </button>
                   </div>
                 </div>
@@ -308,6 +221,7 @@ import NavBar from "../../../components/navbar/navbar-imobiliaria.vue";
 import Footer from "../../../components/footer/index.vue";
 import { jwtDecode } from "jwt-decode";
 import api from "../../../../service/api/index";
+import apiPlanos from "../../../../service/api/planos/index";
 
 export default {
   name: "PerfilIMobiCorView",
@@ -331,6 +245,8 @@ export default {
       qrcode: "",
       idUser: "",
       card: true,
+
+      nomePlano: "",
     };
   },
   components: {
@@ -347,6 +263,8 @@ export default {
     let token = localStorage.getItem("token");
     this.token = token;
     let decode = jwtDecode(token);
+
+    console.log(decode)
 
     if (decode.perfil == null) {
       this.card = false;
@@ -369,6 +287,8 @@ export default {
 
     const iniciais = this.nome.charAt(0) + this.sobrenome.charAt(0);
     this.iniciais = iniciais;
+
+    this.fetchMyPlan()
   },
 
   methods: {
@@ -386,6 +306,18 @@ export default {
           }, 3000);
         }
       });
+    },
+
+    fetchMyPlan() {
+      apiPlanos.getPlanos().then((res) => {
+        if (res.status === 200) {
+          res.data.map((plano) => {
+            if (plano.id_plano == this.plano) {
+              this.nomePlano = plano.nome_plano;
+            }
+          });
+        }
+      })
     },
   },
 };

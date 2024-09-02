@@ -1,7 +1,6 @@
 <template>
   <div class="flex-fill w-100">
     <div class="card-body py-3">
-      <!-- {{ console.log(idFunil) }} -->
       <div class="chart chart-sm">
         <canvas id="myChartRedesSociais"></canvas>
       </div>

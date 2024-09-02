@@ -85,15 +85,42 @@ export default {
 
   sendFileCreci: async (id_user, formData) => {
     try {
-      const response = await http.put(`/usuarios/enviodoc-creci/${id_user}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Access-Control-Allow-Headers": "*",
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
-        },
-      });
+      const response = await http.put(
+        `/usuarios/enviodoc-creci/${id_user}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  sendFileDocOfc: async (id_user, formData) => {
+    console.log(formData);
+    try {
+      const response = await http.put(
+        `/usuarios/enviodoc_ofc/${id_user}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
 
       return response;
     } catch (error) {
@@ -103,15 +130,19 @@ export default {
 
   sendFileCnpj: async (id_user, formData) => {
     try {
-      const response = await http.put(`/usuarios/enviodoc-cnpj/${id_user}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Access-Control-Allow-Headers": "*",
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
-        },
-      });
+      const response = await http.put(
+        `/usuarios/enviodoc-cnpj/${id_user}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
 
       return response;
     } catch (error) {
@@ -233,7 +264,7 @@ export default {
       const response = await http.post(
         `/linktemporario/cadastrar-link`,
         {
-          userId: id,
+          id_user: id,
           url: rota,
         },
         {

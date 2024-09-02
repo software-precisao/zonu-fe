@@ -215,23 +215,58 @@
                             </div>
 
                             <div class="row mt-4">
+                              <div class="form-group col-md-6 mt-3 mb-3">
+                                <span><small><strong>Escolha o tipo do cliente</strong></small></span>
+                                <select v-model="selectNivelCliente" type="text" class="form-control mt-2" id="nome">
+                                  <option value="" selected disabled hidden>Escolha</option>
+                                  <option value="Imobiliaria">Imobiliária</option>
+                                  <option value="Construtora">Construtora</option>
+                                  <option value="Corretor">Corretor</option>
+                                  <option value="PessoaFisica">Pessoa Fisíca</option>
+                                </select>
+                              </div>
+
+
                               <label for="nome" class="mb-4"><small><strong><i class="fa fa-user"></i> Dados sobre o
                                     operador da conta</strong></small></label>
 
                               <div class="form-group col-md-6">
                                 <label for="nome"><small><strong>Nome</strong></small></label>
-                                <input type="text" v-model="nome" class="form-control mt-2" id="nome"
+                                <input type="text" v-model="nomeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite o nome" />
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="nome"><small><strong>Sobrenome</strong></small></label>
-                                <input type="text" v-model="sobrenome" class="form-control mt-2" id="nome"
+                                <label for="sobrenome"><small><strong>Sobrenome</strong></small></label>
+                                <input type="text" v-model="sobrenomeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite o sobrenome" />
                               </div>
-                              <div class="form-group col-md-12 mt-3">
-                                <label for="nome"><small><strong>E-mail</strong></small></label>
+                              <div class="form-group col-md-12 mt-3"
+                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                                <label for="email"><small><strong>E-mail</strong></small></label>
                                 <input type="email" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="email" placeholder="Digite um e-mail válido" />
+                                  v-model="emailCliente" placeholder="Digite um e-mail válido" />
+
+                                <p v-if="emailValid" class="text-danger mt-2">
+                                  <i class="fa fa-circle-exclamation"></i>
+                                  Por favor, forneça um e-mail válido.
+                                </p>
+                              </div>
+                              <div class="form-group col-md-6 mt-3"
+                                v-if="selectNivelCliente == '' || selectNivelCliente == 'Corretor' || selectNivelCliente == 'PessoaFisica'">
+                                <label for="email"><small><strong>E-mail</strong></small></label>
+                                <input type="email" required v-if="!mostrarSkeleton" class="form-control"
+                                  v-model="emailCliente" placeholder="Digite um e-mail válido" />
+
+                                <p v-if="emailValid" class="text-danger mt-2">
+                                  <i class="fa fa-circle-exclamation"></i>
+                                  Por favor, forneça um e-mail válido.
+                                </p>
+                              </div>
+                              <div class="form-group col-md-6 mt-3"
+                                v-if="selectNivelCliente == '' || selectNivelCliente == 'Corretor' || selectNivelCliente == 'PessoaFisica'">
+                                <label for="cpf"><small><strong>CPF</strong></small></label>
+                                <input type="text" @input="aplicaMascaraCPFCli" required v-if="!mostrarSkeleton"
+                                  class="form-control" v-model="cpfCliente" placeholder="Digite um e-mail válido" />
 
                                 <p v-if="emailValid" class="text-danger mt-2">
                                   <i class="fa fa-circle-exclamation"></i>
@@ -239,14 +274,14 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Senha</strong></small></label>
+                                <label for="senha"><small><strong>Senha</strong></small></label>
                                 <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="senha" :class="{
+                                  v-model="senhaCliente" :class="{
                                     'is-invalid':
-                                      !senhaValida && senha.length > 0,
-                                  }" @input="validarSenha" placeholder="Digite sua senha" />
+                                      !senhaValidaCli && senhaCliente.length > 0,
+                                  }" @input="validarSenhaCli" placeholder="Digite sua senha" />
 
-                                <p class="text-warning mt-2" v-if="!senhaValida && senha.length > 0">
+                                <p class="text-warning mt-2" v-if="!senhaValidaCli && senhaCliente.length > 0">
                                   <small>
                                     <i class="fa fa-bell"></i> Sua senha deve
                                     ter no mínimo 8 caracteres, número e uma
@@ -255,32 +290,50 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Confirme a senha</strong></small></label>
+                                <label for="confSenha"><small><strong>Confirme a senha</strong></small></label>
                                 <input type="password" required v-if="!mostrarSkeleton" class="form-control"
-                                  v-model="confimSenha" placeholder="Digite a senha novamente" />
+                                  v-model="confimSenhaCliente" placeholder="Digite a senha novamente" />
 
-                                <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
+                                <p class="text-danger mt-2" v-if="confimSenhaCliente && !passwordsMatchCli">
                                   <i class="fa fa-ban"></i> As senhas não
                                   conferem!
                                 </p>
-                                <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
+                                <p class="text-success mt-2" v-if="confimSenhaCliente && passwordsMatchCli">
                                   <i class="fa fa-check"></i> As senhas conferem
                                 </p>
                               </div>
 
-                              <hr class="mt-4" />
-                              <label for="nome"><small><strong><i class="fa fa-building"></i> Dados sobre
-                                    a empresa</strong></small></label>
+
+
+                              <div class="form-group col-md-6 mt-3"
+                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                                <label for="nome"><small><strong>CNPJ</strong></small></label>
+                                <input type="text" v-model="cnpjCliente" class="form-control mt-2" id="nome"
+                                  placeholder="00.000.000/0001-00" @input="aplicaMascaraCNPJCli" />
+                              </div>
+                              <div class="form-group col-md-6 mt-3"
+                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                                <label for="nome"><small><strong>Razão Social</strong></small></label>
+                                <input type="text" v-model="razao_socialCliente" disabled class="form-control mt-2"
+                                  id="nome" placeholder="..." />
+                              </div>
+
+                              <div v-if="msgErrorCnpjCli" class="mt-2 alert alert-danger alert-dismissible fade show"
+                                role="alert">
+                                <strong><i class="fa fa-ban"></i>
+                                  Lamentamos...</strong>
+                                Seu CNPJ não é válido, tenho outro.
+                              </div>
 
                               <div class="form-group col-md-3 mt-3">
                                 <label for="nome"><small><strong>Telefone</strong></small></label>
-                                <input v-model="telefone" type="text" @input="aplicaMascaraTelefone"
+                                <input v-model="telefoneCliente" type="text" @input="aplicaMascaraTelefoneCli"
                                   class="form-control mt-2" id="nome" placeholder="(00) 90000-0000" />
                               </div>
                               <div class="form-group col-md-3 mt-3">
                                 <label for="nome"><small><strong>CEP</strong></small></label>
-                                <input type="text" required v-if="!mostrarSkeleton" @input="aplicaMascaraCEP"
-                                  class="form-control mt-2" v-model="buscarCEP" placeholder="000000-000" />
+                                <input type="text" required v-if="!mostrarSkeleton" @input="aplicaMascaraCEPCli"
+                                  class="form-control mt-2" v-model="buscarCEPCliente" placeholder="000000-000" />
                                 <p v-if="msgErrorCep" class="text-danger mt-2">
                                   <small><i class="fa fa-check"></i> Cep
                                     inválido</small>
@@ -288,32 +341,50 @@
                               </div>
                               <div class="form-group col-md-6 mt-3">
                                 <label for="nome"><small><strong>Endereço</strong></small></label>
-                                <input type="text" disabled v-model="logradouro" class="form-control mt-2" id="nome"
+                                <input type="text" disabled v-model="logradouroCliente" class="form-control mt-2"
+                                  id="nome" placeholder="Aguardando" />
+                              </div>
+                              <div class="form-group col-md-9 mt-3">
+                                <label for="nome"><small><strong>Complemento</strong></small></label>
+                                <input type="text" v-model="complementoCliente" class="form-control mt-2" id="nome"
+                                  placeholder="Digite um complemento..." />
+                              </div>
+                              <div class="form-group col-md-3 mt-3">
+                                <label for="nome"><small><strong>Número</strong></small></label>
+                                <input type="text" v-model="numeroCliente" class="form-control mt-2" id="nome"
+                                  placeholder="00" />
+                              </div>
+                              <div class="form-group col-md-4 mt-3">
+                                <label for="nome"><small><strong>Cidade</strong></small></label>
+                                <input type="text" disabled v-model="cidadeCliente" class="form-control mt-2" id="nome"
+                                  placeholder="Aguardando" />
+                              </div>
+                              <div class="form-group col-md-4 mt-3">
+                                <label for="nome"><small><strong>Estado</strong></small></label>
+                                <input type="text" disabled v-model="estadoCliente" class="form-control mt-2" id="nome"
+                                  placeholder="Aguardando" />
+                              </div>
+                              <div class="form-group col-md-4 mt-3">
+                                <label for="nome"><small><strong>Bairro</strong></small></label>
+                                <input type="text" disabled v-model="bairroCliente" class="form-control mt-2" id="nome"
                                   placeholder="Aguardando" />
                               </div>
 
-                              <div v-if="msgErrorCnpj" class="mt-2 alert alert-danger alert-dismissible fade show"
-                                role="alert">
-                                <strong><i class="fa fa-ban"></i>
-                                  Lamentamos...</strong>
-                                Seu CNPJ não é válido, tenho outro.
+
+
+                              <div v-if="msgErrorCliente" class="alert alert-danger mt-3" role="alert">
+                                <i class="fa fa-ban"></i> Erro ao salvar cliente, por favor preencha os campos
+                                corretamente
                               </div>
 
-                              <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>CNPJ</strong></small></label>
-                                <input type="text" v-model="cnpj" class="form-control mt-2" id="nome"
-                                  placeholder="00.000.000/0001-00" @input="aplicaMascaraCNPJ" />
-                              </div>
-                              <div class="form-group col-md-6 mt-3">
-                                <label for="nome"><small><strong>Razão Social</strong></small></label>
-                                <input type="text" v-model="razao_social" disabled class="form-control mt-2" id="nome"
-                                  placeholder="..." />
+                              <div v-if="msgErrorSelectNull" class="alert alert-danger mt-3" role="alert">
+                                <i class="fa fa-ban"></i> Selecione o tipo do cliente
                               </div>
 
                               <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button :disabled="autenticando" @click="handleSalvarUserZonu()" class="btn btn-success"
-                                  type="button">
-                                  {{ textoBotao }}
+                                <button :disabled="autenticando" @click="handleSalvarClienteZonu()"
+                                  class="btn btn-success" type="button">
+                                  {{ textoBotaoCliente }}
                                   <span v-if="autenticando" class="spinner-border spinner-border-sm"
                                     aria-hidden="true"></span>
                                   <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
@@ -605,6 +676,28 @@ export default {
       senhaValidaCon: true,
 
       selectNivelCon: "",
+      selectNivelCliente: "",
+
+      nomeCliente: "",
+      sobrenomeCliente: "",
+      emailCliente: "",
+      senhaCliente: "",
+      confimSenhaCliente: "",
+      telefoneCliente: "",
+      buscarCEPCliente: "",
+      logradouroCliente: "",
+      cnpjCliente: "",
+      razao_socialCliente: "",
+      cpfCliente: "",
+      complementoCliente: "",
+      numeroCliente: "",
+      cidadeCliente: "",
+      estadoCliente: "",
+      bairroCliente: "",
+      senhaValidaCli: true,
+      emailValidCli: false,
+      textoBotaoCliente: "Criar novo Cliente",
+      msgErrorCliente: false
     };
   },
   components: {
@@ -630,6 +723,14 @@ export default {
         this.debouncedCheckCEPCon();
       }
     },
+    cnpjCliente(newVal) {
+      this.debouncedCheckCNPJCli();
+    },
+    buscarCEPCliente(newVal, oldVal) {
+      if (newVal.length === 9 && newVal !== oldVal) {
+        this.debouncedCheckCEPCli();
+      }
+    },
   },
   created() {
     this.debouncedCheckCNPJ = _.debounce(this.consultarCNPJ, 100);
@@ -637,6 +738,9 @@ export default {
 
     this.debouncedCheckCNPJCon = _.debounce(this.consultarCNPJCon, 100);
     this.debouncedCheckCEPCon = _.debounce(this.consultarCEPCon, 100);
+
+    this.debouncedCheckCNPJCli = _.debounce(this.consultarCNPJCli, 100);
+    this.debouncedCheckCEPCli = _.debounce(this.consultarCEPCli, 100);
 
     this.fetchUsuarios();
   },
@@ -668,6 +772,9 @@ export default {
     },
     passwordsMatchCon() {
       return this.senhaCon === this.confimSenhaCon;
+    },
+    passwordsMatchCli() {
+      return this.senhaCliente === this.confimSenhaCliente;
     },
     iniciais() {
       let inicialNome = this.nome.charAt(0);
@@ -767,6 +874,7 @@ export default {
       let email = this.email;
       let senha = this.senha;
       let selectNivel = this.selectNivel;
+      console.log(selectNivel)
       // let selectPlano = this.selectPlano;
 
       // Verificar a quantidade máxima de usuários permitidos
@@ -839,6 +947,334 @@ export default {
         }, 3000);
       }
     },
+
+    handleSalvarClienteZonu() {
+      let selectNivel = this.selectNivelCliente;
+
+      if (selectNivel !== "") {
+        if (selectNivel == "Corretor") {
+          this.textoBotaoCliente = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCliente;
+          let sobrenome = this.sobrenomeCliente;
+          let email = this.emailCliente;
+          let senha = this.senhaCliente;
+          let cpf = this.cpfCliente
+          let idPlano = 3
+          let telefone = this.telefoneCliente
+          let cep = this.buscarCEPCliente
+          let endereco = this.logradouroCliente
+          let complemento = this.complementoCliente
+          let numero = this.numeroCliente
+          let cidade = this.cidadeCliente
+          let estado = this.estadoCliente
+          let bairro = this.bairroCliente
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cpf !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth
+              .cadastroCorretor(nome, sobrenome, email, senha, cpf, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .then((res) => {
+                if (res.status == 202) {
+                  this.selectNivelCliente = "";
+                  this.nomeCliente = "";
+                  this.sobrenomeCliente = "";
+                  this.emailCliente = "";
+                  this.senhaCliente = "";
+                  this.confimSenhaCliente = "";
+                  this.cpfCliente = "";
+                  this.telefoneCliente = "";
+                  this.buscarCEPCliente = "";
+                  this.logradouroCliente = "";
+                  this.numeroCliente = "";
+                  this.cidadeCliente = "";
+                  this.estadoCliente = "";
+                  this.bairroCliente = "";
+
+                  this.msgSuccess = true;
+                  this.autenticando = false;
+
+                  setTimeout(() => {
+                    this.msgSuccess = false;
+                    this.textoBotaoCliente = "Criar novo cliente";
+                  }, 3000);
+
+                  this.fetchUsuarios();
+                } else {
+                  this.msgErrorCliente = true
+                  this.autenticando = false;
+                  this.textoBotaoCliente = "Criar novo cliente";
+
+                  setTimeout(() => {
+                    this.msgErrorCliente = false;
+                  }, 3000);
+                }
+              });
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCliente = "Criar novo cliente";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+        } else if (selectNivel == "Imobiliaria") {
+          this.textoBotaoCliente = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCliente
+          let sobrenome = this.sobrenomeCliente;
+          let email = this.emailCliente
+          let senha = this.senhaCliente
+          let razaoSocial = this.razao_socialCliente
+          let cnpj = this.cnpjCliente
+          let idPlano = 2
+          let telefone = this.telefoneCliente
+          let cep = this.buscarCEPCliente
+          let endereco = this.logradouroCliente
+          let complemento = this.complementoCliente
+          let numero = this.numeroCliente
+          let cidade = this.cidadeCliente
+          let estado = this.estadoCliente
+          let bairro = this.bairroCliente
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cnpj !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth
+              .cadastroImobiliaria(nome, sobrenome, email, senha, razaoSocial, cnpj, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .then((res) => {
+                if (res.status == 202) {
+                  this.selectNivelCliente = "";
+                  this.nomeCliente = "";
+                  this.sobrenomeCliente = "";
+                  this.emailCliente = "";
+                  this.senhaCliente = "";
+                  this.confimSenhaCliente = "";
+                  this.razao_socialCliente = "";
+                  this.cnpjCliente = "";
+                  this.telefoneCliente = "";
+                  this.buscarCEPCliente = "";
+                  this.logradouroCliente = "";
+                  this.numeroCliente = "";
+                  this.cidadeCliente = "";
+                  this.estadoCliente = "";
+                  this.bairroCliente = "";
+
+                  this.msgSuccess = true;
+                  this.autenticando = false;
+
+                  setTimeout(() => {
+                    this.msgSuccess = false;
+                    this.textoBotaoCliente = "Criar novo cliente";
+                  }, 3000);
+
+                  this.fetchUsuarios();
+                } else {
+                  this.msgErrorCliente = true
+                  this.autenticando = false;
+                  this.textoBotaoCliente = "Criar novo cliente";
+
+                  setTimeout(() => {
+                    this.msgErrorCliente = false;
+                  }, 3000);
+                }
+              });
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCliente = "Criar novo cliente";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+        } else if (selectNivel == "PessoaFisica") {
+          this.textoBotaoCliente = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCliente;
+          let sobrenome = this.sobrenomeCliente;
+          let email = this.emailCliente;
+          let senha = this.senhaCliente;
+          let cpf = this.cpfCliente
+          let idPlano = 3
+          let telefone = this.telefoneCliente
+          let cep = this.buscarCEPCliente
+          let endereco = this.logradouroCliente
+          let complemento = this.complementoCliente
+          let numero = this.numeroCliente
+          let cidade = this.cidadeCliente
+          let estado = this.estadoCliente
+          let bairro = this.bairroCliente
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cpf !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth.cadastroPessoaFisica(
+              nome,
+              sobrenome,
+              email,
+              senha,
+              cpf,
+              idPlano,
+              telefone,
+              cep,
+              endereco,
+              complemento,
+              numero,
+              cidade,
+              estado,
+              bairro
+            ).then((res) => {
+              if (res.status == 202) {
+                this.selectNivelCliente = "";
+                this.nomeCliente = "";
+                this.sobrenomeCliente = "";
+                this.emailCliente = "";
+                this.senhaCliente = "";
+                this.confimSenhaCliente = "";
+                this.cpfCliente = "";
+                this.telefoneCliente = "";
+                this.buscarCEPCliente = "";
+                this.logradouroCliente = "";
+                this.numeroCliente = "";
+                this.cidadeCliente = "";
+                this.estadoCliente = "";
+                this.bairroCliente = "";
+
+                this.msgSuccess = true;
+                this.autenticando = false;
+
+                setTimeout(() => {
+                  this.msgSuccess = false;
+                  this.textoBotaoCliente = "Criar novo cliente";
+                }, 3000);
+
+                this.fetchUsuarios();
+              } else {
+                this.msgErrorCliente = true
+                this.autenticando = false;
+                this.textoBotaoCliente = "Criar novo cliente";
+
+                setTimeout(() => {
+                  this.msgErrorCliente = false;
+                }, 3000);
+              }
+            })
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCliente = "Criar novo cliente";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+
+        } else if (selectNivel == "Construtora") {
+          this.textoBotaoCliente = "Salvando...";
+          this.autenticando = true;
+
+          let nome = this.nomeCliente
+          let sobrenome = this.sobrenomeCliente;
+          let email = this.emailCliente
+          let senha = this.senhaCliente
+          let razaoSocial = this.razao_socialCliente
+          let cnpj = this.cnpjCliente
+          let idPlano = 4
+          let telefone = this.telefoneCliente
+          let cep = this.buscarCEPCliente
+          let endereco = this.logradouroCliente
+          let complemento = this.complementoCliente
+          let numero = this.numeroCliente
+          let cidade = this.cidadeCliente
+          let estado = this.estadoCliente
+          let bairro = this.bairroCliente
+
+          if (
+            nome !== "" &&
+            sobrenome !== "" &&
+            email !== "" &&
+            senha !== "" &&
+            cnpj !== "" &&
+            telefone !== "" &&
+            cep !== ""
+          ) {
+            apiAuth
+              .cadastroConstrutora(nome, sobrenome, email, senha, razaoSocial, cnpj, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .then((res) => {
+                if (res.status == 202) {
+                  this.selectNivelCliente = "";
+                  this.nomeCliente = "";
+                  this.sobrenomeCliente = "";
+                  this.emailCliente = "";
+                  this.senhaCliente = "";
+                  this.confimSenhaCliente = "";
+                  this.razao_socialCliente = "";
+                  this.cnpjCliente = "";
+                  this.telefoneCliente = "";
+                  this.buscarCEPCliente = "";
+                  this.logradouroCliente = "";
+                  this.numeroCliente = "";
+                  this.cidadeCliente = "";
+                  this.estadoCliente = "";
+                  this.bairroCliente = "";
+
+                  this.msgSuccess = true;
+                  this.autenticando = false;
+
+                  setTimeout(() => {
+                    this.msgSuccess = false;
+                    this.textoBotaoCliente = "Criar novo cliente";
+                  }, 3000);
+
+                  this.fetchUsuarios();
+                } else {
+                  this.msgErrorCliente = true
+                  this.autenticando = false;
+                  this.textoBotaoCliente = "Criar novo cliente";
+
+                  setTimeout(() => {
+                    this.msgErrorCliente = false;
+                  }, 3000);
+                }
+              });
+          } else {
+            this.msgErrorNull = true
+            this.textoBotaoCliente = "Criar novo cliente";
+            this.autenticando = false
+            setTimeout(() => {
+              this.msgErrorNull = false
+            }, 3000);
+          }
+        }
+      } else {
+        this.msgErrorSelectNull = true
+        setTimeout(() => {
+          this.msgErrorSelectNull = false
+        }, 3000)
+      }
+    },
+
     handleSalvarUserConvidadosZonu() {
       // let nome = this.nomeCon;
       // let sobrenome = this.sobrenomeCon;
@@ -1105,6 +1541,21 @@ export default {
 
       this.cnpjCon = v;
     },
+    aplicaMascaraCNPJCli() {
+      let v = this.cnpjCliente;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 14) {
+        v = v.substring(0, 14);
+      }
+
+      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+      v = v.replace(/(\d{4})(\d)/, "$1-$2");
+
+      this.cnpjCliente = v;
+    },
     aplicaMascaraCEP() {
       let v = this.buscarCEP;
 
@@ -1129,6 +1580,18 @@ export default {
 
       this.buscarCEPCon = v;
     },
+    aplicaMascaraCEPCli() {
+      let v = this.buscarCEPCliente;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 8) {
+        v = v.substring(0, 8);
+      }
+
+      v = v.replace(/^(\d{5})(\d)/, "$1-$2");
+
+      this.buscarCEPCliente = v;
+    },
     aplicaMascaraTelefone() {
       let v = this.telefone;
 
@@ -1152,6 +1615,18 @@ export default {
       v = v.replace(/(\d{5})(\d)/, "$1-$2");
 
       this.telefoneCon = v;
+    },
+    aplicaMascaraTelefoneCli() {
+      let v = this.telefoneCliente;
+
+      v = v.replace(/\D/g, "");
+      if (v.length > 11) {
+        v = v.substring(0, 11);
+      }
+      v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+      v = v.replace(/(\d{5})(\d)/, "$1-$2");
+
+      this.telefoneCliente = v;
     },
     async consultarCNPJ() {
       if (this.cnpj.length === 18) {
@@ -1197,6 +1672,28 @@ export default {
         }
       }
     },
+    async consultarCNPJCli() {
+      if (this.cnpjCliente.length === 18) {
+        const cnpj = this.cnpjCliente.replace(/\D/g, "");
+        try {
+          const response = await axios.get(
+            `https://brasilapi.com.br/api/cnpj/v1/${cnpj}`
+          );
+
+          if (response.data.descricao_situacao_cadastral == "ATIVA") {
+            this.razao_socialCliente = response.data.razao_social;
+            this.msgSuccessCnpj = true;
+            this.msgErrorCnpj = false;
+          } else {
+            this.msgErrorCnpj = true;
+            this.msgSuccessCnpj = false;
+          }
+        } catch (error) {
+          this.msgErrorCnpj = true;
+          this.msgSuccessCnpj = false;
+        }
+      }
+    },
     validarSenha() {
       const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
       this.senhaValida = regex.test(this.senha);
@@ -1210,6 +1707,13 @@ export default {
     },
     toggleMostrarSenhaCon() {
       this.mostrarSenhaCon = !this.mostrarSenhaCon;
+    },
+    validarSenhaCli() {
+      const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{6,}$/;
+      this.senhaValidaCli = regex.test(this.senhaCliente);
+    },
+    toggleMostrarSenhaCli() {
+      this.mostrarSenhaCli = !this.mostrarSenhaCli;
     },
     async consultarCEP() {
       if (this.buscarCEP.length === 9) {
@@ -1259,6 +1763,30 @@ export default {
         }
       }
     },
+    async consultarCEPCli() {
+      if (this.buscarCEPCliente.length === 9) {
+        const cep = this.buscarCEPCliente.replace(/\D/g, "");
+
+        try {
+          const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+          console.log("Aqui está a resposta do CEP ======>", res);
+
+          // Correção nas propriedades de acordo com a resposta da API
+          let rua = res.data.logradouro;
+          let bairro = res.data.bairro;
+          let cidade = res.data.localidade;
+          let estado = res.data.uf;
+
+          this.logradouroCliente = rua;
+          this.bairroCliente = bairro;
+          this.cidadeCliente = cidade;
+          this.estadoCliente = estado;
+        } catch (error) {
+          console.error("Erro ao consultar CEP: ", error);
+        }
+      }
+    },
 
     aplicaMascaraCPFCon() {
       let v = this.cpfCon;
@@ -1273,6 +1801,20 @@ export default {
       v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 
       this.cpfCon = v;
+    },
+    aplicaMascaraCPFCli() {
+      let v = this.cpfCliente;
+
+      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      if (v.length > 11) {
+        v = v.substring(0, 11); // Limita o tamanho a 11 dígitos
+      }
+
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d)/, "$1.$2");
+      v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+      this.cpfCliente = v;
     },
 
     handleSalvarUserConstrutora() {

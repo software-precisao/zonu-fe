@@ -41,7 +41,8 @@
                 <i class="align-middle" data-feather="plus"></i>
                 <span style="margin-left: 3px">Clientes</span>
               </button>
-              <button class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px">
+              <button class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px"
+                @click="exportarExcel">
                 <i class="align-middle" data-feather="file-plus"></i>
                 <span style="margin-left: 3px">Exportar</span>
               </button>
@@ -55,7 +56,7 @@
             <div class="row justify-content-center">
               <!-- Card 1 -->
               <div class="col-10 mb-3">
-                <div class="card" style="
+                <div class="card" v-if="disableAjuda" style="
                     position: relative;
                     border: 1px solid rgb(211, 220, 235);
                   ">
@@ -332,7 +333,7 @@
                   </div>
                 </div>
 
-                <div class="card mb-2" style="
+                <!-- <div class="card mb-2" style="
                     background: rgb(237, 238, 242);
                     padding: 5px 15px;
                     display: flex;
@@ -378,9 +379,9 @@
                         " />
                     </div>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="" style="
+                <!-- <div class="" style="
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
@@ -539,10 +540,10 @@
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="skeleton-big-card" v-if="!mostrarSkeleton"></div> -->
-                <div class="card pe-4 ps-4 pt-4">
+                <!-- <div class="card pe-4 ps-4 pt-4">
                   <h2 class="mb-0" style="
                       font-size: 14px;
                       color: rgb(33, 35, 44);
@@ -581,7 +582,7 @@
                   <div :style="mostrarSkeleton == false ? 'visibility: hidden' : 'visibility: visible'">
                     <graphBarLaterCrmComp :idFunil="funilSelecionado" />
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -1581,6 +1582,7 @@ import apiImovel from "../../../../service/api/imoveis/index";
 import { jwtDecode } from "jwt-decode";
 import _ from "lodash";
 import axios from "axios";
+import * as XLSX from "xlsx";
 
 export default {
   name: "CrmView",
@@ -1722,6 +1724,26 @@ export default {
 
       startDate: "01/01/2024",
       endDate: "19/08/2024",
+
+      disableAjuda: false,
+
+      dados: [
+        {
+          DataDeCadastro: "23/09/2024",
+          DataDeAtualizaca: "24/09/2024",
+          Corretor: "Rodrigo Castelo",
+          Funil: "Venda",
+          Etapa: "Assinatura",
+          Cliente: "Antonio Luiz",
+          Celular: "(61) 99999-9999",
+          Email: "dudu@gmail.com",
+          Origem: "Facebook",
+          Tipo: "Apartamento",
+          SubTipo: "Flat",
+          Transacao: "Venda",
+          Preco: "R$204.000.000"
+        },
+      ],
     };
   },
   watch: {
@@ -1786,6 +1808,66 @@ export default {
   },
 
   methods: {
+    exportarExcel() {
+      let dadosFormatados = []
+
+      // console.log(this.funis)
+      // console.log(this.allClientes)
+      // console.log(this.imovel)
+
+      this.funis.forEach((funil) => {
+        funil.negocios.forEach((negocio) => {
+          // Encontra o cliente correspondente em `this.allClientes` usando o id_cliente
+          const clienteCorrespondente = this.allClientes.find(cliente => cliente.id_cliente === negocio.Cliente.id_cliente);
+
+          // Encontra o imóvel correspondente em `this.imovel` usando o id_imovel
+          const imovelCorrespondente = this.imovel.find(imovel => imovel.id_imovel === negocio.NovoImovel.id_imovel);
+
+          // Formata os dados do negócio para o Excel
+          const dadosNegocio = {
+            "Data de Cadastro": negocio.createdAt,
+            "Data de Atualização": negocio.updatedAt,
+            "Corretor": this.corretorResponsavel,
+            "Funil": funil.nome_funil,
+            "Etapa": negocio.Etapa.nome_etapa,
+            "Cliente": negocio.Cliente.nome,
+            "Celular": clienteCorrespondente ? clienteCorrespondente.telefone_1 : "",
+            "Origem": clienteCorrespondente ? clienteCorrespondente.Captacao.origem_captacao : "",
+            "Tipo": imovelCorrespondente ? imovelCorrespondente.info.tipo : "",
+            // "Subtipo": imovelCorrespondente ? imovelCorrespondente.info.perfil_imovel : "",
+            "Transação": imovelCorrespondente ? (imovelCorrespondente.preco.tipo_negocio === "Venda" ? "Venda" : "Locação") : "",
+            "Preço": `R$${this.aplicaMascaraDinheiroPrecoImovel(negocio.NovoImovel.preco_imovel)}`
+          };
+
+          // Adiciona os dados formatados ao array
+          dadosFormatados.push(dadosNegocio);
+        });
+      });
+
+      const ws = XLSX.utils.json_to_sheet(dadosFormatados);
+
+      // Ajusta a largura das colunas
+      const colWidths = Object.keys(dadosFormatados[0]).map(key => {
+        // Calcula o comprimento máximo do conteúdo em cada coluna
+        const maxLength = Math.max(
+          key.length, // Comprimento do cabeçalho
+          ...dadosFormatados.map(row => row[key]?.toString().length || 0) // Comprimento de cada célula
+        );
+        return { width: maxLength + 2 }; // Adiciona um pequeno buffer de espaço
+      });
+
+      // Define a largura das colunas na planilha
+      ws['!cols'] = colWidths;
+
+      // Cria uma nova pasta de trabalho (workbook)
+      const wb = XLSX.utils.book_new();
+      // Anexa a planilha à pasta de trabalho
+      XLSX.utils.book_append_sheet(wb, ws, "Relatório");
+
+      // Salva o arquivo Excel com o nome desejado
+      XLSX.writeFile(wb, "relatorio.xlsx");
+    },
+
     formatDate(date) {
       if (!date) return '';
       // Remove caracteres não numéricos

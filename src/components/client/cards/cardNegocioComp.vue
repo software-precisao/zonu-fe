@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="card" style="background-color: #fff">
+        <div class="card"
+            :style="{ backgroundColor: verificarPrazoLimpeza(negocio.updatedAt, negocio.Etapa.dias_limpeza) == false ? '#fff' : 'rgb(254, 242, 240)' }">
             <!-- <i class="fa fa-th text-light" style="position: absolute; padding: 10px" aria-hidden="true"></i> -->
 
             <div class="card-body" style="display: flex; justify-content: space-between;">
@@ -92,6 +93,19 @@ export default {
             return diferencaDias;
 
         },
+
+        verificarPrazoLimpeza(dataAtualizacao, diasLimpeza) {
+            const dataAtual = new Date();
+            const dataAtualizacaoDate = new Date(dataAtualizacao);
+
+            // Calcula a diferença em milissegundos entre as datas
+            const diffTime = dataAtual - dataAtualizacaoDate;
+            // Converte a diferença de tempo para dias
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            // Retorna true se o prazo foi excedido, false caso contrário
+            return diffDays > diasLimpeza;
+        }
     },
 };
 </script>

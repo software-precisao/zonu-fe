@@ -1,44 +1,28 @@
 <template>
-  <nav
-    id="sidebar"
-    class="sidebar js-sidebar"
-    :class="{ collapsed: isCollapsed }"
-  >
+  <nav id="sidebar" class="sidebar js-sidebar" :class="{ collapsed: isCollapsed }">
     <div class="sidebar-content js-simplebar">
       <a class="sidebar-brand" href="/">
         <span class="align-middle">
-          <img
-            src="../../../assets/images/logo.svg"
-            class="logomin"
-            alt=""
-            srcset=""
-          />
+          <img src="../../../assets/images/logo.svg" class="logomin" alt="" srcset="" />
         </span>
       </a>
 
       <hr />
 
-      <ul
-        v-if="viewAdmin"
-        class="sidebar-nav"
-        style="margin-top: -20px !important"
-      >
+      <ul v-if="viewAdmin" class="sidebar-nav" style="margin-top: -20px !important">
         <li class="sidebar-header">Administrador</li>
 
         <li class="sidebar-item">
           <a class="sidebar-link" href="/dashboard-admin">
             <i class="align-middle" data-feather="sliders"></i>
-            <span class="align-middle"
-              >Dashboard <span class="badge text-bg-warning">Zonu</span></span
-            >
+            <span class="align-middle">Dashboard <span class="badge text-bg-warning">Zonu</span></span>
           </a>
         </li>
 
         <li class="sidebar-item">
           <a class="sidebar-link" href="/usuarios">
             <i class="align-middle" data-feather="user-plus"></i>
-            <span class="align-middle"
-              >Usuários <span class="badge text-bg-info">{{ totalUsers }}</span>
+            <span class="align-middle">Usuários <span class="badge text-bg-info">{{ totalUsers }}</span>
             </span>
           </a>
         </li>
@@ -52,8 +36,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/clientes">
             <i class="align-middle" data-feather="user-check"></i>
-            <span class="align-middle"
-              >Clientes
+            <span class="align-middle">Clientes
               <span class="badge text-bg-primary">{{ totalClientes }}</span>
             </span>
           </a>
@@ -88,33 +71,27 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/proximidades">
             <i class="align-middle" data-feather="check-square"></i>
-            <span class="align-middle"
-              >Proximidades
+            <span class="align-middle">Proximidades
               <span class="badge text-bg-success">{{
                 totalProximidades
-              }}</span></span
-            >
+              }}</span></span>
           </a>
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/caracteristica">
             <i class="align-middle" data-feather="check-square"></i>
-            <span class="align-middle"
-              >Caracteristica
+            <span class="align-middle">Caracteristica
               <span class="badge text-bg-success">{{
                 totalCaracteristica
-              }}</span></span
-            >
+              }}</span></span>
           </a>
         </li>
         <li class="sidebar-header">Pedidos de suporte</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="/list-ticket">
             <i class="align-middle" data-feather="tag"></i>
-            <span class="align-middle"
-              >Tickets
-              <span class="badge text-bg-danger">{{ totalTickets }}</span></span
-            >
+            <span class="align-middle">Tickets
+              <span class="badge text-bg-danger">{{ totalTickets }}</span></span>
           </a>
         </li>
 
@@ -163,11 +140,7 @@
         </li>
       </ul>
 
-      <ul
-        v-if="viewClient"
-        class="sidebar-nav"
-        style="margin-top: -20px !important"
-      >
+      <ul v-if="viewClient" class="sidebar-nav" style="margin-top: -20px !important">
         <li class="sidebar-header">Gestão</li>
 
         <li class="sidebar-item">
@@ -196,27 +169,27 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/novo-ticket">
             <i class="align-middle" data-feather="tag"></i>
-            <span class="align-middle"
-              >Tickets <span class="badge text-bg-danger">0</span></span
-            >
+            <span class="align-middle">Tickets <span class="badge text-bg-danger">0</span></span>
           </a>
         </li>
       </ul>
 
-      <ul
-        v-if="viewSuporte"
-        class="sidebar-nav"
-        style="margin-top: -20px !important"
-      >
+      <ul v-if="viewSuporte" class="sidebar-nav" style="margin-top: -20px !important">
         <li class="sidebar-header">Atendimento & Suporte</li>
 
         <li class="sidebar-item">
           <a class="sidebar-link" href="/list-ticket">
             <i class="align-middle" data-feather="tag"></i>
-            <span class="align-middle"
-              >Tickets
-              <span class="badge text-bg-danger">{{ totalTickets }}</span></span
-            >
+            <span class="align-middle">Tickets
+              <span class="badge text-bg-danger">{{ totalTickets }}</span></span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/clientes">
+            <i class="align-middle" data-feather="user-check"></i>
+            <span class="align-middle">Clientes
+              <span class="badge text-bg-primary">{{ totalClientes }}</span>
+            </span>
           </a>
         </li>
 
@@ -225,8 +198,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="/dashboard">
             <i class="align-middle" data-feather="sliders"></i>
-            <span class="align-middle"
-              >Dashboard <span class="badge text-bg-info">Teste</span>
+            <span class="align-middle">Dashboard <span class="badge text-bg-info">Teste</span>
             </span>
           </a>
         </li>

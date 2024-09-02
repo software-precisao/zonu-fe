@@ -55,8 +55,8 @@
                           </th>
                           <th class="text-center">Imóveis no Funil</th>
                           <!-- <th class="text-center">No radar</th> -->
-                          <th class="text-center">Enviados</th>
-                          <th class="text-center">Descartados</th>
+                          <!-- <th class="text-center">Enviados</th>
+                          <th class="text-center">Descartados</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -71,14 +71,14 @@
                           <!-- <td class="text-center">
                             <a style="text-decoration: underline; color: blue">{{ item.noRadar }}</a>
                           </td> -->
-                          <td class="text-center">
-                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a> -->
+                          <!-- <td class="text-center">
+                            <a style="text-decoration: underline; color: blue">{{ item.Enviados }}</a>
                             <a style="text-decoration: underline; color: blue">0</a>
-                          </td>
-                          <td class="text-center" xxx>
-                            <!-- <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a> -->
+                          </td> -->
+                          <!-- <td class="text-center">
+                            <a style="text-decoration: underline; color: blue">{{ item.Descartados }}</a>
                             <a style="text-decoration: underline; color: blue">0</a>
-                          </td>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>
@@ -166,7 +166,7 @@ export default {
 
       funilSelect: localStorage.getItem("fs") ? localStorage.getItem("fs") : "1",
       funis: [],
-      imoveisUnicos: ""
+      imoveisUnicos: "",
     };
   },
 

@@ -15,19 +15,11 @@
                   </h5>
                 </div>
                 <div class="card-body">
-                  <div
-                    v-if="msgSuccessEdit"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccessEdit" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> Status atualizado com sucesso!
                   </div>
 
-                  <div
-                    v-if="msgSuccessDelete"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccessDelete" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> Usuário Excluído com sucesso!
                   </div>
                   <div class="container">
@@ -45,10 +37,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr
-                            v-for="(ticket, index) in listTiketsOpen"
-                            class="text-center"
-                          >
+                          <tr v-for="(ticket, index) in listTiketsOpen" class="text-center">
                             <td>{{ ticket.protocolo }}</td>
                             <td>
                               {{ ticket.usuario.nome }}
@@ -63,64 +52,37 @@
                             </td>
 
                             <td>
-                              <button
-                                data-bs-toggle="modal"
-                                :data-bs-target="
-                                  `#modalResposta` + ticket.id_ticket
-                                "
-                                type="button"
-                                class="btn btn-warning btn-sm"
-                              >
+                              <button data-bs-toggle="modal" :data-bs-target="`#modalResposta` + ticket.id_ticket
+                                " type="button" class="btn btn-warning btn-sm">
                                 Responder
                               </button>
                             </td>
 
-                            <div
-                              class="modal fade"
-                              :id="`modalResposta` + ticket.id_ticket"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
+                            <div class="modal fade" :id="`modalResposta` + ticket.id_ticket" tabindex="-1"
+                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h1
-                                      class="modal-title fs-5"
-                                      id="exampleModalLabel"
-                                    >
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
                                       Respondendo |
-                                      <span style="position: relative; right: 0"
-                                        ><small
-                                          ><strong
-                                            >Protocolo:
-                                            {{ ticket.protocolo }}</strong
-                                          ></small
-                                        ></span
-                                      >
+                                      <span style="position: relative; right: 0"><small><strong>Protocolo:
+                                            {{ ticket.protocolo }}</strong></small></span>
                                     </h1>
                                   </div>
                                   <div class="modal-body">
                                     <div class="row">
                                       <div style="text-align: left">
                                         <label for="">
-                                          <small
-                                            ><strong>Assunto</strong></small
-                                          >
+                                          <small><strong>Assunto</strong></small>
                                         </label>
                                         <h4 class="text-muted">
                                           {{ ticket.assunto }}
                                         </h4>
                                       </div>
 
-                                      <div
-                                        style="text-align: left"
-                                        class="mt-3"
-                                      >
+                                      <div style="text-align: left" class="mt-3">
                                         <label for="">
-                                          <small
-                                            ><strong>Pergunta</strong></small
-                                          >
+                                          <small><strong>Pergunta</strong></small>
                                         </label>
                                         <h4 class="text-muted">
                                           {{ ticket.mensagem }}
@@ -130,37 +92,20 @@
 
                                       <div style="text-align: left">
                                         <label for="">
-                                          <small
-                                            ><strong
-                                              ><i class="fa fa-comment"></i>
-                                              Responda aqui</strong
-                                            ></small
-                                          >
+                                          <small><strong><i class="fa fa-comment"></i>
+                                              Responda aqui</strong></small>
                                         </label>
-                                        <textarea
-                                          style="height: 120px"
-                                          v-model="resposta"
-                                          class="form-control mt-3"
-                                          id="exampleFormControlTextarea1"
-                                          rows="8"
-                                        ></textarea>
+                                        <textarea style="height: 120px" v-model="resposta" class="form-control mt-3"
+                                          id="exampleFormControlTextarea1" rows="8"></textarea>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-secondary"
-                                      data-bs-dismiss="modal"
-                                    >
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                       Fechar
                                     </button>
-                                    <button
-                                      @click="handledResposta(ticket.id_ticket)"
-                                      type="button"
-                                      class="btn btn-success"
-                                      data-bs-dismiss="modal"
-                                    >
+                                    <button @click="handledResposta(ticket.id_ticket)" type="button"
+                                      class="btn btn-success" data-bs-dismiss="modal">
                                       Enviar a resposta
                                     </button>
                                   </div>
@@ -184,19 +129,11 @@
                   </h5>
                 </div>
                 <div class="card-body">
-                  <div
-                    v-if="msgSuccessEdit"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccessEdit" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> Status atualizado com sucesso!
                   </div>
 
-                  <div
-                    v-if="msgSuccessDelete"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccessDelete" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> Usuário Excluído com sucesso!
                   </div>
                   <div class="container">
@@ -213,10 +150,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr
-                            v-for="(ticket, index) in listTiketsClose"
-                            class="text-center"
-                          >
+                          <tr v-for="(ticket, index) in listTiketsClose" class="text-center">
                             <td>{{ ticket.protocolo }}</td>
                             <td>
                               {{ ticket.usuario.nome }}
@@ -230,9 +164,7 @@
                             </td>
 
                             <td v-if="ticket.status == 1">
-                              <span class="badge text-bg-success"
-                                >Respondido</span
-                              >
+                              <span class="badge text-bg-success">Respondido</span>
                             </td>
                           </tr>
                         </tbody>
@@ -292,6 +224,8 @@ export default {
     let token = localStorage.getItem("token");
     this.token = token;
     let decode = jwtDecode(token);
+
+    console.log(decode)
 
     let id_user = decode.id_user;
     this.id_user = id_user;
@@ -361,6 +295,7 @@ export default {
       api
         .listAllTickets()
         .then((res) => {
+          console.log(res.data)
           if (Array.isArray(res.data)) {
             const filteredTicketsClose = res.data.filter(
               (ticket) => ticket.status === 1
