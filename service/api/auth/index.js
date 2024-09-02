@@ -251,7 +251,7 @@ export default {
           senha: senha,
           avatar: "",
           cpf: cpf,
-          id_plano: id_plano,
+          id_plano: null,
           telefone: telefone,
           cep: cep,
           endereco: endereco,

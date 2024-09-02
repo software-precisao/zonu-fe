@@ -30,6 +30,25 @@
                                 @change="(event) => handleFileUpload('creci', event)" style="display: none;"
                                 accept=".jpg,.jpeg,.pdf" />
                         </div>
+
+                        <div class="col-6" v-if="viewCreci">
+                            <a class="card card-select" @click="triggerFileUpload('doc_ofc')"
+                                style="height: 150px; text-decoration: none !important;">
+                                <div class="card-body">
+                                    <img src="../../../assets/images/iconCardCreci.png"
+                                        style="margin-left: auto; margin-right: auto; display: block; width: 70px;"
+                                        alt="">
+                                    <p class="text-center mt-3">RG / CNH</p>
+                                </div>
+                                <i
+                                    :class="['fa-solid', 'fa-circle-check', 'fa-2x', 'text-center', docOfcUploadSuccess ? 'text-success' : 'text-secondary']"></i>
+                            </a>
+                            <input type="file" ref="docOfcFileInput"
+                                @change="(event) => handleFileUpload('doc_ofc', event)" style="display: none;"
+                                accept=".jpg,.jpeg,.pdf" />
+                        </div>
+
+
                         <div class="col-6" v-if="viewCNPJ">
                             <a class="card card-select" @click="triggerFileUpload('cnpj')"
                                 style="height: 150px; text-decoration: none !important;">
@@ -75,13 +94,16 @@ export default {
             viewCNPJ: false,
             token: null,
             id_nivel: null,
+            id_user: null,
             nome: null,
             sobrenome: null,
             autenticando: false,
             creciUploadSuccess: false,
+            docOfcUploadSuccess: false,
             cnpjUploadSuccess: false,
             creciFile: '',
             cnpjFile: '',
+            docOfcFile: '',
         };
     },
     mounted() {
@@ -116,6 +138,8 @@ export default {
                 this.$refs.creciFileInput.click();
             } else if (type === 'cnpj') {
                 this.$refs.cnpjFileInput.click();
+            } else if (type === 'doc_ofc') {
+                this.$refs.docOfcFileInput.click()
             }
         },
         handleFileUpload(type, event) {
@@ -129,6 +153,9 @@ export default {
                     } else if (type === 'cnpj') {
                         this.cnpjUploadSuccess = true;
                         this.cnpjFile = file;
+                    } else if (type === 'doc_ofc') {
+                        this.docOfcUploadSuccess = true
+                        this.docOfcFile = file
                     }
                 } else {
                     alert('Por favor, selecione um arquivo JPG ou PDF.');
@@ -139,8 +166,9 @@ export default {
             this.textoBotao = "Enviando documentos...";
             this.autenticando = true;
 
-            if (this.creciFile) {
+            if (this.creciFile && this.docOfcFile) {
                 await this.sendFileCreci(this.id_user, this.creciFile);
+                await this.sendDocOfc(this.id_user, this.docOfcFile)
             }
             if (this.cnpjFile) {
                 await this.sendFileCnpj(this.id_user, this.cnpjFile);
@@ -154,7 +182,7 @@ export default {
 
             try {
                 const res = await api.sendFileCreci(id_user, formData);
-                console.log(res)
+                // console.log(res)
                 if (res.status === 200) {
                     this.textoBotao = "Documentos enviados com sucesso!";
 
@@ -169,6 +197,31 @@ export default {
                 console.error('Erro na requisição:', error);
             }
         },
+        async sendDocOfc(id_user, file) {
+            const formData = new FormData();
+            formData.append('doc_ofc', file);
+
+            console.log(formData)
+
+            try {
+                const res = await api.sendFileDocOfc(id_user, formData);
+                // console.log(res)
+                if (res.status === 200) {
+                    this.textoBotao = "Documentos enviados com sucesso!";
+
+
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 3000);
+                } else {
+                    console.error('Erro ao enviar o arquivo Doc Ofc');
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+            }
+        },
+
+
         async sendFileCnpj(id_user, file) {
             const formData = new FormData();
             formData.append('doc_cnpj', file);
