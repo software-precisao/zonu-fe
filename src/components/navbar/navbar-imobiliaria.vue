@@ -199,7 +199,7 @@
     </div>
   </nav>
   {{ console.log("nivel para aparecer a progress bar ===> ", nivel) }}
-  <div v-if="nivel !== 1">
+  <div v-if="nivel !== 1 && nivel !== 6">
     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar overflow-visible text-dark bg-warning" :style="{ width: barprogress + '%' }">
         Seu período de teste

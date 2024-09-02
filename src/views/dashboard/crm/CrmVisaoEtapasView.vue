@@ -44,10 +44,10 @@
                 <i class="align-middle" data-feather="plus"></i>
                 <span style="margin-left: 3px">Negócio</span>
               </button>
-              <button class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px">
+              <!-- <button class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px">
                 <i class="align-middle" data-feather="file-plus"></i>
                 <span style="margin-left: 3px">Exportar</span>
-              </button>
+              </button> -->
               <a class="btn btn-white ms-2" style="display: flex; align-items: center; height: 30px"
                 href="/seu-crmconfig">
                 <i class="align-middle" data-feather="settings"></i>
