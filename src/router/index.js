@@ -53,6 +53,7 @@ import CrmImovCompatView from "@/views/dashboard/crm/CrmImovCompatView.vue";
 import CrmNegoEncerView from "@/views/dashboard/crm/CrmNegoEncerView.vue";
 import CrmShareImovView from "@/views/dashboard/crm/CrmShareImovView.vue";
 import CrmEditarFunilView from "@/views/dashboard/crm/CrmEditarFunilView.vue";
+import IntegratelView from "@/views/integrate/integraView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -497,6 +498,21 @@ const routes = [
     name: "PerfilWithHash",
     component: PerfilView,
   },
+
+  {
+    path: "/integrate",
+    name: "integrate",
+    component: IntegratelView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/integrate/${hash}`);
+    },
+  },
+  {
+    path: "/integrate/:hash",
+    name: "IntegrateWithHash",
+    component: IntegratelView,
+  },
   {
     path: "/seu-perfil-imcor",
     name: "perfilImobiCor",
@@ -534,6 +550,7 @@ const routes = [
       next(`/seu-tutorial/${hash}`);
     },
   },
+
   {
     path: "/seu-tutorial/:hash",
     name: "TutorialWithHash",

@@ -106,7 +106,7 @@
                       {{ formatDate(item.data_pergunta) }}
                       <span class="badge text-bg-warning">{{
                         item.assunto
-                      }}</span>
+                        }}</span>
                     </div>
                   </div>
                 </div>
@@ -169,6 +169,11 @@
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="/seu-perfil-imcor"><i class="align-middle me-1" data-feather="user"></i>
               Perfil</a>
+
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item" href="/integrate"><i class="align-middle me-1" data-feather="link"></i>
+              Integração</a>
 
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/seu-tutorial-imcor"><i class="align-middle me-1" data-feather="play"></i>

@@ -30,10 +30,12 @@
     "sortablejs": "^1.15.2",
     "ua-parser-js": "^1.0.37",
     "vue": "^3.3.11",
+    "vue-facebook-login-component": "^4.0.2",
     "vue-google-oauth2": "^1.5.10",
     "vue-recaptcha": "^3.0.0-alpha.2",
     "vue-router": "^4.2.5",
     "vue2-leaflet": "^2.7.1",
+    "vue3-facebook-login": "^1.0.2",
     "vue3-google-login": "^2.0.25",
     "vuedraggable": "^2.24.3",
     "xlsx": "^0.18.5"
