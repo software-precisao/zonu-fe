@@ -1,37 +1,22 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div
-        class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5"
-      >
+      <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
         <div v-if="mostrarSkeleton" class="mb-5 skeleton-logo"></div>
-        <img
-          v-if="!mostrarSkeleton"
-          src="../../../assets/images/logo.svg"
-          class="mb-2"
-          alt=""
-        />
+        <img v-if="!mostrarSkeleton" src="../../../assets/images/logo.svg" class="mb-2" alt="" />
 
         <div class="area-login px-4">
           <div v-if="mostrarSkeleton" class="skeleton-card"></div>
-          <div
-            v-if="!mostrarSkeleton"
-            class="card mt-3"
-            href="/cadastro"
-            style="
+          <div v-if="!mostrarSkeleton" class="card mt-3" href="/cadastro" style="
               height: 150px;
               width: 150px;
               margin-left: auto;
               margin-right: auto;
               display: block;
-            "
-          >
+            ">
             <div class="card-body">
-              <img
-                src="../../../assets/images/iconCorretor.svg"
-                style="margin-left: auto; margin-right: auto; display: block"
-                alt=""
-              />
+              <img src="../../../assets/images/iconCorretor.svg"
+                style="margin-left: auto; margin-right: auto; display: block" alt="" />
               <p class="text-center mt-3">Corretor</p>
             </div>
           </div>
@@ -42,25 +27,32 @@
             Antes de tudo, vamos precisar validar alguns dados.
           </p>
 
+          <div class="alert alert-danger mt-2" v-if="campoNullError">Campos inválidos ou preenchidos incorretamente!
+          </div>
+
           <div class="area-dados-corretor px-2">
             <div class="mt-2">
               <div class="mb-3">
                 <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                 <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                <label
-                  v-if="!mostrarSkeleton"
-                  for="exampleInputEmail1"
-                  class="form-label"
-                  >CPF
+                <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">CPF
                 </label>
-                <input
-                  type="text"
-                  placeholder="000.000.000-00"
-                  v-if="!mostrarSkeleton"
-                  class="form-control"
-                  v-model="cpf"
-                  @input="aplicaMascaraCPF"
-                />
+                <input type="text" placeholder="000.000.000-00" v-if="!mostrarSkeleton" class="form-control"
+                  v-model="cpf" :class="{
+                    'is-invalid': msgCpfInvalido
+                  }" @input="aplicaMascaraCPF" />
+
+                <p class="text-danger mt-2" v-if="msgCpfInvalido">
+                  <small>
+                    <i class="fa fa-bell"></i> CPF inválido
+                  </small>
+                </p>
+
+                <p class="text-success mt-2" v-if="msgCpfvalido">
+                  <small>
+                    <i class="fa fa-bell"></i> CPF válido
+                  </small>
+                </p>
               </div>
             </div>
 
@@ -69,61 +61,31 @@
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Seu nome
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Seu nome
                   </label>
-                  <input
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="nome"
-                    placeholder="Digite seu nome"
-                  />
+                  <input type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="nome"
+                    placeholder="Digite seu nome" />
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Sobrenome
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Sobrenome
                   </label>
-                  <input
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="sobrenome"
-                    placeholder="Digite seu sobrenome"
-                  />
+                  <input type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="sobrenome"
+                    placeholder="Digite seu sobrenome" />
                 </div>
               </div>
               <div class="col-12">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >E-mail
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">E-mail
                   </label>
 
-                  <input
-                    type="email"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="email"
-                    placeholder="Digite um e-mail válido"
-                  />
+                  <input type="email" required v-if="!mostrarSkeleton" class="form-control" v-model="email"
+                    placeholder="Digite um e-mail válido" />
 
                   <p v-if="emailValid" class="text-danger mt-2">
                     <i class="fa fa-circle-exclamation"></i>
@@ -135,31 +97,15 @@
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Crie uma senha
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Crie uma senha
                   </label>
                   <div class="input-group">
-                    <input
-                      type="password"
-                      required
-                      v-if="!mostrarSkeleton"
-                      class="form-control"
-                      v-model="senha"
-                      :class="{
-                        'is-invalid': !senhaValida && senha.length > 0,
-                      }"
-                      @input="validarSenha"
-                      placeholder="Digite sua senha"
-                    />
+                    <input type="password" required v-if="!mostrarSkeleton" class="form-control" v-model="senha" :class="{
+                      'is-invalid': !senhaValida && senha.length > 0,
+                    }" @input="validarSenha" placeholder="Digite sua senha" />
                   </div>
 
-                  <p
-                    class="text-warning mt-2"
-                    v-if="!senhaValida && senha.length > 0"
-                  >
+                  <p class="text-warning mt-2" v-if="!senhaValida && senha.length > 0">
                     <small>
                       <i class="fa fa-bell"></i> Sua senha deve ter no mínimo 8
                       caracteres, número e uma letra MAIÚSCULA.
@@ -171,31 +117,15 @@
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Confirme a senha
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Confirme a senha
                   </label>
-                  <input
-                    type="password"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="confimSenha"
-                    placeholder="Digite a senha novamente"
-                  />
+                  <input type="password" required v-if="!mostrarSkeleton" class="form-control" v-model="confimSenha"
+                    placeholder="Digite a senha novamente" />
 
-                  <p
-                    class="text-danger mt-2"
-                    v-if="confimSenha && !passwordsMatch"
-                  >
+                  <p class="text-danger mt-2" v-if="confimSenha && !passwordsMatch">
                     <i class="fa fa-ban"></i> As senhas não conferem!
                   </p>
-                  <p
-                    class="text-success mt-2"
-                    v-if="confimSenha && passwordsMatch"
-                  >
+                  <p class="text-success mt-2" v-if="confimSenha && passwordsMatch">
                     <i class="fa fa-check"></i> As senhas conferem
                   </p>
                 </div>
@@ -204,42 +134,20 @@
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Telefone
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Telefone
                   </label>
-                  <input
-                    type="text"
-                    @input="aplicaMascaraTelefone"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="telefone"
-                    placeholder="(00) 0000-0000"
-                  />
+                  <input type="text" @input="aplicaMascaraTelefone" required v-if="!mostrarSkeleton"
+                    class="form-control" v-model="telefone" placeholder="(00) 0000-0000" />
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Cep
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Cep
                   </label>
-                  <input
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    @input="aplicaMascaraCEP"
-                    class="form-control"
-                    v-model="buscarCEP"
-                    placeholder="000000-000"
-                  />
+                  <input type="text" required v-if="!mostrarSkeleton" @input="aplicaMascaraCEP" class="form-control"
+                    v-model="buscarCEP" placeholder="000000-000" />
                   <p v-if="msgErrorCep" class="text-danger mt-2">
                     <small><i class="fa fa-check"></i> Cep inválido</small>
                   </p>
@@ -250,124 +158,60 @@
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Endereço
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Endereço
                   </label>
-                  <input
-                    disabled
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="logradouro"
-                    placeholder="Digite o endereço completo"
-                  />
+                  <input disabled type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="logradouro"
+                    placeholder="Digite o endereço completo" />
                 </div>
               </div>
               <div class="col-3">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Número
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Número
                   </label>
-                  <input
-                    type="number"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="numero"
-                    placeholder="00"
-                  />
+                  <input type="number" required v-if="!mostrarSkeleton" class="form-control" v-model="numero"
+                    placeholder="00" />
                 </div>
               </div>
               <div class="col-8">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Complemento
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Complemento
                   </label>
-                  <input
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="complemento"
-                    placeholder="Digite um complemento"
-                  />
+                  <input type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="complemento"
+                    placeholder="Digite um complemento" />
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Bairro
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Bairro
                   </label>
-                  <input
-                    disabled
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="bairro"
-                    placeholder="Digite um complemento"
-                  />
+                  <input disabled type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="bairro"
+                    placeholder="Digite um complemento" />
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Cidade
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Cidade
                   </label>
-                  <input
-                    disabled
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="cidade"
-                    placeholder="Aguarde..."
-                  />
+                  <input disabled type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="cidade"
+                    placeholder="Aguarde..." />
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                   <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                  <label
-                    v-if="!mostrarSkeleton"
-                    for="exampleInputEmail1"
-                    class="form-label"
-                    >Estado
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">Estado
                   </label>
-                  <input
-                    disabled
-                    type="text"
-                    required
-                    v-if="!mostrarSkeleton"
-                    class="form-control"
-                    v-model="estado"
-                    placeholder="Aguarde..."
-                  />
+                  <input disabled type="text" required v-if="!mostrarSkeleton" class="form-control" v-model="estado"
+                    placeholder="Aguarde..." />
                 </div>
               </div>
             </div>
@@ -379,26 +223,13 @@
           </p>
 
           <div v-if="mostrarSkeleton" class="skeleton-button mt-5"></div>
-          <button
-            v-if="!mostrarSkeleton"
-            @click="handleValidar()"
-            type="submit"
-            class="btn btn-dark bot mt-4"
-          >
+          <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit" class="btn btn-dark bot mt-4">
             {{ textoBotao }}
-            <span
-              v-if="autenticando"
-              class="spinner-border spinner-border-sm"
-              aria-hidden="true"
-            ></span>
+            <span v-if="autenticando" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
           </button>
 
           <a href="/select">
-            <button
-              v-if="!mostrarSkeleton"
-              href="/"
-              class="btn btn-outline-dark bot mt-4"
-            >
+            <button v-if="!mostrarSkeleton" href="/" class="btn btn-outline-dark bot mt-4">
               Voltar
             </button>
           </a>
@@ -421,27 +252,14 @@
             que sua conta seja liberada.
           </div>
 
-          <div
-            v-if="iconLoading"
-            style="margin-left: auto; margin-right: auto; display: block"
-            class="spinner-border text-center"
-            role="status"
-          >
+          <div v-if="iconLoading" style="margin-left: auto; margin-right: auto; display: block"
+            class="spinner-border text-center" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
 
-          <button
-            v-if="!mostrarSkeleton"
-            :disabled="autenticando"
-            type="submit"
-            class="btn btn-dark bot mt-4"
-          >
+          <button v-if="!mostrarSkeleton" :disabled="autenticando" type="submit" class="btn btn-dark bot mt-4">
             {{ textoBotao }}
-            <span
-              v-if="autenticando"
-              class="spinner-border spinner-border-sm"
-              aria-hidden="true"
-            ></span>
+            <span v-if="autenticando" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
             <span v-if="autenticando" class="visually-hidden">Aguarde...</span>
           </button>
         </div>
@@ -449,12 +267,7 @@
 
       <div class="col-lg-6 p-0 d-none d-lg-block">
         <div v-if="mostrarSkeleton" class="skeleton-imagem"></div>
-        <img
-          v-if="!mostrarSkeleton"
-          src="../../../assets/images/bg-login.svg"
-          class="bg-login"
-          alt=""
-        />
+        <img v-if="!mostrarSkeleton" src="../../../assets/images/bg-login.svg" class="bg-login" alt="" />
       </div>
     </div>
   </div>
@@ -508,6 +321,9 @@ export default {
       msgEstado: false,
 
       senhaValida: true,
+
+      msgCpfInvalido: false,
+      msgCpfvalido: false,
     };
   },
   mounted() {
@@ -531,20 +347,86 @@ export default {
     },
   },
   methods: {
+    validaCPF(cpf) {
+      let Soma = 0;
+      let Resto;
+
+      // Remove caracteres não numéricos
+      const strCPF = String(cpf).replace(/[^\d]/g, '');
+
+      if (strCPF.length !== 11) return false;
+
+      // Verifica se todos os dígitos são iguais
+      if ([
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999'
+      ].includes(strCPF)) return false;
+
+      // Calcula o primeiro dígito verificador
+      for (let i = 1; i <= 9; i++) {
+        Soma += parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+      }
+
+      Resto = (Soma * 10) % 11;
+
+      if (Resto === 10 || Resto === 11) Resto = 0;
+      if (Resto !== parseInt(strCPF.substring(9, 10))) return false;
+
+      Soma = 0;
+
+      // Calcula o segundo dígito verificador
+      for (let i = 1; i <= 10; i++) {
+        Soma += parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+      }
+
+      Resto = (Soma * 10) % 11;
+
+      if (Resto === 10 || Resto === 11) Resto = 0;
+      if (Resto !== parseInt(strCPF.substring(10, 11))) return false;
+
+      return true;
+    },
+    verificarCPF() {
+      if (this.validaCPF(this.cpf)) {
+        this.msgCpfvalido = true;
+        this.msgCpfInvalido = false
+      } else {
+        this.msgCpfInvalido = true;
+      }
+    },
     aplicaMascaraCPF() {
       let v = this.cpf;
 
-      v = v.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+      // Remove todos os caracteres não numéricos
+      v = v.replace(/\D/g, "");
+
+      // Limita o tamanho a 11 dígitos
       if (v.length > 11) {
-        v = v.substring(0, 11); // Limita o tamanho a 11 dígitos
+        v = v.substring(0, 11);
       }
 
+      // Aplica a máscara de CPF
       v = v.replace(/(\d{3})(\d)/, "$1.$2");
       v = v.replace(/(\d{3})(\d)/, "$1.$2");
       v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 
+      // Atualiza o valor do input com a máscara aplicada
       this.cpf = v;
+
+      // Verifica o CPF automaticamente após a máscara ser aplicada
+      if (v.length === 14) { // 11 números + 3 caracteres de formatação
+        this.verificarCPF();
+      }
     },
+
     aplicaMascaraCEP() {
       let v = this.buscarCEP;
 
@@ -646,7 +528,8 @@ export default {
         senha !== "" &&
         telefone &&
         cep &&
-        endereco != ""
+        endereco != "" &&
+        this.msgCpfInvalido == false
       ) {
         api
           .cadastroCorretor(
@@ -671,7 +554,7 @@ export default {
               this.autenticando = false;
               this.textoBotao = "Só mais um pouco...";
 
-              sendemail.sendNewAccountAdmin(nome, email).then((res) => {});
+              sendemail.sendNewAccountAdmin(nome, email).then((res) => { });
 
               setTimeout(() => {
                 this.dadosTab = false;
