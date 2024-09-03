@@ -267,7 +267,7 @@ export default {
         .then((res) => {
           if (Array.isArray(res.data)) {
             const filteredTickets = res.data.filter(
-              (ticket) => ticket.status === 2
+              (ticket) => ticket.status === 2 && ticket.id_user != null
             );
 
             this.totalTickets = filteredTickets.length;
@@ -298,7 +298,7 @@ export default {
           console.log(res.data)
           if (Array.isArray(res.data)) {
             const filteredTicketsClose = res.data.filter(
-              (ticket) => ticket.status === 1
+              (ticket) => ticket.status === 1 && ticket.id_user != null
             );
             this.listTiketsClose = filteredTicketsClose;
           } else {
