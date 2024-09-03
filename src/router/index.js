@@ -41,7 +41,7 @@ import PerfilImobCorView from "@/views/dashboard/profile/PerfilImobCorView.vue";
 import TutorialImobiView from "@/views/dashboard/tutoriais/TutorialImobiView.vue";
 import TutorialAdmimView from "@/views/dashboard/tutoriais/TutorialAdmimView.vue";
 import CadastroPessoaFisicaView from "@/views/auth/CadastroPessoaFisicaView.vue";
-import Countdown from "@/views/countdown/Countdown.vue";
+// import Countdown from "@/views/countdown/Countdown.vue";
 import CrmView from "@/views/dashboard/crm/CrmView.vue";
 import CrmConfigView from "@/views/dashboard/crm/CrmConfigView.vue";
 import CrmContatoView from "@/views/dashboard/crm/CrmContatoView.vue";
@@ -70,15 +70,15 @@ const routes = [
     component: SeuImovelView,
   },
   {
-    path: "/home",
+    path: "/",
     name: "home",
     component: HomeView,
   },
-  {
-    path: "/",
-    name: "countdown",
-    component: Countdown,
-  },
+  // {
+  //   path: "/",
+  //   name: "countdown",
+  //   component: Countdown,
+  // },
   {
     path: "/cadastro-construtora",
     name: "cadastro-construtora",

@@ -2921,6 +2921,7 @@ export default {
 
       api.deleteImovel(id_imovel).then((res) => {
         this.fetchAllImoveis();
+        window.location.href = "/dashboard"
       });
     },
     aplicaMascaraMedidaPrivativa() {

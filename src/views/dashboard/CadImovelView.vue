@@ -2425,6 +2425,18 @@
                                           <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel"
                                             aria-labelledby="info-tab" tabindex="0">
                                             <div>
+                                              <div class="col-4 mt-3" v-if="idNivel == 1 || idNivel == 2">
+                                                <label class="form-label me-3">
+                                                  Atribuir a construtora
+                                                </label>
+                                                <select name="" id="" class="form-select"
+                                                  v-model="construtoraSelecionada">
+                                                  <option value="">escolha</option>
+                                                  <option v-for="item in allConstrutoras" :value="item.id_user">
+                                                    {{ item.nome }} {{ item.sobrenome }}</option>
+                                                </select>
+                                              </div>
+                                              <!-- {{ console.log(allConstrutoras) }} -->
                                               <div class="row mt-4">
                                                 <div class="col-3">
                                                   <div class="mb-3">
@@ -4741,6 +4753,9 @@ export default {
       email: "",
       idNivel: "",
       messageLimit: false,
+
+      allConstrutoras: [],
+      construtoraSelecionada: '',
     };
   },
 
@@ -4923,10 +4938,34 @@ export default {
 
     api.progress(id_user).then((res) => {
       this.id_progress = res.data.id_progressao;
+      // console.log(res)
     });
+
+    this.fecthConstrutoras()
   },
 
   methods: {
+    fecthConstrutoras() {
+      api.listusuarios().then((res) => {
+        if (res.status === 200) {
+          // Filtra os usuários com id_nivel igual a 3
+          const filteredUsers = res.data.response.filter(user => user.id_nivel == 3);
+
+          // Usa um Map para garantir a exclusão de duplicados
+          const uniqueUsersMap = new Map();
+
+          filteredUsers.forEach(user => {
+            if (!uniqueUsersMap.has(user.id_user)) {
+              // console.log(user)
+              uniqueUsersMap.set(user.id_user, user);
+            }
+          });
+
+          // Converte o Map de volta para um array
+          this.allConstrutoras = Array.from(uniqueUsersMap.values());
+        }
+      })
+    },
     initMap() {
       // this.map = L.map(this.$refs.mapElement).setView([this.latitude, this.longitude], 15);
 
@@ -5804,6 +5843,10 @@ export default {
 
       let id_user = this.id_user;
 
+      if (this.construtoraSelecionada != '') {
+        id_user = this.construtoraSelecionada
+      }
+
       const formData = new FormData();
 
       this.images.forEach((image, index) => {
@@ -5928,9 +5971,9 @@ export default {
         if (res.status === 200) {
           this.msgSucesso = true;
 
-          let id_progressao = this.id_progressao;
+          // let id_progressao = this.id_progress;
 
-          api.editProgressImovel(id_progressao).then((res) => { });
+          // api.editProgressImovel(id_progressao, id_user).then((res) => { });
 
           setTimeout(() => {
             this.msgSucesso = false;

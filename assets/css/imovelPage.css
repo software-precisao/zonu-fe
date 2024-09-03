@@ -35,7 +35,9 @@ html {
   position: relative;
   /* height: 50vh; */
   height: 300px;
-  background-image: url("../../../../assets/images/05.png");
+  background-image: url("../../../../assets/images/imgaemFundo.jpg");
+  background-size: cover;
+  opacity: 1;
 }
 
 .gradient-page-imovel {

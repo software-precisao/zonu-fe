@@ -1,4 +1,4 @@
-<template>
+a<template>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
@@ -31,32 +31,46 @@
           </div>
 
           <div class="area-dados-corretor px-2">
-            <div class="mt-2">
-              <div class="mb-3">
+
+            <div class="row mt-2">
+              <div class="col-6">
+                <div class="mb-3">
+                  <div v-if="mostrarSkeleton" class="skeleton-label"></div>
+                  <div v-if="mostrarSkeleton" class="skeleton-input"></div>
+                  <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">CPF
+                  </label>
+                  <input type="text" placeholder="000.000.000-00" v-if="!mostrarSkeleton" class="form-control"
+                    v-model="cpf" :class="{
+                      'is-invalid': msgCpfInvalido
+                    }" @input="aplicaMascaraCPF" />
+
+                  <p class="text-danger mt-2" v-if="msgCpfInvalido">
+                    <small>
+                      <i class="fa fa-bell"></i> CPF inválido
+                    </small>
+                  </p>
+
+                  <p class="text-success mt-2" v-if="msgCpfvalido">
+                    <small>
+                      <i class="fa fa-bell"></i> CPF válido
+                    </small>
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-6">
                 <div v-if="mostrarSkeleton" class="skeleton-label"></div>
                 <div v-if="mostrarSkeleton" class="skeleton-input"></div>
-                <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">CPF
-                </label>
-                <input type="text" placeholder="000.000.000-00" v-if="!mostrarSkeleton" class="form-control"
-                  v-model="cpf" :class="{
-                    'is-invalid': msgCpfInvalido
-                  }" @input="aplicaMascaraCPF" />
-
-                <p class="text-danger mt-2" v-if="msgCpfInvalido">
-                  <small>
-                    <i class="fa fa-bell"></i> CPF inválido
-                  </small>
-                </p>
-
-                <p class="text-success mt-2" v-if="msgCpfvalido">
-                  <small>
-                    <i class="fa fa-bell"></i> CPF válido
-                  </small>
-                </p>
+                <label v-if="!mostrarSkeleton" for="" class="form-label">Logo</label>
+                <a v-if="!mostrarSkeleton" @click="triggerFileUpload('logo')" class="form-control"
+                  :class="logo == '' ? 'text-danger border border-danger' : 'text-success border border-success'"
+                  style="text-decoration: none; display: flex;align-items: center">
+                  {{ logo != "" ? "Logo selecionado" : "Sem logo selecionado" }}
+                  <input type="file" ref="logoFileInput" @change="(event) => handleFileUpload('logo', event)"
+                    accept=".jpg,.jpeg,.png,.pdf" style="display: none;" />
+                </a>
               </div>
-            </div>
 
-            <div class="row">
               <div class="col-6">
                 <div class="mb-3">
                   <div v-if="mostrarSkeleton" class="skeleton-label"></div>
@@ -314,6 +328,7 @@ export default {
       id_user: "",
       textoBotao: "Salvar",
       autenticando: false,
+      logo: "",
 
       validationTab: false,
       erro: false,
@@ -347,6 +362,25 @@ export default {
     },
   },
   methods: {
+    triggerFileUpload(type) {
+      if (type === 'logo') {
+        this.$refs.logoFileInput.click();
+      }
+    },
+    handleFileUpload(type, event) {
+      const file = event.target.files[0];
+      if (file) {
+        if (file.type === 'application/pdf' || file.type.startsWith('image/')) {
+          console.log(`Arquivo ${type} selecionado:`, file);
+          if (type === 'logo') {
+            this.creciUploadSuccess = true;
+            this.logo = file;
+          }
+        } else {
+          alert('Por favor, selecione um arquivo JPG ou PDF.');
+        }
+      }
+    },
     validaCPF(cpf) {
       let Soma = 0;
       let Resto;
@@ -516,11 +550,12 @@ export default {
       let estado = this.estado;
       let bairro = this.bairro;
       let id_plano = localStorage.getItem("plano");
+      let logo = this.logo
 
       if (id_plano === null) {
         id_plano = 3;
       }
-
+      console.log(logo)
       if (
         nome !== "" &&
         sobrenome !== "" &&
@@ -529,24 +564,44 @@ export default {
         telefone &&
         cep &&
         endereco != "" &&
-        this.msgCpfInvalido == false
+        this.msgCpfInvalido == false &&
+        logo != ""
       ) {
+        const formData = new FormData();
+        formData.append('logo', logo);
+        formData.append('nome', nome);
+        formData.append('sobrenome', sobrenome);
+        formData.append('email', email);
+        formData.append('senha', senha);
+        formData.append('avatar', '');
+        formData.append('cpf', cpf);
+        formData.append('id_plano', id_plano);
+        formData.append('telefone', telefone);
+        formData.append('cep', cep);
+        formData.append('endereco', endereco);
+        formData.append('complemento', complemento);
+        formData.append('numero', numero);
+        formData.append('cidade', cidade);
+        formData.append('estado', estado);
+        formData.append('bairro', bairro);
+
         api
           .cadastroCorretor(
-            nome,
-            sobrenome,
-            email,
-            senha,
-            cpf,
-            id_plano,
-            telefone,
-            cep,
-            endereco,
-            complemento,
-            numero,
-            cidade,
-            estado,
-            bairro
+            // nome,
+            // sobrenome,
+            // email,
+            // senha,
+            // cpf,
+            // id_plano,
+            // telefone,
+            // cep,
+            // endereco,
+            // complemento,
+            // numero,
+            // cidade,
+            // estado,
+            // bairro,
+            formData
           )
           .then((response) => {
             console.log(response);

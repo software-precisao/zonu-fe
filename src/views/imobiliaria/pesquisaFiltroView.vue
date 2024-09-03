@@ -790,6 +790,7 @@ export default {
       // console.log(decoded.id_user);
       // Gerar a URL com base no ID do usuário e na data atual
       const routeName = `https://zonu.com.br/seu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
+      // const routeName = `https://localhost:5173/seu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
       const url = new URL(routeName, window.location.origin);
 
       try {
