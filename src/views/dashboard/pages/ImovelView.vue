@@ -42,8 +42,8 @@
     <div class="capa">
       <div class="" style="padding-top: 4rem;">
         <div class="logo-area">
-          <img class="logo-page" :src="`https://zonu.com.br/api${decode}`" style="width: 180px; height: 180px;"
-            alt="" />
+          <img v-if="decode != null" class="logo-page" :src="`https://zonu.com.br/api${decode}`"
+            style="width: 180px; height: 180px;" alt="" />
         </div>
       </div>
     </div>
@@ -389,7 +389,7 @@ export default {
       nome: '',
       sobrenome: '',
       id_user: '',
-      decode: '',
+      decode: null,
 
       imovelId: null,
       imovel: {},
@@ -418,7 +418,11 @@ export default {
     this.sobrenome = decode.sobrenome;
     this.id_user = decode.id_user;
     console.log(decode)
-    this.decode = decode.perfil.logo
+    if (decode.perfil != null) {
+      if (decode.perfil.logo != null || decode.perfil.logo != "/logo/default-logo.png") {
+        this.decode = decode.perfil.logo
+      }
+    }
 
     //Cola as funçoes aqui
     function myFunction() { }
@@ -479,7 +483,9 @@ export default {
     }
 
     this.fetchCondominio();
-    this.initMap();
+    setTimeout(() => {
+      this.initMap();
+    }, 3000);
   },
 
   created() {
