@@ -67,6 +67,8 @@ export default {
       bairro: "",
 
       perfil: "",
+
+      msgErrorEmail: false,
     };
   },
 
@@ -305,6 +307,15 @@ export default {
               this.textoBotao = "Criar novo usuário";
               this.autenticando = false;
               this.fetcUsuarios();
+            } else if (res.status === 409) {
+              this.textoBotao = "Houve um erro..."
+              this.msgErrorEmail = true;
+              this.autenticando = false;
+
+              setTimeout(() => {
+                this.textoBotao = "Criar novo usuário";
+                this.msgErrorEmail = false;
+              }, 3000);
             } else {
               this.textoBotao = "Houve um erro...";
               this.msgErrorNull = true;
@@ -477,6 +488,9 @@ export default {
                       </div>
                       <div v-if="msgMaxUsers" class="alert alert-danger mt-3" role="alert">
                         <i class="fa fa-ban"></i> Máximo de usuários já cadastrados
+                      </div>
+                      <div v-if="msgErrorEmail" class="alert alert-danger mt-3" role="alert">
+                        <i class="fa fa-ban"></i> Email de usuário já cadastrado
                       </div>
                       <div>
                         <div class="tab-content" id="myTabContent">

@@ -20,9 +20,9 @@
               Radar de oportunidades | Clientes compatíveis | {{ imoveisUnicos }} imóveis | {{ qtdClientesUnicos }}
               pessoas
             </h4>
-            <div style="display: flex; align-items: center">
+            <!-- <div style="display: flex; align-items: center">
               <button class="btn btn-reds">Descartar todos</button>
-            </div>
+            </div> -->
           </header>
 
           <div class="mt-4">
@@ -37,9 +37,9 @@
                       ">
                       <thead>
                         <tr style="background-color: rgb(244, 244, 244)">
-                          <th>
+                          <!-- <th>
                             <input class="form-check-input" type="checkbox" :id="'flexCheck'" />
-                          </th>
+                          </th> -->
                           <th>
                             Cliente<i class="align-middle" data-feather="arrow-up"></i>
                             <i class="align-middle" data-feather="arrow-down"></i>
@@ -50,16 +50,16 @@
                           </th>
                           <th class="text-center">Imóveis no Funil</th>
                           <!-- <th class="text-center">No radar</th> -->
-                          <th class="text-center">Enviados</th>
-                          <th class="text-center">Descartados</th>
-                          <th class="text-center"></th>
+                          <!-- <th class="text-center">Enviados</th>
+                          <th class="text-center">Descartados</th> -->
+                          <!-- <th class="text-center"></th> -->
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="item in usuariosOnCurrentPage" :key="item.id" style="cursor: pointer">
-                          <td>
+                          <!-- <td>
                             <input class="form-check-input" type="checkbox" :id="'flexCheck' + item.id" />
-                          </td>
+                          </td> -->
                           <td>{{ item.nome }}</td>
                           <td class="text-center">
                             {{ formatUpdatedDate(item.updatedAt) }}
@@ -71,15 +71,15 @@
                           <!-- <td class="text-center">
                             <a style="text-decoration: underline; color: blue">{{ item.noRadar }}</a>
                           </td> -->
-                          <td class="text-center">
+                          <!-- <td class="text-center">
                             <a style="text-decoration: underline; color: blue">0</a>
                           </td>
                           <td class="text-center" xxx>
                             <a style="text-decoration: underline; color: blue">0</a>
-                          </td>
-                          <td>
+                          </td> -->
+                          <!-- <td>
                             <i class="align-middle" data-feather="trash-2"></i>
-                          </td>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>

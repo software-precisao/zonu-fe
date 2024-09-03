@@ -80,16 +80,15 @@
         </ul>
       </li>
       <li class="nav-item mt-4">
-        <h6 class="fw-bold fs-8">Relatórios</h6>
+        <!-- <h6 class="fw-bold fs-8">Relatórios</h6> -->
         <ul class="nav flex-column">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmnegoencer"
               :style="{ fontWeight: tab === 'Negócios encerrados' ? 600 : 400 }">
               <i class="align-middle me-2" data-feather="bar-chart"></i>
-              <!-- Ícone para Negócios Encerrados -->
               Negócios Encerrados
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a class="nav-link custom-nav-link fw-regular d-flex align-items-center" href="/seu-crmshareimov" :style="{
               fontWeight: tab === 'Imóveis compartilhados' ? 600 : 400,

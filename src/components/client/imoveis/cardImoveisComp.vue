@@ -2565,18 +2565,25 @@ export default {
     addProximidade(item) {
       // Adiciona a proximidade ao array currentImovelProximidades e remove da lista geral
       this.currentImovelProximidades.push(item);
+      console.log(this.currentImovelProximidades)
     },
     removeProximidade(proximidade) {
-      // Remove a proximidade do array currentImovelProximidades e a coloca de volta na lista geral
+      // Remove a proximidade do array currentImovelProximidades
       this.currentImovelProximidades = this.currentImovelProximidades.filter(
-        (item) =>
-          item.id_proximidade !== (proximidade.id_proximidade || proximidade.id_proximidades) &&
-          item.id_proximidades !== (proximidade.id_proximidade || proximidade.id_proximidades)
+        (item) => item.id_proximidades !== (proximidade.id_proximidades || proximidade.id_proximidade)
       );
 
-      // Opcionalmente, adicione a proximidade de volta à lista geral, se necessário
-      this.listProximidades.push(proximidade);
+      // Verifica se a proximidade já está na lista geral antes de adicionar
+      const existsInList = this.listProximidades.some(
+        (item) => item.id_proximidade === (proximidade.id_proximidade || proximidade.id_proximidades)
+      );
+
+      if (!existsInList) {
+        // Adiciona a proximidade de volta à lista geral
+        this.listProximidades.push(proximidade);
+      }
     },
+
 
     addCaracteristica(item) {
       // Adiciona a característica ao array currentImovelCaracteristicas e remove da lista geral
@@ -3452,10 +3459,12 @@ export default {
         (item) =>
           !this.currentImovelProximidades.some(
             (proximidade) =>
+              proximidade.id_proximidades === item.id_proximidade ||
               proximidade.id_proximidade === item.id_proximidade
           )
       );
     },
+
   },
 };
 </script>
