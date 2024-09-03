@@ -334,10 +334,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@esbuild/win32-x64@0.20.2":
+"@esbuild/darwin-arm64@0.20.2":
   version "0.20.2"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.20.2.tgz"
-  integrity sha512-N49X4lJX27+l9jbLKSqZ6bKNjzQvHaT8IIFUy+YIqmXQdjYCToGWwOItDrfby14c78aDd5NHQl29xingXfCdLQ==
+  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.20.2.tgz"
+  integrity sha512-4J6IRT+10J3aJH3l1yzEg9y3wkTDgDk7TSDFX+wKFiWjqWp/iCfLIYzGyasx9l0SAFPT1HwSCR+0w/h1ES/MjA==
 
 "@hapi/hoek@^9.0.0", "@hapi/hoek@^9.3.0":
   version "9.3.0"
@@ -523,10 +523,10 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@rollup/rollup-win32-x64-msvc@4.18.0":
+"@rollup/rollup-darwin-arm64@4.18.0":
   version "4.18.0"
-  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.18.0.tgz"
-  integrity sha512-UOo5FdvOL0+eIVTgS4tIdbW+TtnBLWg1YBCcU2KWM7nuNwRz9bksDX1bekJJCpu25N1DVWaCwnT39dVQxzqS8g==
+  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.18.0.tgz"
+  integrity sha512-IWfdwU7KDSm07Ty0PuA/W2JYoZ4iTj3TUQjkVsO/6U+4I1jN5lcR71ZEvRh52sDOERdnNhhHU57UITXz5jC1/w==
 
 "@sideway/address@^4.1.5":
   version "4.1.5"
@@ -1321,6 +1321,11 @@ convert-source-map@^2.0.0:
   resolved "https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz"
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
 
+core-js@^3.x:
+  version "3.38.1"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.38.1.tgz"
+  integrity sha512-OP35aUorbU3Zvlx7pjsFdu1rGNnD4pgw/CWoYzRY3t2EzoVT7shKHY1dlAy3f41cGIO7ZDPQimhGFTlEYkG/Hw==
+
 core-util-is@1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
@@ -1869,6 +1874,11 @@ fs-minipass@^2.0.0:
   integrity sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==
   dependencies:
     minipass "^3.0.0"
+
+fsevents@~2.3.2, fsevents@~2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -3876,6 +3886,11 @@ vue-demi@^0.14.0, vue-demi@>=0.14.5, vue-demi@>=0.14.8:
   resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.14.8.tgz"
   integrity sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==
 
+vue-facebook-login-component@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/vue-facebook-login-component/-/vue-facebook-login-component-4.0.2.tgz"
+  integrity sha512-VjFtropjHoEj+p2/bbM2NXTNWqMFU4uk/HUoOeoTiyg7Is9YvOGmjtFZEvfXWmnoSC3WFrtOL4xOb4/x5+0LpQ==
+
 vue-google-oauth2@^1.5.10:
   version "1.5.10"
   resolved "https://registry.npmjs.org/vue-google-oauth2/-/vue-google-oauth2-1.5.10.tgz"
@@ -3902,7 +3917,7 @@ vue-router@^4.2.5:
   dependencies:
     "@vue/devtools-api" "^6.5.1"
 
-vue@^2.5.17, "vue@^2.6.14 || ^3.3.0", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.3, vue@^3.2.0, vue@^3.2.25, vue@^3.3.11, vue@3.4.27:
+vue@^2.5.17, "vue@^2.6.14 || ^3.3.0", vue@^2.x, vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.3, vue@^3.0.5, vue@^3.2.0, vue@^3.2.25, vue@^3.3.11, vue@3.4.27:
   version "3.4.27"
   resolved "https://registry.npmjs.org/vue/-/vue-3.4.27.tgz"
   integrity sha512-8s/56uK6r01r1icG/aEOHqyMVxd1bkYcSe9j8HcKtr/xTOFWvnzIVTehNW+5Yt89f+DLBe4A569pnZLS5HzAMA==
@@ -3917,6 +3932,11 @@ vue2-leaflet@^2.7.1:
   version "2.7.1"
   resolved "https://registry.npmjs.org/vue2-leaflet/-/vue2-leaflet-2.7.1.tgz"
   integrity sha512-K7HOlzRhjt3Z7+IvTqEavIBRbmCwSZSCVUlz9u4Rc+3xGCLsHKz4TAL4diAmfHElCQdPPVdZdJk8wPUt2fu6WQ==
+
+vue3-facebook-login@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/vue3-facebook-login/-/vue3-facebook-login-1.0.2.tgz"
+  integrity sha512-d/0hMTtCanpbnqnsq4uS2hL/vKfwNmze0NbThtMKCO8xN3oOa4I3umqU2acuYUsJzGFTye4jV1g79F9zGSf67A==
 
 vue3-google-login@^2.0.25:
   version "2.0.26"
