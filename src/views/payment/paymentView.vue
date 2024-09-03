@@ -137,7 +137,7 @@
                                 sua
                                 compra</p>
 
-                            <div v-if="selectedOption === 'boleto'" class=" w-90 form-complete">
+                            <form v-if="selectedOption === 'boleto'" class=" w-90 form-complete">
 
                                 <div class="form">
 
@@ -155,9 +155,9 @@
                                 <button class="custom-button">Gerar Boleto</button>
 
 
-                            </div>
+                            </form>
 
-                            <div v-if="selectedOption === 'pix'" class=" w-90 form-complete">
+                            <form v-if="selectedOption === 'pix'" class=" w-90 form-complete">
 
                                 <div class="form">
 
@@ -172,16 +172,16 @@
                                         minutos para serem concluídos.</li>
                                 </ul>
 
-                                <button class="custom-button" @click="gerarQRCode">Gerar id ou qr code</button>
+                                <button class="custom-button">Gerar id ou qr code</button>
 
                                 <!-- Local onde o QR code será exibido -->
-                                <div style="display: flex; align-items: center; justify-content: center">
+                                <!-- <div style="display: flex; align-items: center; justify-content: center">
                                     <canvas :style="{ display: qrcodePix ? 'block' : 'none' }"
                                         id="qrcodeCanvas"></canvas>
-                                </div>
+                                </div> -->
 
 
-                            </div>
+                            </form>
 
                         </section>
                     </div>
