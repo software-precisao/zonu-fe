@@ -1,50 +1,42 @@
 <template>
   <div class="body" v-if="link">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary py-2" data-bs-theme="light">
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom"
+      style="position: absolute; z-index: 100; top: 0; right: 0; left: 0">
       <div class="container py-1">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- <img src="../../../../assets/images/icons/iconLogo.png" style="width: 60px; height: 60px;" alt=""> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#info">INFORMAÇÕES</a>
+              <a class="nav-link text-uppercase" style="color: #fff;" href="#info">SOBRE O EMPREENDIMENTO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#comodos">COMODOS</a>
+              <a class="nav-link text-uppercase" style="color: #fff;" href="#fotos">FOTOS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#medidas">MEDIDAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#preco">PREÇO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#caracteristicas">CARACTERÍSTICAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#localizacao">LOCALIZAÇÃO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#proximidades">PROXIMIDADES</a>
+              <a class="nav-link text-uppercase" style="color: #fff;" href="#precos">PREÇO</a>
             </li>
             <!-- <li class="nav-item">
-              <a class="nav-link text-uppercase" href="#complemento"
-                >COMPLEMENTO</a
-              >
+              <a class="nav-link text-uppercase" style="color: #fff;" href="#contato">CONTATO</a>
             </li> -->
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="orange-range">
+
+
+
+    <!-- <div class="orange-range">
       <h2 class="text-title-h2-contact text-center text-light">
         <strong>EMPREENDIMENTO
           {{ imovel.publicacao.tarja_imovel_site_publi }}</strong>
       </h2>
-    </div>
+    </div> -->
 
     <div class="capa">
       <div class="gradient-page-imovel">
@@ -54,45 +46,170 @@
       </div>
     </div>
 
-    <div class="green-range">
+    <!-- <div class="green-range">
       <h2 class="text-title-h2-contact text-center text-light">
         <strong>{{ imovel.preco.tipo_negocio }}</strong>
       </h2>
-    </div>
+    </div> -->
 
     <!-- Conteúdo do site -->
     <div class="px-4 px-md-0">
-      <div class="container">
-        <div class="row">
+      <div class="">
+        <div class="row" style="padding-left: 10%; padding-right: 10%">
           <div class="col-12 mt-5">
-            <h1 class="text-title text-center">
+            <h1 class="text-title text-left" style="padding: 0; margin: 0; font-size: 2.5rem">
               <strong>{{ imovel.descricao.titulo }}</strong>
             </h1>
-            <p class="text-title-subtitle text-center mt-2">
+            <h4 style="padding: 0; margin: 0; color: #D3D3D3;">{{ imovel.localizacao.bairro }} - {{
+              imovel.localizacao.cidade }} - {{
+                imovel.localizacao.estado }}</h4>
+            <p class="text-title-subtitle text-left mt-4" style="color: #0A0A1D; font-weight: 500 !important">
               {{ imovel.descricao.apresentacao }}
             </p>
           </div>
         </div>
 
-        <div class="container">
+        <div class="row mt-5" id="info" style="padding-left: 10%; padding-right: 10%">
+          <div class="col-12 container-box">
+
+            <div class="row" style="display: flex; align-items: center; justify-content: space-around; width: 100%;">
+              <div class=" col-sm-2 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">Suites</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.suite }}
+                  </h2>
+                </div>
+              </div>
+
+              <div class="col-sm-2 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">Dormitório</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.dormitorio }}
+                  </h2>
+                </div>
+              </div>
+
+              <div class="col-sm-2 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">Banheiro</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.banheiro }}
+                  </h2>
+                </div>
+              </div>
+
+              <div class="col-sm-2 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">Vagas</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.comodos.garagem }}
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Característica -->
+        <div class="" id="caracteristicas">
+          <div class="" style="background-color: #f8f9fa; padding: 30px 10% ">
+            <div class="features-container">
+              <div class="feature-box" v-for="caracteristica in imovel.caracteristicas"
+                :key="caracteristica.id_caracteristica">
+                <div class="feature-item">
+                  <h4 class="feature-text" style="font-size: 16px; font-weight: 600; color: #003366;">
+                    {{
+                      caracteristica.detalhesCaracteristica
+                        ? caracteristica.detalhesCaracteristica
+                          .nome_caracteristica
+                        : "Não disponível"
+                    }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proximidades -->
+        <div class="row mt-5" id="proximidades" style="padding-left: 10%; padding-right: 10%">
+          <div class="col container-box" style="display: flex; flex-direction: column">
+            <h2 class="title text-center" style="font-size: 40px; font-weight: 600; letter-spacing: 10px;">PROXIMIDADES
+            </h2>
+
+            <div class="features-container" style="display: flex; align-items: center; justify-content: center">
+              <div class="feature-box" v-for="proximidade in imovel.proximidades" :key="proximidade.id_proximidade">
+                <div class="feature-item">
+                  <h4 class="feature-text"
+                    style="font-size: 16px; font-weight: 600; color: #003366; text-transform: uppercase;">
+                    {{
+                      proximidade.detalhesProximidade
+                        ? proximidade.detalhesProximidade.nome_proximidade
+                        : null
+                    }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Localização -->
+        <div class="row mt-4" id="localizacao" style="padding-left: 10%; padding-right: 10%">
+          <div class="col container-box">
+
+            <div class="col-12 relative"
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <!-- <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29392.21038117975!2d-43.17517506523439!3d-22.94925859999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9980409039f845%3A0x8075d7bcdfbcb48c!2zUMOjbyBkZSBBw6fDumNhcg!5e0!3m2!1spt-BR!2sbr!4v1712992417057!5m2!1spt-BR!2sbr"
+                class="map"
+                style="border: 0; padding: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe> -->
+              <div id="map" ref="mapElement"
+                style="width: 80%; height: 450px; position: sticky; border-top-left-radius: 25px;  border-top-right-radius: 25px;">
+              </div>
+              <h4 style="padding-top: 8px; margin: 0; color: #D3D3D3; background-color: #f8f9fa; width: 80%;">{{
+                imovel.localizacao.logradouro }} -
+                {{
+                  imovel.localizacao.bairro }} - {{
+                  imovel.localizacao.cidade }} - {{
+                  imovel.localizacao.estado }}</h4>
+            </div>
+
+            <!-- <div class="col-12">
+              <iframe :src="streetViewUrl" class="map" style="border: 0; padding: 0" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="container" id="fotos" style="margin-top: 7rem;">
           <div class="row g-2">
+            <h2 class="title text-center" style="font-size: 30px; font-weight: 600;">FOTOS DO
+              EMPREEMDIMENTO
+            </h2>
             <!-- Imagem Principal -->
-            <div class="col-6">
+            <!-- <div class="col-6">
               <div class="main-image-container" @click="openModal(0)">
                 <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" :alt="`Foto Principal`"
                   class="img-fluid main-image" />
               </div>
-            </div>
+            </div> -->
 
             <!-- Outras Imagens -->
-            <div class="col-4">
-              <div class="row">
-                <div v-for="(foto, index) in imovel.fotos.slice(1, 5)" :key="foto.id_imagem" class="col-6">
-                  <div class="thumbnail-container" @click="openModal(index + 1)">
+            <div class="">
+              <div class="" style="display: flex; gap: 10px; justify-content: center;">
+                <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="">
+                  <div class="thumbnail-container" @click="openModal(index)" style="width: 200px; height: 200px;">
                     <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
                       class="img-fluid thumbnail" />
                     <!-- Sobreposição na Quinta Imagem -->
-                    <div v-if="index === 3" class="overlay" style="
+                    <!-- <div v-if="index === 3" class="overlay" style="
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -100,7 +217,7 @@
                       <p style="color: #fff; font-size: 20px">
                         +{{ imovel.fotos.length - 4 }}
                       </p>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -133,9 +250,8 @@
         </div> -->
 
         <!-- Informações do Imóvel -->
-        <div class="row" id="info">
-          <h2 class="title mt-5">Informações do imóvel</h2>
-          <div class="col container-box" style="display: flex; flex-direction: column">
+        <div class="row mt-5" id="precos" style="padding-left: 25%; padding-right: 25%; padding-bottom: 5% ">
+          <div class="col container-box" style="display: flex; flex-direction: column; background-color: #f8f9fa;">
             <!-- <p class="text-title-subtitle mt-2">
               Abaixo, você encontrará uma visão geral detalhada deste imóvel.
               Essas informações são projetadas para fornecer uma compreensão
@@ -143,323 +259,31 @@
               você a avaliar se ele atende às suas necessidades e expectativas
             </p> -->
 
-            <div class="row">
-              <div class="col-sm-2 features-box">
+            <div class="" style="display: flex; padding: 10px 0; justify-content: space-between;">
+              <div class=" features-box">
                 <div class="box-item">
-                  <h4 class="title-com">Condomínio</h4>
-                  <h2 class="subTitle-com">
-                    {{ condominio }}
+                  <h4 class="title-com" style="font-size: 1.3rem;">{{ imovel.preco.tipo_negocio }}</h4>
+                  <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
+                    R$ {{ imovel.preco.preco_imovel }}
                   </h2>
                 </div>
               </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Tipo do Imóvel</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.tipo }}
-                  </h2>
+              <div class="row" style="border-left: 2px solid #d3d3d3;">
+                <div class=" features-box">
+                  <div class="box-item">
+                    <h4 class="title-com" style="font-size: 1.3rem;">IPTU</h4>
+                    <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
+                      R$ {{ imovel.preco.preco_iptu == "NaN" ? '0,00' : imovel.preco.preco_iptu }}
+                    </h2>
+                  </div>
                 </div>
               </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Perfil do Imóvel</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.perfil_imovel }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Situação do Imóvel</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.situacao_imovel }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Ano da construção</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.ano_construcao }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Incorporação</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.incorporacao }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Posição Solar</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.posicao_solar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Terreno</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.terreno }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Próximo do mar?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.proximo_mar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Está Averbado?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.averbado }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Escriturado</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.escriturado }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">De esquina?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.esquina }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Possue Mobília?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.info.mobilia }}
-                  </h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cômodos -->
-        <div class="row" id="comodos">
-          <h2 class="title mt-5">Cômodos</h2>
-          <div class="col container-box">
-            <!-- <p class="text-title-subtitle mt-2">
-              A seguir, apresentamos a quantidade de cômodos disponíveis neste
-              imóvel. Esta informação proporciona uma visão geral da disposição
-              e da funcionalidade dos espaços, ajudando você a ter uma ideia
-              clara do layout do imóvel
-            </p> -->
-
-            <div class="row">
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Dormitórios</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.dormitorio }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Suites</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.suite }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Banheiro</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.banheiro }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Garagem</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.garagem }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Garagem coberta?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.garagem_coberta }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Tem box na garagem</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.garagem_box }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Sala de TV</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.sala_tv }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Sala de Jantar</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.sala_jantar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Sala de estar</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.sala_estar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Lavabo</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.lavabo }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Área de serviço</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.area_servico }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Cozinha</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.cozinha }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Closet</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.closet }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Escritório</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.escritorio }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Cômodos p/ empregado</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.casa_empregada }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-2 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Copa</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.comodos.copa }}
-                  </h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Medidas -->
-        <div class="row" id="medidas">
-          <div class="col container-box">
-            <h2 class="title mt-5">Medidas</h2>
-            <div class="col-12" style="display: flex; flex-direction: column">
-              <!-- <p class="text-title-subtitle mt-2">
-                  Aqui estão as principais medidas deste imóvel, fornecendo uma
-                  visão clara das dimensões e da distribuição dos espaços
-                </p> -->
-
               <div class="row">
-                <div class="col-sm-3 features-box">
+                <div class=" features-box">
                   <div class="box-item">
-                    <h4 class="title-com">Área construida</h4>
-                    <h2 class="subTitle-com">
-                      {{ formatarDecimal(imovel.medidas.area_contruida) }}
-                      m2
-                    </h2>
-                  </div>
-                </div>
-
-                <div class="col-sm-3 features-box">
-                  <div class="box-item">
-                    <h4 class="title-com">Área Privativa</h4>
-                    <h2 class="subTitle-com">
-                      {{ formatarDecimal(imovel.medidas.area_privativa) }}
-                      m2
-                    </h2>
-                  </div>
-                </div>
-
-                <div class="col-sm-3 features-box">
-                  <div class="box-item">
-                    <h4 class="title-com">Área Total</h4>
-                    <h2 class="subTitle-com">
-                      {{ formatarDecimal(imovel.medidas.area_total) }}
-                      m2
+                    <h4 class="title-com" style="font-size: 1.3rem;">CONDOMÍNIO</h4>
+                    <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
+                      R$ {{ imovel.preco.preco_condominio == "NaN" ? '0,00' : imovel.preco.preco_condominio }}
                     </h2>
                   </div>
                 </div>
@@ -468,366 +292,36 @@
           </div>
         </div>
 
-        <!-- Preço -->
-        <div class="row" id="preco">
-          <div class="col container-box">
-            <h2 class="title mt-5">Preço</h2>
-            <div class="row">
-              <!-- <div class="col-12"> -->
-              <!-- <p class="text-title-subtitle mt-2">
-                  Nesta seção, apresentamos os preços relacionados a este
-                  imóvel. As informações a seguir fornecem uma visão geral dos
-                  valores envolvidos, ajudando você a avaliar o custo e a tomar
-                  decisões informadas
-                </p> -->
-              <!-- </div> -->
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Valor do Imóvel</h4>
-                  <h2 class="subTitle-com">
-                    R$
-                    {{ formatarDecimal(imovel.preco.preco_imovel) }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Valor IPTU</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.preco_iptu }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Período</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.periodo }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Valor do condomínio</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.preco_condominio }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Está financiado?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.financiado }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Aceita financiamento?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.aceita_financiamento }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Minha casa Minha vida</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.minhacasa_minhavida }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Valor total de taxas</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.total_mensal_taxas }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-12 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Descrição das taxas</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.descricao_taxas }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Aceita Permuta?</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.aceita_permuta }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-12 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Descrição das permutas</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.preco.descricao_permuta }}
-                  </h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Característica -->
-        <div class="row" id="caracteristicas">
-          <div class="col container-box">
-            <h2 class="title mt-5">Característica do imóvel</h2>
-            <!-- <p class="text-title-subtitle mt-2">
-              A seguir, você encontrará as características adicionais deste
-              imóvel. Essas informações destacam aspectos importantes e
-              diferenciais que podem agregar valor e conforto ao seu dia a dia.
-            </p> -->
-
-            <!-- Contêiner para características -->
-            <div class="features-container">
-              <div class="feature-box" v-for="caracteristica in imovel.caracteristicas"
-                :key="caracteristica.id_caracteristica">
-                <div class="feature-item">
-                  <i class="fas fa-check feature-icon"></i>
-                  <h4 class="feature-text">
-                    {{
-                      caracteristica.detalhesCaracteristica
-                        ? caracteristica.detalhesCaracteristica
-                          .nome_caracteristica
-                        : "Não disponível"
-                    }}
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Localização -->
-        <div class="row" id="localizacao">
-          <div class="col container-box">
-            <h2 class="title mt-5">Localização</h2>
-            <!-- <p class="text-title-subtitle mt-2">
-              Conheça a localização deste imóvel e descubra as vantagens de
-              viver em uma área estratégica e conveniente. A seção a seguir
-              fornece uma visão geral da localização do imóvel
-            </p> -->
-
-            <div class="row">
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">CEP</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.cep }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">País</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.pais }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Estado</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.estado }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Cidade</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.cidade }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Bairro</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.bairro }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Logradouro</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.logradouro }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Número</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.numero }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Complemento</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.complemento }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">ID da Unidade</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.numero_unidade }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Andar</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.andar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Unidades por andar</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.unidade_por_andar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Total de andares</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.total_andar }}
-                  </h2>
-                </div>
-              </div>
-
-              <div class="col-sm-3 features-box">
-                <div class="box-item">
-                  <h4 class="title-com">Total de torres</h4>
-                  <h2 class="subTitle-com">
-                    {{ imovel.localizacao.total_torres }}
-                  </h2>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 relative">
-              <!-- <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29392.21038117975!2d-43.17517506523439!3d-22.94925859999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9980409039f845%3A0x8075d7bcdfbcb48c!2zUMOjbyBkZSBBw6fDumNhcg!5e0!3m2!1spt-BR!2sbr!4v1712992417057!5m2!1spt-BR!2sbr"
-                class="map"
-                style="border: 0; padding: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe> -->
-              <div id="map" ref="mapElement" style="width: 100%; height: 330px; position: sticky"></div>
-            </div>
-
-            <div class="col-12">
-              <iframe :src="streetViewUrl" class="map" style="border: 0; padding: 0" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- Proximidades -->
-        <div class="row" id="proximidades">
-          <div class="col container-box" style="display: flex; flex-direction: column">
-            <h2 class="title mt-5">Proximidades</h2>
-            <!-- <p class="text-title-subtitle mt-2">
-              Descubra as vantagens de viver próximo a uma variedade de serviços
-              e amenidades. A seção a seguir destaca as principais atrações e
-              facilidades nas proximidades deste imóvel
-            </p> -->
-
-            <div class="features-container">
-              <div class="feature-box" v-for="proximidade in imovel.proximidades" :key="proximidade.id_proximidade">
-                <div class="feature-item">
-                  <i class="fas fa-check feature-icon"></i>
-                  <h4 class="feature-text">
-                    {{
-                      proximidade.detalhesProximidade
-                        ? proximidade.detalhesProximidade.nome_proximidade
-                        : null
-                    }}
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
-    <div class="container-fluid py-5 mt-5" style="background-color: #3d83b6">
-      <div class="container px-4 px-md-0">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="text-title-h2-contact text-light">
-              <strong>GOSTOU DESSE IMÓVEL?</strong>
-            </h2>
-            <p class="p-title-h2-contact text-light">
-              QUER RECEBER INFORMAÇÕES DE OUTROS COMO ESTE?
-            </p>
+    <!-- <div class="row" id="contato" style="padding-left: 20%; padding-right: 20%; margin-top: 5rem; padding-bottom: 3rem">
+      <div class="col container-box" style="display: flex; flex-direction: column;">
 
-            <div class="row text-light mt-5">
-              <div class="col-md-4">
-                <label for="name" class="form-label">Deixe seu nome</label>
-                <input type="text" class="form-control" name="name" />
-              </div>
-              <div class="col-md-4">
-                <label for="email" class="form-label">Seu e-mail</label>
-                <input type="text" class="form-control" name="email" />
-              </div>
-              <div class="col-md-4">
-                <label for="telefone" class="form-label">Seu telefone</label>
-                <input type="text" class="form-control" name="telefone" />
-              </div>
-              <div class="px-2 mt-3">
-                <div class="px-1">
-                  <button type="submit" class="btn col-12" style="background-color: #f24e1e">
-                    <h3 class="mt-2 text-light"><strong>ENVIAR</strong></h3>
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div>
+          <h1 style="font-size: 16px; font-weight: 600; color: #003366;">PROPRIETÁRIO</h1>
+          <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{ imovel.usuario.nome
+            }} {{
+              imovel.usuario.sobrenome }}</h4>
+        </div>
+
+        <div style="display: flex;">
+          <div style="margin-right: 4rem;">
+            <h1 style="font-size: 16px; font-weight: 600; color: #003366;">EMAIL</h1>
+            <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{
+              imovel.usuario.email }}</h4>
+          </div>
+
+          <div>
+            <h1 style="font-size: 16px; font-weight: 600; color: #003366;">TELEFONE</h1>
+            <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{
+              imovel.usuario.telefone }}</h4>
           </div>
         </div>
+
       </div>
-    </div>
+    </div> -->
+
   </div>
   <div class="body" style="height: 100vh" v-if="link == false">
     <div class="d-flex justify-content-center align-items-center h-100">
@@ -848,8 +342,9 @@ import api from "../../../../service/api/imoveis/index";
 import apiRaiz from "../../../../service/api/index";
 import apiUser from "../../../../service/api/usuarios/index";
 import axios from "axios";
-import googleDrive from "../../../../assets/images/icons/googleDriveLogo.svg";
-import youtube from "../../../../assets/images/icons/youtubeLogo.svg";
+import googleDrive from "../../../../assets/images/icons/googleDriveIconCerto.svg";
+import youtube from "../../../../assets/images/icons/youtubeIconCerto.svg";
+import presentation from "../../../../assets/images/icons/reelIcon.svg";
 
 export default {
   name: "ImovelView",
@@ -879,6 +374,7 @@ export default {
 
       googleDrive,
       youtube,
+      presentation,
     };
   },
 
@@ -1121,6 +617,11 @@ export default {
 };
 </script>
 <style scoped>
+.navbar-custom {
+  background: linear-gradient(to bottom, #003366 0%, rgba(0, 51, 102, 0.8) 50%, rgba(0, 51, 102, 0) 100%) !important
+    /* Remover bordas se houver */
+}
+
 /* Estilo das imagens principais */
 .main-image-container {
   position: relative;
@@ -1148,7 +649,6 @@ export default {
 
 .thumbnail {
   width: 100%;
-  height: auto;
   object-fit: cover;
   /* Ajusta a imagem para cobrir o contêiner */
   border-radius: 0.5rem;
@@ -1196,7 +696,7 @@ export default {
   position: relative;
   width: 90%;
   height: 90%;
-  background: rgba(0, 0, 0, 1);
+  background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1245,7 +745,7 @@ export default {
 
 .modal-thumbnail {
   width: 120px;
-  height: auto;
+  height: 120px;
   object-fit: cover;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -1267,7 +767,7 @@ export default {
 }
 
 .feature-box {
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
   border-radius: 15px;
   padding: 10px;
 }
@@ -1301,17 +801,17 @@ export default {
 }
 
 .title-com {
-  font-size: 14px;
+  font-size: 18px;
   color: #3c4453;
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1px;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 
 .subTitle-com {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 900;
   text-transform: uppercase;
   margin-left: 2px;
 }

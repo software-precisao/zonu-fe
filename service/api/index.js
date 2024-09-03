@@ -1012,15 +1012,16 @@ export default {
     }
   },
 
-  editProgressImovel: async (id_progresso) => {
+  editProgressImovel: async (id_progresso, idUser) => {
     try {
-      const response = await http.patch(
+      const response = await http.put(
         "/progressao/editar",
         {
-          id_progresso: id_progresso,
+          id_progressao: id_progresso,
           imovel: 1,
           publicacao: 1,
           logo_capa: 1,
+          id_user: idUser,
         },
         {
           headers: {
