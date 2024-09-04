@@ -1,28 +1,37 @@
 <template>
-  <div class="body">
-    <nav class="navbar navbar-expand-lg py-3 navbar-custom"
-      style="position: absolute; z-index: 100; top: 0; right: 0; left: 0">
+  <div class="body" v-if="mostrarSkeleton">
+    <nav class="navbar navbar-expand-lg py-3 navbar-custom" style="position: absolute; z-index: 100; top: 0; right: 0; left: 0; background: linear-gradient(to bottom, 
+  rgba(0, 0, 80, 1) 0%,
+  rgba(0, 0, 80, .7) 60%, 
+  rgba(0, 0, 80, 0.5) 80%,
+  rgba(0, 0, 80, .3) 90%,
+  rgba(0, 0, 80, 0) 100%
+);
+">
       <div class="container py-1">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        <button class=" navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <!-- <img src="../../../../assets/images/icons/iconLogo.png" style="width: 60px; height: 60px;" alt=""> -->
+        <div class="logo-area">
+          <img v-if="decode != null" class="logo-page" :src="`https://zonu.com.br/api${decode}`"
+            style="width: 80px; height: 80px;" alt="" />
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link text-uppercase" style="color: #000; font-weight: 800;" href="#info">SOBRE O
+              <a class="nav-link text-uppercase" style="color: #fff; font-weight: 800;" href="#info">SOBRE O
                 EMPREENDIMENTO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" style="color: #000; font-weight: 800;" href="#fotos">FOTOS</a>
+              <a class="nav-link text-uppercase" style="color: #fff; font-weight: 800;" href="#fotos">FOTOS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" style="color: #000; font-weight: 800;" href="#precos">PREÇO</a>
+              <a class="nav-link text-uppercase" style="color: #fff; font-weight: 800;" href="#precos">PREÇO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" style="color: #000; font-weight: 800;" href="#contato">CONTATO</a>
+              <a class="nav-link text-uppercase" style="color: #fff; font-weight: 800;" href="#contato">CONTATO</a>
             </li>
           </ul>
         </div>
@@ -39,12 +48,11 @@
       </h2>
     </div> -->
 
-    <div class="capa">
-      <div class="" style="padding-top: 4rem;">
-        <div class="logo-area">
-          <img v-if="decode != null" class="logo-page" :src="`https://zonu.com.br/api${decode}`"
-            style="width: 180px; height: 180px;" alt="" />
-        </div>
+    <div class="capa"
+      :style="{ backgroundImage: `url(https://zonu.com.br/api${imovel.fotos[0].foto})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+      <div class="">
+        <!-- {{ console.log(imovel.fotos[0].foto) }} -->
+
       </div>
     </div>
 
@@ -79,7 +87,7 @@
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Suites</h4>
                   <h2 class="subTitle-com">
-                    {{ imovel.comodos.suite }}
+                    {{ imovel.comodos.suite == "" || imovel.comodos.suite == null ? "0" : imovel.comodos.suite }}
                   </h2>
                 </div>
               </div>
@@ -88,7 +96,8 @@
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Dormitório</h4>
                   <h2 class="subTitle-com">
-                    {{ imovel.comodos.dormitorio }}
+                    {{ imovel.comodos.dormitorio == "" || imovel.comodos.dormitorio == null ? "0" :
+                      imovel.comodos.dormitorio }}
                   </h2>
                 </div>
               </div>
@@ -97,7 +106,8 @@
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Banheiro</h4>
                   <h2 class="subTitle-com">
-                    {{ imovel.comodos.banheiro }}
+                    {{ imovel.comodos.banheiro == "" || imovel.comodos.banheiro == null ? "0" : imovel.comodos.banheiro
+                    }}
                   </h2>
                 </div>
               </div>
@@ -106,7 +116,7 @@
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Vagas</h4>
                   <h2 class="subTitle-com">
-                    {{ imovel.comodos.garagem }}
+                    {{ imovel.comodos.garagem == "" || imovel.comodos.garagem == null ? "0" : imovel.comodos.garagem }}
                   </h2>
                 </div>
               </div>
@@ -121,7 +131,11 @@
               <div class="feature-box" v-for="caracteristica in imovel.caracteristicas"
                 :key="caracteristica.id_caracteristica">
                 <div class="feature-item">
-                  <h4 class="feature-text" style="font-size: 16px; font-weight: 600; color: #003366;">
+                  <h4 class="feature-text"
+                    style="font-size: 16px; font-weight: 600; color: #003366; text-transform: uppercase;">
+                    <div class="check-square">
+                      <i class="fa fa-check"></i>
+                    </div>
                     {{
                       caracteristica.detalhesCaracteristica
                         ? caracteristica.detalhesCaracteristica
@@ -146,6 +160,9 @@
                 <div class="feature-item">
                   <h4 class="feature-text"
                     style="font-size: 16px; font-weight: 600; color: #003366; text-transform: uppercase;">
+                    <div class="check-square">
+                      <i class="fa fa-check"></i>
+                    </div>
                     {{
                       proximidade.detalhesProximidade
                         ? proximidade.detalhesProximidade.nome_proximidade
@@ -204,26 +221,23 @@
             </div> -->
 
             <!-- Outras Imagens -->
-            <div class="">
-              <div class="" style="display: flex; gap: 10px; justify-content: center;">
-                <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="">
-                  <div class="thumbnail-container" @click="openModal(index)" style="width: 200px; height: 200px;">
+            <div class="carousel-container">
+              <button v-if="currentIndex != 0" class="carousel-button prev" @click="previousSlide">
+                <img :src="arrowLeft" style="width: 20px; height: 20px;" /></button>
+              <div class="carousel-track">
+                <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="carousel-slide">
+                  <div class="thumbnail-container" @click="openModal(index)">
                     <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
                       class="img-fluid thumbnail" />
-                    <!-- Sobreposição na Quinta Imagem -->
-                    <!-- <div v-if="index === 3" class="overlay" style="
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                      ">
-                      <p style="color: #fff; font-size: 20px">
-                        +{{ imovel.fotos.length - 4 }}
-                      </p>
-                    </div> -->
                   </div>
                 </div>
               </div>
+              <button
+                v-if="imovel.fotos.length <= 8 && currentIndex == 0 || imovel.fotos.length >= 9 && (currentIndex == 0 || currentIndex == 1)"
+                class="carousel-button next" @click="nextSlide"><img :src="arrowRight"
+                  style="width: 20px; height: 20px;" /></button>
             </div>
+
 
             <!-- Modal para Zoom -->
             <div class="modal" v-if="showModal">
@@ -261,12 +275,12 @@
               você a avaliar se ele atende às suas necessidades e expectativas
             </p> -->
 
-            <div class="" style="display: flex; padding: 10px 0; justify-content: space-between;">
+            <div class="" style="display: flex; padding: 10px 0; justify-content: space-between; flex-wrap: wrap">
               <div class=" features-box">
                 <div class="box-item">
                   <h4 class="title-com" style="font-size: 1.3rem;">{{ imovel.preco.tipo_negocio }}</h4>
                   <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
-                    R$ {{ imovel.preco.preco_imovel }}
+                    {{ aplicaMascaraDinheiroPreco(imovel.preco.preco_imovel) }}
                   </h2>
                 </div>
               </div>
@@ -275,7 +289,8 @@
                   <div class="box-item">
                     <h4 class="title-com" style="font-size: 1.3rem;">IPTU</h4>
                     <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
-                      R$ {{ imovel.preco.preco_iptu == "NaN" ? '0,00' : imovel.preco.preco_iptu }}
+                      {{ imovel.preco.preco_iptu == "NaN" || imovel.preco.preco_iptu == "" ? 'R$ 0,00' :
+                        imovel.preco.preco_iptu }}
                     </h2>
                   </div>
                 </div>
@@ -285,7 +300,8 @@
                   <div class="box-item">
                     <h4 class="title-com" style="font-size: 1.3rem;">CONDOMÍNIO</h4>
                     <h2 class="subTitle-com" style="font-size: 1.8rem; color: #003366">
-                      R$ {{ imovel.preco.preco_condominio == "NaN" ? '0,00' : imovel.preco.preco_condominio }}
+                      {{ imovel.preco.preco_condominio == "NaN" || imovel.preco.preco_condominio == "" ? 'R$ 0,00' :
+                        imovel.preco.preco_condominio }}
                     </h2>
                   </div>
                 </div>
@@ -373,6 +389,8 @@ import apiRaiz from "../../../../service/api/index";
 import axios from "axios";
 import googleDrive from "../../../../assets/images/icons/googleDriveIconCerto.svg";
 import youtube from "../../../../assets/images/icons/youtubeIconCerto.svg";
+import arrowRight from "../../../../assets/images/icons/chevron-right.svg";
+import arrowLeft from "../../../../assets/images/icons/chevron-left.svg";
 import presentation from "../../../../assets/images/icons/reelIcon.svg";
 import { jwtDecode } from "jwt-decode";
 
@@ -408,6 +426,12 @@ export default {
       googleDrive,
       youtube,
       presentation,
+      arrowRight,
+      arrowLeft,
+
+      mostrarSkeleton: false,
+
+      currentIndex: 0,
     };
   },
 
@@ -423,6 +447,10 @@ export default {
         this.decode = decode.perfil.logo
       }
     }
+
+    setTimeout(() => {
+      this.mostrarSkeleton = true
+    }, 2000);
 
     //Cola as funçoes aqui
     function myFunction() { }
@@ -493,10 +521,21 @@ export default {
     this.fetchImovel();
   },
 
+  watch: {
+    currentIndex() {
+      const track = this.$el.querySelector(".carousel-track");
+      track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+    },
+  },
+
   computed: {
     streetViewUrl() {
       const apiKey = "AIzaSyC59bw9mWYet8FeTX0tZZdQ_FzBQUxaRjE";
       return `https://www.google.com/maps/embed/v1/streetview?key=${apiKey}&location=${this.latitude},${this.longitude}&heading=210&pitch=10&fov=100`;
+    },
+
+    totalSlides() {
+      return Math.ceil(this.imovel.fotos.length / 4);
     },
 
     // currentImage() {
@@ -512,6 +551,33 @@ export default {
     //   this.currentImageIndex = index; // Resetar para a primeira imagem ao abrir o modal
     //   this.showModal = true;
     // },
+    nextSlide() {
+      if (this.currentIndex < this.totalSlides - 1) {
+        this.currentIndex++;
+      }
+    },
+    previousSlide() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+    },
+
+    aplicaMascaraDinheiroPreco(preco) {
+      let v = preco;
+
+      // Remove tudo o que não é dígito
+      v = v.replace(/\D/g, "");
+
+      // Divide o número para preparar a adição de vírgula e ponto
+      let valorDecimal = parseInt(v) / 100;
+
+      // Formata o número como valor monetário
+      return preco = valorDecimal.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    },
+
     openModal(index) {
       this.currentImage = `https://zonu.com.br/api${this.imovel.fotos[index].foto}`;
       this.showModal = true;
@@ -643,6 +709,96 @@ export default {
 /* background: linear-gradient(to bottom, #003366 0%, rgba(0, 51, 102, 0.8) 50%, rgba(0, 51, 102, 0) 100%) !important */
 /* Remover bordas se houver */
 /* } */
+
+.check-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #28a745;
+  /* Cor de fundo verde */
+  border-radius: 4px;
+  /* Arredondar os cantos */
+  padding: 4px;
+  margin-right: 4px
+}
+
+.check-square i {
+  color: white;
+  /* Cor do ícone */
+  width: 16px;
+  height: 16px;
+}
+
+.carousel-container {
+  position: relative;
+  width: 800px;
+  /* Ajuste conforme necessário */
+  overflow: hidden;
+  margin: auto;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 25%;
+  /* Exibe 4 imagens de cada vez */
+  max-width: 200px;
+  /* Ajuste conforme necessário */
+  padding: 5px;
+}
+
+.thumbnail-container {
+  width: 100%;
+  height: 200px;
+}
+
+.carousel-button.next {
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(to left,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.9) 40%,
+      rgba(255, 255, 255, 0.6) 70%,
+      rgba(255, 255, 255, 0) 100%);
+  color: #000;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-button.prev {
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.9) 40%,
+      rgba(255, 255, 255, 0.6) 70%,
+      rgba(255, 255, 255, 0) 100%);
+  color: #000;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-button.prev {
+  left: 5px;
+}
+
+.carousel-button.next {
+  right: 5px;
+}
+
 
 /* Estilo das imagens principais */
 .main-image-container {

@@ -291,12 +291,14 @@ export default {
 
     fetchTermos() {
       api.termos().then((res) => {
+        // console.log("aqui esta os termos ===> ", res)
         this.termos = res.data.response[0].texto;
       });
     },
 
     fetchPrivacidade() {
       api.privacidade().then((res) => {
+        // console.log("aqui esta a privacidade ===> ", res)
         this.privacidade = res.data.response[0].texto;
       });
     },

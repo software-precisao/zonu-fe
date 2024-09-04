@@ -333,15 +333,29 @@ export default {
     fetchClientes() {
       api.listusuarios().then((res) => {
         let clientes = res.data.response;
-        // Filtrar os usuários com id_nivel igual a 1
-        let clientesFiltrados = clientes.filter(
-          (cliente) =>
-            cliente.id_nivel === 3 ||
-            cliente.id_nivel === 4 ||
-            cliente.id_nivel === 5 ||
-            cliente.id_nivel === 7
-        );
-        // Atribuir os usuários filtrados ao estado listUsers
+
+        // Crie um conjunto para armazenar IDs únicos
+        let idsUnicos = new Set();
+
+        // Filtrar os usuários com id_nivel específico e IDs únicos
+        let clientesFiltrados = clientes.filter((cliente) => {
+          // Verificar se o ID do usuário já está no conjunto
+          if (!idsUnicos.has(cliente.id_user)) {
+            // Adicionar ID ao conjunto
+            idsUnicos.add(cliente.id_user);
+            // Verificar o id_nivel e incluir se for válido
+            return (
+              cliente.id_nivel === 3 ||
+              cliente.id_nivel === 4 ||
+              cliente.id_nivel === 5 ||
+              cliente.id_nivel === 7
+            );
+          }
+          // Excluir se o ID já estiver no conjunto
+          return false;
+        });
+
+        // Atribuir os usuários filtrados ao estado totalClientes
         this.totalClientes = clientesFiltrados.length;
       });
     },

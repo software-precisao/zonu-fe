@@ -670,10 +670,14 @@ export default {
         this.mostrarMapa = true;
         this.$nextTick(() => {
           if (this.map) {
-            this.initMap();
-            this.updateMap();
+            setTimeout(() => {
+              this.initMap();
+              this.updateMap();
+            }, 2000);
           } else {
-            this.initMap();
+            setTimeout(() => {
+              this.initMap();
+            }, 2000);
           }
         });
       } else {
@@ -789,8 +793,8 @@ export default {
       // Exibir o resultado
       // console.log(decoded.id_user);
       // Gerar a URL com base no ID do usuário e na data atual
-      const routeName = `https://zonu.com.br/seu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
-      // const routeName = `https://localhost:5173/seu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
+      const routeName = `https://zonu.com.br/apiseu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
+      // const routeName = `http://localhost:5173/seu-imovel/?id=${idImovel}&idUser=${decoded.id_user}`;
       const url = new URL(routeName, window.location.origin);
 
       try {

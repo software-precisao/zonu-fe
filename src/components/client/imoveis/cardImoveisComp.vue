@@ -2539,10 +2539,14 @@ export default {
         this.mostrarMapa = true;
         this.$nextTick(() => {
           if (this.map) {
-            this.initMap();
-            this.updateMap();
+            setTimeout(() => {
+              this.initMap();
+              this.updateMap();
+            }, 2000);
           } else {
-            this.initMap();
+            setTimeout(() => {
+              this.initMap();
+            }, 2000);
           }
         });
       } else {

@@ -9,7 +9,7 @@
             <input type="text" placeholder="Pesquise aqui" class="form-control mb-3"
                 aria-describedby="passwordHelpBlock" v-model="searchImovel" />
             <div class="mt-3" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
-            
+
                 <a class="row" style="text-decoration: none">
                     <div class="col-3">
                         <img class="thumbImovel" :src="`https://zonu.com.br/api${item.fotos[0].foto}`" alt="" />

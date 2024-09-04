@@ -5,7 +5,7 @@ a<template>
         <div v-if="mostrarSkeleton" class="mb-5 skeleton-logo"></div>
         <img v-if="!mostrarSkeleton" src="../../../assets/images/logo.svg" class="mb-2" alt="" />
 
-        <div class="area-login px-4">
+        <div class="area-login px-4" v-if="dadosTab">
           <div v-if="mostrarSkeleton" class="skeleton-card"></div>
           <div v-if="!mostrarSkeleton" class="card mt-3" href="/cadastro" style="
               height: 150px;
@@ -344,6 +344,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.mostrarSkeleton = false;
+      this.dadosTab = true
     }, 2000);
   },
   watch: {
