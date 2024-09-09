@@ -31,7 +31,7 @@
                                 accept=".jpg,.jpeg,.pdf" />
                         </div>
 
-                        <div class="col-6" v-if="viewCreci">
+                        <div class="col-6" v-if="viewRG">
                             <a class="card card-select" @click="triggerFileUpload('doc_ofc')"
                                 style="height: 150px; text-decoration: none !important;">
                                 <div class="card-body">
@@ -91,6 +91,7 @@ export default {
         return {
             textoBotao: "Enviar documentos",
             viewCreci: false,
+            viewRG: false,
             viewCNPJ: false,
             token: null,
             id_nivel: null,
@@ -124,12 +125,14 @@ export default {
 
         if (id_nivel == 4) {
             this.viewCreci = true;
+            this.viewRG = true;
         } else if (id_nivel == 5) {
             this.viewCreci = true;
             this.viewCNPJ = true;
         } else {
             this.viewCreci = false;
             this.viewCNPJ = false;
+            this.viewRG = false;
         }
     },
     methods: {
@@ -170,8 +173,9 @@ export default {
                 await this.sendFileCreci(this.id_user, this.creciFile);
                 await this.sendDocOfc(this.id_user, this.docOfcFile)
             }
-            if (this.cnpjFile) {
+            if (this.cnpjFile && this.creciFile) {
                 await this.sendFileCnpj(this.id_user, this.cnpjFile);
+                await this.sendFileCreci(this.id_user, this.creciFile);
             }
         },
         async sendFileCreci(id_user, file) {

@@ -54,6 +54,7 @@ import CrmNegoEncerView from "@/views/dashboard/crm/CrmNegoEncerView.vue";
 import CrmShareImovView from "@/views/dashboard/crm/CrmShareImovView.vue";
 import CrmEditarFunilView from "@/views/dashboard/crm/CrmEditarFunilView.vue";
 import IntegratelView from "@/views/integrate/integraView.vue";
+import DocumentosView from "@/views/documentos/documentosView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -555,6 +556,21 @@ const routes = [
     path: "/seu-tutorial/:hash",
     name: "TutorialWithHash",
     component: TutorialAdmimView,
+  },
+  {
+    path: "/seu-documento",
+    name: "documento",
+    component: DocumentosView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/seu-documento/${hash}`);
+    },
+  },
+
+  {
+    path: "/seu-documento/:hash",
+    name: "DocumentoWithHash",
+    component: DocumentosView,
   },
   {
     path: "/seus-links",

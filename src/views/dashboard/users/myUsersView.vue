@@ -76,6 +76,7 @@ export default {
   components: {
     Navbar,
     Footer,
+    EditSubImobiModal
   },
 
   mounted() {
@@ -109,6 +110,36 @@ export default {
   },
 
   methods: {
+    openEditModal(item) {
+      console.log(item)
+      const modalId = `modalEdit${item.id_perfil_user}`;
+      const modalElement = document.getElementById(modalId);
+      if (modalElement) {
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+      }
+    },
+    handleEditUsuario(updatedUser) {
+      api.editSubImobiUser(updatedUser).then((res) => {
+        if (res.status == 200) {
+          this.$emit("updateUsers");
+          this.msgSuccess = "Status atualizado com sucesso!";
+
+          setTimeout(() => {
+            this.msgSuccess = "";
+
+            window.location.reload();
+          }, 3000);
+        }
+
+        const modalId = `modalEdit${res.data.id_perfil_user}`;
+        const modalElement = document.getElementById(modalId);
+        if (modalElement) {
+          const modalInstance = bootstrap.Modal.getInstance(modalElement); // Use Bootstrap 5's JS API
+          modalInstance.hide(); // Esconde o modal
+        }
+      });
+    },
     fetchMyUsersImobiliaria() {
       console.log("id do perfil imobi ===> ", this.perfil.id_user);
       api.listusuarios().then((res) => {
@@ -732,7 +763,7 @@ export default {
                                       </thead>
                                       <tbody>
                                         <tr v-for="user in listUsers" :key="user.id_perfil_user">
-                                          {{ console.log(user) }}
+                                          <!-- {{ console.log(user) }} -->
                                           <td>{{ user.nome }} {{ user.sobrenome }}</td>
                                           <td>{{ user.email }}</td>
                                           <td v-if="user.id_status == 1"><span
@@ -740,27 +771,28 @@ export default {
                                           <td v-if="user.id_status == 2"><span
                                               class="badge text-bg-danger">Invativo</span></td>
                                           <td class="row">
-                                            <!-- <div class="col-4">
-                                              <button @click="openEditModal(item)" type="button" class="btn btn-warning"
+                                            <div class="col-4">
+                                              <button @click="openEditModal(user)" type="button" class="btn btn-warning"
                                                 style="
                                                   --bs-btn-padding-y: 0.25rem;
                                                   --bs-btn-padding-x: 0.5rem;
                                                   --bs-btn-font-size: 0.75rem;
-                                                ">
+                                                  ">
                                                 <i class="fa fa-edit"></i>
                                               </button>
-                                            </div> -->
+                                            </div>
                                             <div class="col-4">
                                               <button @click="handleDeleteUser(user.id_perfil_user)" type="button"
                                                 class="btn btn-danger" style="
                                                 --bs-btn-padding-y: 0.25rem;
                                                 --bs-btn-padding-x: 0.5rem;
                                                 --bs-btn-font-size: 0.75rem;
-                                                margin-left: -20px !important;
-                                              ">
+                                                margin-left: -30px !important;
+                                                ">
                                                 <i class="fa fa-trash"></i>
                                               </button>
                                             </div>
+                                            <EditSubImobiModal :item="user" @save="handleEditUsuario" />
                                           </td>
                                         </tr>
                                       </tbody>
@@ -778,8 +810,6 @@ export default {
               </div>
             </div>
           </div>
-
-          <!-- <EditSubImobiModal :item="item" @save="handleEditUsuario" /> -->
         </div>
       </main>
 

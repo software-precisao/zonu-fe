@@ -1664,4 +1664,35 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  editSubImobiUser: async ({
+    id_perfil_user,
+    nome,
+    sobrenome,
+    email,
+    senha,
+  }) => {
+    try {
+      const response = await http.put(
+        `/usuarios/subusuario/editar/${id_perfil_user}`,
+        {
+          nome: nome,
+          sobrenome: sobrenome,
+          email: email,
+          senha: senha,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };

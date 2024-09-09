@@ -59,6 +59,12 @@
             <span class="align-middle"> Tutoriais </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/seu-documento">
+            <i class="align-middle" data-feather="folder"></i>
+            <span class="align-middle"> Documentos </span>
+          </a>
+        </li>
         <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
