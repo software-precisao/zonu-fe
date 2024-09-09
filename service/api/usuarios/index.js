@@ -165,6 +165,7 @@ export default {
     cidade,
     estado,
     bairro,
+    cpf,
   }) => {
     try {
       const response = await http.put(
@@ -184,6 +185,7 @@ export default {
           cidade: cidade,
           estado: estado,
           bairro: bairro,
+          cpf: cpf,
         },
         {
           headers: {

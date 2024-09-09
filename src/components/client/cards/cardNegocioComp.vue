@@ -22,7 +22,7 @@
                             <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
                                 <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{
                                     aplicarMascaraDia(negocio.updatedAt)
-                                    }}d
+                                }}d
                                 </h3>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ import api from "../../../../service/api/index.js";
 import apiUser from "../../../../service/api/usuarios/index";
 import apiAuth from "../../../../service/api/auth/index";
 import axios from "axios";
+import EditSubImobiModal from "@/views/imobiliaria/EditSubImobiModal.vue";
 
 export default {
   name: "MyUsersView",
@@ -711,17 +712,41 @@ export default {
                                           <th scope="col">Nome</th>
                                           <th scope="col">E-mail</th>
                                           <th scope="col">Status</th>
+                                          <!-- <th scope="col">Ações</th> -->
                                         </tr>
                                       </thead>
                                       <tbody>
                                         <tr v-for="user in listUsers" :key="user.id_user">
                                           {{ console.log(user) }}
-                                          <th>{{ user.nome }} {{ user.sobrenome }}</th>
-                                          <th>{{ user.email }}</th>
-                                          <th v-if="user.id_status == 1"><span
-                                              class="badge text-bg-success">Ativo</span></th>
-                                          <th v-if="user.id_status == 2"><span
-                                              class="badge text-bg-danger">Invativo</span></th>
+                                          <td>{{ user.nome }} {{ user.sobrenome }}</td>
+                                          <td>{{ user.email }}</td>
+                                          <td v-if="user.id_status == 1"><span
+                                              class="badge text-bg-success">Ativo</span></td>
+                                          <td v-if="user.id_status == 2"><span
+                                              class="badge text-bg-danger">Invativo</span></td>
+                                          <!-- <td class="row">
+                                            <div class="col-4">
+                                              <button @click="openEditModal(item)" type="button" class="btn btn-warning"
+                                                style="
+                                                  --bs-btn-padding-y: 0.25rem;
+                                                  --bs-btn-padding-x: 0.5rem;
+                                                  --bs-btn-font-size: 0.75rem;
+                                                ">
+                                                <i class="fa fa-edit"></i>
+                                              </button>
+                                            </div>
+                                            <div class="col-4">
+                                              <button @click="handleDeleteUser(item.id_user)" type="button"
+                                                class="btn btn-danger" style="
+                                                --bs-btn-padding-y: 0.25rem;
+                                                --bs-btn-padding-x: 0.5rem;
+                                                --bs-btn-font-size: 0.75rem;
+                                                margin-left: -20px !important;
+                                              ">
+                                                <i class="fa fa-trash"></i>
+                                              </button>
+                                            </div>
+                                          </td> -->
                                         </tr>
                                       </tbody>
                                     </table>
@@ -738,6 +763,8 @@ export default {
               </div>
             </div>
           </div>
+
+          <!-- <EditSubImobiModal :item="item" @save="handleEditUsuario" /> -->
         </div>
       </main>
 

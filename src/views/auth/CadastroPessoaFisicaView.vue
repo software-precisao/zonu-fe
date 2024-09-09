@@ -35,7 +35,21 @@
                 <label v-if="!mostrarSkeleton" for="exampleInputEmail1" class="form-label">CPF
                 </label>
                 <input type="text" placeholder="000.000.000-00" v-if="!mostrarSkeleton" class="form-control"
-                  v-model="cpf" @input="aplicaMascaraCPF" />
+                  v-model="cpf" @input="aplicaMascaraCPF" :class="{
+                    'is-invalid': msgCpfInvalido
+                  }" />
+
+                <p class="text-danger mt-2" v-if="msgCpfInvalido">
+                  <small>
+                    <i class="fa fa-bell"></i> CPF inválido
+                  </small>
+                </p>
+
+                <p class="text-success mt-2" v-if="msgCpfvalido">
+                  <small>
+                    <i class="fa fa-bell"></i> CPF válido
+                  </small>
+                </p>
               </div>
             </div>
 
@@ -205,6 +219,8 @@
             no seu estado, preencha com outro CEP.
           </p>
 
+          <div class="alert alert-danger" v-if="campoNullError">Preencha os campos corretamente!</div>
+
           <div v-if="mostrarSkeleton" class="skeleton-button mt-5"></div>
           <button v-if="!mostrarSkeleton" @click="handleValidar()" type="submit" class="btn btn-dark bot mt-4">
             {{ textoBotao }}
@@ -305,6 +321,9 @@ export default {
       msgEstado: false,
 
       senhaValida: true,
+
+      msgCpfInvalido: false,
+      msgCpfvalido: false,
     };
   },
   mounted() {
@@ -342,6 +361,64 @@ export default {
       v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 
       this.cpf = v;
+      if (v.length === 14) { // 11 números + 3 caracteres de formatação
+        this.verificarCPF();
+      }
+    },
+    verificarCPF() {
+      if (this.validaCPF(this.cpf)) {
+        this.msgCpfvalido = true;
+        this.msgCpfInvalido = false
+      } else {
+        this.msgCpfInvalido = true;
+      }
+    },
+    validaCPF(cpf) {
+      let Soma = 0;
+      let Resto;
+
+      // Remove caracteres não numéricos
+      const strCPF = String(cpf).replace(/[^\d]/g, '');
+
+      if (strCPF.length !== 11) return false;
+
+      // Verifica se todos os dígitos são iguais
+      if ([
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999'
+      ].includes(strCPF)) return false;
+
+      // Calcula o primeiro dígito verificador
+      for (let i = 1; i <= 9; i++) {
+        Soma += parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+      }
+
+      Resto = (Soma * 10) % 11;
+
+      if (Resto === 10 || Resto === 11) Resto = 0;
+      if (Resto !== parseInt(strCPF.substring(9, 10))) return false;
+
+      Soma = 0;
+
+      // Calcula o segundo dígito verificador
+      for (let i = 1; i <= 10; i++) {
+        Soma += parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+      }
+
+      Resto = (Soma * 10) % 11;
+
+      if (Resto === 10 || Resto === 11) Resto = 0;
+      if (Resto !== parseInt(strCPF.substring(10, 11))) return false;
+
+      return true;
     },
     aplicaMascaraCEP() {
       let v = this.buscarCEP;
@@ -444,6 +521,8 @@ export default {
         senha !== "" &&
         telefone &&
         cep &&
+        this.msgCpfInvalido == false &&
+        cpf != "" &&
         endereco != ""
       ) {
         api
