@@ -428,6 +428,21 @@ export default {
         }
       }
     },
+
+    handleDeleteUser(id) {
+      let id_user = id;
+
+      api.deleteSubImobiUser(id_user).then((res) => {
+        if (res.status == 200) {
+          this.$emit("updateUsers");
+          this.msgSuccess = "Usuário Excluído com sucesso!";
+          setTimeout(() => {
+            this.msgSuccess = "";
+            window.location.href = "/meus-usuarios"
+          }, 1000);
+        }
+      });
+    },
   },
 
   computed: {
@@ -712,11 +727,11 @@ export default {
                                           <th scope="col">Nome</th>
                                           <th scope="col">E-mail</th>
                                           <th scope="col">Status</th>
-                                          <!-- <th scope="col">Ações</th> -->
+                                          <th scope="col">Ações</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr v-for="user in listUsers" :key="user.id_user">
+                                        <tr v-for="user in listUsers" :key="user.id_perfil_user">
                                           {{ console.log(user) }}
                                           <td>{{ user.nome }} {{ user.sobrenome }}</td>
                                           <td>{{ user.email }}</td>
@@ -724,8 +739,8 @@ export default {
                                               class="badge text-bg-success">Ativo</span></td>
                                           <td v-if="user.id_status == 2"><span
                                               class="badge text-bg-danger">Invativo</span></td>
-                                          <!-- <td class="row">
-                                            <div class="col-4">
+                                          <td class="row">
+                                            <!-- <div class="col-4">
                                               <button @click="openEditModal(item)" type="button" class="btn btn-warning"
                                                 style="
                                                   --bs-btn-padding-y: 0.25rem;
@@ -734,9 +749,9 @@ export default {
                                                 ">
                                                 <i class="fa fa-edit"></i>
                                               </button>
-                                            </div>
+                                            </div> -->
                                             <div class="col-4">
-                                              <button @click="handleDeleteUser(item.id_user)" type="button"
+                                              <button @click="handleDeleteUser(user.id_perfil_user)" type="button"
                                                 class="btn btn-danger" style="
                                                 --bs-btn-padding-y: 0.25rem;
                                                 --bs-btn-padding-x: 0.5rem;
@@ -746,7 +761,7 @@ export default {
                                                 <i class="fa fa-trash"></i>
                                               </button>
                                             </div>
-                                          </td> -->
+                                          </td>
                                         </tr>
                                       </tbody>
                                     </table>
