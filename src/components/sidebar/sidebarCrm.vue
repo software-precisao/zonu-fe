@@ -213,7 +213,7 @@ export default {
             return total + preco;
           }, 0);
 
-          console.log(this.valorimoveis)
+          // console.log(this.valorimoveis)
 
           // Adiciona os clientes únicos ao array this.clientesNegocios
           this.clientesNegocios = [...clienteIds]; // Converte o Set de IDs de clientes para um array
@@ -297,7 +297,7 @@ export default {
                 const clientesUnicos = new Set(funil.negocios.map(negocio => negocio.Cliente.id_cliente));
                 funil.qtdClientesUnicos = clientesUnicos.size;
               });
-              console.log(this.funis)
+              // console.log(this.funis)
               // this.qtdNegoicos = this.funis.reduce((total, funil) => total + (funil.qtdNegoicos || 0), 0);
 
               // Calcula a quantidade total de clientes únicos em todos os funis
@@ -327,7 +327,7 @@ export default {
 
         this.qtdClientesCompat = new Set(this.allClientes.map(cliente => cliente.id_cliente)).size;
 
-        console.log("Aqui esta os filters ===> ", res.data.filter(cliente => cliente.id_user === this.id_user))
+        // console.log("Aqui esta os filters ===> ", res.data.filter(cliente => cliente.id_user === this.id_user))
       })
     },
   }

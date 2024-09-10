@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="card"
+        <!-- <div class="card" -->
+        <div class="card" data-bs-toggle="modal" :data-bs-target="`#${negocio.id_negocio}`"
             :style="{ backgroundColor: verificarPrazoLimpeza(negocio.updatedAt, negocio.Etapa.dias_limpeza) == false ? '#fff' : 'rgb(254, 242, 240)' }">
             <!-- <i class="fa fa-th text-light" style="position: absolute; padding: 10px" aria-hidden="true"></i> -->
 
@@ -31,11 +32,13 @@
             </div>
         </div>
         <!-- {{ console.log("Aqui esta o negocio ===>", negocio) }} -->
+        <ModalInfoCrm :modalId="negocio.id_negocio" :item="negocio" />
     </div>
 </template>
 
 <script>
 import api from "../../../../service/api/index";
+import ModalInfoCrm from "@/components/modals/modalInfoCrm.vue";
 
 export default {
     name: "cardNegocioComponente",
@@ -48,6 +51,9 @@ export default {
             type: Object,
             required: true,
         },
+    },
+    components: {
+        ModalInfoCrm
     },
     data() {
         return {

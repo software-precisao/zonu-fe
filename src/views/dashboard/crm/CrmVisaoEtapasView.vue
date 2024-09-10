@@ -289,7 +289,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </main>
@@ -319,7 +318,7 @@ export default {
     navbarImobiliaria,
     footer,
     sidebarCrm,
-    CardNegocioComp
+    CardNegocioComp,
   },
   data() {
     return {
@@ -416,6 +415,9 @@ export default {
   },
 
   methods: {
+    // openaModalInfo() {
+
+    // },
     // syncScroll() {
     //   const itemContainer = document.getElementById('itemContainer');
     //   const scrollbarContainer = document.getElementById('scrollbarContainer');
@@ -673,7 +675,7 @@ export default {
           console.error('Erro ao buscar funil:', error);
         });
       } else {
-        console.log(this.funilSelect);
+        // console.log(this.funilSelect);
         localStorage.setItem("fs", this.funilSelect);
 
         this.qtdNegoicos = 0;
@@ -814,7 +816,7 @@ export default {
         const negocios = this.getFilteredNegocios(etapa.id_etapa);
         const totalValor = negocios.reduce((total, negocio) => {
           const imovel = this.getFilteredImovel(negocio.NovoImovel.id_imovel);
-          console.log(imovel)
+          // console.log(imovel)
           if (imovel != null || imovel != undefined) {
             return total + (parseFloat(imovel.preco.preco_imovel) || 0);
           } else {

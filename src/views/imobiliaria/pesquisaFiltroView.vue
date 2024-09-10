@@ -346,6 +346,7 @@
                         <a href="#" @click="storeImovelId(imovel.id_imovel)"
                           style="color: inherit; text-decoration: none">
                           <div class="card" style="width: 15rem">
+                            {{ console.log("fotos aqui ===> ", imovel.fotos[0]) }}
                             <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
                               style="width: 240px; height: 180px" />
                             <div class="card-body">

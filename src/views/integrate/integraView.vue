@@ -23,10 +23,12 @@
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row" class="text-center">
-                                                            <img src="../../../assets/img/icons/logoMeta.png" width="100" alt="">
+                                                            <img src="../../../assets/img/icons/logoMeta.png"
+                                                                width="100" alt="">
                                                         </th>
                                                         <td class="text-center">
-                                                            <button class="btn btn-primary btn-lg btn-block" @click="loginWithFacebook">
+                                                            <button class="btn btn-primary btn-lg btn-block"
+                                                                @click="loginWithFacebook">
                                                                 <i class="fa fa-facebook"></i> Conectar via Facebook
                                                             </button>
                                                         </td>
@@ -69,10 +71,10 @@ export default {
         // Inicializa o Facebook SDK
         window.fbAsyncInit = function () {
             FB.init({
-                appId: 'SEU_APP_ID',  // Substitui com o ID do teu app
+                appId: '1506040373608351',  // Substitui com o ID do teu app
                 cookie: true,
                 xfbml: true,
-                version: 'v17.0'
+                version: 'v20.0'
             });
         };
 
@@ -91,12 +93,13 @@ export default {
             FB.login(response => {
                 if (response.authResponse) {
                     // Usuário autenticado, obtenha o token de acesso
+                    console.log(response)
                     this.myToken = response.authResponse.accessToken;
                     console.log('User logged in, Access Token:', this.myToken);
 
                     // A partir daqui, você pode usar o token para acessar os formulários do usuário
                     // Exemplo de chamada para obter os formulários
-                    this.fetchLeadForms(this.myToken);
+                    // this.fetchLeadForms(this.myToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
@@ -111,13 +114,13 @@ export default {
                     access_token: accessToken,
                 }
             })
-            .then(response => {
-                console.log('Formulários de Lead:', response.data);
-                // Aqui você pode manipular os dados dos formulários conforme necessário
-            })
-            .catch(error => {
-                console.error('Erro ao buscar formulários:', error);
-            });
+                .then(response => {
+                    console.log('Formulários de Lead:', response.data);
+                    // Aqui você pode manipular os dados dos formulários conforme necessário
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar formulários:', error);
+                });
         }
     },
 };
