@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 container" style="width: 100%; height: 100%;">
+    <div class="mt-5 container" style="width: 100%; height: 100%; position: relative;">
         <div class="d-flex  justify-content-center align-items-center">
 
             <div class="col-md-6 col-11 d-flex align-items-center radioDiv">
@@ -50,7 +50,6 @@
                             <h2 class="form-title">Plano <bold>{{ planoAtivo.nome_plano }}</bold> - inclui.</h2>
 
                             <div class="d-flex form-header">
-                                {{ console.log(planoAtivo) }}
 
                                 <div class="">
                                     <p class="plan_text" v-for="item in planoAtivo.itens_do_plano"> <img
@@ -89,7 +88,7 @@
                                         <!-- <p class="original">R$ 249,99</p> -->
                                         <p class="destaque-large">R$ {{ aplicaMascaraDinheiro(valorTotal) }}<bold
                                                 class="smallText">
-                                                {{ planPeriod }}</bold>
+                                                /{{ planPeriod }}</bold>
                                         </p>
                                     </div>
                                 </div>
@@ -101,28 +100,31 @@
                                     <div class="col-md-6">
                                         <span class="ml-3">Nome no Cartão</span>
                                         <input class="input" style="width: 100%; margin: 2%;" type="text"
-                                            placeholder="João Coutinho" />
+                                            placeholder="João Coutinho" v-model="nomeCartaoCredito" />
                                     </div>
                                     <div class="col-md-6    ">
                                         <span class="ml-3">Número do cartão</span>
                                         <input class="input ml-2 " style="width: 100%; margin: 2%;" type="text"
-                                            id="card" v-model="card" placeholder="0000 0000 0000 0000" />
+                                            id="card" v-model="numeroCartaoCredito" maxlength="19"
+                                            @input="aplicaMascaraNumeroCartao" placeholder="0000 0000 0000 0000" />
                                     </div>
                                     <div class="col-md-4">
                                         <span class="ml-2">Validade</span>
-                                        <input class="input" style="width: 100%; margin: 2%;" maxlength="5"
-                                            minlength="4" placeholder="00/0000" type="text" />
+                                        <input class="input" style="width: 100%; margin: 2%;" maxlength="7"
+                                            minlength="4" placeholder="00/0000" type="text"
+                                            @input="aplicaMascaraValidade" v-model="validadeCartaoCredito" />
                                     </div>
                                     <div class="col-md-4">
                                         <span class="ml-2">CVV</span>
                                         <input class="input" style="width: 100%; margin: 2%;" maxlength="3"
-                                            minlength="3" placeholder="CVV" type="text" />
+                                            minlength="3" placeholder="CVV" type="text" v-model="CVVCartaoCredito" />
                                     </div>
 
 
                                     <div class="col-md-12"
                                         style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
-                                        <button style="width: 100%; margin-top: 4%;" class="custom-button">Realizar
+                                        <button style="width: 100%; margin-top: 4%;" class="custom-button"
+                                            @click="handlePayment">Realizar
                                             Pagamento</button>
 
                                     </div>
@@ -139,11 +141,12 @@
 
                             <form v-if="selectedOption === 'boleto'" class=" w-90 form-complete">
 
-                                <div class="form">
+                                <!-- <div class="form">
 
-                                    <input class="input w-100" type="text" placeholder="CPF ou CNPJ" />
+                                    <input class="input w-100" type="text" v-model="boletoCPFOrCNPJ"
+                                        @input="aplicaMascaraBoleto" placeholder="CPF ou CNPJ" maxlength="18" />
 
-                                </div>
+                                </div> -->
 
                                 <ul class="list">
                                     <li class="list-content">O tempo de conclusão da transação varia de acordo com o
@@ -152,18 +155,19 @@
                                         escolhido.</li>
                                 </ul>
 
-                                <button class="custom-button">Gerar Boleto</button>
+                                <button class="custom-button" @click="handlePayment">Gerar Boleto</button>
 
 
                             </form>
 
                             <form v-if="selectedOption === 'pix'" class=" w-90 form-complete">
 
-                                <div class="form">
+                                <!-- <div class="form">
 
-                                    <input class="input w-100" type="text" placeholder="CPF ou CNPJ" />
+                                    <input class="input w-100" type="text" v-model="pixCPFOrCNPJ"
+                                        @input="aplicaMascaraPix" placeholder="CPF ou CNPJ" maxlength="18" />
 
-                                </div>
+                                </div> -->
 
                                 <ul class="list">
                                     <li class="list-content">Observe que, em alguns casos, pagamentos via Pix podem
@@ -172,7 +176,14 @@
                                         minutos para serem concluídos.</li>
                                 </ul>
 
-                                <button class="custom-button">Gerar id ou qr code</button>
+                                <img v-if="pixQrcodeOn" v-bind:src="'data:image/jpeg;base64,' + qrcodePix"
+                                    alt="QR code Pix"
+                                    style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto;" />
+
+                                <span class="text-center" v-if="pixQrcodeOn">{{ pixCopiaCola }}</span>
+
+                                <button class="custom-button" @click="handlePayment" v-if="!pixQrcodeOn">Gerar id ou qr
+                                    code</button>
 
                                 <!-- Local onde o QR code será exibido -->
                                 <!-- <div style="display: flex; align-items: center; justify-content: center">
@@ -185,12 +196,18 @@
 
                         </section>
                     </div>
+
                 </div>
 
 
 
             </div>
 
+            <div v-if="paymentRecebido"
+                style="position: absolute; background-color: #fff; height: 100%; width: 100%; border-radius: 20px; display: flex; flex-direction: column;align-items: center; justify-content: center">
+                <h2 style="margin-bottom: 20px; font-weight: 700;">Pagamento Realizado com sucesso!</h2>
+                <h4 style="font-weight: 500;">Você será redirecionado para o dashboard em alguns segundos...</h4>
+            </div>
         </div>
 
     </div>
@@ -201,6 +218,8 @@
 import Footer from '../../components/footer/index.vue'
 import { jwtDecode } from 'jwt-decode';
 import api from "../../../service/api/planos/index"
+import apiTeste from "../../../service/api/teste/index"
+import apiPayment from "../../../service/api/payment/index"
 import QRCode from 'qrcode';
 
 export default {
@@ -213,14 +232,42 @@ export default {
             nome: "",
             sobrenome: "",
             id_user: "",
+            email: "",
+            cpforCnpj: "",
+            cep: "",
+            numero: "",
+            telefone: "",
             id_plano: "",
             planoAtivo: '',
             valorTotal: '',
 
             isAnnual: false,
-            planPeriod: "",
+            planPeriod: "MÊS",
             textoParaQRCode: "Seu texto ou ID aqui",
             qrcodePix: false,
+
+            // Pix
+            pixCPFOrCNPJ: '',
+
+            // Boleto
+            boletoCPFOrCNPJ: '',
+
+            // Credito
+            nomeCartaoCredito: '',
+            numeroCartaoCredito: '',
+            validadeCartaoCredito: '',
+            CVVCartaoCredito: '',
+            customerId: '',
+
+            pixQrcodeOn: false,
+            qrcodePix: null,
+            pixCopiaCola: null,
+            idCobrança: "pay_zcpa10yih0tk7mc9",
+            intervalId: null,
+            paymentRecebido: false,
+
+            boletoImg: "",
+            boletoOn: false
         };
     },
     components: {
@@ -235,12 +282,363 @@ export default {
         this.sobrenome = decode.sobrenome;
         this.id_user = id_user;
         this.id_plano = decode.id_plano
-        // console.log(decode)
+        this.email = decode.email
+        this.cpforCnpj = decode.perfil.cpf == null ? decode.perfil.cnpj : decode.perfil.cpf
+        this.cep = decode.perfil.cep
+        this.numero = decode.perfil.numero
+        this.telefone = decode.perfil.telefone
+        console.log(decode)
 
         this.fetchMyPlano()
+        this.fetchControle()
+    },
+
+    beforeDestroy() {
+        // Limpa o intervalo quando o componente for destruído
+        if (this.intervalId !== null) {
+            clearInterval(this.intervalId);
+        }
     },
 
     methods: {
+        fetchControle() {
+            apiTeste.myPeriodoTeste(this.id_user).then((res) => {
+                this.customerId = res.data.customerId
+                this.idControleTeste = res.data.id_controle
+            })
+        },
+
+        formatarDataHoje() {
+            const hoje = new Date();
+
+            // Obtém o ano, mês e dia
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0'); // getMonth retorna de 0 a 11, então adicionamos 1
+            const dia = String(hoje.getDate()).padStart(2, '0');
+
+            // Formata a data como "AAAA-MM-DD"
+            const dataFormatada = `${ano}-${mes}-${dia}`;
+
+            return dataFormatada;
+        },
+
+        removerMascaraEConverterParaNumero(valor) {
+            // Remove o símbolo de moeda (R$, $ etc.) e caracteres de formatação como ponto e vírgula
+            let valorNumerico = valor.replace(/[^\d,-]/g, '');
+
+            // Substitui a vírgula decimal por um ponto decimal
+            valorNumerico = valorNumerico.replace(',', '.');
+
+            // Converte a string para um número flutuante
+            return parseFloat(valorNumerico);
+        },
+
+        // Formata o número com uma casa decimal
+        formatarNumeroComUmaCasaDecimal(numero) {
+            return numero.toFixed(2);
+        },
+
+        adicionarUmMes(dueDate) {
+            // Cria um objeto Date a partir da data fornecida
+            if (this.planPeriod == "MÊS") {
+                let data = new Date(dueDate);
+
+                // Adiciona 1 mês à data
+                data.setMonth(data.getMonth() + 1);
+
+                // Corrige a data se o novo mês tiver menos dias que o mês original
+                // Se a data original é maior do que o número de dias no novo mês, ajuste para o último dia do novo mês
+                let dataOriginal = new Date(dueDate);
+                if (data.getDate() < dataOriginal.getDate()) {
+                    data.setDate(0); // Define o último dia do mês anterior
+                }
+
+                // Retorna a nova data no formato YYYY-MM-DD
+                const anoFinal = data.getFullYear();
+                const mesFinal = String(data.getMonth() + 1).padStart(2, '0'); // Mês é baseado em zero, então adiciona 1
+                const diaFinal = String(data.getDate()).padStart(2, '0');
+
+                return `${anoFinal}-${mesFinal}-${diaFinal}`;
+            } else {
+                let data = new Date(dueDate);
+
+                // Adiciona 1 mês à data
+                data.setFullYear(data.getFullYear() + 1);
+
+                // Corrige a data se o novo mês tiver menos dias que o mês original
+                // Se a data original é maior do que o número de dias no novo mês, ajuste para o último dia do novo mês
+                let dataOriginal = new Date(dueDate);
+                if (data.getDate() < dataOriginal.getDate()) {
+                    data.setDate(0); // Define o último dia do mês anterior
+                }
+
+                // Retorna a nova data no formato YYYY-MM-DD
+                const anoFinal = data.getFullYear();
+                const mesFinal = String(data.getMonth() + 1).padStart(2, '0'); // Mês é baseado em zero, então adiciona 1
+                const diaFinal = String(data.getDate()).padStart(2, '0');
+
+                return `${anoFinal}-${mesFinal}-${diaFinal}`;
+            }
+        },
+
+        atualizarPeriodoTeste() {
+            let id = this.idControleTeste
+
+            apiTeste.atualizarStatusPeriodoTeste(id).then((res) => { })
+        },
+
+        consultarCobrança() {
+            let id = this.idCobrança
+
+            apiPayment.consultarPagamento(id).then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    if (res.data.status == "RECEIVED") {
+                        this.paymentRecebido = true
+                        this.pixQrcodeOn = false
+
+                        this.atualizarPeriodoTeste()
+
+                        setTimeout(() => {
+                            window.location.href = "/login"
+                        }, 3000);
+                    }
+                }
+            })
+        },
+
+        handlePayment() {
+            event.preventDefault()
+
+            if (this.selectedOption == 'pix') {
+                console.log("Pix ===>", this.pixCPFOrCNPJ)
+                console.log("Periodo do plano ===>", this.planPeriod)
+                console.log("Valor do plano ===>", this.valorTotal)
+
+                let valor = this.removerMascaraEConverterParaNumero(this.valorTotal)
+
+                let customerId = this.customerId
+                let billingType = 'PIX'
+                let value = this.formatarNumeroComUmaCasaDecimal(valor)
+                let dueDate = this.formatarDataHoje()
+                let nextDueDate = this.adicionarUmMes(dueDate)
+                let cycle = this.planPeriod == "MÊS" ? "MONTHLY" : "YEARLY"
+                let description = 'Pagamento recorrente via PIX'
+
+                console.log("Dados do pagamento via pix ====>",
+                    {
+                        customerId: customerId,
+                        billingType: billingType,
+                        value: value,
+                        dueDate: dueDate,
+                        nextDueDate: nextDueDate,
+                        cycle: cycle,
+                        description: description,
+                    }
+                )
+
+                apiPayment.gerarQrcodePix(customerId, billingType, value, dueDate, nextDueDate, cycle, description).then((res) => {
+                    if (res.status === 200) {
+                        console.log(res.data)
+                        this.qrcodePix = res.data.pixQrCode
+                        this.pixCopiaCola = res.data.pixCopyPaste
+                        this.pixQrcodeOn = true
+                        this.idCobrança = res.data.id
+
+                        // Configura o intervalo para chamar consultarCobrança a cada 1 segundo
+                        this.intervalId = setInterval(this.consultarCobrança(res.data.id), 1000);
+
+                    }
+                })
+            } else if (this.selectedOption == 'credit') {
+                console.log("Crédito ===>", this.nomeCartaoCredito, this.numeroCartaoCredito, this.validadeCartaoCredito, this.CVVCartaoCredito)
+                console.log("Periodo do plano ===>", this.planPeriod)
+                console.log("Valor do plano ===>", this.valorTotal)
+
+                let valor = this.removerMascaraEConverterParaNumero(this.valorTotal)
+
+                let customerId = this.customerId
+                let billingType = 'CREDIT_CARD'
+                let value = this.formatarNumeroComUmaCasaDecimal(valor)
+                let dueDate = this.formatarDataHoje()
+                let nextDueDate = this.adicionarUmMes(dueDate)
+                let cycle = this.planPeriod == "MÊS" ? "MONTHLY" : "YEARLY"
+                let description = 'Pagamento recorrente via Crédito'
+                let holderName = `${this.nome} ${this.sobrenome}`
+                let number = this.numeroCartaoCredito.replace(/\s+/g, '')
+                // let expiryMonth = '12'
+                // let expiryYear = '2024'
+                let ccv = this.CVVCartaoCredito
+                let email = this.email
+                let cpfCnpj = this.cpforCnpj
+                let postalCode = this.cep
+                let addressNumber = this.numero
+                let telefone = this.telefone
+                let [expiryMonth, expiryYear] = this.validadeCartaoCredito.split('/');
+
+                console.log("Dados do pagamento via Cartão de crédito ====>",
+                    {
+                        customerId: customerId,
+                        billingType: billingType,
+                        value: value,
+                        dueDate: dueDate,
+                        nextDueDate: nextDueDate,
+                        cycle: cycle,
+                        description: description,
+                        creditCard: {
+                            holderName: holderName,
+                            number: number,
+                            expiryMonth: expiryMonth,
+                            expiryYear: expiryYear,
+                            ccv: ccv
+                        },
+                        creditCardHolderInfo: {
+                            name: holderName,
+                            email: email,
+                            cpfCnpj: cpfCnpj,
+                            postalCode: postalCode,
+                            addressNumber: addressNumber,
+                            phone: telefone,
+                            mobilePhone: telefone
+                        }
+                    }
+                )
+
+                apiPayment.pagarCartao(
+                    customerId,
+                    billingType,
+                    value,
+                    dueDate,
+                    nextDueDate,
+                    cycle,
+                    description,
+                    creditCard,
+                    creditCardHolderInfo
+                ).then((res) => {
+                    console.log(res)
+                })
+
+
+            } else if (this.selectedOption = 'boleto') {
+                console.log("Boleto ===>", this.boletoCPFOrCNPJ)
+                console.log("Periodo do plano ===>", this.planPeriod)
+                console.log("Valor do plano ===>", this.valorTotal)
+
+                let valor = this.removerMascaraEConverterParaNumero(this.valorTotal)
+
+                let customerId = this.customerId
+                let billingType = 'BOLETO'
+                let value = this.formatarNumeroComUmaCasaDecimal(valor)
+                let dueDate = this.formatarDataHoje()
+                let nextDueDate = this.adicionarUmMes(dueDate)
+                let cycle = this.planPeriod == "MÊS" ? "MONTHLY" : "YEARLY"
+                let description = 'Pagamento recorrente via Boleto'
+
+                console.log("Dados do pagamento via boleto ====>",
+                    {
+                        customerId: customerId,
+                        billingType: billingType,
+                        value: value,
+                        dueDate: dueDate,
+                        nextDueDate: nextDueDate,
+                        cycle: cycle,
+                        description: description,
+                    }
+                )
+
+                apiPayment.gerarQrcodePix(customerId, billingType, value, dueDate, nextDueDate, cycle, description).then((res) => {
+                    if (res.status === 200) {
+                        console.log(res.data)
+                        this.boletoImg = res.data.bankSlipUrl
+                        this.idCobrança = res.data.id
+
+                        // falta salvar no banco o this.idCobrança acima
+
+                        window.open(this.boletoImg, '_blank');
+
+                    }
+                })
+            }
+        },
+
+        aplicaMascaraPix() {
+            // Remove todos os caracteres que não sejam dígitos
+            let valor = this.pixCPFOrCNPJ.replace(/\D/g, '');
+
+            // Verifica o comprimento do valor para decidir a máscara
+            if (valor.length <= 11) {
+                // Máscara de CPF: ###.###.###-##
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            } else {
+                // Máscara de CNPJ: ##.###.###/####-##
+                valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+                valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+
+            // Atualiza o valor formatado no input
+            this.pixCPFOrCNPJ = valor;
+        },
+
+        aplicaMascaraBoleto() {
+            // Remove todos os caracteres que não sejam dígitos
+            let valor = this.boletoCPFOrCNPJ.replace(/\D/g, '');
+
+            // Verifica o comprimento do valor para decidir a máscara
+            if (valor.length <= 11) {
+                // Máscara de CPF: ###.###.###-##
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            } else {
+                // Máscara de CNPJ: ##.###.###/####-##
+                valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+                valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+
+            // Atualiza o valor formatado no input
+            this.boletoCPFOrCNPJ = valor;
+        },
+
+        aplicaMascaraNumeroCartao() {
+            // Remove todos os caracteres que não sejam dígitos
+            let valor = this.numeroCartaoCredito.replace(/\D/g, '');
+
+            // Limita o comprimento máximo a 16 dígitos
+            if (valor.length > 16) {
+                valor = valor.slice(0, 16);
+            }
+
+            // Aplica a máscara de cartão de crédito: #### #### #### ####
+            valor = valor.replace(/(\d{4})(?=\d)/g, '$1 ');
+
+            // Atualiza o valor formatado no input
+            this.numeroCartaoCredito = valor;
+        },
+
+        aplicaMascaraValidade() {
+            // Remove todos os caracteres que não sejam dígitos
+            let valor = this.validadeCartaoCredito.replace(/\D/g, '');
+
+            // Limita o comprimento máximo a 4 dígitos
+            if (valor.length > 6) {
+                valor = valor.slice(0, 4);
+            }
+
+            // Aplica a máscara de validade: MM/AA
+            if (valor.length >= 5) {
+                valor = valor.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+            }
+
+            // Atualiza o valor formatado no input
+            this.validadeCartaoCredito = valor;
+        },
+
         gerarQRCode() {
             const canvas = document.getElementById('qrcodeCanvas');
             this.qrcodePix = true
@@ -262,7 +660,6 @@ export default {
             api.getPlanos().then((res) => {
                 if (res.status === 200) {
                     res.data.map((plano) => {
-                        // console.log(plano.id_plano, this.id_plano)
                         if (plano.id_plano == this.id_plano) {
                             this.planoAtivo = plano
                             this.valorTotal = plano.valor_plano
@@ -273,7 +670,7 @@ export default {
         },
 
         togglePlan() {
-            this.planPeriod = this.isAnnual ? "/ANUAL" : "/MÊS";
+            this.planPeriod = this.isAnnual ? "ANUAL" : "MÊS";
             this.updatePrices();
         },
         updatePrices() {

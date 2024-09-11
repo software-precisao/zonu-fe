@@ -406,6 +406,18 @@ export default {
     passwordsMatch() {
       return this.senha === this.confimSenha;
     },
+    cnpjSemMascara() {
+      // Remove todos os caracteres não numéricos do CPF
+      return this.cnpj.replace(/\D/g, '');
+    },
+    telefoneSemMascara() {
+      // Remove todos os caracteres não numéricos do CPF
+      return this.telefone.replace(/\D/g, '');
+    },
+    cepSemMascara() {
+      // Remove todos os caracteres não numéricos do CPF
+      return this.buscarCEP.replace(/\D/g, '');
+    },
   },
   methods: {
     triggerFileUpload(type) {
@@ -545,14 +557,14 @@ export default {
       this.autenticando = true;
       this.textoBotao = "Aguarde...";
 
-      let cnpj = this.cnpj;
+      let cnpj = this.cnpjSemMascara;
       let razao_social = this.razao_social;
       let nome = this.nome;
       let sobrenome = this.sobrenome;
       let email = this.email;
       let senha = this.senha;
-      let telefone = this.telefone;
-      let cep = this.buscarCEP;
+      let telefone = this.telefoneSemMascara;
+      let cep = this.cepSemMascara;
       let endereco = this.logradouro;
       let complemento = this.complemento;
       let numero = this.numero;
