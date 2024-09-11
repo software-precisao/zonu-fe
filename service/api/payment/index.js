@@ -68,7 +68,7 @@ export default {
             ccv: creditCard.ccv,
           },
           creditCardHolderInfo: {
-            name: creditCardHolderInfo.holderName,
+            name: creditCardHolderInfo.name,
             email: creditCardHolderInfo.email,
             cpfCnpj: creditCardHolderInfo.cpfCnpj,
             postalCode: creditCardHolderInfo.postalCode,

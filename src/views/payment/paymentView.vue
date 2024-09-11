@@ -464,7 +464,7 @@ export default {
                 let nextDueDate = this.adicionarUmMes(dueDate)
                 let cycle = this.planPeriod == "MÊS" ? "MONTHLY" : "YEARLY"
                 let description = 'Pagamento recorrente via Crédito'
-                let holderName = `${this.nome} ${this.sobrenome}`
+                let holderName = this.nomeCartaoCredito
                 let number = this.numeroCartaoCredito.replace(/\s+/g, '')
                 // let expiryMonth = '12'
                 // let expiryYear = '2024'
@@ -475,6 +475,22 @@ export default {
                 let addressNumber = this.numero
                 let telefone = this.telefone
                 let [expiryMonth, expiryYear] = this.validadeCartaoCredito.split('/');
+                let creditCard = {
+                    holderName: holderName,
+                    number: number,
+                    expiryMonth: expiryMonth,
+                    expiryYear: expiryYear,
+                    ccv: ccv
+                }
+                let creditCardHolderInfo = {
+                    name: holderName,
+                    email: email,
+                    cpfCnpj: cpfCnpj,
+                    postalCode: postalCode,
+                    addressNumber: addressNumber,
+                    phone: telefone,
+                    mobilePhone: telefone
+                }
 
                 console.log("Dados do pagamento via Cartão de crédito ====>",
                     {
@@ -485,22 +501,8 @@ export default {
                         nextDueDate: nextDueDate,
                         cycle: cycle,
                         description: description,
-                        creditCard: {
-                            holderName: holderName,
-                            number: number,
-                            expiryMonth: expiryMonth,
-                            expiryYear: expiryYear,
-                            ccv: ccv
-                        },
-                        creditCardHolderInfo: {
-                            name: holderName,
-                            email: email,
-                            cpfCnpj: cpfCnpj,
-                            postalCode: postalCode,
-                            addressNumber: addressNumber,
-                            phone: telefone,
-                            mobilePhone: telefone
-                        }
+                        creditCard,
+                        creditCardHolderInfo
                     }
                 )
 
