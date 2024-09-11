@@ -71,7 +71,7 @@ export default {
         // Inicializa o Facebook SDK
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '1506040373608351',  // Substitui com o ID do teu app
+                appId: '1240982883591861',
                 cookie: true,
                 xfbml: true,
                 version: 'v20.0'
