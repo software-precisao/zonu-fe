@@ -96,6 +96,8 @@
                             <hr class="ruler">
 
                             <form v-if="selectedOption === 'credit'">
+                                <div class="alert alert-danger" v-if="msgErrorCartaoCredito">Preencha as informações do
+                                    cartão corretamente!</div>
                                 <div class="row container">
                                     <div class="col-md-6">
                                         <span class="ml-3">Nome no Cartão</span>
@@ -124,8 +126,8 @@
                                     <div class="col-md-12"
                                         style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
                                         <button style="width: 100%; margin-top: 4%;" class="custom-button"
-                                            @click="handlePayment">Realizar
-                                            Pagamento</button>
+                                            @click="handlePayment" :disabled="creditCardOn == false">{{
+                                                textoCartaoCredito }}</button>
 
                                     </div>
 
@@ -155,7 +157,8 @@
                                         escolhido.</li>
                                 </ul>
 
-                                <button class="custom-button" @click="handlePayment">Gerar Boleto</button>
+                                <button class="custom-button" @click="handlePayment" v-if="buttonBoletoOn">Gerar
+                                    Boleto</button>
 
 
                             </form>
@@ -176,13 +179,17 @@
                                         minutos para serem concluídos.</li>
                                 </ul>
 
+                                <div class="alert alert-success" v-if="paymentRecebido">Pagamento recebido, você será
+                                    redirecionado em breve!</div>
+
                                 <img v-if="pixQrcodeOn" v-bind:src="'data:image/jpeg;base64,' + qrcodePix"
                                     alt="QR code Pix"
                                     style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto;" />
 
                                 <span class="text-center" v-if="pixQrcodeOn">{{ pixCopiaCola }}</span>
 
-                                <button class="custom-button" @click="handlePayment" v-if="!pixQrcodeOn">Gerar id ou qr
+                                <button class="custom-button" @click="handlePayment" v-if="!pixQrcodeOn"
+                                    :disabled="buttonPix == false">Gerar id ou qr
                                     code</button>
 
                                 <!-- Local onde o QR code será exibido -->
@@ -203,11 +210,11 @@
 
             </div>
 
-            <div v-if="paymentRecebido"
+            <!-- <div v-if="paymentRecebido"
                 style="position: absolute; background-color: #fff; height: 100%; width: 100%; border-radius: 20px; display: flex; flex-direction: column;align-items: center; justify-content: center">
                 <h2 style="margin-bottom: 20px; font-weight: 700;">Pagamento Realizado com sucesso!</h2>
                 <h4 style="font-weight: 500;">Você será redirecionado para o dashboard em alguns segundos...</h4>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -259,7 +266,11 @@ export default {
             CVVCartaoCredito: '',
             customerId: '',
 
+            textoCartaoCredito: "REALIZAR PAGAMENTO",
+            msgErrorCartaoCredito: false,
+
             pixQrcodeOn: false,
+            creditCardOn: true,
             qrcodePix: null,
             pixCopiaCola: null,
             idCobrança: "pay_zcpa10yih0tk7mc9",
@@ -267,7 +278,10 @@ export default {
             paymentRecebido: false,
 
             boletoImg: "",
-            boletoOn: false
+            boletoOn: false,
+            buttonBoletoOn: true,
+
+            buttonPix: true
         };
     },
     components: {
@@ -381,6 +395,18 @@ export default {
             }
         },
 
+        salvarIdCobranca(id) {
+            let id_user = this.id_user
+
+            apiPayment.salvarIdCobranca(id_user, id).then((res) => {
+                if (res.status === 201) {
+                    setTimeout(() => {
+                        window.location.href = "/login"
+                    }, 3000);
+                }
+            })
+        },
+
         atualizarPeriodoTeste() {
             let id = this.idControleTeste
 
@@ -398,10 +424,17 @@ export default {
                         this.pixQrcodeOn = false
 
                         this.atualizarPeriodoTeste()
+                        this.salvarIdCobranca(id)
 
-                        setTimeout(() => {
-                            window.location.href = "/login"
-                        }, 3000);
+                    }
+                    if (res.data.status == "CONFIRMED") {
+                        this.paymentRecebido = true
+                        this.creditCardOn = false
+                        this.textoCartaoCredito = "Você será redirecionado em breve..."
+
+                        this.atualizarPeriodoTeste()
+                        this.salvarIdCobranca(id)
+
                     }
                 }
             })
@@ -445,6 +478,9 @@ export default {
                         this.pixQrcodeOn = true
                         this.idCobrança = res.data.id
 
+                        //desabilita o button
+                        this.buttonPix = false
+
                         // Configura o intervalo para chamar consultarCobrança a cada 1 segundo
                         this.intervalId = setInterval(this.consultarCobrança(res.data.id), 1000);
 
@@ -454,6 +490,8 @@ export default {
                 console.log("Crédito ===>", this.nomeCartaoCredito, this.numeroCartaoCredito, this.validadeCartaoCredito, this.CVVCartaoCredito)
                 console.log("Periodo do plano ===>", this.planPeriod)
                 console.log("Valor do plano ===>", this.valorTotal)
+
+                this.textoCartaoCredito = "Realizando pagamento..."
 
                 let valor = this.removerMascaraEConverterParaNumero(this.valorTotal)
 
@@ -466,14 +504,13 @@ export default {
                 let description = 'Pagamento recorrente via Crédito'
                 let holderName = this.nomeCartaoCredito
                 let number = this.numeroCartaoCredito.replace(/\s+/g, '')
-                // let expiryMonth = '12'
-                // let expiryYear = '2024'
                 let ccv = this.CVVCartaoCredito
                 let email = this.email
                 let cpfCnpj = this.cpforCnpj
                 let postalCode = this.cep
                 let addressNumber = this.numero
                 let telefone = this.telefone
+                telefone = telefone.substring(0, 2) + ' ' + telefone.substring(2);
                 let [expiryMonth, expiryYear] = this.validadeCartaoCredito.split('/');
                 let creditCard = {
                     holderName: holderName,
@@ -518,6 +555,20 @@ export default {
                     creditCardHolderInfo
                 ).then((res) => {
                     console.log(res)
+
+                    if (res.status === 200) {
+                        this.idCobrança = res.data.id
+
+                        // Configura o intervalo para chamar consultarCobrança a cada 1 segundo
+                        this.intervalId = setInterval(this.consultarCobrança(res.data.id), 1000);
+                    } else {
+                        this.msgErrorCartaoCredito = true
+                        this.textoCartaoCredito = "Realizar pagamento"
+
+                        setTimeout(() => {
+                            this.msgErrorCartaoCredito = false
+                        }, 3000);
+                    }
                 })
 
 
@@ -557,6 +608,9 @@ export default {
                         // falta salvar no banco o this.idCobrança acima
 
                         window.open(this.boletoImg, '_blank');
+
+                        this.buttonBoletoOn = false
+                        this.salvarIdCobranca(res.data.id)
 
                     }
                 })

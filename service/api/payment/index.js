@@ -73,8 +73,8 @@ export default {
             cpfCnpj: creditCardHolderInfo.cpfCnpj,
             postalCode: creditCardHolderInfo.postalCode,
             addressNumber: creditCardHolderInfo.addressNumber,
-            phone: creditCardHolderInfo.telefone,
-            mobilePhone: creditCardHolderInfo.telefone,
+            phone: creditCardHolderInfo.phone,
+            mobilePhone: creditCardHolderInfo.mobilePhone,
           },
         },
         {
@@ -101,6 +101,70 @@ export default {
           Accept: "application/json",
           "Access-Control-Allow-Headers": "*",
           "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  salvarIdCobranca: async (idUser, idCobranca) => {
+    try {
+      const response = await http.post(
+        `/pay/salvar-referencia`,
+        {
+          id_user: idUser,
+          id_cobranca: idCobranca,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  atualizarStatusPagamento: async (idPagamento, statusPago) => {
+    try {
+      const response = await http.put(
+        `/pay/pagamento/${idPagamento}`,
+        {
+          status_pago: statusPago,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getCobranca: async (idUser) => {
+    try {
+      const response = await http.get(`/pay/consultar-pagamento/${idUser}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
         },
       });
 

@@ -330,13 +330,13 @@
                   <div class="container-fluid mt-3" v-if="!algumFiltroAtivo">
                     <!-- <div class="row">
                         <div class="col-2 m-3" v-for="imovel in imoveis"> -->
-                    <div class="d-flex flex-wrap justify-content-flex-start">
+                    <div class="d-flex flex-wrap justify-content-center">
                       <div class="mx-2" v-for="imovel in lastImoveis">
                         <!-- {{ console.log(imovel) }} -->
                         <div class="mb-2" style="
                           display: flex;
                           justify-content: right;
-                          width: 15rem;
+                          width: 14rem;
                         ">
                           <button class="btn btn-light rounded-circle icon-button"
                             @click="handleCompartilhar(imovel.id_imovel)">
@@ -345,8 +345,8 @@
                         </div>
                         <a href="#" @click="storeImovelId(imovel.id_imovel)"
                           style="color: inherit; text-decoration: none">
-                          <div class="card" style="width: 15rem">
-                            {{ console.log("fotos aqui ===> ", imovel.fotos[0]) }}
+                          <div class="card" style="width: 14rem; height: 28rem;">
+                            <!-- {{ console.log("fotos aqui ===> ", imovel.fotos[0]) }} -->
                             <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
                               style="width: 240px; height: 180px" />
                             <div class="card-body">
@@ -392,7 +392,7 @@
                     </div>
                   </div>
                   <div class="container-fluid p-0 mt-3 mb-3" v-if="algumFiltroAtivo">
-                    {{ console.log(algumFiltroAtivo) }}
+                    <!-- {{ console.log(algumFiltroAtivo) }} -->
                     <h1 class="h3 text-dark">
                       <strong>Seu resultado da pesquisa é...</strong>
                     </h1>
@@ -404,18 +404,17 @@
                       display: flex;
                       flex-direction: row;
                       flex-wrap: wrap;
-                      justify-content: flex-start;
+                      justify-content: center
                     " v-if="algumFiltroAtivo">
-                    <div class="mb-3" style="
+                    <div class="mx-2" style="
                         display: flex;
                         flex-wrap: wrap;
                         flex-direction: column;
-                        margin-right: 60px;
                       " v-for="imovel in imoveisOnCurrentPage">
                       <div class="mb-2" style="
                           display: flex;
                           justify-content: right;
-                          width: 15rem;
+                          width: 14rem;
                         ">
                         <button class="btn btn-light rounded-circle icon-button"
                           @click="handleCompartilhar(imovel.id_imovel)">
@@ -425,12 +424,12 @@
                       <a href="#" @click="storeImovelId(imovel.id_imovel)" style="
                           color: inherit;
                           text-decoration: none;
-                          width: 15rem;
+                          width: 14rem; height: 28rem;
                         " class="card shadow-lg">
-                        {{ console.log(imovel) }}
+                        <!-- {{ console.log(imovel) }} -->
                         <div>
                           <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
-                            style="width: 240px; height: 180px" />
+                            style="width: 240px; min-height: 180px; max-height: 180px" />
                           <div class="card-body">
                             <h5>
                               <i class="fa fa-building"></i>
@@ -858,7 +857,7 @@ export default {
     ultimosImoveis(imoveis) {
       return imoveis
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 5);
+        .slice(0, 8);
     },
     atualizarFiltros() {
       if (this.estadoSelecionado !== this.estadoAnterior) {
@@ -896,7 +895,7 @@ export default {
     async fetchImoveis() {
       try {
         const res = await api.listallImoveis();
-        console.log("res aqui =====> ", res);
+        // console.log("res aqui =====> ", res);
         this.todosImoveis = res.data;
 
         const caracteristicasSet = new Set();

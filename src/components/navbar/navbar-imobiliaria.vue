@@ -106,7 +106,7 @@
                       {{ formatDate(item.data_pergunta) }}
                       <span class="badge text-bg-warning">{{
                         item.assunto
-                        }}</span>
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -204,7 +204,7 @@
     </div>
   </nav>
   {{ console.log("nivel para aparecer a progress bar ===> ", nivel) }}
-  <div v-if="nivel !== 1 && nivel !== 6">
+  <div v-if="nivel !== 1 && nivel !== 6 && status == 1">
     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar overflow-visible text-dark bg-warning" :style="{ width: barprogress + '%' }">
         Seu período de teste
@@ -275,6 +275,7 @@ import { jwtDecode } from "jwt-decode";
 import api from "../../../service/api/index";
 import teste from "../../../service/api/teste/index";
 import { format, parseISO } from "date-fns";
+import apiPayment from '../../../service/api/payment/index'
 
 export default {
   name: "NavBarImob",
@@ -295,6 +296,9 @@ export default {
 
       status: null,
       barprogress: 0,
+
+      idUser: '',
+      customerId: '',
     };
   },
   mounted() {
@@ -373,8 +377,21 @@ export default {
     this.fetchPrivacidade();
 
     this.getPeriodoTeste();
+
+    this.fetchCobranca()
   },
   methods: {
+    fetchCobranca() {
+      apiPayment.getCobranca(this.idUser).then((res) => {
+        if (res.status === 200) {
+          // console.log(res.data.dados)
+          res.data.dados.map((dado) => {
+            console.log("Aqui estao os dados ===> ", dado)
+          })
+        }
+      })
+    },
+
     fetchTermos() {
       api.termos().then((res) => {
         this.termos = res.data.response[0].texto;
@@ -383,17 +400,19 @@ export default {
 
     async getPeriodoTeste() {
       let id_user = this.idUser;
-      console.log(id_user);
+      // console.log(id_user);
       try {
         const res = await teste.myPeriodoTeste(id_user);
         console.log("Aqui ta o periodo de Teste ====>", res.data);
+
+        this.customerId = res.data.customerId
 
         const dataInicio = new Date(res.data.data_inicio);
         const hoje = new Date();
         const diasRestantes =
           7 - Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
 
-        console.log("Dias Restantes:", diasRestantes);
+        // console.log("Dias Restantes:", diasRestantes);
 
         if (diasRestantes <= 0 && res.data.status === 1) {
           window.location.href = "/pagamento-zonu";
