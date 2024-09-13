@@ -13,13 +13,11 @@
                     </h3>
                     <!-- <hr /> -->
                     <h3 style="font-size: 14px; font-weight: 400; margin-top: 1rem;">{{ imovel.descricao.titulo }}</h3>
-                    <div style="display: flex; justify-content: space-between">
-                        <div class=" text-left">
-                            <h4 style="font-size: 14px; font-weight: 400;">
-                                R$ {{ aplicaMascaraDinheiroPrecoImovel(imovel.preco.preco_imovel) }}
-                            </h4>
-                        </div>
-                        <div class="text-right mb-2 me-4" style="display: flex; align-items: flex-end;">
+                    <div style="display: flex;">
+                        <h4 style="font-size: 14px; font-weight: 400;">
+                            R$ {{ aplicaMascaraDinheiroPrecoImovel(imovel.preco.preco_imovel) }}
+                        </h4>
+                        <div class="mb-2 ms-5" style="display: flex; align-items: flex-end;">
                             <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
                                 <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{
                                     aplicarMascaraDia(negocio.updatedAt)
@@ -101,16 +99,17 @@ export default {
         },
 
         verificarPrazoLimpeza(dataAtualizacao, diasLimpeza) {
+            const MILISSEGUNDOS_EM_UM_DIA = 24 * 60 * 60 * 1000; // Milissegundos em um dia
+            const prazoLimpezaMilissegundos = diasLimpeza * MILISSEGUNDOS_EM_UM_DIA; // Prazo de limpeza em milissegundos
+
             const dataAtual = new Date();
             const dataAtualizacaoDate = new Date(dataAtualizacao);
 
             // Calcula a diferença em milissegundos entre as datas
             const diffTime = dataAtual - dataAtualizacaoDate;
-            // Converte a diferença de tempo para dias
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
             // Retorna true se o prazo foi excedido, false caso contrário
-            return diffDays > diasLimpeza;
+            return diffTime > prazoLimpezaMilissegundos;
         }
     },
 };

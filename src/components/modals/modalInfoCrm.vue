@@ -33,23 +33,25 @@
                             <small>Início</small>
                         </button>
                     </li> -->
-                    <!-- <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#imovel-tab-pane"
-                            type="button" role="tab" aria-controls="imovel-tab-pane" aria-selected="true"
-                            @click="handleImovel">
-                            <small>Imóvel(1)</small>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="imovel-tab" data-bs-toggle="tab"
+                            :data-bs-target="`#imovel-tab-pane${item.id_negocio}`" type="button" role="tab"
+                            aria-controls="imovel-tab-pane" aria-selected="true" @click="handleImovel">
+                            <small>Imóvel({{ item.NovoImovel != null && item.NovoImovel != undefined ? "1" : "0"
+                                }})</small>
                         </button>
-                    </li> -->
-                    <!-- <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#anotacoes-tab-pane"
-                            type="button" role="tab" aria-controls="anotacoes-tab-pane" aria-selected="true">
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="anotacao-tab" data-bs-toggle="tab"
+                            :data-bs-target="`#anotacoes-tab-pane${item.id_negocio}`" type="button" role="tab"
+                            aria-controls="anotacoes-tab-pane" aria-selected="true" @click="handleAnotacao">
                             <small>anotações(1)</small>
                         </button>
-                    </li> -->
+                    </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                            data-bs-target="#dados-tab-pane" type="button" role="tab" aria-controls="dados-tab-pane"
-                            aria-selected="true" @click="handleDados">
+                        <button class="nav-link active" id="dados-tab" data-bs-toggle="tab"
+                            :data-bs-target="`#dados-tab-pane${item.id_negocio}`" type="button" role="tab"
+                            aria-controls="dados-tab-pane" aria-selected="true" @click="handleDados">
                             <small>Dados</small>
                         </button>
                     </li>
@@ -80,20 +82,215 @@
                             <p>Inicio sobre os negocios do {{ item.Cliente.nome }}</p>
                         </div>
                     </div> -->
-                    <!-- <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show " id="imovel-tab-pane" role="tabpanel"
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show " :id="`imovel-tab-pane${item.id_negocio}`" role="tabpanel"
                             aria-labelledby="imovel-tab" tabindex="0">
-                            <p>Imóveis sobre os negocios do {{ item.Cliente.nome }}</p>
+
+                            <ul class="list-group">
+                                <li class="list-group-item" style="display: flex; gap: 15px;">
+                                    <div>
+                                        <img :src="`https://zonu.com.br/api${item.NovoImovel.fotos[0].foto}`" alt=""
+                                            style="width: 150px; height: 150px;" />
+                                    </div>
+
+                                    <div style="display: flex; flex-direction: column; justify-content: center;">
+                                        <div>
+                                            <h2 style="font-size: 14px; font-weight: 600; margin-bottom: 3px;">{{
+                                                item.NovoImovel.descricao.titulo }} - {{ item.NovoImovel.info.tipo }}
+                                            </h2>
+                                            <span style="font-size: 13px; font-weight: 500; margin-bottom: 0">{{
+                                                item.NovoImovel.localizacao.logradouro }}, {{
+                                                    item.NovoImovel.localizacao.numero }}</span>
+                                        </div>
+                                        <span style="font-size: 13px; font-weight: 500; margin-bottom: 5px;">{{
+                                            item.NovoImovel.localizacao.bairro }}</span>
+                                        <div style="margin-bottom: 10px;">
+                                            <img :src="bedIcon" style="
+                                                width: 20px;
+                                                height: 20px;
+                                                margin-right: 5px;
+                                            " /><span style="margin-right: 5px; font-weight: 500">{{
+                                                item.NovoImovel.comodos.dormitorio == "" ||
+                                                    item.NovoImovel.comodos.dormitorio == null ? "0" :
+                                                    item.NovoImovel.comodos.dormitorio
+                                            }} | {{ item.NovoImovel.comodos.suite == "" ||
+                                                    item.NovoImovel.comodos.suite == null ? "0" :
+                                                    item.NovoImovel.comodos.suite }}</span>
+                                        </div>
+                                        <div>
+                                            <h2 style="font-size: 16px; font-weight: 600; color: rgb(1, 175, 173);">R${{
+                                                aplicaMascaraDinheiroPrecoImovel(item.NovoImovel.preco.preco_imovel) }}
+                                                - {{ item.NovoImovel.preco.tipo_negocio }}</h2>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        style="display: flex; flex-direction: column; justify-content: flex-start; margin-left: 20px">
+                                        <div class="mb-3" style="margin-top: .6rem;">
+                                            <label for="nivelInteresse" style="font-weight: 600; font-size: 14px">Nível
+                                                de
+                                                interesse</label>
+                                            <div class="nivel-interesse" style="width: 100%;">
+                                                <button v-for="nivel in 5" :key="nivel" type="button" class="nivel-btn"
+                                                    :class="{ active: nivelInteresse >= nivel }"
+                                                    @click="nivelInteresse = nivel">
+                                                    {{ nivel }}
+                                                </button>
+                                                <div class="nivel-linha"></div>
+                                            </div>
+                                        </div>
+                                        <span class="mb-2">
+                                            <i class="fa fa-edit"></i> <button type="button"
+                                                style="color: rgb(0, 132,244); border: none; background-color: transparent">Fazer
+                                                anotação</button>
+                                        </span>
+                                        <span class="">
+                                            <i class="fa fa-calendar-week"></i> <button type="button"
+                                                style="color: rgb(0, 132, 244); border: none; background-color: transparent">Agendar
+                                                Atividade</button>
+                                        </span>
+                                    </div>
+
+                                    <div style="display: flex; flex-direction: column; justify-content: flex-start; ">
+                                        <div style="margin-top: .6rem;">
+                                            <label for="posicaoFunil" class="mb-2"
+                                                style="font-weight: 600; font-size: 14px">Posição
+                                                no funil</label>
+                                            <select name="posicaoFunil" id="posicaoFunil" class="form-select mb-2"
+                                                style="width: 185px; height: 40px;">
+                                                <option value="">Escolha</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <button class="me-2 btnHovers"
+                                                style="width: 90px; height: 35px; border: 1px solid #d9d9d9; border-radius: 8px; background-color: transparent; transition: .5s ease-in-out; font-weight: 600;"><i
+                                                    class="fa-regular fa-face-smile"
+                                                    style="color: rgb(49, 208, 132); margin-right: 5px;"></i>Ganho</button>
+                                            <button class="btnHovers"
+                                                style="width: 90px; height: 35px; border: 1px solid #d9d9d9; border-radius: 8px; background-color: transparent; transition: .5s ease-in-out; font-weight: 600;">
+                                                <i class="fa-regular fa-face-smile"
+                                                    style="color: rgb(248, 67, 67); margin-right: 5px;"></i>Perdido</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
                         </div>
-                    </div> -->
-                    <!-- <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show " id="anotacoes-tab-pane" role="tabpanel"
+                    </div>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show " :id="`anotacoes-tab-pane${item.id_negocio}`" role="tabpanel"
                             aria-labelledby="info-tab" tabindex="0">
-                            <p>Anotações sobre os negocios do {{ item.Cliente.nome }}</p>
+                            <ul class="list-group">
+                                <li class="list-group-item" style="display: flex; gap: 15px; flex-direction: column;">
+                                    <h4 style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 10px;">
+                                        Contato recebido: {{
+                                            item.Cliente.Captacao.origem_captacao }}</h4>
+
+                                    <div>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Nome: {{ item.Cliente.nome }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Telefone: {{ item.Cliente.telefone_1 }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            e-mail: {{ item.Cliente.email }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 500; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Mensagem: {{ item.Cliente.anotacao }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            contato recebido: {{ item.Cliente.Captacao.origem_captacao }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Formulário: formulário do facebook</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Quando_pretende_fazer_esse_investimento?: entre_3_meses_e_6_meses</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Nome Completo: {{ item.Cliente.nome }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Telefone: {{ item.Cliente.telefone_1 }}</p>
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Email: {{ item.Cliente.email }}</p>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <p
+                                            style="font-size: 14px; font-weight: 400; color: #1c0c1e; margin-top: 0; margin-bottom: 0;">
+                                            Contato atribuido ao corretor responsável pelo imóvel {{ corretorResponsavel
+                                            }}</p>
+                                        <div
+                                            style="background-color: #bdbdbd; border: 2px solid rgb(28, 12, 30); padding-left: 10px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; border-top-right-radius: 60px; border-bottom-right-radius: 60px;">
+                                            <span style="color: rgb(28, 12, 30); font-weight: 500;">
+                                                CRM
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul class="list-group mt-3">
+                                <li class="list-group-item"
+                                    style="display: flex; gap: 15px; justify-content: space-between">
+                                    <div class="form-group">
+                                        <div style="display: flex">
+                                            <img :src="`https://zonu.com.br/api${item.NovoImovel.fotos[0].foto}`" style="
+                                                    width: 40px;
+                                                    height: 40px;
+                                                    border-radius: 10px;
+                                                    margin-top: 3px;
+                                                    margin-right: 8px;
+                                                    " />
+                                            <div style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    justify-content: center;
+                                                    ">
+                                                <h2 style="
+                                                        margin: 0;
+                                                        padding: 0;
+                                                        font-size: 14px;
+                                                        font-weight: 600;
+                                                    ">
+                                                    {{ item.NovoImovel.descricao.titulo }} {{
+                                                        item.NovoImovel.info.tipo }}
+                                                </h2>
+                                                <p style="
+                                                        margin: 0;
+                                                        padding: 0;
+                                                        font-size: 14px;
+                                                        font-weight: 500;
+                                                        color: #31d084;
+                                                    ">
+                                                    R${{
+                                                        aplicaMascaraDinheiroPrecoImovel(
+                                                            item.NovoImovel.preco.preco_imovel
+                                                        )
+                                                    }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="height: 35px; background-color: #bdbdbd; border: 2px solid rgb(28, 12, 30); padding-left: 10px; padding-right: 20px; padding-top: 5px; padding-bottom: 0px; border-top-right-radius: 60px; border-bottom-right-radius: 60px;">
+                                        <span style="color: rgb(28, 12, 30); font-weight: 500;">
+                                            {{ item.Etapa.nome_etapa }}
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </div> -->
-                    <div class="tab-content" id="myTabContent" style="padding-bottom: 30px;">
-                        <div class="tab-pane fade show active" id="dados-tab-pane" role="tabpanel"
+                    </div>
+
+                    <div class="tab-content" id="myTabContent" style="padding-bottom: 15px;">
+                        <div class="tab-pane fade show active" :id="`dados-tab-pane${item.id_negocio}`" role="tabpanel"
                             aria-labelledby="dados-tab" tabindex="0">
                             <p>Dados do Cliente</p>
 
@@ -198,6 +395,7 @@
                             </ul> -->
                         </div>
                     </div>
+
                     <!-- <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show " id="perfil-tab-pane" role="tabpanel"
                             aria-labelledby="perfil-tab" tabindex="0">
@@ -234,6 +432,7 @@
 <script>
 import { jwtDecode } from 'jwt-decode';
 import api from "../../../service/api/index"
+import bedIcon from "../../../assets/images/icons/bedIcon.svg"
 
 export default {
     props: {
@@ -258,6 +457,11 @@ export default {
             tabInfo: false,
             tabDados: true,
             tabImovel: true,
+            tabAnotacao: false,
+
+            bedIcon,
+
+            nivelInteresse: 1,
         }
     },
     mounted() {
@@ -287,11 +491,80 @@ export default {
         handleImovel() {
             this.tabDados = false
             this.tabImovel = true
+            this.tabAnotacao = false
         },
         handleDados() {
             this.tabDados = true
             this.tabImovel = false
+            this.tabAnotacao = false
+        },
+        handleAnotacao() {
+            this.tabAnotacao = true
+            this.tabDados = false
+            this.tabImovel = false
+        },
+
+        aplicaMascaraDinheiroPrecoImovel(preco) {
+            let v = preco;
+
+            // Remove tudo o que não é dígito
+            v = v.replace(/\D/g, "");
+
+            // Divide o número para preparar a adição de vírgula e ponto
+            let valorDecimal = parseInt(v) / 100;
+
+            // Formata o número como valor monetário
+            return valorDecimal.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            });
+            // console.log(this.currentImovel)
         },
     }
 };
 </script>
+<style scoped>
+.btnHovers:hover {
+    background-color: #d9d9d9 !important;
+}
+
+.nivel-interesse {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 10px;
+    margin-left: -10px;
+}
+
+.nivel-linha {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    left: 25px;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0;
+}
+
+.nivel-btn {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 100%;
+    color: white;
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0 7px;
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nivel-btn.active,
+.nivel-btn:hover {
+    background-color: #5a67d8;
+    color: white;
+}
+</style>

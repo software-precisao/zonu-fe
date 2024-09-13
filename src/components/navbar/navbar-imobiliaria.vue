@@ -376,9 +376,10 @@ export default {
     this.fetchTermos();
     this.fetchPrivacidade();
 
-    this.getPeriodoTeste();
-
-    this.fetchCobranca()
+    if (this.nivel != 1 && this.nivel != 2 && this.nivel != 6) {
+      this.getPeriodoTeste();
+      this.fetchCobranca()
+    }
   },
   methods: {
     fetchCobranca() {
