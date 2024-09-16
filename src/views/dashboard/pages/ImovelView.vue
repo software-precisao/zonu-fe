@@ -371,7 +371,7 @@
           <div>
             <h1 style="font-size: 16px; font-weight: 600; color: #003366;">TELEFONE</h1>
             <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{
-              imovel.usuario.telefone }}</h4>
+              imovel.perfil != null ? imovel.perfil.telefone : '' }}</h4>
           </div>
         </div>
 

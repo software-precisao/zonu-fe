@@ -21,7 +21,7 @@
                             <div style="background-color: red; padding: 2px 12px; border-radius: 50px">
                                 <h3 class="p-0 m-0" style="font-size: 12px; color: #fff">{{
                                     aplicarMascaraDia(negocio.updatedAt)
-                                }}d
+                                    }}d
                                 </h3>
                             </div>
                         </div>
@@ -59,10 +59,10 @@ export default {
         };
     },
 
-    created() {
-        console.log("Aqui esta os pedidos ===> ", this.negocio);
-        // console.log("Aqui esta o imovel ===> ", this.imovel);
-    },
+    // created() {
+    //     console.log("Aqui esta os pedidos ===> ", this.negocio);
+    //     // console.log("Aqui esta o imovel ===> ", this.imovel);
+    // },
     methods: {
         aplicaMascaraDinheiroPrecoImovel(preco) {
             let v = preco;

@@ -13,7 +13,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="logo-area">
-          <img v-if="userDono != null" class="logo-page" :src="`https://zonu.com.br/api${userDono.perfil.logo}`"
+          <img v-if="userDono.perfil != null" class="logo-page" :src="`https://zonu.com.br/api${userDono.perfil.logo}`"
             style="width: 80px; height: 80px;" alt="" />
         </div>
         <!-- <img src="../../../../assets/images/icons/iconLogo.png" style="width: 60px; height: 60px;" alt=""> -->
@@ -538,10 +538,10 @@ export default {
     fetchUser() {
       apiUser.listusuarios().then((res) => {
         if (res.status === 200) {
-          console.log(res.data)
+          // console.log(res.data)
           res.data.response.map((user) => {
             if (user.id_user == this.donoId) {
-              console.log(user)
+              // console.log(user)
               this.userDono = user
             }
           })
@@ -595,6 +595,7 @@ export default {
     fetchImovel() {
       api.obterImovel(this.imovelId).then((res) => {
         this.imovel = res.data;
+        console.log(res.data)
       });
     },
 
