@@ -28,8 +28,8 @@
                                                         </th>
                                                         <td class="text-center">
                                                             <button class="btn btn-primary btn-lg btn-block"
-                                                                @click="postTokenFacebook">
-                                                                <!-- @click="loginWithFacebook"> -->
+                                                              
+                                                                @click="loginWithFacebook">
                                                                 <i class="fa fa-facebook"></i> Conectar via Facebook
                                                             </button>
                                                         </td>
@@ -61,7 +61,7 @@ export default {
     name: "IntegrateView",
     data() {
         return {
-            myToken: "EAAL0OyygCowBO7jA4IaeNgFFHyAv70eOBBnss9MJOiDnjinDm9naKASF3afPN7wKMFVYpBrOcjBBGyRJRq0jNJdcTZAhmn2oSvhkRL3FnZC0JjVM32dQxkUMgBWffNIfXCZBdPHzDMBSL1ZC8oi8BDo1XrIvHyNeXAhsPWW1J3PCDlyQFy9GuxBhlBNZB8kn1xYvbHh2cfhLtnoTXyJtCAjx5eAZBrVjyZB",
+            myToken: "",
             pageId: '',
             app_ID: '831484942355084',
             REDIRECT_URI: 'https://zonu.com.br/api/facebook/callback',
@@ -115,7 +115,7 @@ export default {
 
                     // A partir daqui, você pode usar o token para acessar as APIs do Facebook
                     // Exemplo de chamada para obter os formulários
-                    // this.fetchLeadForms(this.myToken);
+                 this.postTokenFacebook(this.myToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
