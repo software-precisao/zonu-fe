@@ -28,7 +28,6 @@
                                                         </th>
                                                         <td class="text-center">
                                                             <button class="btn btn-primary btn-lg btn-block"
-                                                              
                                                                 @click="loginWithFacebook">
                                                                 <i class="fa fa-facebook"></i> Conectar via Facebook
                                                             </button>
@@ -111,22 +110,22 @@ export default {
                     this.myToken = response.authResponse.accessToken;
                     console.log('User logged in, Access Token:', this.myToken);
 
-                    
+
 
                     // A partir daqui, você pode usar o token para acessar as APIs do Facebook
                     // Exemplo de chamada para obter os formulários
-                 this.postTokenFacebook(this.myToken);
+                    this.postTokenFacebook(this.myToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement,pages_manage_ads'  });
+            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement,pages_manage_ads,pages_manage_ads' });
         },
 
-        async postTokenFacebook(){
+        async postTokenFacebook() {
             try {
 
                 let decode = await jwtDecode(this.token);
-                
+
                 console.log(decode)
 
                 const response = await api.sendToken(this.myToken, decode.id_user)
@@ -168,30 +167,30 @@ export default {
             })
                 .then(response => {
                     console.log('Formulários de Lead:', response.data);
-                    
+
                     response.data.data.map((form) => {
                         console.log(form.id)
 
                         this.fetchLeadFromForms(form.id)
-                        
+
                     });
-                    
+
                 })
                 .catch(error => {
                     console.error('Erro ao buscar formulários:', error);
                 });
         },
 
-        fetchLeadFromForms(formId){
+        fetchLeadFromForms(formId) {
 
-            const response =  axios.get(`https://graph.facebook.com/v17.0/${formId}/leads`, {
-            params: {
-                access_token: this.myToken,
-            }
-        }).then(response => {
-            console.log('Leads do formulário:', response.data);
-        })
-        ;
+            const response = axios.get(`https://graph.facebook.com/v17.0/${formId}/leads`, {
+                params: {
+                    access_token: this.myToken,
+                }
+            }).then(response => {
+                console.log('Leads do formulário:', response.data);
+            })
+                ;
 
         }
     },

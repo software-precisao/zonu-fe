@@ -28,21 +28,18 @@
                                     <thead>
                                         <tr>
                                             <th scope="col"></th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">E-mail</th>
+                                            <th scope="col">Titulo</th>
                                             <th scope="col">Telefone</th>
-                                            <th scope="col">Nivel</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Construtora</th>
                                             <th scope="col">Empresa</th>
                                             <th scope="col">Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <TableRowImovel v-for="item in clientesOnCurrentPage" :key="item.id_user"
+                                        <TableRowImovel v-for="item in clientesOnCurrentPage" :key="item.id_imovel"
                                             :item="item" />
                                     </tbody>
                                 </table>
-                                {{ console.log(totalPagesClientes) }}
 
                                 <div class="d-grid mt-3 mb-3 gap-2 d-md-flex justify-content-md-end">
                                     <button class="btn btn-dark btn-sm" @click="previousPageCliente()"
@@ -91,7 +88,6 @@ export default {
             allImoveis: [],
             perPageCliente: 5,
             currentPageCliente: 1,
-            totalPagesClientes: 0,
         }
     },
 
@@ -143,6 +139,7 @@ export default {
             }
         },
         nextPageCliente() {
+            console.log(this.currentPageCliente, this.totalPagesClientes)
             if (this.currentPageCliente < this.totalPagesClientes) {
                 this.currentPageCliente++;
             }
