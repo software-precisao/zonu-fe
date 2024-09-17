@@ -28,7 +28,8 @@
                                                         </th>
                                                         <td class="text-center">
                                                             <button class="btn btn-primary btn-lg btn-block"
-                                                                @click="loginWithFacebook">
+                                                                @click="postTokenFacebook">
+                                                                <!-- @click="loginWithFacebook"> -->
                                                                 <i class="fa fa-facebook"></i> Conectar via Facebook
                                                             </button>
                                                         </td>
@@ -53,16 +54,19 @@
 //   import SideBar from "../../../components/sidebar/index.vue";
 import NavBar from "../../components/navbar/navbar-imobiliaria.vue";
 import Footer from "../../components/footer/index.vue";
-
+import api from '../../../service/api/facebook'
+import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
 export default {
     name: "IntegrateView",
     data() {
         return {
-            myToken: "",
-
+            myToken: "EAAL0OyygCowBO7jA4IaeNgFFHyAv70eOBBnss9MJOiDnjinDm9naKASF3afPN7wKMFVYpBrOcjBBGyRJRq0jNJdcTZAhmn2oSvhkRL3FnZC0JjVM32dQxkUMgBWffNIfXCZBdPHzDMBSL1ZC8oi8BDo1XrIvHyNeXAhsPWW1J3PCDlyQFy9GuxBhlBNZB8kn1xYvbHh2cfhLtnoTXyJtCAjx5eAZBrVjyZB",
+            pageId: '',
             app_ID: '831484942355084',
             REDIRECT_URI: 'https://zonu.com.br/api/facebook/callback',
             facebookSDKLoaded: false,
+            token: localStorage.getItem("token"),
         };
     },
     components: {
@@ -106,7 +110,8 @@ export default {
                     console.log(response);
                     this.myToken = response.authResponse.accessToken;
                     console.log('User logged in, Access Token:', this.myToken);
-                    this.redirectToFacebookAuth()
+
+                    
 
                     // A partir daqui, você pode usar o token para acessar as APIs do Facebook
                     // Exemplo de chamada para obter os formulários
@@ -114,7 +119,39 @@ export default {
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement' });
+            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement,pages_manage_ads'  });
+        },
+
+        async postTokenFacebook(){
+            try {
+
+                let decode = await jwtDecode(this.token);
+                
+                console.log(decode)
+
+                const response = await api.sendToken(this.myToken, decode.id_user)
+
+                axios.get(`https://graph.facebook.com/v17.0/me/accounts`, {
+                    params: {
+                        access_token: this.myToken,
+                    }
+                })
+                    .then(response => {
+                        console.log('Páginas do usuário:', response.data.data);
+                        response.data.data.map((page) => {
+                            console.log(page.id)
+                            this.pageId = page.id
+                            this.fetchLeadForms(page.access_token)
+                        })
+                        // Aqui você pode manipular os dados das páginas conforme necessário
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar páginas:', error);
+                    });
+
+            } catch (error) {
+                console.log(error)
+            }
         },
 
         redirectToFacebookAuth() {
@@ -123,20 +160,39 @@ export default {
         },
 
         fetchLeadForms(accessToken) {
-            const pageId = 'ID_DA_PAGINA_DO_USUARIO'; // Substitua pelo ID da página que você deseja acessar
 
-            axios.get(`https://graph.facebook.com/v17.0/${pageId}/leadgen_forms`, {
+            axios.get(`https://graph.facebook.com/v17.0/${this.pageId}/leadgen_forms`, {
                 params: {
                     access_token: accessToken,
                 }
             })
                 .then(response => {
                     console.log('Formulários de Lead:', response.data);
-                    // Aqui você pode manipular os dados dos formulários conforme necessário
+                    
+                    response.data.data.map((form) => {
+                        console.log(form.id)
+
+                        this.fetchLeadFromForms(form.id)
+                        
+                    });
+                    
                 })
                 .catch(error => {
                     console.error('Erro ao buscar formulários:', error);
                 });
+        },
+
+        fetchLeadFromForms(formId){
+
+            const response =  axios.get(`https://graph.facebook.com/v17.0/${formId}/leads`, {
+            params: {
+                access_token: this.myToken,
+            }
+        }).then(response => {
+            console.log('Leads do formulário:', response.data);
+        })
+        ;
+
         }
     },
 };
