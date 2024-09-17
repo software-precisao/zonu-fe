@@ -55,6 +55,8 @@ import CrmShareImovView from "@/views/dashboard/crm/CrmShareImovView.vue";
 import CrmEditarFunilView from "@/views/dashboard/crm/CrmEditarFunilView.vue";
 import IntegratelView from "@/views/integrate/integraView.vue";
 import DocumentosView from "@/views/documentos/documentosView.vue";
+import { Path } from "leaflet";
+import ImovelListAdmimView from "@/views/dashboard/imoveisListAdmim/ImovelListAdmimView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -81,11 +83,11 @@ const routes = [
   //   name: "countdown",
   //   component: Countdown,
   // },
-  {
-    path: "/cadastro-construtora",
-    name: "cadastro-construtora",
-    component: CadastroConstrutoraView,
-  },
+  // {
+  //   path: "/cadastro-construtora",
+  //   name: "cadastro-construtora",
+  //   component: CadastroConstrutoraView,
+  // },
   {
     path: "/cadastro-corretor",
     name: "cadastro-corretor",
@@ -331,19 +333,39 @@ const routes = [
     name: "ImobiliariaWithHash",
     component: ImobiliariaView,
   },
+
   {
     path: "/filtro-imovel",
     name: "filtro-imovel",
     component: FiltroImovelView,
+  },
+  // {
+  //   path: "/filtro-imovel",
+  //   name: "filtro-imovel",
+  //   component: FiltroImovelView,
+  //   beforeEnter: (to, from, next) => {
+  //     const hash = generateMD5();
+  //     next(`/filtro-imovel/${hash}`);
+  //   },
+  // },
+  // {
+  //   path: "/filtro-imovel/:hash",
+  //   name: "filtroWithHash",
+  //   component: FiltroImovelView,
+  // },
+  {
+    path: "/imoveis-plataforma",
+    name: "imoveis-plataforma",
+    component: ImovelListAdmimView,
     beforeEnter: (to, from, next) => {
       const hash = generateMD5();
-      next(`/filtro-imovel/${hash}`);
+      next(`/imoveis-plataforma/${hash}`);
     },
   },
   {
-    path: "/filtro-imovel/:hash",
-    name: "filtroWithHash",
-    component: FiltroImovelView,
+    path: "/imoveis-plataforma/:hash",
+    name: "imoveisListAdmimWithHash",
+    component: ImovelListAdmimView,
   },
   {
     path: "/seu-ticket",

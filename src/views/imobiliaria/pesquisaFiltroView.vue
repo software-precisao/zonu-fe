@@ -30,6 +30,9 @@
                 </div> -->
 
         <div class="container-fluid">
+          <div class="col-2">
+            <button class="btn btn-primary" @click="compartilharFiltros">Compartilhar Filtros</button>
+          </div>
           <div class="row">
             <div class="card col-3 m-2" style="width: 23.5%; max-height: 800px; overflow-y: auto">
               <div class="card-body">
@@ -656,6 +659,39 @@ export default {
     this.fetchImoveis();
     this.fetchLastImoveis();
     this.fetchCidades();
+
+    const params = new URLSearchParams(window.location.search);
+    console.log(params)
+
+    this.tipoNegocio = params.get('tipoNegocio') || 'all';
+    this.condominio = params.get('condominio') || 'all';
+    this.valorMin = params.get('valorMin') || 0;
+    this.valorMax = params.get('valorMax') || 0;
+    this.condMin = params.get('condMin') || 0;
+    this.condMax = params.get('condMax') || 0;
+    this.iptuMin = params.get('iptuMin') || 0;
+    this.iptuMax = params.get('iptuMax') || 0;
+    this.proximoMar = params.get('proximoMar') || 'all';
+    this.tipoImovel = params.get('tipoImovel') || 'all';
+    this.perfilImovel = params.get('perfilImovel') || 'all';
+    this.posicaoSolar = params.get('posicaoSolar') || 'all';
+    this.situacaoImovel = params.get('situacaoImovel') || 'all';
+    this.temGaragem = params.get('temGaragem') || '';
+    this.estadoSelecionado = params.get('estado') || 'all';
+    this.cidadeSelecionada = params.get('cidade') || 'all';
+    this.estadoAnterior = params.get('estadoAnterior') || 'all';
+    this.dormitorios = params.get('dormitorios') || 0;
+    this.banheiro = params.get('banheiro') || 0;
+    this.cozinha = params.get('cozinha') || 0;
+    this.ordenarPor = params.get('ordenarPor') || '';
+    this.bairroSelecionado = params.get('bairro') || 'all';
+    this.areaMin = params.get('areaMin') || 0;
+    this.areaMax = params.get('areaMax') || 0;
+
+    // Separar as características em array se houver
+    const caracteristicas = params.get('caracteristicas');
+    this.caracteristicasSelecionadas = caracteristicas ? caracteristicas.split(',') : [];
+    this.nomeImovel = params.get('nomeImovel') || ''
   },
 
   watch: {
@@ -692,6 +728,106 @@ export default {
   },
 
   computed: {
+    compartilharFiltros() {
+      let tipoNegocio = this.tipoNegocio
+      let condominio = this.condominio
+      let valorMin = this.valorMin
+      let valorMax = this.valorMax
+      let condMin = this.condMin
+      let condMax = this.condMax
+      let iptuMin = this.iptuMin
+      let iptuMax = this.iptuMax
+      let proximoMar = this.proximoMar
+      let tipoImovel = this.tipoImovel
+      let perfilImovel = this.perfilImovel
+      let posicaoSolar = this.posicaoSolar
+      let situacaoImovel = this.situacaoImovel
+      let temGaragem = this.temGaragem
+      let estado = this.estadoSelecionado
+      let cidade = this.cidadeSelecionada
+      let estadoAnterior = this.estadoAnterior
+      let dormitorios = this.dormitorios
+      let banheiro = this.banheiro
+      let cozinha = this.cozinha
+      let ordenarPor = this.ordenarPor
+      let bairro = this.bairroSelecionado
+      let areaMin = this.areaMin
+      let areaMax = this.areaMax
+      let caracteristicas = this.caracteristicasSelecionadas
+      let nomeImovel = this.nomeImovel
+
+      console.log({
+        tipoNegocio: tipoNegocio,
+        condominio: condominio,
+        valorMin: valorMin,
+        valorMax: valorMax,
+        condMin: condMin,
+        condMax: condMax,
+        iptuMin: iptuMin,
+        iptuMax: iptuMax,
+        proximoMar: proximoMar,
+        tipoImovel: tipoImovel,
+        perfilImovel: perfilImovel,
+        posicaoSolar: posicaoSolar,
+        situacaoImovel: situacaoImovel,
+        temGaragem: temGaragem,
+        estado: estado,
+        cidade: cidade,
+        estadoAnterior: estadoAnterior,
+        dormitorios: dormitorios,
+        banheiro: banheiro,
+        cozinha: cozinha,
+        ordenarPor: ordenarPor,
+        bairro: bairro,
+        areaMin: areaMin,
+        areaMax: areaMax,
+        caracteristicas: caracteristicas,
+        nomeImovel: nomeImovel,
+      })
+
+      const baseUrl = 'http://localhost:5173/filtro-imovel/';
+      const params = new URLSearchParams({
+        tipoNegocio: tipoNegocio,
+        condominio: condominio,
+        valorMin: valorMin,
+        valorMax: valorMax,
+        condMin: condMin,
+        condMax: condMax,
+        iptuMin: iptuMin,
+        iptuMax: iptuMax,
+        proximoMar: proximoMar,
+        tipoImovel: tipoImovel,
+        perfilImovel: perfilImovel,
+        posicaoSolar: posicaoSolar,
+        situacaoImovel: situacaoImovel,
+        temGaragem: temGaragem,
+        estado: estado,
+        cidade: cidade,
+        estadoAnterior: estadoAnterior,
+        dormitorios: dormitorios,
+        banheiro: banheiro,
+        cozinha: cozinha,
+        ordenarPor: ordenarPor,
+        bairro: bairro,
+        areaMin: areaMin,
+        areaMax: areaMax,
+        caracteristicas: caracteristicas ? caracteristicas.join(',') : '', // Transformar array em string
+        nomeImovel: nomeImovel,
+      });
+
+      const url = `${baseUrl}?${params.toString()}`;
+
+      console.log(url);
+
+      // Se quiser copiar para a área de transferência:
+      navigator.clipboard.writeText(url)
+        .then(() => {
+          console.log('Link copiado para a área de transferência!');
+        })
+        .catch(err => {
+          console.error('Falha ao copiar o link:', err);
+        });
+    },
     algumFiltroAtivo() {
       return (
         this.tipoNegocio !== "all" ||
@@ -888,7 +1024,12 @@ export default {
         cozinha: this.cozinha,
         ordenarPor: this.ordenarPor,
         bairro: this.bairroSelecionado,
+        areaMin: this.areaMin,
+        areaMax: this.areaMax,
+        caracteristicas: this.caracteristicasSelecionadas,
       });
+
+
 
       this.filtrarImoveis();
     },

@@ -1215,6 +1215,29 @@ export default {
     }
   },
 
+  // mudar essa rota abaixo
+  // atualizarNivelInteresse: async (nivel_interesse) => {
+  //   try {
+  //     const response = await http.post(
+  //       "/niveisInteresse/editar/",
+  //       {
+  //         nivel_interesse: nivel_interesse,
+  //       },
+  //       {
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Access-Control-Allow-Headers": "*",
+  //           "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+  //         },
+  //       }
+  //     );
+
+  //     return response;
+  //   } catch (error) {
+  //     return error.response || error.message || error;
+  //   }
+  // },
+
   getNivelInteresse: async () => {
     try {
       const response = await http.get("/niveisInteresse/", {

@@ -59,6 +59,10 @@ export default {
     data() {
         return {
             myToken: "",
+
+            app_ID: '831484942355084',
+            REDIRECT_URI: 'https://zonu.com.br/api/facebook/callback',
+            facebookSDKLoaded: false,
         };
     },
     components: {
@@ -68,14 +72,15 @@ export default {
     },
 
     mounted() {
-        // Inicializa o Facebook SDK
-        window.fbAsyncInit = function () {
+        window.fbAsyncInit = () => {
             FB.init({
-                appId: '1240982883591861',
+                appId: this.app_ID,
                 cookie: true,
                 xfbml: true,
-                version: 'v20.0'
+                version: 'v20.0',
             });
+
+            this.facebookSDKLoaded = true;
         };
 
         // Carrega o SDK do Facebook
@@ -90,20 +95,31 @@ export default {
 
     methods: {
         loginWithFacebook() {
+            if (!this.facebookSDKLoaded) {
+                console.log('O SDK do Facebook ainda não foi carregado.');
+                return;
+            }
+
             FB.login(response => {
                 if (response.authResponse) {
                     // Usuário autenticado, obtenha o token de acesso
-                    console.log(response)
+                    console.log(response);
                     this.myToken = response.authResponse.accessToken;
                     console.log('User logged in, Access Token:', this.myToken);
+                    this.redirectToFacebookAuth()
 
-                    // A partir daqui, você pode usar o token para acessar os formulários do usuário
+                    // A partir daqui, você pode usar o token para acessar as APIs do Facebook
                     // Exemplo de chamada para obter os formulários
                     // this.fetchLeadForms(this.myToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             }, { scope: 'leads_retrieval,ads_management,pages_read_engagement' });
+        },
+
+        redirectToFacebookAuth() {
+            const facebookAuthURL = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${this.app_ID}&redirect_uri=${this.REDIRECT_URI}&scope=leads_retrieval`;
+            window.open(facebookAuthURL, '_blank'); // Abre a URL em uma nova aba
         },
 
         fetchLeadForms(accessToken) {

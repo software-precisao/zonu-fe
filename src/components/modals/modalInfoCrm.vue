@@ -42,16 +42,16 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="anotacao-tab" data-bs-toggle="tab"
-                            :data-bs-target="`#anotacoes-tab-pane${item.id_negocio}`" type="button" role="tab"
-                            aria-controls="anotacoes-tab-pane" aria-selected="true" @click="handleAnotacao">
+                        <button class="nav-link" :class="tabAnotacao == true ? 'active' : ''" id="anotacao-tab"
+                            data-bs-toggle="tab" :data-bs-target="`#anotacoes-tab-pane${item.id_negocio}`" type="button"
+                            role="tab" aria-controls="anotacoes-tab-pane" aria-selected="true" @click="handleAnotacao">
                             <small>anotações({{ item.Cliente.AnotacoesCRM.length }})</small>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="dados-tab" data-bs-toggle="tab"
-                            :data-bs-target="`#dados-tab-pane${item.id_negocio}`" type="button" role="tab"
-                            aria-controls="dados-tab-pane" aria-selected="true" @click="handleDados">
+                        <button class="nav-link" :class="tabAnotacao == false ? 'active' : ''" id="dados-tab"
+                            data-bs-toggle="tab" :data-bs-target="`#dados-tab-pane${item.id_negocio}`" type="button"
+                            role="tab" aria-controls="dados-tab-pane" aria-selected="true" @click="handleDados">
                             <small>Dados</small>
                         </button>
                     </li>
@@ -82,14 +82,20 @@
                             <p>Inicio sobre os negocios do {{ item.Cliente.nome }}</p>
                         </div>
                     </div> -->
-
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show " :id="`imovel-tab-pane${item.id_negocio}`" role="tabpanel"
-                            aria-labelledby="imovel-tab" tabindex="0">
+                        <div class="tab-pane fade show "
+                            :class="tabAnotacao == false && tabDados == false ? 'active' : ''"
+                            :id="`imovel-tab-pane${item.id_negocio}`" role="tabpanel" aria-labelledby="imovel-tab"
+                            tabindex="0">
 
                             <div class="alert alert-danger" v-if="msgErroStatusNegocio">Erro ao salvar o status do
                                 negócio</div>
                             <div class="alert alert-success" v-if="msgSucessoStatusNegocio">Status do negócio salvo com
+                                sucesso</div>
+
+                            <div class="alert alert-danger" v-if="msgSucessoStatusEtapa">Erro ao trocar a etapa do
+                                negócio</div>
+                            <div class="alert alert-success" v-if="msgErroStatusEtapa">Etapa do negócio alterada com
                                 sucesso</div>
 
                             <ul class="list-group">
@@ -151,7 +157,8 @@
                                         </div>
                                         <span class="mb-2">
                                             <i class="fa fa-edit"></i> <button type="button"
-                                                style="color: rgb(0, 132,244); border: none; background-color: transparent">Fazer
+                                                style="color: rgb(0, 132,244); border: none; background-color: transparent"
+                                                @click="handleFazerAnotacao">Fazer
                                                 anotação</button>
                                         </span>
                                         <!-- <span class="">
@@ -187,7 +194,7 @@
                                                         <div v-for="item in allFunis" class="custom-option-group">
                                                             <div class="funil-label">{{ item.nome_funil }}</div>
                                                             <div class="custom-option" v-for="etapa in item.etapas"
-                                                                @click="selectOption(item.nome_funil, etapa.nome_etapa)">
+                                                                @click="selectOption(item.nome_funil, etapa.nome_etapa, etapa.id_etapa)">
                                                                 {{ etapa.nome_etapa }}
                                                             </div>
                                                         </div>
@@ -214,8 +221,9 @@
                     </div>
 
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show " :id="`anotacoes-tab-pane${item.id_negocio}`" role="tabpanel"
-                            aria-labelledby="info-tab" tabindex="0">
+                        <div class="tab-pane fade show " :class="tabAnotacao == true ? 'active' : ''"
+                            :id="`anotacoes-tab-pane${item.id_negocio}`" role="tabpanel" aria-labelledby="info-tab"
+                            tabindex="0">
 
                             <div v-if="addAnotation" class="mb-4">
                                 <Editor api-key="a0eo66lpqzpu1anhsfgh9ru0bp7id447c6hsvz9cgexp82oh" :init="{
@@ -376,8 +384,10 @@
                     </div>
 
                     <div class="tab-content" id="myTabContent" style="padding-bottom: 15px;">
-                        <div class="tab-pane fade show active" :id="`dados-tab-pane${item.id_negocio}`" role="tabpanel"
-                            aria-labelledby="dados-tab" tabindex="0">
+                        <div class="tab-pane fade show"
+                            :class="tabAnotacao == false && tabDados == true ? 'active' : ''"
+                            :id="`dados-tab-pane${item.id_negocio}`" role="tabpanel" aria-labelledby="dados-tab"
+                            tabindex="0">
                             <p>Dados do Cliente</p>
 
                             <ul class="list-group">
@@ -564,7 +574,7 @@ export default {
             tabInicio: false,
             tabInfo: false,
             tabDados: true,
-            tabImovel: true,
+            tabImovel: false,
             tabAnotacao: false,
 
             bedIcon,
@@ -583,6 +593,9 @@ export default {
 
             msgSucessoStatusNegocio: false,
             msgErroStatusNegocio: false,
+
+            msgSucessoStatusEtapa: false,
+            msgErroStatusEtapa: false,
         }
     },
     mounted() {
@@ -600,6 +613,7 @@ export default {
 
         this.selectedFunil = this.item.Etapa.funil.nome_funil
         this.posicaoFunil = this.item.Etapa.nome_etapa
+        this.nivelInteresse = this.item.NivelInteresse.nivel_interesse
         console.log(this.item)
         document.addEventListener('click', this.handleClickOutside);
     },
@@ -665,10 +679,56 @@ export default {
         toggleDropdown() {
             this.isOpen = !this.isOpen; // Alterna entre abrir e fechar o dropdown
         },
-        selectOption(nomeFunil, nomeEtapa) {
+        selectOption(nomeFunil, nomeEtapa, idEtapa) {
             this.selectedFunil = nomeFunil;
             this.posicaoFunil = nomeEtapa;
-            // this.isOpen = false; // Fecha o dropdown após selecionar uma opção
+
+            let idNegocio = this.item.id_negocio
+
+            // console.log(nomeFunil, nomeEtapa, idEtapa, this.item.id_negocio)
+
+            api.atualizaEtapaNegocio(idNegocio, idEtapa).then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    this.msgSucessoStatusEtapa = true
+
+                    setTimeout(() => {
+                        this.msgSucessoStatusEtapa = false
+                    }, 3000);
+                } else {
+                    this.msgErroStatusEtapa = true
+
+                    setTimeout(() => {
+                        this.msgErroStatusEtapa = false
+                    }, 3000);
+                }
+            })
+        },
+
+        handleFazerAnotacao() {
+            this.tabAnotacao = true;
+            this.tabDados = false
+
+            const modalElement = document.getElementById(this.modalId);
+
+            if (modalElement) {
+                // Obtém a instância do modal do Bootstrap
+                let modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+                if (modalInstance) {
+                    modalInstance.hide(); // Fecha o modal
+                }
+
+                const backdropElement = document.querySelector('.modal-backdrop');
+                if (backdropElement) {
+                    backdropElement.remove(); // Remove o backdrop do modal
+                }
+
+                // Aguarda 1 segundo e reabre o modal
+                // Cria uma nova instância do modal e abre novamente
+                modalInstance = new bootstrap.Modal(modalElement);
+                modalInstance.show();
+            }
         },
 
         closeDropdown() {

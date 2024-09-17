@@ -65,6 +65,12 @@
             <span class="align-middle"> Documentos </span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="/imoveis-plataforma">
+            <i class="align-middle" data-feather="home"></i>
+            <span class="align-middle"> Imóveis </span>
+          </a>
+        </li>
         <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="/leads">
             <i class="align-middle" data-feather="user-plus"></i>
