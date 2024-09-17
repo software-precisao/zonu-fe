@@ -785,7 +785,7 @@ export default {
         nomeImovel: nomeImovel,
       })
 
-      const baseUrl = 'http://localhost:5173/filtro-imovel/';
+      const baseUrl = 'https://zonu.com.br/filtro-imovel/';
       const params = new URLSearchParams({
         tipoNegocio: tipoNegocio,
         condominio: condominio,

@@ -114,7 +114,7 @@ export default {
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement' });
+            }, { scope: 'leads_retrieval,ads_management,pages_read_engagement,pages_manage_ads' });
         },
 
         redirectToFacebookAuth() {

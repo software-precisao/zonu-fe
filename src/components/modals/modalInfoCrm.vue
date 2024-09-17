@@ -93,9 +93,9 @@
                             <div class="alert alert-success" v-if="msgSucessoStatusNegocio">Status do negócio salvo com
                                 sucesso</div>
 
-                            <div class="alert alert-danger" v-if="msgSucessoStatusEtapa">Erro ao trocar a etapa do
+                            <div class="alert alert-danger" v-if="msgErroStatusEtapa">Erro ao trocar a etapa do
                                 negócio</div>
-                            <div class="alert alert-success" v-if="msgErroStatusEtapa">Etapa do negócio alterada com
+                            <div class="alert alert-success" v-if="msgSucessoStatusEtapa">Etapa do negócio alterada com
                                 sucesso</div>
 
                             <ul class="list-group">
@@ -498,9 +498,10 @@
                                 </li>
                                 <li class="list-group-item"
                                     v-if="item.Cliente.pessoasLigadas != null && item.Cliente.pessoasLigadas.length > 0">
+                                    <h3 style="font-size: 14px; font-weight: 600;">Clientes ligados</h3>
                                     <div v-for="pessoa in item.Cliente.pessoasLigadas">
-                                        <span style="font-size: 14px; font-weight: 600; margin-right: 10px;">{{
-                                            pessoa.id_cliente }}</span>
+                                        <span style="font-size: 12px; font-weight: 600; margin-right: 10px;">{{
+                                            getNomeCliente(pessoa.id_pessoa_ligada) }}</span>
                                         <span style="font-size: 12px; font-weight: 500;">({{ pessoa.breve_descricao
                                             }})</span>
                                     </div>
@@ -596,6 +597,8 @@ export default {
 
             msgSucessoStatusEtapa: false,
             msgErroStatusEtapa: false,
+
+            allClientes: [],
         }
     },
     mounted() {
@@ -610,6 +613,7 @@ export default {
         this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
 
         this.fetchFunil()
+        this.fetchAllClientes()
 
         this.selectedFunil = this.item.Etapa.funil.nome_funil
         this.posicaoFunil = this.item.Etapa.nome_etapa
@@ -622,6 +626,10 @@ export default {
         document.removeEventListener('click', this.handleClickOutside);
     },
     methods: {
+        getNomeCliente(idPessoa) {
+            const cliente = this.allClientes.find(cliente => cliente.id_cliente === idPessoa);
+            return cliente ? cliente.nome : 'Cliente não encontrado';
+        },
         closeModal() {
             const modalElement = document.getElementById(this.modalId);
             if (modalElement) {
@@ -639,6 +647,16 @@ export default {
                 // console.log("Funis ====> ", res)
                 if (res.status === 200) {
                     this.allFunis = res.data
+                }
+            })
+        },
+
+        fetchAllClientes() {
+            api.getCliente().then((res) => {
+                // console.log("Funis ====> ", res)
+                if (res.status === 200) {
+                    console.log(res.data)
+                    this.allClientes = res.data
                 }
             })
         },
