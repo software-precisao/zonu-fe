@@ -27,9 +27,12 @@
                                                                 width="100" alt="">
                                                         </th>
                                                         <td class="text-center">
-                                                            <button class="btn btn-primary btn-lg btn-block"
+                                                            <button class="btn btn-primary btn-lg btn-block ms-4"
                                                                 @click="loginWithFacebook">
                                                                 <i class="fa fa-facebook"></i> Conectar via Facebook
+                                                            </button>
+                                                            <button class="btn btn-danger btn-lg btn-block ms-2">
+                                                                <i class="fa fa-facebook"></i> Desconectar do Facebook
                                                             </button>
                                                         </td>
                                                     </tr>

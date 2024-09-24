@@ -32,6 +32,17 @@
                 </button>
             </div> -->
             <div class="col-4">
+                <button data-bs-toggle="modal" :data-bs-target="`#modalEditImovel${item.id_imovel}`" type="button"
+                    class="btn btn-warning" style="
+              --bs-btn-padding-y: 0.25rem;
+              --bs-btn-padding-x: 0.5rem;
+              --bs-btn-font-size: 0.75rem;
+              margin-right: 6px !important;
+            ">
+                    <i class="fa fa-edit"></i>
+                </button>
+            </div>
+            <div class="col-4">
                 <button data-bs-toggle="modal" :data-bs-target="`#modalImovel${item.id_imovel}`" type="button"
                     class="btn btn-primary" style="
               --bs-btn-padding-y: 0.25rem;
@@ -534,6 +545,7 @@
             </div>
         </div>
         <!-- <EditModal :item="item" @save="handleEditUsuario" /> -->
+        <ModalEditImovel :imovel="item" />
     </tr>
 </template>
 
@@ -541,6 +553,7 @@
 import EditModal from "./EditClientModal.vue";
 import api from "@/../service/api/usuarios/index";
 import apiIndex from "@/../service/api/index"
+import ModalEditImovel from "../modals/modalEditImovel.vue";
 
 export default {
     props: {
@@ -549,6 +562,7 @@ export default {
 
     components: {
         EditModal,
+        ModalEditImovel,
     },
 
     data() {
