@@ -11,25 +11,15 @@
 
           <div class="container">
             <div class="row">
-              <!-- <div class="col-6 col-sm-6 col-md-3 col-lg-4 col-xl-3 mb-4">
-                <a
-                  class="card card-select text-center"
-                  href="/cadastro-construtora"
-                  style="text-decoration: none"
-                >
-                  <div
-                    class="card-body d-flex flex-column justify-content-center align-items-center"
-                    style="height: 150px"
-                  >
-                    <img
-                      src="../../../assets/images/iconConstrutora.svg"
-                      class="img-fluid"
-                      alt="Construtora"
-                    />
+              <div class="col-6 col-sm-6 col-md-3 col-lg-4 col-xl-3 mb-4">
+                <a class="card card-select text-center" href="/cadastro-construtora" style="text-decoration: none">
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center"
+                    style="height: 150px">
+                    <img src="../../../assets/images/iconConstrutora.svg" class="img-fluid" alt="Construtora" />
                     <p class="mt-3">Construtora</p>
                   </div>
                 </a>
-              </div> -->
+              </div>
               <div class="col-6 col-sm-6 col-md-3 col-lg-4 col-xl-3 mb-4">
                 <a class="card card-select text-center" href="/cadastro-corretor" style="text-decoration: none">
                   <div class="card-body d-flex flex-column justify-content-center align-items-center"

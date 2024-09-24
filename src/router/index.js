@@ -83,11 +83,11 @@ const routes = [
   //   name: "countdown",
   //   component: Countdown,
   // },
-  // {
-  //   path: "/cadastro-construtora",
-  //   name: "cadastro-construtora",
-  //   component: CadastroConstrutoraView,
-  // },
+  {
+    path: "/cadastro-construtora",
+    name: "cadastro-construtora",
+    component: CadastroConstrutoraView,
+  },
   {
     path: "/cadastro-corretor",
     name: "cadastro-corretor",
