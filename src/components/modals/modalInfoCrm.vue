@@ -773,13 +773,13 @@ export default {
 
         salvarAnotacao() {
             console.log(this.termos)
-            let idCliente = this.item.Cliente.id_cliente
+            let idNegocio = this.item.id_negocio
             let anotacao = this.termos
 
-            console.log(idCliente, anotacao)
+            console.log(idNegocio, anotacao)
 
             if (anotacao != "") {
-                apiCrm.criarAnotacao(idCliente, anotacao).then((res) => {
+                apiCrm.criarAnotacao(idNegocio, anotacao).then((res) => {
                     console.log(res)
                     if (res.status === 201) {
                         this.item.Cliente.AnotacoesCRM.push(res.data)
@@ -792,15 +792,15 @@ export default {
 
         editarAnotacao() {
             console.log(this.termos)
-            let idCliente = this.item.Cliente.id_cliente
+            let idNegocio = this.item.id_negocio
             let anotacao = this.termos
             let id = this.idAnotacaoEdit
 
 
-            console.log(idCliente, anotacao, id)
+            console.log(idNegocio, anotacao, id)
 
             if (anotacao != "") {
-                apiCrm.atualizarAnotacao(id, idCliente, anotacao).then((res) => {
+                apiCrm.atualizarAnotacao(id, idNegocio, anotacao).then((res) => {
                     // console.log(res)
                     if (res.status === 200) {
                         this.item.Cliente.AnotacoesCRM = this.item.Cliente.AnotacoesCRM.filter(anotacao => anotacao.id_anotacao_crm !== id);

@@ -18,12 +18,12 @@ export default {
     }
   },
 
-  criarAnotacao: async (idCliente, anotacao) => {
+  criarAnotacao: async (id_negocio, anotacao) => {
     try {
       const response = await http.post(
         "/anotacao-crm/cadastrar",
         {
-          id_cliente: idCliente,
+          id_negocio: id_negocio,
           anotacao: anotacao,
         },
         {
@@ -42,12 +42,12 @@ export default {
     }
   },
 
-  atualizarAnotacao: async (idAnotacao, idCliente, anotacao) => {
+  atualizarAnotacao: async (idAnotacao, id_negocio, anotacao) => {
     try {
       const response = await http.put(
         `/anotacao-crm/editar/${idAnotacao}`,
         {
-          id_cliente: idCliente,
+          id_negocio: id_negocio,
           anotacao: anotacao,
         },
         {
