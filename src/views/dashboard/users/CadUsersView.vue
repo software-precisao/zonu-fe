@@ -240,8 +240,7 @@
                                 <input type="text" v-model="sobrenomeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite o sobrenome" />
                               </div>
-                              <div class="form-group col-md-12 mt-3"
-                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                              <div class="form-group col-md-12 mt-3" v-if="selectNivelCliente == 'Imobiliaria'">
                                 <label for="email"><small><strong>E-mail</strong></small></label>
                                 <input type="email" required v-if="!mostrarSkeleton" class="form-control"
                                   v-model="emailCliente" placeholder="Digite um e-mail válido" />
@@ -252,7 +251,7 @@
                                 </p>
                               </div>
                               <div class="form-group col-md-6 mt-3"
-                                v-if="selectNivelCliente == '' || selectNivelCliente == 'Corretor' || selectNivelCliente == 'PessoaFisica'">
+                                v-if="selectNivelCliente == '' || selectNivelCliente == 'Corretor' || selectNivelCliente == 'PessoaFisica' || selectNivelCliente == 'Construtora'">
                                 <label for="email"><small><strong>E-mail</strong></small></label>
                                 <input type="email" required v-if="!mostrarSkeleton" class="form-control"
                                   v-model="emailCliente" placeholder="Digite um e-mail válido" />
@@ -262,6 +261,14 @@
                                   Por favor, forneça um e-mail válido.
                                 </p>
                               </div>
+
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente == 'Construtora'">
+                                <label for="nomeConstrutoraCliente"><small><strong>Nome
+                                      Fantasia</strong></small></label>
+                                <input type="text" required v-if="!mostrarSkeleton" class="form-control"
+                                  v-model="nomeConstrutoraCliente" placeholder="Digite um nome fantasia" />
+                              </div>
+
                               <div class="form-group col-md-6 mt-3"
                                 v-if="selectNivelCliente == '' || selectNivelCliente == 'Corretor' || selectNivelCliente == 'PessoaFisica'">
                                 <label for="cpf"><small><strong>CPF</strong></small></label>
@@ -694,6 +701,7 @@ export default {
       cidadeCliente: "",
       estadoCliente: "",
       bairroCliente: "",
+      nomeConstrutoraCliente: "",
       senhaValidaCli: true,
       emailValidCli: false,
       textoBotaoCliente: "Criar novo Cliente",
@@ -1209,6 +1217,7 @@ export default {
           let cidade = this.cidadeCliente
           let estado = this.estadoCliente
           let bairro = this.bairroCliente
+          let nomeConstrutoraCliente = this.nomeConstrutoraCliente
 
           if (
             nome !== "" &&
@@ -1217,10 +1226,11 @@ export default {
             senha !== "" &&
             cnpj !== "" &&
             telefone !== "" &&
-            cep !== ""
+            cep !== "" &&
+            nomeConstrutoraCliente != ""
           ) {
             apiAuth
-              .cadastroConstrutora(nome, sobrenome, email, senha, razaoSocial, cnpj, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .cadastroConstrutora(nome, sobrenome, email, senha, razaoSocial, cnpj, telefone, cep, endereco, complemento, numero, cidade, estado, bairro, nomeConstrutoraCliente)
               .then((res) => {
                 if (res.status == 202) {
                   this.selectNivelCliente = "";
@@ -1238,6 +1248,7 @@ export default {
                   this.cidadeCliente = "";
                   this.estadoCliente = "";
                   this.bairroCliente = "";
+                  this.nomeConstrutoraCliente = "";
 
                   this.msgSuccess = true;
                   this.autenticando = false;

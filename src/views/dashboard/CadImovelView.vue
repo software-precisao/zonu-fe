@@ -2433,10 +2433,11 @@
                                                   v-model="construtoraSelecionada">
                                                   <option value="">escolha</option>
                                                   <option v-for="item in allConstrutoras" :value="item.id_user">
-                                                    {{ item.nome }} {{ item.sobrenome }}</option>
+                                                    {{ item.perfil != null ? item.perfil.nome_construtora != null ?
+                                                      item.perfil.nome_construtora : `${item.nome} ${item.sobrenome}` :
+                                                      `${item.nome} ${item.sobrenome}` }}</option>
                                                 </select>
                                               </div>
-                                              <!-- {{ console.log(allConstrutoras) }} -->
                                               <div class="row mt-4">
                                                 <div class="col-3">
                                                   <div class="mb-3">
@@ -4967,6 +4968,7 @@ export default {
 
           // Converte o Map de volta para um array
           this.allConstrutoras = Array.from(uniqueUsersMap.values());
+          console.log(this.allConstrutoras)
         }
       })
     },

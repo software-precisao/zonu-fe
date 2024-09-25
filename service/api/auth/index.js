@@ -132,7 +132,8 @@ export default {
     numero,
     cidade,
     estado,
-    bairro
+    bairro,
+    nomeConstrutora
   ) => {
     try {
       const response = await http.post(
@@ -156,6 +157,7 @@ export default {
           cidade: cidade,
           estado: estado,
           bairro: bairro,
+          nome_construtora: nomeConstrutora,
         },
         {
           headers: {
