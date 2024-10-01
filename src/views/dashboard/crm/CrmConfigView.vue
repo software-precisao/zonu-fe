@@ -500,11 +500,11 @@
                                 <option disabled value="">
                                   Selecione uma opção
                                 </option>
-                                <optgroup v-for="group in options" :key="group.label" :label="group.label"
+                                <optgroup v-for="group in funis" :key="group.nome_funil" :label="group.nome_funil"
                                   class="optgroup-label">
-                                  <option v-for="option in group.options" :key="option.value" :value="option.label"
+                                  <option v-for="option in group.etapas" :key="option.id_etapa" :value="option.id_etapa"
                                     class="backOption">
-                                    {{ option.label }}
+                                    {{ option.nome_etapa }}
                                   </option>
                                 </optgroup>
                               </select>
@@ -526,11 +526,11 @@
                                 <option disabled value="">
                                   Selecione uma opção
                                 </option>
-                                <optgroup v-for="group in options" :key="group.label" :label="group.label"
+                                <optgroup v-for="group in funis" :key="group.nome_funil" :label="group.nome_funil"
                                   class="optgroup-label">
-                                  <option v-for="option in group.options" :key="option.value" :value="option.label"
+                                  <option v-for="option in group.etapas" :key="option.id_etapa" :value="option.id_etapa"
                                     class="backOption">
-                                    {{ option.label }}
+                                    {{ option.nome_etapa }}
                                   </option>
                                 </optgroup>
                               </select>
@@ -558,6 +558,7 @@ import youtubeLogo from "../../../../assets/images/icons/youtubeLogo.svg";
 import InterrSvg from "../../../../assets/images/icons/interrogationIcon.svg";
 import trashIcon from "../../../../assets/images/icons/trash-2.svg";
 import api from "../../../../service/api/index";
+import apiCrm from "../../../../service/api/crm/index";
 import { jwtDecode } from "jwt-decode";
 
 export default {
@@ -585,56 +586,7 @@ export default {
 
       selectedValue: "",
       selectedValue2: "",
-      options: [
-        {
-          label: "Vita Studios Manaíra",
-          options: [
-            { value: "1", label: "Vita Studios Manaíra" },
-            { value: "2", label: "Vita Studios Manaíra" },
-            { value: "3", label: "Vita Studios Manaíra" },
-          ],
-        },
-        {
-          label: "Aluguel",
-          options: [
-            { value: "4", label: "Aluguel" },
-            { value: "5", label: "Aluguel" },
-            { value: "6", label: "Aluguel" },
-          ],
-        },
-        {
-          label: "Farol das Antilhas",
-          options: [
-            { value: "7", label: "Farol das Antilhas" },
-            { value: "8", label: "Farol das Antilhas" },
-            { value: "9", label: "Farol das Antilhas" },
-          ],
-        },
-        {
-          label: "Padrão",
-          options: [
-            { value: "10", label: "Padrão" },
-            { value: "11", label: "Padrão" },
-            { value: "12", label: "Padrão" },
-          ],
-        },
-        {
-          label: "Teste",
-          options: [
-            { value: "13", label: "Teste" },
-            { value: "14", label: "Teste" },
-            { value: "15", label: "Teste" },
-          ],
-        },
-        {
-          label: "Venda",
-          options: [
-            { value: "16", label: "Venda" },
-            { value: "17", label: "Venda" },
-            { value: "18", label: "Venda" },
-          ],
-        },
-      ],
+      options: [],
 
       textAddFunil: "Criar funil",
 
@@ -661,9 +613,41 @@ export default {
       msgFunilRemoveError: false,
 
       disableAjuda: false,
+
+      //funil venda e locacao
+      transacaoVenda: '',
+      transacaoLocacao: '',
     };
   },
   methods: {
+    fetchVenda() {
+      apiCrm.getFunilVenda().then((res) => {
+        let id = this.id_user
+        if (res.status === 200 && res.data.response.length > 0) {
+          res.data.response.map((e) => {
+            if (e.id_user == id) {
+              this.transacaoVenda = e.id_venda
+              this.selectedValue = e.id_etapa
+            }
+          })
+        }
+      })
+    },
+
+    fetchLocacao() {
+      apiCrm.getFunilLocacao().then((res) => {
+        if (res.status === 200 && res.data.response.length > 0) {
+          console.log(res)
+          res.data.response.map((e) => {
+            if (e.id_user == id) {
+              this.transacaoLocacao = e.id_locacao
+              this.selectedValue2 = e.id_etapa
+            }
+          })
+        }
+      })
+    },
+
     handleSalvarIdFunil(id) {
       localStorage.setItem("ff", id);
 
@@ -713,13 +697,38 @@ export default {
       });
     },
 
-    updateSelectedValue(event) {
-      const selectedValue = event.target.value;
-      this.selectedValue = selectedValue;
+    updateSelectedValue() {
+      let etapa = this.selectedValue
+      let id_user = this.id_user
+
+      let venda = this.transacaoVenda
+
+      if (venda == null || venda == '') {
+        apiCrm.cadastrarFunilVenda(etapa, id_user).then((res) => {
+          console.log(res)
+        })
+      } else {
+        apiCrm.editarFunilVenda(venda, etapa, id_user).then((res) => {
+          console.log(res)
+        })
+      }
     },
-    updateSelectedValue2(event) {
-      const selectedValue = event.target.value;
-      this.selectedValue2 = selectedValue;
+
+    updateSelectedValue2() {
+      let etapa = this.selectedValue2
+      let id_user = this.id_user
+
+      let locacao = this.transacaoVenda
+
+      if (locacao == null || locacao == '') {
+        apiCrm.cadastrarFunilLocacao(etapa, id_user).then((res) => {
+          console.log(res)
+        })
+      } else {
+        apiCrm.editarFunilLocacao(locacao, etapa, id_user).then((res) => {
+          console.log(res)
+        })
+      }
     },
 
     openCriarFunil() {
@@ -819,6 +828,8 @@ export default {
     this.corretorResponsavel = `${this.userName} ${this.userSobrenome}`;
 
     this.fetchFunil();
+    this.fetchVenda()
+    this.fetchLocacao()
   },
 };
 </script>

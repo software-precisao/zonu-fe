@@ -44,9 +44,6 @@
             </div>
           </a>
         </li>
-        {{
-          console.log(nivel)
-        }}
         <li class="nav-item dropdown" v-if="nivel !== 4 && nivel !== 6">
           <a style="text-decoration: none !important; margin-left: -10%" class="nav-icon dropdown-toggle"
             href="/meus-usuarios" id="alertsDropdown">
@@ -203,7 +200,7 @@
       </ul>
     </div>
   </nav>
-  {{ console.log("nivel para aparecer a progress bar ===> ", nivel) }}
+  <!-- {{ console.log("nivel para aparecer a progress bar ===> ", nivel) }} -->
   <div v-if="nivel !== 1 && nivel !== 6 && status == 1">
     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar overflow-visible text-dark bg-warning" :style="{ width: barprogress + '%' }">

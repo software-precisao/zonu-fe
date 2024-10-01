@@ -108,4 +108,134 @@ export default {
       return error.response || error.message || error;
     }
   },
+
+  cadastrarFunilVenda: async (idEtapa, id_user) => {
+    try {
+      const response = await http.post(
+        `/vendas/cadastrar`,
+        {
+          id_etapa: idEtapa,
+          id_user: id_user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  cadastrarFunilLocacao: async (idLocacao, id_user) => {
+    try {
+      const response = await http.post(
+        `/locacao/cadastrar`,
+        {
+          id_etapa: idLocacao,
+          id_user: id_user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getFunilLocacao: async () => {
+    try {
+      const response = await http.get(`/locacao/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  getFunilVenda: async () => {
+    try {
+      const response = await http.get(`/vendas/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  editarFunilLocacao: async (idLocacao, idEtapa, id_user) => {
+    try {
+      const response = await http.put(
+        `/locacao/editar/${idLocacao}`,
+        {
+          id_etapa: idEtapa,
+          id_user: id_user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
+  editarFunilVenda: async (idVenda, idEtapa, id_user) => {
+    try {
+      const response = await http.put(
+        `/vendas/editar/${idVenda}`,
+        {
+          id_etapa: idEtapa,
+          id_user: id_user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
 };
