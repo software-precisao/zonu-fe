@@ -7,6 +7,8 @@
                 <div class="container-fluid p-0">
                     <h1 class="h3 mb-3"><strong>Zonu |</strong> Integração</h1>
                     <div class="row">
+                        <span class="alert alert-danger" v-if="msgErrorEtapas">Você não selecionou o funil! Deseja
+                            selecionar > <a href="/seu-crmconfig" class="btn btn-warning">Configurações</a></span>
                         <div class="col-md-12 col-xl-2"></div>
                         <div class="col-md-12 col-xl-8">
                             <div class="card mb-3">
@@ -39,8 +41,8 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            {{ console.log("Formularios ===>", formsLeads) }}
-                                            {{ console.log("Leads ===>", leads) }}
+                                            <!-- {{ console.log("Formularios ===>", formsLeads) }}
+                                            {{ console.log("Leads ===>", leads) }} -->
 
                                             <div class="modal fade" id="manageFormsModal" tabindex="-1"
                                                 aria-labelledby="manageFormsLabel" aria-hidden="true">
@@ -54,8 +56,13 @@
                                                         </div>
                                                         <div class="modal-body mt-4">
                                                             <!-- Exiba os formulários aqui -->
-
                                                             <div class="row">
+                                                                <span class="alert alert-danger col-12"
+                                                                    v-if="msgErroImovelNull">Selecione os
+                                                                    imoveis do
+                                                                    formulário</span>
+                                                                <span class="alert alert-success col-12"
+                                                                    v-if="msgSuccess">Leads salvos com sucesso!</span>
                                                                 <ul class="col-12"
                                                                     style="display: flex; flex-direction: column;">
                                                                     <li v-for="(form, index) in formsLeads"
@@ -167,7 +174,7 @@
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Fechar</button>
                                                             <button type="button" class="btn btn-success"
-                                                                @click="handleSalvarLeads">Salvar</button>
+                                                                @click="handleSalvarLeads">{{ textbtnSalvar }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,6 +201,7 @@ import NavBar from "../../components/navbar/navbar-imobiliaria.vue";
 import Footer from "../../components/footer/index.vue";
 import api from '../../../service/api/facebook'
 import apiIndex from '../../../service/api/index'
+import apiCrm from '../../../service/api/crm/index'
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 export default {
@@ -207,25 +215,69 @@ export default {
             facebookSDKLoaded: false,
             token: localStorage.getItem("token"),
             nivel: '',
+            id_user: '',
 
-            formsLeads: [
-                {
-                    name: 'testetestetestetestetestetestetestetestetestetestetesteteste', id: 1,
-                    imovel: false,
-                    leadOff: true,
-                    isOpenImovel: false,
-                    selectedOptionImovel: null,
-                    imovelOff: false
-                },
-                {
-                    name: 'teste2teste2teste2teste2teste2teste2teste2teste2teste2', id: 2,
-                    imovel: false,
-                    leadOff: true,
-                    isOpenImovel: false,
-                    selectedOptionImovel: null,
-                    imovelOff: false
-                }
-            ],
+            // formsLeads: [
+            //     {
+            //         name: 'testetestetestetestetestetestetestetestetestetestetesteteste', id: 1,
+            //         imovel: false,
+            //         leadOff: true,
+            //         isOpenImovel: false,
+            //         selectedOptionImovel: null,
+            //         imovelOff: false,
+            //         leads: [
+            //             {
+            //                 field_data: [
+            //                     {
+            //                         name: "first_name", values: [
+            //                             "Ragner", "Julia"
+            //                         ]
+            //                     },
+            //                     {
+            //                         name: "phone_number", values: [
+            //                             "+558343453434", "+5588888888"
+            //                         ]
+            //                     },
+            //                     {
+            //                         name: "email", values: [
+            //                             "ragner@softwareprecisao.com", "julia@softwareprecisao.com"
+            //                         ]
+            //                     }
+            //                 ]
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         name: 'teste2teste2teste2teste2teste2teste2teste2teste2teste2', id: 2,
+            //         imovel: false,
+            //         leadOff: true,
+            //         isOpenImovel: false,
+            //         selectedOptionImovel: null,
+            //         imovelOff: false,
+            //         leads: [
+            //             {
+            //                 field_data: [
+            //                     {
+            //                         name: "first_name", values: [
+            //                             "Rodrigo", "Noiva"
+            //                         ]
+            //                     },
+            //                     {
+            //                         name: "phone_number", values: [
+            //                             "+5583999907811", "+55999999999"
+            //                         ]
+            //                     },
+            //                     {
+            //                         name: "email", values: [
+            //                             "delayproducoes@gmail.com", "noiva@gmail.com"
+            //                         ]
+            //                     }
+            //                 ]
+            //             }
+            //         ]
+            //     }
+            // ],
+            formsLeads: [],
             leads: [],
 
             imovel: [],
@@ -233,6 +285,14 @@ export default {
             // isOpenImovel: false,
             // selectedOption: null,
             // selectedOptionImovel: null,
+
+            etapaLocacao: null,
+            etapaVenda: null,
+
+            textbtnSalvar: "Salvar",
+            msgErroImovelNull: false,
+            msgSuccess: false,
+            msgErrorEtapas: false
         };
     },
     components: {
@@ -258,16 +318,21 @@ export default {
             FB.XFBML.parse()
         };
 
-        setTimeout(() => {
-            const modal = new bootstrap.Modal(document.getElementById('manageFormsModal'));
-            modal.show();
+        // setTimeout(() => {
+        //     console.log(this.etapaVenda.length > 0, this.etapaLocacao.length > 0)
+        //     if (this.etapaVenda.length > 0 && this.etapaLocacao.length > 0) {
+        //         const modal = new bootstrap.Modal(document.getElementById('manageFormsModal'));
+        //         modal.show();
 
-            const modalElement = document.getElementById('manageFormsModal');
-            // Adiciona o listener ao evento de fechamento do modal
-            modalElement.addEventListener('hidden.bs.modal', () => {
-                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-            });
-        }, 2000);
+        //         const modalElement = document.getElementById('manageFormsModal');
+        //         // Adiciona o listener ao evento de fechamento do modal
+        //         modalElement.addEventListener('hidden.bs.modal', () => {
+        //             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        //         });
+        //     } else {
+        //         this.msgErrorEtapas = true
+        //     }
+        // }, 2000);
 
         // Carrega o SDK do Facebook
         (function (d, s, id) {
@@ -279,10 +344,14 @@ export default {
         }(document, 'script', 'facebook-jssdk'));
 
         this.fetchImoveis()
+        this.fetchEtapas()
     },
 
     methods: {
         loginWithFacebook() {
+            if (this.etapaVenda.length == 0 && this.etapaLocacao.length == 0) {
+                this.msgErrorEtapas = true
+            }
             if (!this.facebookSDKLoaded) {
                 console.log('O SDK do Facebook ainda não foi carregado.');
                 return;
@@ -344,7 +413,6 @@ export default {
         },
 
         fetchLeadForms(accessToken) {
-
             axios.get(`https://graph.facebook.com/v17.0/${this.pageId}/leadgen_forms`, {
                 params: {
                     access_token: accessToken,
@@ -354,23 +422,23 @@ export default {
                     console.log('Formulários de Lead:', response.data);
 
                     if (response.data.data && response.data.data.length > 0) {
-                        // Mapeia os leads e adiciona o campo 'imovel'
-                        const leadsWithImovel = response.data.data.map(lead => ({
-                            ...lead,
-                            imovel: false, // Inicializa o campo 'imovel'
-                            leadOff: false,
+                        // Mapeia os formulários e inicializa o campo 'leads'
+                        const formsWithLeads = response.data.data.map(form => ({
+                            ...form,
+                            leads: [], // Inicializa o array 'leads' para cada formulário
+                            imovel: false,
+                            leadOff: true,
                             isOpenImovel: false,
                             selectedOptionImovel: null
                         }));
-                        // Adiciona os leads ao formsLeads
-                        this.formsLeads.push(...leadsWithImovel);
+
+                        // Adiciona os formulários ao formsLeads
+                        this.formsLeads.push(...formsWithLeads);
                     }
 
-                    response.data.data.map((form) => {
-                        console.log(form.id)
-
-                        this.fetchLeadFromForms(form.id)
-
+                    // Para cada formulário, buscar os leads
+                    response.data.data.forEach((form) => {
+                        this.fetchLeadFromForms(form); // Puxa os leads do respectivo formulário
                     });
 
                 })
@@ -387,7 +455,9 @@ export default {
             })
         },
 
-        async fetchLeadFromForms(formId) {
+        async fetchLeadFromForms(form) {
+            let formId = form.id;
+
             try {
                 const response = await axios.get(`https://graph.facebook.com/v17.0/${formId}/leads`, {
                     params: {
@@ -395,11 +465,15 @@ export default {
                     }
                 });
 
-                console.log('Leads do formulário:', response.data);
+                console.log('Leads do formulário:', response);
 
                 // Verifica se há leads no formulário
                 if (response.data.data && response.data.data.length > 0) {
-                    this.leads.push(...response.data.data); // Adiciona os leads ao array
+                    // Adiciona os leads ao campo 'leads' do formulário
+                    const formIndex = this.formsLeads.findIndex(f => f.id === formId);
+                    if (formIndex !== -1) {
+                        this.formsLeads[formIndex].leads.push(...response.data.data);
+                    }
                 }
 
                 // Abre o modal após salvar os leads
@@ -425,10 +499,12 @@ export default {
                 form.leadOff = true
                 form.imovel = false
                 form.imovelOff = false
+                form.selectedOptionImovel = null
             } else if (event == 'imovelOff') {
                 form.leadOff = false
                 form.imovel = false; // Altera o imovel do form específico
                 form.imovelOff = true
+                form.selectedOptionImovel = null
             }
         },
 
@@ -466,8 +542,227 @@ export default {
         },
 
         handleSalvarLeads() {
-            console.log('Salvou!')
+            this.textbtnSalvar = "Salvando..."
+
+            let forms = this.formsLeads
+            let name = null
+            let phone = null
+            let email = null
+            let idCaptacaoFacebook = 3
+            let idUser = this.id_user
+
+            console.log("Aqui estao os forms que serão salvos ===>", forms)
+
+            forms.map((form) => {
+                if (form.imovelOff == true && form.leads) {
+                    console.log("Salvar apenas os clientes ====>", form)
+                    if (form.leads.length > 0) {
+                        form.leads.map((lead) => {
+                            lead.field_data.map((campo) => {
+                                if (campo.name == "first_name") {
+                                    name = campo.values
+                                } else if (campo.name == "phone_number") {
+                                    phone = campo.values
+                                } else if (campo.name == "email") {
+                                    email = campo.values
+                                }
+                            })
+                        })
+
+
+
+                        const cliente = name.map((name, index) => ({
+                            name: name,
+                            phone: phone[index],
+                            email: email[index]
+                        }));
+
+                        // console.log(cliente)
+                        // Cria um array de promessas das requisições
+                        const promises = cliente.map((e) => {
+                            return apiIndex.postCliente(
+                                idCaptacaoFacebook,
+                                null,
+                                e.name,
+                                null,
+                                null,
+                                null,
+                                e.email,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                e.phone,
+                                null,
+                                idUser,
+                                null
+                            ).then((res) => {
+                                console.log(res);
+                            });
+                        });
+
+                        // Aguarda todas as promessas serem resolvidas
+                        Promise.all(promises).then(() => {
+                            this.textbtnSalvar = "Salvar";
+                            this.msgSuccess = true
+
+                            setTimeout(() => {
+                                this.closeModal();
+                                this.msgSuccess = false
+                                this.formsLeads = [];
+                                this.leads = []
+                            }, 2000);
+                        }).catch((error) => {
+                            console.error("Erro ao processar os clientes:", error);
+                        });
+
+
+                    }
+                } else if (form.imovel == true && form.leads) {
+                    console.log("Salvar os clientes e os negócios ====>", form)
+                    console.log("Etapa para ser salvo ====>", form.selectedOptionImovel.preco.tipo_negocio === "Venda" ? this.etapaVenda : this.etapaLocacao)
+
+                    if (form.selectedOptionImovel != null) {
+                        if (form.leads.length > 0) {
+                            form.leads.map((lead) => {
+                                lead.field_data.map((campo) => {
+                                    if (campo.name == "first_name") {
+                                        name = campo.values
+                                    } else if (campo.name == "phone_number") {
+                                        phone = campo.values
+                                    } else if (campo.name == "email") {
+                                        email = campo.values
+                                    }
+                                })
+                            })
+
+
+
+                            const cliente = name.map((name, index) => ({
+                                name: name,
+                                phone: phone[index],
+                                email: email[index]
+                            }));
+
+                            // console.log(cliente)
+                            // Cria um array de promessas das requisições
+                            const promises = cliente.map((e) => {
+                                return apiIndex.postCliente(
+                                    idCaptacaoFacebook,
+                                    null,
+                                    e.name,
+                                    null,
+                                    null,
+                                    null,
+                                    e.email,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    e.phone,
+                                    null,
+                                    idUser,
+                                    null
+                                ).then((res) => {
+                                    console.log("res do post do cliente ===> ", res)
+                                    if (res.status === 201) {
+                                        let idEtapa = form.selectedOptionImovel.preco.tipo_negocio === "Venda" ? this.etapaVenda[0].id_etapa : this.etapaLocacao[0].id_etapa
+                                        let idNivelInteresse = 1
+                                        let idCliente = res.data.id_cliente
+                                        let idImovel = form.selectedOptionImovel.id_imovel
+
+                                        apiIndex.postNegocio(idEtapa, idNivelInteresse, idCliente, idImovel, idUser).then((res) => {
+                                            console.log("res do post do negocio ===> ", res)
+                                        })
+                                    }
+                                });
+                            });
+
+                            // Aguarda todas as promessas serem resolvidas
+                            Promise.all(promises).then(() => {
+                                this.textbtnSalvar = "Salvar";
+                                this.msgSuccess = true
+
+                                setTimeout(() => {
+                                    this.closeModal();
+                                    this.msgSuccess = false
+                                    this.formsLeads = [];
+                                    this.leads = []
+                                }, 2000);
+                            }).catch((error) => {
+                                console.error("Erro ao processar os clientes:", error);
+                            });
+
+
+                        }
+                    } else {
+                        this.textbtnSalvar = "Salvar"
+
+                        this.msgErroImovelNull = true
+
+                        setTimeout(() => {
+                            this.msgErroImovelNull = false
+                        }, 2000);
+                    }
+                } else {
+                    console.log("Não salvar nada ====>", form)
+                }
+            })
         },
+
+        fetchEtapas() {
+            apiCrm.getFunilVenda().then((res) => {
+                if (res.status === 200) {
+                    this.etapaVenda = res.data.response.filter((venda) => venda.id_user == this.id_user)
+                    console.log(res.data.response.filter((venda) => venda.id_user == this.id_user))
+                }
+            })
+
+            apiCrm.getFunilLocacao().then((res) => {
+                if (res.status === 200) {
+                    this.etapaLocacao = res.data.response.filter((locacao) => locacao.id_user == this.id_user)
+                    console.log(res.data.response.filter((locacao) => locacao.id_user == this.id_user))
+                }
+            })
+        },
+
+        closeModal() {
+            const modalElement = document.getElementById('manageFormsModal');
+            if (modalElement) {
+                // Obtém a instância do modal existente
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+                // Se a instância do modal já existe, use .hide()
+                if (modalInstance) {
+                    modalInstance.hide();
+                } else {
+                    // Se a instância não existir, crie uma nova e depois feche
+                    const newModalInstance = new bootstrap.Modal(modalElement);
+                    newModalInstance.hide();
+                }
+
+                // Remove o backdrop manualmente se necessário
+                const backdropElement = document.querySelector('.modal-backdrop');
+                if (backdropElement) {
+                    backdropElement.remove();
+                }
+            }
+
+        }
     },
 };
 </script>

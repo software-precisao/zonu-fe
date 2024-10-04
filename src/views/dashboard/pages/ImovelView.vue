@@ -356,9 +356,10 @@
 
         <div>
           <h1 style="font-size: 16px; font-weight: 600; color: #003366;">PROPRIETÁRIO</h1>
-          <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{ imovel.usuario.nome
-            }} {{
-              imovel.usuario.sobrenome }}</h4>
+          <h4 style="font-size: 16px; font-weight: 800; color: #000; text-transform: uppercase;">{{
+            imovel.perfil.nome_construtora != null ? imovel.perfil.nome_construtora : `${imovel.usuario.nome}
+            ${imovel.usuario.sobrenome}`
+            }} </h4>
         </div>
 
         <div style="display: flex;">

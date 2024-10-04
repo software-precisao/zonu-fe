@@ -118,7 +118,7 @@
                                                     Preço
                                                     <small style="font-size: 10px" class="text-secondary">({{
                                                         item.preco.tipo_negocio
-                                                    }})</small></strong>
+                                                        }})</small></strong>
                                             </h5>
                                             <h4 class="text-success">
                                                 <strong>{{ item.preco.preco_imovel }} </strong>
@@ -417,7 +417,7 @@
                                                         <td>
                                                             <small>{{
                                                                 item.preco.aceita_financiamento
-                                                            }}</small>
+                                                                }}</small>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -427,7 +427,7 @@
                                                         <td style="background-color: #0001">
                                                             <small>{{
                                                                 item.preco.minhacasa_minhavida
-                                                            }}</small>
+                                                                }}</small>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -482,7 +482,7 @@
                                                         <strong>Drive:
                                                             <a :href="item.complemento.link_drive" target="_blank">{{
                                                                 item.complemento.link_drive
-                                                            }}</a></strong>
+                                                                }}</a></strong>
                                                     </h6>
 
                                                     <h6 style="font-size: 12px">
@@ -598,7 +598,7 @@ export default {
 
         handleDeleteImovel(idImovel) {
             apiIndex.deleteImovel(idImovel).then((res) => {
-                console.log(res)
+                window.location.href = '/imoveis-plataforma'
             })
         },
 

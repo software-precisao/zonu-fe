@@ -235,7 +235,7 @@
                                 <input type="text" v-model="nomeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite o nome" />
                               </div>
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-6" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="sobrenome"><small><strong>Sobrenome</strong></small></label>
                                 <input type="text" v-model="sobrenomeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite o sobrenome" />
@@ -296,7 +296,7 @@
                                   </small>
                                 </p>
                               </div>
-                              <div class="form-group col-md-6 mt-3">
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="confSenha"><small><strong>Confirme a senha</strong></small></label>
                                 <input type="password" required v-if="!mostrarSkeleton" class="form-control"
                                   v-model="confimSenhaCliente" placeholder="Digite a senha novamente" />
@@ -312,14 +312,12 @@
 
 
 
-                              <div class="form-group col-md-6 mt-3"
-                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente == 'Imobiliaria'">
                                 <label for="nome"><small><strong>CNPJ</strong></small></label>
                                 <input type="text" v-model="cnpjCliente" class="form-control mt-2" id="nome"
                                   placeholder="00.000.000/0001-00" @input="aplicaMascaraCNPJCli" />
                               </div>
-                              <div class="form-group col-md-6 mt-3"
-                                v-if="selectNivelCliente == 'Imobiliaria' || selectNivelCliente == 'Construtora'">
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente == 'Imobiliaria'">
                                 <label for="nome"><small><strong>Razão Social</strong></small></label>
                                 <input type="text" v-model="razao_socialCliente" disabled class="form-control mt-2"
                                   id="nome" placeholder="..." />
@@ -337,7 +335,7 @@
                                 <input v-model="telefoneCliente" type="text" @input="aplicaMascaraTelefoneCli"
                                   class="form-control mt-2" id="nome" placeholder="(00) 90000-0000" />
                               </div>
-                              <div class="form-group col-md-3 mt-3">
+                              <div class="form-group col-md-3 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>CEP</strong></small></label>
                                 <input type="text" required v-if="!mostrarSkeleton" @input="aplicaMascaraCEPCli"
                                   class="form-control mt-2" v-model="buscarCEPCliente" placeholder="000000-000" />
@@ -346,32 +344,32 @@
                                     inválido</small>
                                 </p>
                               </div>
-                              <div class="form-group col-md-6 mt-3">
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Endereço</strong></small></label>
                                 <input type="text" disabled v-model="logradouroCliente" class="form-control mt-2"
                                   id="nome" placeholder="Aguardando" />
                               </div>
-                              <div class="form-group col-md-9 mt-3">
+                              <div class="form-group col-md-9 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Complemento</strong></small></label>
                                 <input type="text" v-model="complementoCliente" class="form-control mt-2" id="nome"
                                   placeholder="Digite um complemento..." />
                               </div>
-                              <div class="form-group col-md-3 mt-3">
+                              <div class="form-group col-md-3 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Número</strong></small></label>
                                 <input type="text" v-model="numeroCliente" class="form-control mt-2" id="nome"
                                   placeholder="00" />
                               </div>
-                              <div class="form-group col-md-4 mt-3">
+                              <div class="form-group col-md-4 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Cidade</strong></small></label>
                                 <input type="text" disabled v-model="cidadeCliente" class="form-control mt-2" id="nome"
                                   placeholder="Aguardando" />
                               </div>
-                              <div class="form-group col-md-4 mt-3">
+                              <div class="form-group col-md-4 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Estado</strong></small></label>
                                 <input type="text" disabled v-model="estadoCliente" class="form-control mt-2" id="nome"
                                   placeholder="Aguardando" />
                               </div>
-                              <div class="form-group col-md-4 mt-3">
+                              <div class="form-group col-md-4 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="nome"><small><strong>Bairro</strong></small></label>
                                 <input type="text" disabled v-model="bairroCliente" class="form-control mt-2" id="nome"
                                   placeholder="Aguardando" />
@@ -1202,14 +1200,14 @@ export default {
           this.textoBotaoCliente = "Salvando...";
           this.autenticando = true;
 
-          let nome = this.nomeCliente
-          let sobrenome = this.sobrenomeCliente;
-          let email = this.emailCliente
-          let senha = this.senhaCliente
+          // let nome = this.nomeCliente
+          // let sobrenome = this.sobrenomeCliente;
+          // let email = this.emailCliente
+          // let senha = this.senhaCliente
           let razaoSocial = this.razao_socialCliente
-          let cnpj = this.cnpjCliente
-          let idPlano = 4
-          let telefone = this.telefoneCliente
+          // let cnpj = this.cnpjCliente
+          // let idPlano = 4
+          // let telefone = this.telefoneCliente
           let cep = this.buscarCEPCliente
           let endereco = this.logradouroCliente
           let complemento = this.complementoCliente
@@ -1217,22 +1215,30 @@ export default {
           let cidade = this.cidadeCliente
           let estado = this.estadoCliente
           let bairro = this.bairroCliente
+          // let nomeConstrutoraCliente = this.nomeConstrutoraCliente
+
+          let nome = this.nomeCliente
+          let sobrenome = this.sobrenomeCliente;
           let nomeConstrutoraCliente = this.nomeConstrutoraCliente
+          let email = this.emailCliente
+          let telefone = this.telefoneCliente
+          let senha = this.senhaCliente
+          let cnpj = this.cnpjCliente
+          let idPlano = 4
 
           if (
             nome !== "" &&
-            sobrenome !== "" &&
             email !== "" &&
             senha !== "" &&
-            cnpj !== "" &&
+            // cnpj !== "" &&
             telefone !== "" &&
-            cep !== "" &&
+            // cep !== "" &&
             nomeConstrutoraCliente != ""
           ) {
             apiAuth
-              .cadastroConstrutora(nome, sobrenome, email, senha, razaoSocial, cnpj, telefone, cep, endereco, complemento, numero, cidade, estado, bairro, nomeConstrutoraCliente)
+              .cadastroConstrutoraSimples(nome, nomeConstrutoraCliente, telefone, email, senha)
               .then((res) => {
-                if (res.status == 202) {
+                if (res.status == 201) {
                   this.selectNivelCliente = "";
                   this.nomeCliente = "";
                   this.sobrenomeCliente = "";

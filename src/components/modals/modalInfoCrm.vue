@@ -389,13 +389,15 @@
                             :id="`dados-tab-pane${item.id_negocio}`" role="tabpanel" aria-labelledby="dados-tab"
                             tabindex="0">
                             <p>Dados do Cliente</p>
-
+                            {{ console.log(item.Cliente) }}
                             <ul class="list-group">
                                 <li class="list-group-item" style="display: flex; justify-content: left; gap: 30px;">
                                     <div>
                                         <h3 style="font-size: 14px; font-weight: 600;">Categoria</h3>
                                         <span style="font-size: 12px; font-weight: 500;">{{
-                                            item.Cliente.CategoriaCliente.categoria_cliente == "" ? "-" :
+                                            item.Cliente.CategoriaCliente == null ||
+                                                item.Cliente.CategoriaCliente.categoria_cliente == ""
+                                                ? "-" :
                                                 item.Cliente.CategoriaCliente.categoria_cliente }}</span>
                                     </div>
                                     <div>
@@ -428,7 +430,8 @@
                                     <div>
                                         <h3 style="font-size: 14px; font-weight: 600;">Tipo</h3>
                                         <span style="font-size: 12px; font-weight: 500;">{{
-                                            item.Cliente.TipoCliente.tipo_cliente == "" ? "-" :
+                                            item.Cliente.TipoCliente == null ||
+                                                item.Cliente.TipoCliente.tipo_cliente == "" ? "-" :
                                                 item.Cliente.TipoCliente.tipo_cliente }}</span>
                                     </div>
                                     <div>

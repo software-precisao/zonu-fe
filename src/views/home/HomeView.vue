@@ -1,8 +1,9 @@
 <template>
   <section class="py-0 mt-0" id="home" style="width: 100%;
-  background-color: #fff;
-    padding-top: 200px;
-    padding-bottom: 200px; background-image: url(../../../assets/images/imgFundo1.png);
+        background-color: #fff;
+        padding-top: 200px;
+        padding-bottom: 200px; 
+        background-image: url('https://zonu.com.br/imagens/imgFundo.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="width: 100%; display: flex; align-items: center; justify-content: center;" class="pt-6">
@@ -25,7 +26,7 @@
 
     <div class="" style="display: flex; align-items: center; justify-content: center;">
       <div class="row align-items-center py-6" style="width: 70%;">
-        <img src="../../../assets/images/zonu.com.br_filtro-imovel.png" alt="">
+        <img src="../../../assets/images/imgFunil.webp" alt="">
       </div>
     </div>
 
@@ -52,24 +53,25 @@
     </div>
   </section>
   <section class="" style="
-  background-color: #fff;
-    padding-top: 200px;
-    padding-bottom: 200px;
-        background-image: url(../../../assets/images/imgFundo2.png);
+        background-color: #fff;
+        padding-top: 200px;
+        padding-bottom: 200px;
+        background-image: url('https://zonu.com.br/imagens/imgFundo2.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="" style="text-align: left; width: 70%; color: #fff;">
-        <h1 style="font-size: 40px; color: #fff;">
+        <h1 style=" color: #fff;" class="titleResponse">
           FUNCIONALIDADES PARA <br>
-          <strong style="font-size: 80px; color: #fff;">
+          <strong style=" color: #fff;" class="subTitleResponse">
             CONSTRUTORAS
           </strong>
         </h1>
 
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px ;color: #fff; font-weight: 700;">Cadastro Gratuito de Imóveis</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Cadastro Gratuito de
+              Imóveis</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1 ">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -78,7 +80,8 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Gráfico de Análise de Mercado</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Gráfico de Análise de
+              Mercado</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -89,7 +92,8 @@
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Tendências de Mercado</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Tendências de Mercado
+            </h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -98,7 +102,8 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Relatórios de Interesse dos Corretores</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatórios de Interesse
+              dos Corretores</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -109,7 +114,8 @@
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Relatório de Atividade dos Corretores</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatório de Atividade
+              dos Corretores</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -118,7 +124,8 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Relatórios de Performance dos Imóveis</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatórios de Performance
+              dos Imóveis</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -129,7 +136,8 @@
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%;">
-            <h2 style="font-size: 26px; color: #fff; font-weight: 700;">Envio de Mensagens em Massa</h2>
+            <h2 style="color: #fff; font-weight: 700;" class="title2Response">Envio de Mensagens em
+              Massa</h2>
             <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Vitae
               voluptatem cum
@@ -145,16 +153,16 @@
   <section class="py-6" style="background-color: #fff;">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="" style="text-align: left; width: 70%; color: #000;">
-        <h1 style="font-size: 40px;">
+        <h1 style="" class="titleResponse">
           FUNCIONALIDADES PARA <br>
-          <strong style="font-size: 80px; color: #DB7093;">
+          <strong style="color: #DB7093;" class="subTitleResponse">
             CORRETORES DE IMÓVEIS
           </strong>
         </h1>
 
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; font-weight: 700; color: #DB7093;">Acesso Exclusivo a Imóveis</h2>
+            <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">Acesso Exclusivo a Imóveis</h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -162,7 +170,7 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #000; padding-left: 20px;">
-            <h2 style="font-size: 26px; font-weight: 700; color: #DB7093;">CRM Integrado</h2>
+            <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">CRM Integrado</h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -172,7 +180,8 @@
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; font-weight: 700; color: #DB7093;">Contratos Revisados</h2>
+            <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">Contratos Revisados
+            </h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -180,7 +189,8 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #000; padding-left: 20px;">
-            <h2 style="font-size: 26px; font-weight: 700; color: #DB7093;">Sites Personalizados</h2>
+            <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">Sites Personalizados
+            </h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -198,21 +208,21 @@
   background-color: #fff;
     padding-top: 200px;
     padding-bottom: 200px;
-        background-image: url(../../../assets/images/imgFundo3.png);
+        background-image: url('https://zonu.com.br/imagens/imgFundo3.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="" style="text-align: left; width: 70%; color: #fff;">
-        <h1 style="font-size: 40px; line-height: 62px; color: #fff;">
+        <h1 style="line-height: 62px; color: #fff;" class="titleResponse">
           FUNCIONALIDADES PARA <br>
-          <strong style="font-size: 80px;">
+          <strong style="" class="subTitleResponse">
             PROPRIETÁRIOS PARTICULARES
           </strong>
         </h1>
 
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; font-weight: 700; color: #fff;">Cadastro Gratuito de Imóveis</h2>
+            <h2 style="font-weight: 700; color: #fff;" class="title2Response">Cadastro Gratuito de Imóveis</h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -220,7 +230,7 @@
               impedit vitae repellat?</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
-            <h2 style="font-size: 26px; font-weight: 700; color: #fff;">Segurança e Exclusividade</h2>
+            <h2 style="font-weight: 700; color: #fff;" class="title2Response">Segurança e Exclusividade</h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -230,7 +240,8 @@
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
-            <h2 style="font-size: 26px; font-weight: 700; color: #fff;">Ferramentas de Análise de Metro Quadrado</h2>
+            <h2 style="font-weight: 700; color: #fff;" class="title2Response">Ferramentas de Análise de Metro Quadrado
+            </h2>
             <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
               voluptatem cum
               perspiciatis numquam aut
@@ -267,10 +278,10 @@
           </div>
         </div>
 
-        <div class="mt-5 mb-4" style="display: flex; justify-content: space-around; width: 50%;">
-          <div v-for="(plano, index) in allPlanos" :key="plano.id_plano" style="width: 100%;">
+        <div class="mt-5 mb-4" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%;">
+          <div v-for="(plano, index) in allPlanos" :key="plano.id_plano">
             <div class="card"
-              style="width: 95%; height: 300px; border-radius: 15px !important; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
+              style="width: 250px; height: 300px; border-radius: 15px !important; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div
                 style="width: 100%; height: 80px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
                 <h1 style="font-size: 20px; font-weight: 600; color: #6A5ACD;">{{ plano.nome_plano }}</h1>
@@ -287,7 +298,7 @@
                   style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-left: 15px; padding-right: 15px; color: #6A5ACD; align-items: center;">
                   <span>R$<span style="font-size: 20px;">{{
                     formatCurrency(plano.valor_plano)
-                      }}</span></span>
+                  }}</span></span>
                   <span style="font-size: 12px;">{{ planPeriod }}</span>
                 </div>
               </div>
@@ -557,26 +568,64 @@ export default {
 <style scoped>
 /* @import "../../../assets/css/theme.css"; */
 
-.background-section {
-  position: relative;
-  background-color: #fff;
-  padding-top: 200px;
-  padding-bottom: 200px;
+.titleResponse {
+  font-size: 40px;
 }
 
-.background-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(../../../assets/images/imgFundo3.png);
-  background-position: bottom;
-  background-size: cover;
-  opacity: 0.5;
-  /* Ajuste o valor de opacidade conforme necessário */
-  z-index: -1;
-  /* Coloca o pseudo-elemento atrás do conteúdo */
+.title2Response {
+  font-size: 26px;
+}
+
+.subTitleResponse {
+  font-size: 80px;
+}
+
+/* Para telas menores, ajuste os tamanhos */
+@media (max-width: 992px) {
+  .titleResponse {
+    font-size: 30px;
+  }
+
+  .subTitleResponse {
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleResponse {
+    font-size: 25px;
+  }
+
+  .subTitleResponse {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .titleResponse {
+    font-size: 20px;
+  }
+
+  .title2Response {
+    font-size: 20px;
+  }
+
+  .subTitleResponse {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 330px) {
+  .titleResponse {
+    font-size: 14px;
+  }
+
+  .title2Response {
+    font-size: 16px;
+  }
+
+  .subTitleResponse {
+    font-size: 30px;
+  }
 }
 </style>

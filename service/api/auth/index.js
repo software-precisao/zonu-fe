@@ -118,6 +118,42 @@ export default {
     }
   },
 
+  cadastroConstrutoraSimples: async (
+    nome,
+    nomeConstrutora,
+    telefone,
+    email,
+    senha
+  ) => {
+    try {
+      const response = await http.post(
+        "/usuarios/cadastro-simplificado",
+        {
+          nome_responsavel: nome,
+          nome_construtora: nomeConstrutora,
+          telefone: telefone,
+          email: email,
+          senha: senha,
+          // nivel: 2,
+          // status: 2,
+          // id_plano: 4,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error.response || error.message || error;
+    }
+  },
+
   cadastroConstrutora: async (
     nome,
     sobrenome,

@@ -460,7 +460,7 @@
                     align-items: center;
                     justify-content: space-between;
                     margin-top: 3rem;
-                  ">
+                  " id="funilNegocio">
                   <div>
                     <h2 style="font-size: 1.1rem; font-weight: 500">
                       Distribuição padrão de funil por negócio
@@ -636,6 +636,7 @@ export default {
 
     fetchLocacao() {
       apiCrm.getFunilLocacao().then((res) => {
+        let id = this.id_user
         if (res.status === 200 && res.data.response.length > 0) {
           console.log(res)
           res.data.response.map((e) => {
@@ -718,7 +719,7 @@ export default {
       let etapa = this.selectedValue2
       let id_user = this.id_user
 
-      let locacao = this.transacaoVenda
+      let locacao = this.transacaoLocacao
 
       if (locacao == null || locacao == '') {
         apiCrm.cadastrarFunilLocacao(etapa, id_user).then((res) => {
