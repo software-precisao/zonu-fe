@@ -665,12 +665,12 @@ export default {
 
     this.tipoNegocio = params.get('tipoNegocio') || 'all';
     this.condominio = params.get('condominio') || 'all';
-    this.valorMin = params.get('valorMin') || 0;
-    this.valorMax = params.get('valorMax') || 0;
-    this.condMin = params.get('condMin') || 0;
-    this.condMax = params.get('condMax') || 0;
-    this.iptuMin = params.get('iptuMin') || 0;
-    this.iptuMax = params.get('iptuMax') || 0;
+    this.valorMin = isNaN(Number(params.get('valorMin'))) ? 0 : Number(params.get('valorMin'));
+    this.valorMax = isNaN(Number(params.get('valorMax'))) ? 0 : Number(params.get('valorMax'));
+    this.condMin = isNaN(Number(params.get('condMin'))) ? 0 : Number(params.get('condMin'));
+    this.condMax = isNaN(Number(params.get('condMax'))) ? 0 : Number(params.get('condMax'));
+    this.iptuMin = isNaN(Number(params.get('iptuMin'))) ? 0 : Number(params.get('iptuMin'));
+    this.iptuMax = isNaN(Number(params.get('iptuMax'))) ? 0 : Number(params.get('iptuMax'));
     this.proximoMar = params.get('proximoMar') || 'all';
     this.tipoImovel = params.get('tipoImovel') || 'all';
     this.perfilImovel = params.get('perfilImovel') || 'all';
@@ -680,13 +680,13 @@ export default {
     this.estadoSelecionado = params.get('estado') || 'all';
     this.cidadeSelecionada = params.get('cidade') || 'all';
     this.estadoAnterior = params.get('estadoAnterior') || 'all';
-    this.dormitorios = params.get('dormitorios') || 0;
-    this.banheiro = params.get('banheiro') || 0;
-    this.cozinha = params.get('cozinha') || 0;
+    this.dormitorios = isNaN(Number(params.get('dormitorios'))) ? 0 : Number(params.get('dormitorios'));
+    this.banheiro = isNaN(Number(params.get('banheiro'))) ? 0 : Number(params.get('banheiro'));
+    this.cozinha = isNaN(Number(params.get('cozinha'))) ? 0 : Number(params.get('cozinha'));
     this.ordenarPor = params.get('ordenarPor') || '';
     this.bairroSelecionado = params.get('bairro') || 'all';
-    this.areaMin = params.get('areaMin') || 0;
-    this.areaMax = params.get('areaMax') || 0;
+    this.areaMin = isNaN(Number(params.get('areaMin'))) ? 0 : Number(params.get('areaMin'));
+    this.areaMax = isNaN(Number(params.get('areaMax'))) ? 0 : Number(params.get('areaMax'));
 
     // Separar as características em array se houver
     const caracteristicas = params.get('caracteristicas');
@@ -785,7 +785,7 @@ export default {
         nomeImovel: nomeImovel,
       })
 
-      const baseUrl = 'https://zonu.com.br/filtro-imovel/';
+      const baseUrl = 'https://zonu.com.br/filtro-imovel';
       const params = new URLSearchParams({
         tipoNegocio: tipoNegocio,
         condominio: condominio,
@@ -1000,6 +1000,8 @@ export default {
         this.cidadeSelecionada = "all";
         this.estadoAnterior = this.estadoSelecionado;
       }
+
+      console.log(typeof this.valorMin)
 
       console.log("Filtros atualizados:", {
         tipoNegocio: this.tipoNegocio,

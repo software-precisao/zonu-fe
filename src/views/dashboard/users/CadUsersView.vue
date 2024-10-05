@@ -280,7 +280,7 @@
                                   Por favor, forneça um e-mail válido.
                                 </p>
                               </div>
-                              <div class="form-group col-md-6 mt-3">
+                              <div class="form-group col-md-6 mt-3" v-if="selectNivelCliente != 'Construtora'">
                                 <label for="senha"><small><strong>Senha</strong></small></label>
                                 <input type="password" required v-if="!mostrarSkeleton" class="form-control"
                                   v-model="senhaCliente" :class="{
@@ -1227,13 +1227,13 @@ export default {
           let idPlano = 4
 
           if (
-            nome !== "" &&
-            email !== "" &&
-            senha !== "" &&
+            nome !== ""
+            // email !== "" &&
+            // senha !== "" &&
             // cnpj !== "" &&
-            telefone !== "" &&
+            // telefone !== "" &&
             // cep !== "" &&
-            nomeConstrutoraCliente != ""
+            // nomeConstrutoraCliente != ""
           ) {
             apiAuth
               .cadastroConstrutoraSimples(nome, nomeConstrutoraCliente, telefone, email, senha)
