@@ -57,6 +57,7 @@ import IntegratelView from "@/views/integrate/integraView.vue";
 import DocumentosView from "@/views/documentos/documentosView.vue";
 import { Path } from "leaflet";
 import ImovelListAdmimView from "@/views/dashboard/imoveisListAdmim/ImovelListAdmimView.vue";
+import ConstrutorasListView from "@/views/dashboard/lists/ConstrutorasListView.vue";
 
 const generateMD5 = () => {
   return md5(new Date().toISOString()).toString();
@@ -636,6 +637,20 @@ const routes = [
     path: "/clientes/:hash",
     name: "ClientesWithHash",
     component: ClienteView,
+  },
+  {
+    path: "/construtoras",
+    name: "construtoras",
+    component: ConstrutorasListView,
+    beforeEnter: (to, from, next) => {
+      const hash = generateMD5();
+      next(`/construtoras/${hash}`);
+    },
+  },
+  {
+    path: "/construtoras/:hash",
+    name: "construtorasWithHash",
+    component: ConstrutorasListView,
   },
   {
     path: "/novo-ticket",

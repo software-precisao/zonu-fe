@@ -42,6 +42,13 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="/construtoras">
+            <i class="align-middle" data-feather="user-check"></i>
+            <span class="align-middle">Construtoras
+            </span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="/messages">
             <i class="align-middle" data-feather="message-circle"></i>
             <span class="align-middle">Mensagens </span>
