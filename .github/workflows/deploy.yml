@@ -23,11 +23,13 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to S3
-        uses: aws-actions/aws-s3-sync@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          bucket: "zonu.com.br"
-          region: "sa-east-1"
-          source-dir: "dist"
+          aws-region: "sa-east-1"
+
+      - name: Deploy to S3 using AWS CLI
+        run: aws s3 sync ./dist s3://zonu.com.br --acl public-read --delete
