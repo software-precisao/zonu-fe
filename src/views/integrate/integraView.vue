@@ -135,7 +135,7 @@
                                                                                             :key="item.id_imovel"
                                                                                             @click="selectOptionImovel(form, item)">
                                                                                             <div style="display: flex">
-                                                                                                <img :src="`https://zonu.com.br/api${item.fotos[0].foto}`"
+                                                                                                <img :src="`https://api.zonu.com.br${item.fotos[0].foto}`"
                                                                                                     style="width: 70px; height: 70px; border-radius: 10px; margin-top: 3px; margin-right: 8px;" />
                                                                                                 <div
                                                                                                     style="display: flex; flex-direction: column; justify-content: center;">
@@ -211,7 +211,7 @@ export default {
             myToken: "",
             pageId: '',
             app_ID: '831484942355084',
-            REDIRECT_URI: 'https://zonu.com.br/api/facebook/callback',
+            REDIRECT_URI: 'https://api.zonu.com.br/facebook/callback',
             facebookSDKLoaded: false,
             token: localStorage.getItem("token"),
             nivel: '',

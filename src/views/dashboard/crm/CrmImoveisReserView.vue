@@ -68,7 +68,7 @@
                             <input class="form-check-input" type="checkbox" :id="'flexCheck' + item.id_imovel" />
                           </td> -->
                           <td style="display: flex">
-                            <img :src="`https://zonu.com.br/api${item.fotos[0].foto}`" style="
+                            <img :src="`https://api.zonu.com.br${item.fotos[0].foto}`" style="
                                 width: 60px;
                                 height: 60px;
                                 border-radius: 10px;

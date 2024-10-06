@@ -120,6 +120,10 @@ export default {
         this.currentPageCliente += 1;
       }
     },
+
+    handleDeleteLink() {
+      console.log("Apagou o link")
+    },
   },
   computed: {
     clientesOnCurrentPage() {
@@ -164,11 +168,7 @@ export default {
                   </h5>
                 </div>
                 <div class="card-body">
-                  <div
-                    v-if="msgSuccess"
-                    class="alert alert-success mt-3"
-                    role="alert"
-                  >
+                  <div v-if="msgSuccess" class="alert alert-success mt-3" role="alert">
                     <i class="fa fa-check"></i> {{ msgSuccess }}
                   </div>
 
@@ -182,6 +182,7 @@ export default {
                             <th scope="col">Data</th>
                             <th scope="col">Hora da criação</th>
                             <th scope="col">Status</th>
+                            <!-- <th scope="col">Ações</th> -->
                           </tr>
                         </thead>
                         <tbody>
@@ -199,15 +200,21 @@ export default {
                               {{ formatarHora(link.dataExpiracao) }}
                             </th>
                             <th>
-                              <span
-                                v-if="link.ativo"
-                                class="badge text-bg-success"
-                                >Ativo</span
-                              >
-                              <span v-else class="badge text-bg-danger"
-                                >Inativo</span
-                              >
+                              <span v-if="link.ativo" class="badge text-bg-success">Ativo</span>
+                              <span v-else class="badge text-bg-danger">Inativo</span>
                             </th>
+                            <!-- <th>
+                              <div class="col-4">
+                                <button @click="handleDeleteLink(link.id)" type="button" class="btn btn-danger" style="
+                                  --bs-btn-padding-y: 0.25rem;
+                                  --bs-btn-padding-x: 0.5rem;
+                                  --bs-btn-font-size: 0.75rem;
+                                  margin-right: 6px;
+                                ">
+                                  <i class="fa fa-trash"></i>
+                                </button>
+                              </div>
+                            </th> -->
                           </tr>
                         </tbody>
                       </table>

@@ -2682,7 +2682,7 @@ export default {
         },
         getImageUrl(imagePath) {
             if (imagePath.startsWith("/foto")) {
-                return `https://zonu.com.br/api/${imagePath}`;
+                return `https://api.zonu.com.br/${imagePath}`;
             } else {
                 return imagePath;
             }

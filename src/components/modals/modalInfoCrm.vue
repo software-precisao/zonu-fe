@@ -101,7 +101,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item" style="display: flex; gap: 15px;">
                                     <div>
-                                        <img :src="`https://zonu.com.br/api${item.NovoImovel.fotos[0].foto}`" alt=""
+                                        <img :src="`https://api.zonu.com.br${item.NovoImovel.fotos[0].foto}`" alt=""
                                             style="width: 150px; height: 150px;" />
                                     </div>
 
@@ -335,7 +335,7 @@
                                     style="display: flex; gap: 15px; justify-content: space-between">
                                     <div class="form-group">
                                         <div style="display: flex">
-                                            <img :src="`https://zonu.com.br/api${item.NovoImovel.fotos[0].foto}`" style="
+                                            <img :src="`https://api.zonu.com.br${item.NovoImovel.fotos[0].foto}`" style="
                                                     width: 40px;
                                                     height: 40px;
                                                     border-radius: 10px;

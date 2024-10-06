@@ -13,7 +13,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="logo-area">
-          <img v-if="userDono.perfil != null" class="logo-page" :src="`https://zonu.com.br/api${userDono.perfil.logo}`"
+          <img v-if="userDono.perfil != null" class="logo-page" :src="`https://api.zonu.com.br${userDono.perfil.logo}`"
             style="width: 80px; height: 80px;" alt="" />
         </div>
         <!-- <img src="../../../../assets/images/icons/iconLogo.png" style="width: 60px; height: 60px;" alt=""> -->
@@ -49,7 +49,7 @@
     </div> -->
 
     <div class="capa"
-      :style="{ backgroundImage: `url(https://zonu.com.br/api${imovel.fotos[0].foto})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+      :style="{ backgroundImage: `url(https://api.zonu.com.br${imovel.fotos[0].foto})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
       <div class="">
         <!-- {{ console.log(imovel.fotos[0].foto) }} -->
 
@@ -83,7 +83,7 @@
           <div class="col-12 container-box">
 
             <div class="row" style="display: flex; align-items: center; justify-content: space-around; width: 100%;">
-              <div class=" col-sm-2 features-box">
+              <div class=" col-sm-3 features-box">
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Suites</h4>
                   <h2 class="subTitle-com">
@@ -92,7 +92,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-2 features-box">
+              <div class="col-sm-3 features-box">
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Dormitório</h4>
                   <h2 class="subTitle-com">
@@ -102,7 +102,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-2 features-box">
+              <div class="col-sm-3 features-box">
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Banheiro</h4>
                   <h2 class="subTitle-com">
@@ -112,11 +112,31 @@
                 </div>
               </div>
 
-              <div class="col-sm-2 features-box">
+              <div class="col-sm-3 features-box">
                 <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
                   <h4 class="title-com">Vagas</h4>
                   <h2 class="subTitle-com">
                     {{ imovel.comodos.garagem == "" || imovel.comodos.garagem == null ? "0" : imovel.comodos.garagem }}
+                  </h2>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">METRO QUADRADO</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.medidas.media_metro_quadrado == "" || imovel.medidas.media_metro_quadrado == null ? "0" :
+                      aplicaMascaraMedida(imovel.medidas.media_metro_quadrado) }} M²
+                  </h2>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 features-box">
+                <div class="box-item" style="display: flex; flex-direction: column; align-items: center">
+                  <h4 class="title-com">Área total</h4>
+                  <h2 class="subTitle-com">
+                    {{ imovel.medidas.area_total == "" || imovel.medidas.area_total == null ? "0" :
+                      aplicaMascaraMedida(imovel.medidas.area_total) }} M²
                   </h2>
                 </div>
               </div>
@@ -215,7 +235,7 @@
             <!-- Imagem Principal -->
             <!-- <div class="col-6">
               <div class="main-image-container" @click="openModal(0)">
-                <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" :alt="`Foto Principal`"
+                <img :src="`https://api.zonu.com.br${imovel.fotos[0].foto}`" :alt="`Foto Principal`"
                   class="img-fluid main-image" />
               </div>
             </div> -->
@@ -227,7 +247,7 @@
               <div class="carousel-track" ref="carouselTrack">
                 <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="carousel-slide">
                   <div class="thumbnail-container" @click="openModal(index)">
-                    <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
+                    <img :src="`https://api.zonu.com.br${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
                       class="img-fluid thumbnail" />
                   </div>
                 </div>
@@ -249,7 +269,7 @@
                 </div>
                 <div class="modal-thumbnails">
                   <div v-for="(foto, index) in imovel.fotos" :key="foto.id_imagem" class="modal-thumbnail-container">
-                    <img :src="`https://zonu.com.br/api${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
+                    <img :src="`https://api.zonu.com.br${foto.foto}`" :alt="`Foto${foto.id_imagem}`"
                       class="img-fluid modal-thumbnail" @click="changeImage(index)" />
                   </div>
                 </div>
@@ -523,7 +543,7 @@ export default {
 
     // currentImage() {
     //   // console.log(this.imovel.fotos[this.currentImageIndex].foto);
-    //   return `https://zonu.com.br/api${
+    //   return `https://api.zonu.com.br${
     //     this.imovel.fotos[this.currentImageIndex].foto
     //   }`;
     // },
@@ -577,13 +597,13 @@ export default {
     },
 
     openModal(index) {
-      this.currentImage = `https://zonu.com.br/api${this.imovel.fotos[index].foto}`;
+      this.currentImage = `https://api.zonu.com.br${this.imovel.fotos[index].foto}`;
       this.showModal = true;
     },
 
     // Método para mudar a imagem no modal
     changeImage(index) {
-      this.currentImage = `https://zonu.com.br/api${this.imovel.fotos[index].foto}`;
+      this.currentImage = `https://api.zonu.com.br${this.imovel.fotos[index].foto}`;
     },
     closeModal() {
       this.showModal = false;

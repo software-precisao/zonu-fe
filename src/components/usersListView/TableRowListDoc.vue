@@ -281,7 +281,7 @@ export default {
 
             this.docSelected.forEach((documento) => {
                 // Monta a URL completa para o documento
-                const url = `https://zonu.com.br/api${documento}`;
+                const url = `https://api.zonu.com.br${documento}`;
 
                 // Chama a função para baixar o arquivo
                 this.downloadFile(url);

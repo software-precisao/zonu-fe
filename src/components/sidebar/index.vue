@@ -45,6 +45,7 @@
           <a class="sidebar-link" href="/construtoras">
             <i class="align-middle" data-feather="user-check"></i>
             <span class="align-middle">Construtoras
+              <span class="badge text-bg-primary">{{ totalConstrutoras }}</span>
             </span>
           </a>
         </li>
@@ -257,6 +258,7 @@ export default {
       viewLogo: false,
       totalUsers: 0,
       totalClientes: 0,
+      totalConstrutoras: 0,
       totalCaracteristica: 0,
       totalProximidades: 0,
     };
@@ -355,6 +357,7 @@ export default {
 
         // Crie um conjunto para armazenar IDs únicos
         let idsUnicos = new Set();
+        let idsUnicosCon = new Set();
 
         // Filtrar os usuários com id_nivel específico e IDs únicos
         let clientesFiltrados = clientes.filter((cliente) => {
@@ -374,8 +377,23 @@ export default {
           return false;
         });
 
+        let construtorasFiltrados = clientes.filter((cliente) => {
+          // Verificar se o ID do usuário já está no conjunto
+          if (!idsUnicosCon.has(cliente.id_user)) {
+            // Adicionar ID ao conjunto
+            idsUnicosCon.add(cliente.id_user);
+            // Verificar o id_nivel e incluir se for válido
+            return (
+              cliente.id_nivel === 3
+            );
+          }
+          // Excluir se o ID já estiver no conjunto
+          return false;
+        });
+
         // Atribuir os usuários filtrados ao estado totalClientes
-        this.totalClientes = clientesFiltrados.length;
+        this.totalClientes = clientesFiltrados.length
+        this.totalConstrutoras = construtorasFiltrados.length
       });
     },
 

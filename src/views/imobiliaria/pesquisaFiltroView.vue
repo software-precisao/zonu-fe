@@ -350,7 +350,7 @@
                           style="color: inherit; text-decoration: none">
                           <div class="card" style="width: 14rem; height: 28rem;">
                             <!-- {{ console.log("fotos aqui ===> ", imovel.fotos[0]) }} -->
-                            <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
+                            <img :src="`https://api.zonu.com.br${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
                               style="width: 240px; height: 180px" />
                             <div class="card-body">
                               <h5>
@@ -431,7 +431,7 @@
                         " class="card shadow-lg">
                         <!-- {{ console.log(imovel) }} -->
                         <div>
-                          <img :src="`https://zonu.com.br/api${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
+                          <img :src="`https://api.zonu.com.br${imovel.fotos[0].foto}`" class="card-img-top" alt="..."
                             style="width: 240px; min-height: 180px; max-height: 180px" />
                           <div class="card-body">
                             <h5>

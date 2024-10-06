@@ -3,7 +3,7 @@
         background-color: #fff;
         padding-top: 200px;
         padding-bottom: 200px; 
-        background-image: url('https://zonu.com.br/imagens/imgFundo.webp');
+        background-image: url('https://api.zonu.com.br/imagens/imgFundo.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="width: 100%; display: flex; align-items: center; justify-content: center;" class="pt-6">
@@ -56,7 +56,7 @@
         background-color: #fff;
         padding-top: 200px;
         padding-bottom: 200px;
-        background-image: url('https://zonu.com.br/imagens/imgFundo2.webp');
+        background-image: url('https://api.zonu.com.br/imagens/imgFundo2.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -72,22 +72,14 @@
           <div style="width: 45%">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Cadastro Gratuito de
               Imóveis</h2>
-            <p style="font-size: 14px; color: #fff;" class="mt-1 ">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px; color: #fff;" class="mt-1 ">Construtoras podem cadastrar seus imóveis para venda
+              e aluguel sem nenhum custo, com acesso exclusivo aos corretores credenciados ao CRECI.</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Gráfico de Análise de
               Mercado</h2>
-            <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px; color: #fff;" class="mt-1">Visualize a média do valor do metro quadrado dos
+              imóveis cadastrados, com filtros personalizáveis para diferentes tipos de imóveis.</p>
           </div>
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
@@ -104,24 +96,16 @@
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatórios de Interesse
               dos Corretores</h2>
-            <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px; color: #fff;" class="mt-1">Relatório dos tipos de imóveis, bairros e valores mais
+              buscados pelos corretores na plataforma.</p>
           </div>
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatório de Atividade
               dos Corretores</h2>
-            <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px; color: #fff;" class="mt-1">Relatório dos tipos de imóveis, bairros e valores mais
+              buscados pelos corretores na plataforma.</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Relatórios de Performance
@@ -138,12 +122,8 @@
           <div style="width: 45%;">
             <h2 style="color: #fff; font-weight: 700;" class="title2Response">Envio de Mensagens em
               Massa</h2>
-            <p style="font-size: 14px; color: #fff;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px; color: #fff;" class="mt-1">Ferramenta que permite enviar comunicações diretamente
+              para todos os corretores cadastrados na plataforma.</p>
           </div>
         </div>
       </div>
@@ -163,19 +143,14 @@
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
             <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">Acesso Exclusivo a Imóveis</h2>
-            <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px;" class="mt-1">Somente corretores credenciados ao CRECI podem acessar os imóveis
+              cadastrados por construtoras e proprietários particulares, com um catálogo extenso e filtros avançados.
+            </p>
           </div>
           <div style="width: 45%; border-left: 2px solid #000; padding-left: 20px;">
             <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">CRM Integrado</h2>
-            <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px;" class="mt-1">Gerencie seus clientes e leads de forma eficiente, com uma
+              ferramenta integrada para acompanhar negociações e campanhas de anúncios patrocinados.</p>
           </div>
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">
@@ -191,11 +166,9 @@
           <div style="width: 45%; border-left: 2px solid #000; padding-left: 20px;">
             <h2 style="font-weight: 700; color: #DB7093;" class="title2Response">Sites Personalizados
             </h2>
-            <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px;" class="mt-1">Ao compartilhar imóveis ou filtros de imóveis, a plataforma gera
+              automaticamente um site personalizado com a logomarca do corretor, sem a necessidade de criação manual.
+            </p>
           </div>
         </div>
       </div>
@@ -205,12 +178,12 @@
   <!-- ============================================-->
   <!-- <section> begin ============================-->
   <section class="" style="
-  background-color: #fff;
+    background-color: #fff;
     padding-top: 200px;
     padding-bottom: 200px;
-        background-image: url('https://zonu.com.br/imagens/imgFundo3.webp');
-        background-position: bottom;
-        background-size: cover;">
+    background-image: url('https://api.zonu.com.br/imagens/imgFundo3.webp');
+    background-position: bottom;
+    background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="" style="text-align: left; width: 70%; color: #fff;">
         <h1 style="line-height: 62px; color: #fff;" class="titleResponse">
@@ -223,19 +196,13 @@
         <div class="mt-5" style="display: flex; justify-content: space-between;">
           <div style="width: 45%">
             <h2 style="font-weight: 700; color: #fff;" class="title2Response">Cadastro Gratuito de Imóveis</h2>
-            <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px;" class="mt-1">Proprietários podem cadastrar seus imóveis para venda ou aluguel
+              sem custos, garantindo que apenas corretores credenciados ao CRECI tenham acesso às informações.</p>
           </div>
           <div style="width: 45%; border-left: 2px solid #fff; padding-left: 20px;">
             <h2 style="font-weight: 700; color: #fff;" class="title2Response">Segurança e Exclusividade</h2>
-            <p style="font-size: 14px;" class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              voluptatem cum
-              perspiciatis numquam aut
-              quis libero praesentium natus debitis perferendis, dignissimos molestiae, tenetur magni. Odio vero sint
-              impedit vitae repellat?</p>
+            <p style="font-size: 14px;" class="mt-1">Somente corretores com CRECI ativo podem acessar as informações dos
+              imóveis cadastrados, garantindo maior segurança nas negociações.</p>
           </div>
         </div>
         <div class="mt-5" style="display: flex; justify-content: space-between;">

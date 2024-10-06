@@ -12,7 +12,7 @@
       <div class="mt-5" v-for="item in imoveisOnCurrentPage" :key="item.id_imovel">
         <a class="row" style="text-decoration: none">
           <div class="col-3">
-            <img class="thumbImovel" :src="`https://zonu.com.br/api${item.fotos[0].foto}`" alt="" />
+            <img class="thumbImovel" :src="`https://api.zonu.com.br${item.fotos[0].foto}`" alt="" />
           </div>
 
           <div class="col-9" style="margin-left: -10px">
@@ -117,7 +117,7 @@
                     <div class="container">
                       <div class="row">
                         <div class="col-md-2 mt-4" v-for="foto in item.fotos" :key="foto.id_imagem">
-                          <img :src="`https://zonu.com.br/api${foto.foto}`"
+                          <img :src="`https://api.zonu.com.br${foto.foto}`"
                             :alt="`Foto ${foto.id_imagem} do Imóvel ${item.id_imovel}`" class="thumbnail-modal" />
                         </div>
                       </div>
@@ -3075,7 +3075,7 @@ export default {
     },
     getImageUrl(imagePath) {
       if (imagePath.startsWith("/foto")) {
-        return `https://zonu.com.br/api/${imagePath}`;
+        return `https://api.zonu.com.br/${imagePath}`;
       } else {
         return imagePath;
       }

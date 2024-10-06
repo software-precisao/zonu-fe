@@ -704,7 +704,7 @@
                     <ul v-if="isOpenImovel" class="options-list">
                       <li v-for="item in imovel" :key="item.id_imovel" @click="selectOptionImovel(item)">
                         <div style="display: flex">
-                          <img :src="`https://zonu.com.br/api${item.fotos[0].foto}`" style="
+                          <img :src="`https://api.zonu.com.br${item.fotos[0].foto}`" style="
                               width: 70px;
                               height: 70px;
                               border-radius: 10px;
