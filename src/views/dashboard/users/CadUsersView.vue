@@ -986,8 +986,29 @@ export default {
             telefone !== "" &&
             cep !== ""
           ) {
+            const formData = new FormData();
+            formData.append('logo', '');
+            formData.append('nome', nome);
+            formData.append('sobrenome', sobrenome);
+            formData.append('email', email);
+            formData.append('senha', senha);
+            formData.append('avatar', '');
+            formData.append('cpf', cpf);
+            formData.append('id_plano', idPlano);
+            formData.append('telefone', telefone);
+            formData.append('cep', cep);
+            formData.append('endereco', endereco);
+            formData.append('complemento', complemento);
+            formData.append('numero', numero);
+            formData.append('cidade', cidade);
+            formData.append('estado', estado);
+            formData.append('bairro', bairro);
+
             apiAuth
-              .cadastroCorretor(nome, sobrenome, email, senha, cpf, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .cadastroCorretor(
+                // nome, sobrenome, email, senha, cpf, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro
+                formData
+              )
               .then((res) => {
                 if (res.status == 202) {
                   this.selectNivelCliente = "";
@@ -1051,6 +1072,7 @@ export default {
           let cidade = this.cidadeCliente
           let estado = this.estadoCliente
           let bairro = this.bairroCliente
+          // let logo = ""
 
           if (
             nome !== "" &&
@@ -1061,8 +1083,45 @@ export default {
             telefone !== "" &&
             cep !== ""
           ) {
+            const formData = new FormData();
+            formData.append('logo', '');
+            formData.append('nome', nome);
+            formData.append('sobrenome', sobrenome);
+            formData.append('email', email);
+            formData.append('senha', senha);
+            formData.append('avatar', '');
+            formData.append('cnpj', cnpj);
+            formData.append('status', 2);
+            formData.append('razao_social', razaoSocial);
+            formData.append('id_plano', idPlano);
+            formData.append('telefone', telefone);
+            formData.append('cep', cep);
+            formData.append('endereco', endereco);
+            formData.append('complemento', complemento);
+            formData.append('numero', numero);
+            formData.append('cidade', cidade);
+            formData.append('estado', estado);
+            formData.append('bairro', bairro);
+
             apiAuth
-              .cadastroImobiliaria(nome, sobrenome, email, senha, razaoSocial, cnpj, idPlano, telefone, cep, endereco, complemento, numero, cidade, estado, bairro)
+              .cadastroImobiliaria(
+                // nome, 
+                // sobrenome, 
+                // email, 
+                // senha, 
+                // razaoSocial, 
+                // cnpj, 
+                // idPlano, 
+                // telefone, 
+                // cep, 
+                // endereco, 
+                // complemento, 
+                // numero, 
+                // cidade, 
+                // estado, 
+                // bairro
+                formData
+              )
               .then((res) => {
                 if (res.status == 202) {
                   this.selectNivelCliente = "";
