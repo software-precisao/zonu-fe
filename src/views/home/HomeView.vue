@@ -3,7 +3,7 @@
         background-color: #fff;
         padding-top: 200px;
         padding-bottom: 200px; 
-        background-image: url('https://api.zonu.com.br/imagens/imgFundo.webp');
+        background-image: url('https://zonu.com.br/imagens/imgFundo.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="width: 100%; display: flex; align-items: center; justify-content: center;" class="pt-6">
@@ -56,7 +56,7 @@
         background-color: #fff;
         padding-top: 200px;
         padding-bottom: 200px;
-        background-image: url('https://api.zonu.com.br/imagens/imgFundo2.webp');
+        background-image: url('https://zonu.com.br/imagens/imgFundo2.webp');
         background-position: bottom;
         background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -181,7 +181,7 @@
     background-color: #fff;
     padding-top: 200px;
     padding-bottom: 200px;
-    background-image: url('https://api.zonu.com.br/imagens/imgFundo3.webp');
+    background-image: url('https://zonu.com.br/imagens/imgFundo3.webp');
     background-position: bottom;
     background-size: cover;">
     <div style="display: flex; flex-direction: column; align-items: center;">

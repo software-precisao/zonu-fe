@@ -1,35 +1,35 @@
-name: Deploy Frontend to S3
+name: Deploy Vue.js App to Cpanel Zonu
 
 on:
   push:
     branches:
       - prod
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build project
-        run: npm run build
+    - name: Build Vue.js App
+      run: npm run build
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "sa-east-1"
-
-      - name: Deploy to S3 using AWS CLI
-        run: aws s3 sync ./dist s3://zonu.com.br --acl public-read --delete
+    - name: Deploy to Cpanel
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: server44.integrator.com.br
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        protocol: ftp
+        local-dir: ./dist/
+        server-dir: /zonu.com.br/
